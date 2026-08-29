@@ -40,18 +40,18 @@
 
 | 符号 | 含义 |
 |---|---|
-| \(D\) | 疾病，取值 \(d\in\mathcal D\) |
-| \(j\) | 临床变量/证据索引 |
-| \(Z_j\) | 患者关于变量 \(j\) 的真实临床状态 |
-| \(R_j\) | 患者报告出来的回答；额外允许 `UNKNOWN` |
-| \(M_j\) | 隐藏报告模式：certain、uncertain、unknown、misreported |
-| \(C_j\) | 可观察确定性提示：none、certain、uncertain |
-| \(H_t\) | 第 \(t\) 轮前的完整问诊历史 |
-| \(b_t(d)\) | \(P(D=d\mid H_t)\)，当前疾病后验 |
-| \(q_{d,j,t}(z)\) | 给定疾病与同变量既往报告后的真实状态分布 |
-| \(c_j\) | 问题成本 |
-| \(\tau\) | 诊断后验停止阈值 |
-| \(\rho\) | 模拟患者的总不可靠回答模式质量 |
+| $D$ | 疾病，取值 $d\in\mathcal D$ |
+| $j$ | 临床变量/证据索引 |
+| $Z_j$ | 患者关于变量 $j$ 的真实临床状态 |
+| $R_j$ | 患者报告出来的回答；额外允许 `UNKNOWN` |
+| $M_j$ | 隐藏报告模式：certain、uncertain、unknown、misreported |
+| $C_j$ | 可观察确定性提示：none、certain、uncertain |
+| $H_t$ | 第 $t$ 轮前的完整问诊历史 |
+| $b_t(d)$ | $P(D=d\mid H_t)$，当前疾病后验 |
+| $q_{d,j,t}(z)$ | 给定疾病与同变量既往报告后的真实状态分布 |
+| $c_j$ | 问题成本 |
+| $\tau$ | 诊断后验停止阈值 |
+| $\rho$ | 模拟患者的总不可靠回答模式质量 |
 
 `FeatureKey` 将时间、活动、部位等上下文作为变量身份的一部分。因此
 `pain[activity=walking]` 与 `pain[activity=resting]` 是两个变量，不会被误判为直接矛盾。
@@ -60,47 +60,47 @@
 
 ### 4.1 疾病先验
 
-设训练集中疾病 \(d\) 的病例数为 \(N_d\)，总病例数为 \(N\)，疾病数为 \(K\)，
-疾病先验平滑参数为 \(\alpha_D\)：
+设训练集中疾病 $d$ 的病例数为 $N_d$，总病例数为 $N$，疾病数为 $K$，
+疾病先验平滑参数为 $\alpha_D$：
 
-\[
+$$
 P(D=d)=\frac{N_d+\alpha_D}{N+K\alpha_D}.
-\]
+$$
 
 对应实现：`src/powerful_medrag/estimation.py`。
 
 ### 4.2 全局临床状态频率
 
-对变量 \(j\) 的状态 \(z\)，全局显式观察计数为 \(G_{jz}\)，状态空间大小为
-\(|\mathcal Z_j|\)。Laplace/Dirichlet 平滑后的全局分布为：
+对变量 $j$ 的状态 $z$，全局显式观察计数为 $G_{jz}$，状态空间大小为
+$|\mathcal Z_j|$。Laplace/Dirichlet 平滑后的全局分布为：
 
-\[
+$$
 \bar p_j(z)=
 \frac{G_{jz}+\alpha}
 {\sum_{z'}G_{jz'}+\alpha|\mathcal Z_j|}.
-\]
+$$
 
 ### 4.3 疾病条件临床状态分布
 
-疾病 \(d\) 下变量 \(j\) 的显式状态计数为 \(N_{djz}\)，显式观察总数为
-\(N_{dj}=\sum_z N_{djz}\)。经验贝叶斯层级强度为 \(\lambda\)：
+疾病 $d$ 下变量 $j$ 的显式状态计数为 $N_{djz}$，显式观察总数为
+$N_{dj}=\sum_z N_{djz}$。经验贝叶斯层级强度为 $\lambda$：
 
-\[
+$$
 P(Z_j=z\mid D=d)=
 \frac{N_{djz}+\alpha+\lambda\bar p_j(z)}
 {N_{dj}+\alpha|\mathcal Z_j|+\lambda}.
-\]
+$$
 
-当 \(\lambda=0\) 时退化为普通 Dirichlet–Categorical；二元变量时等价于
+当 $\lambda=0$ 时退化为普通 Dirichlet–Categorical；二元变量时等价于
 Beta–Bernoulli 平滑。**缺失状态不进入分子或分母，绝不自动算成阴性。**
 
 ## 5. 两层回答通道
 
 ### 5.1 隐藏报告模式
 
-\[
+$$
 M_j\in\{\text{certain},\text{uncertain},\text{unknown},\text{misreported}\}.
-\]
+$$
 
 默认通道中，每种模式的 `(correct, unknown, wrong)` 概率为：
 
@@ -111,17 +111,17 @@ M_j\in\{\text{certain},\text{uncertain},\text{unknown},\text{misreported}\}.
 | unknown | 0.04 | 0.94 | 0.02 |
 | misreported | 0.08 | 0.07 | 0.85 |
 
-若 \(R=Z\)，使用 `correct`；若 \(R=UNKNOWN\)，使用 `unknown`；若是其他状态，
-`wrong` 质量平均分配到其余 \(|\mathcal Z_j|-1\) 个状态：
+若 $R=Z$，使用 `correct`；若 $R=UNKNOWN$，使用 `unknown`；若是其他状态，
+`wrong` 质量平均分配到其余 $|\mathcal Z_j|-1$ 个状态：
 
-\[
+$$
 P(R=r\mid Z=z,M=m)=
 \begin{cases}
 a_m,&r=z,\\
 u_m,&r=UNKNOWN,\\
 w_m/(|\mathcal Z_j|-1),&r\ne z,\ r\ne UNKNOWN.
 \end{cases}
-\]
+$$
 
 ### 5.2 确定性提示对应的模式先验
 
@@ -131,25 +131,25 @@ w_m/(|\mathcal Z_j|-1),&r\ne z,\ r\ne UNKNOWN.
 | certain | 0.93 | 0.03 | 0.01 | 0.03 |
 | uncertain | 0.18 | 0.70 | 0.09 | 0.03 |
 
-给定提示 \(C=c\) 后，边缘回答通道为：
+给定提示 $C=c$ 后，边缘回答通道为：
 
-\[
+$$
 P(R=r\mid Z=z,C=c)=
 \sum_m P(M=m\mid C=c)P(R=r\mid Z=z,M=m).
-\]
+$$
 
 对应实现：`src/powerful_medrag/channel.py`。
 
 ### 5.3 报告模式后验
 
-当前预测真实状态分布记为 \(p_t(z)\)。观察回答后：
+当前预测真实状态分布记为 $p_t(z)$。观察回答后：
 
-\[
+$$
 P(M=m\mid R=r,H_t)
 =
 \frac{\pi_m(C)\sum_z p_t(z)P(R=r\mid Z=z,M=m)}
 {\sum_{m'}\pi_{m'}(C)\sum_z p_t(z)P(R=r\mid Z=z,M=m')}.
-\]
+$$
 
 代码中的 `UpdateResult.misreport_probability` 即该后验中 `MISREPORTED` 的质量。
 
@@ -157,38 +157,38 @@ P(M=m\mid R=r,H_t)
 
 ### 6.1 单轮疾病似然
 
-对疾病 \(d\)，回答 \(r_t\) 的似然为：
+对疾病 $d$，回答 $r_t$ 的似然为：
 
-\[
+$$
 L_d(r_t)=\sum_z q_{d,j,t-1}(z)
 P(R_j=r_t\mid Z_j=z,C_t).
-\]
+$$
 
 疾病后验更新：
 
-\[
+$$
 b_t(d)=
 \frac{b_{t-1}(d)L_d(r_t)}
 {\sum_{d'}b_{t-1}(d')L_{d'}(r_t)}.
-\]
+$$
 
 ### 6.2 同一变量共享一个真实状态
 
-重复询问同一个变量时，不会重新采样一个新的 \(Z_j\)。每个疾病下保存该变量的
+重复询问同一个变量时，不会重新采样一个新的 $Z_j$。每个疾病下保存该变量的
 状态后验：
 
-\[
+$$
 q_{d,j,t}(z)\propto q_{d,j,t-1}(z)
 P(R_j=r_t\mid Z_j=z,C_t).
-\]
+$$
 
 这样两次报告是关于同一个真实临床状态的重复测量，而不是两个独立症状。
 
 ### 6.3 疾病熵
 
-\[
+$$
 H(D\mid H_t)=-\sum_d b_t(d)\log_2 b_t(d).
-\]
+$$
 
 对应实现：`src/powerful_medrag/belief.py`。
 
@@ -196,72 +196,72 @@ H(D\mid H_t)=-\sum_d b_t(d)\log_2 b_t(d).
 
 ### 7.1 预测回答分布
 
-对候选问题 \(j\) 和可能回答 \(r\)：
+对候选问题 $j$ 和可能回答 $r$：
 
-\[
+$$
 P(r\mid H_t,j)=\sum_d b_t(d)L_{d,j}(r).
-\]
+$$
 
-回答为 \(r\) 时的反事实疾病后验：
+回答为 $r$ 时的反事实疾病后验：
 
-\[
+$$
 b_{t+1}^{(r,j)}(d)=
 \frac{b_t(d)L_{d,j}(r)}
 {P(r\mid H_t,j)}.
-\]
+$$
 
 ### 7.2 期望信息增益
 
-\[
+$$
 EIG(j)=H(b_t)-
 \sum_rP(r\mid H_t,j)H\!\left(b_{t+1}^{(r,j)}\right).
-\]
+$$
 
 单位成本效用：
 
-\[
+$$
 U(j)=\frac{EIG(j)}{c_j^\gamma},
-\]
+$$
 
-默认 \(\gamma=1\)。每轮选择效用最高且满足前置问题条件的未问变量。
+默认 $\gamma=1$。每轮选择效用最高且满足前置问题条件的未问变量。
 
 `NumpyQuestionSelector` 是同一公式的向量化实现；测试确保它与参考实现一致。
 
 ### 7.3 静态流行率基线
 
-若变量有默认/阴性状态 \(z_0\)，静态得分为：
+若变量有默认/阴性状态 $z_0$，静态得分为：
 
-\[
+$$
 score_{prev}(j)=\frac1{|\mathcal D|}
 \sum_d\left[1-P(Z_j=z_0\mid D=d)\right].
-\]
+$$
 
 ### 7.4 MedRAG-RDC 结构化适配
 
 在当前 Top-5 疾病相连的特征并集中，使用 MedRAG 公式 15：
 
-\[
+$$
 RDC(j)=\frac{n-1}{degree(j)},
-\]
+$$
 
-其中 \(n\) 是知识图谱中的特征节点数。该实现是透明的结构化适配，不是原论文
+其中 $n$ 是知识图谱中的特征节点数。该实现是透明的结构化适配，不是原论文
 未公开多轮模块的完整复现。
 
 对应实现：`src/powerful_medrag/questioning.py`。
 
 ## 8. 模拟回答噪声与公平配对
 
-总不可靠模式质量为 \(\rho\) 时，生成侧模式先验为：
+总不可靠模式质量为 $\rho$ 时，生成侧模式先验为：
 
-\[
+$$
 P(M=\text{certain})=1-\rho,
-\]
+$$
 
-\[
+$$
 P(M=\text{uncertain})=0.40\rho,\quad
 P(M=\text{unknown})=0.30\rho,\quad
 P(M=\text{misreported})=0.30\rho.
-\]
+$$
 
 同一病例、噪声率、特征和该特征第几次被问，由稳定哈希
 `hash(seed, case_id, noise_rate, feature, occurrence)` 决定回答。因此不同策略即使选问
@@ -273,39 +273,39 @@ P(M=\text{misreported})=0.30\rho.
 
 ### 9.1 一般动态先验注入
 
-若门控为当前回答给出误报概率 \(g_t\)，则用它替换基础 cue prior 的 misreported
+若门控为当前回答给出误报概率 $g_t$，则用它替换基础 cue prior 的 misreported
 质量，其他模式按原相对比例归一化：
 
-\[
+$$
 \pi_{mis,t}=g_t,
-\]
+$$
 
-\[
+$$
 \pi_{m,t}=(1-g_t)
 \frac{\pi_m^{base}}{\sum_{m'\ne mis}\pi_{m'}^{base}},\quad m\ne mis.
-\]
+$$
 
 ### 9.2 启发式惊讶度门控
 
-预测概率 \(p=P(R_t\mid H_t)\)，惊讶度与超额惊讶度为：
+预测概率 $p=P(R_t\mid H_t)$，惊讶度与超额惊讶度为：
 
-\[
+$$
 s=-\ln p,\qquad e=\max(0,s-\tau_s).
-\]
+$$
 
 未截断 logit 为：
 
-\[
+$$
 \ell=logit(p_0)+w_se
 +\mathbb 1[C=\text{certain}]w_ce
 -\mathbb 1[C=\text{uncertain}]w_u
 -\mathbb 1[R=UNKNOWN]w_k
 +w_x\min(conflicts,2).
-\]
+$$
 
-\[
+$$
 g_t=clip(\sigma(\ell),p_0,cap),
-\]
+$$
 
 无直接冲突时 `cap=0.15`，有冲突时 `cap=0.40`。
 
@@ -316,18 +316,18 @@ g_t=clip(\sigma(\ell),p_0,cap),
 
 ### 9.4 历史可靠性门控
 
-令此前 \(T\) 个回答中 `UNKNOWN` 或明确 uncertain 的数量为 \(u\)：
+令此前 $T$ 个回答中 `UNKNOWN` 或明确 uncertain 的数量为 $u$：
 
-\[
+$$
 \widehat\rho_t=
 \frac{u}{0.55(T+3)},
-\]
+$$
 
-\[
+$$
 g_t=\min(0.12,0.30\widehat\rho_t).
-\]
+$$
 
-无不可靠历史线索时 \(g_t=0\)；直接冲突时为 0.30。该方法避免用“当前回答与当前
+无不可靠历史线索时 $g_t=0$；直接冲突时为 0.30。该方法避免用“当前回答与当前
 诊断不一致”判断当前回答不可信，从而减轻确认偏差。
 
 对应实现：`src/powerful_medrag/gating.py`、`belief.py`、`gate_analysis.py`。
@@ -338,69 +338,69 @@ g_t=\min(0.12,0.30\widehat\rho_t).
 
 在纳入当前回答前计算：
 
-\[
+$$
 s_i=-\ln P(R_i=r_i\mid H_{i-1}).
-\]
+$$
 
-`pamis_style_s30` 在回答确定、已知且 \(s_i\ge3.0\) 时复问同一证据。
+`pamis_style_s30` 在回答确定、已知且 $s_i\ge3.0$ 时复问同一证据。
 
 必须注意：这是“检测异常→受控澄清”的结构化机制代理，不包含 PaMis 的实体图、
 结构熵检测器或自然语言问题生成器，不能称为完整 PaMis 复现。
 
 ### 10.2 澄清回答合并规则
 
-设原回答为 \(r\)，复问回答为 \(r'\)：
+设原回答为 $r$，复问回答为 $r'$：
 
-\[
+$$
 resolve(r,r')=
 \begin{cases}
 r,&r=r'\ne UNKNOWN,\\
 UNKNOWN,&r\ne r'\ \text{或任一为 UNKNOWN}.
 \end{cases}
-\]
+$$
 
 一致时证据只纳入一次，避免把同一信息双计；冲突时弃权。复问仍经过同一个患者噪声
 通道，没有 oracle 可靠性加成，并严格消耗一轮。
 
 ### 10.3 Leave-one-out 疾病后验
 
-对历史回答 \(i\)，删除它并用其他报告得到：
+对历史回答 $i$，删除它并用其他报告得到：
 
-\[
+$$
 b_{-i}(d)=P(D=d\mid H\setminus\{R_i\}).
-\]
+$$
 
 当每个特征只出现一次时，朴素贝叶斯结构允许精确快速计算：
 
-\[
+$$
 b_{-i}(d)\propto \frac{b(d)}{L_{d,i}(r_i)}.
-\]
+$$
 
 若特征重复或与初始观察重合，代码自动回退到完整历史重放。测试和探针证明快速公式
 与逐回答重放逐病例完全一致。
 
 ### 10.4 Leave-one-out 错误概率
 
-先计算删去回答 \(i\) 后的预测真实状态分布：
+先计算删去回答 $i$ 后的预测真实状态分布：
 
-\[
+$$
 p_{-i}(z)=\sum_d b_{-i}(d)P(Z_i=z\mid D=d).
-\]
+$$
 
 固定人口级检测通道下，报告对应的真实状态后验为：
 
-\[
+$$
 P(Z_i=z\mid R_i=r_i,H_{-i})
 =
 \frac{p_{-i}(z)P(R_i=r_i\mid Z_i=z,C_i)}
 {\sum_{z'}p_{-i}(z')P(R_i=r_i\mid Z_i=z',C_i)}.
-\]
+$$
 
 于是报告错误概率为：
 
-\[
+$$
 p_{err,i}=1-P(Z_i=r_i\mid R_i=r_i,H_{-i}).
-\]
+$$
 
 检测器始终使用固定的默认报告通道，**不能读取实验注入的真实噪声率、真实状态或真实
 报告模式**，以防标签泄漏。
@@ -409,40 +409,40 @@ p_{err,i}=1-P(Z_i=r_i\mid R_i=r_i,H_{-i}).
 
 用完整疾病后验和 leave-one-out 后验的总变差距离：
 
-\[
+$$
 \Delta_i=TV(b,b_{-i})=
 \frac12\sum_d|b(d)-b_{-i}(d)|.
-\]
+$$
 
 ### 10.6 三个回溯策略
 
 纯风险法：
 
-\[
+$$
 S_i^{risk}=p_{err,i}.
-\]
+$$
 
 配置 `retro_risk_r50_b1`：阈值 0.50，最多一次回溯。
 
 主方法 Risk × influence：
 
-\[
+$$
 S_i^{utility}=p_{err,i}\Delta_i.
-\]
+$$
 
 配置 `retro_utility_u050_b1`：阈值 0.05，最多一次回溯。
 
-混合法 `hybrid_s30_u025_b2`：先用在线 \(s\ge3.0\) 处理极端即时异常，再用
-\(p_{err,i}\Delta_i\ge0.025\) 回溯，最多两次回溯；已经澄清的回答不会重复入选。
+混合法 `hybrid_s30_u025_b2`：先用在线 $s\ge3.0$ 处理极端即时异常，再用
+$p_{err,i}\Delta_i\ge0.025$ 回溯，最多两次回溯；已经澄清的回答不会重复入选。
 
 ### 10.7 预算和停止
 
 回溯审计发生在以下任一条件：
 
-- 当前最大疾病后验达到停止阈值 \(\tau\)；
+- 当前最大疾病后验达到停止阈值 $\tau$；
 - 剩余总轮数已不多于剩余回溯预算。
 
-若澄清将回答改成 `UNKNOWN` 并使置信度跌破 \(\tau\)，系统继续按 EIG 提问，直到
+若澄清将回答改成 `UNKNOWN` 并使置信度跌破 $\tau$，系统继续按 EIG 提问，直到
 重新达到阈值、无问题可问或总计 15 轮用尽。因此结果不会因“推翻证据后仍强行停止”
 而虚高。
 
@@ -452,18 +452,18 @@ S_i^{utility}=p_{err,i}\Delta_i.
 
 ### 11.1 Top-1 准确率与轮数
 
-\[
+$$
 Accuracy=\frac1N\sum_{n=1}^N
 \mathbb 1[\arg\max_db_n(d)=d_n^*].
-\]
+$$
 
 平均轮数包含普通问题和澄清问题；初始证据不计入追加轮数。
 
 ### 11.2 Brier 分数
 
-\[
+$$
 Brier_n=\sum_d\left(b_n(d)-\mathbb 1[d=d_n^*]\right)^2.
-\]
+$$
 
 越低越好，用于判断“少问”是否只是错误的过早自信。
 
@@ -472,46 +472,46 @@ Brier_n=\sum_d\left(b_n(d)-\mathbb 1[d=d_n^*]\right)^2.
 当前模拟中的 harmful report 定义为：真实模式为 `MISREPORTED`、回答已知且回答值不等于
 真实状态。
 
-\[
+$$
 Precision=\frac{\#\ detected\ harmful}
 {\#\ detected\ harmful+\#\ false\ clarifications},
-\]
+$$
 
-\[
+$$
 Recall=\frac{\#\ detected\ harmful}{\#\ harmful},
-\]
+$$
 
-\[
+$$
 Mitigation=\frac{\#\ detected\ harmful\ resolved\ to\ nonwrong}
 {\#\ detected\ harmful}.
-\]
+$$
 
 澄清率为：
 
-\[
+$$
 ClarificationRate=\frac{\#\ clarifications}{\#\ primary\ questions}.
-\]
+$$
 
 ### 11.4 Wilson 二项比例区间
 
-令 \(\hat p=x/n\)，置信系数 \(z=1.96\)：
+令 $\hat p=x/n$，置信系数 $z=1.96$：
 
-\[
+$$
 center=\frac{\hat p+z^2/(2n)}{1+z^2/n},
-\]
+$$
 
-\[
+$$
 margin=\frac{z}{1+z^2/n}
 \sqrt{\frac{\hat p(1-\hat p)}n+\frac{z^2}{4n^2}}.
-\]
+$$
 
 区间为 `[center-margin, center+margin]`。
 
 ### 11.5 平均轮数标准误
 
-\[
+$$
 SE(\bar Q)=\frac{SD(Q)}{\sqrt n}.
-\]
+$$
 
 ### 11.6 病例聚类 Bootstrap
 
@@ -521,12 +521,12 @@ SE(\bar Q)=\frac{SD(Q)}{\sqrt n}.
 
 ### 11.7 精确 McNemar 检验
 
-设策略 A 独对的病例数为 \(b\)，策略 B 独对为 \(c\)，\(n=b+c\)：
+设策略 A 独对的病例数为 $b$，策略 B 独对为 $c$，$n=b+c$：
 
-\[
+$$
 p=\min\left(1,
 2\sum_{k=0}^{\min(b,c)}{n\choose k}2^{-n}\right).
-\]
+$$
 
 多种子分别计算，正式报告取最大 p 值作为保守汇总。
 
@@ -534,25 +534,25 @@ p=\min\left(1,
 
 门控诊断使用成对定义：
 
-\[
+$$
 AUROC=P(s^+>s^-)+\frac12P(s^+=s^-).
-\]
+$$
 
 `gate_analysis.py` 还计算 average precision 和固定激活阈值下的 precision/recall。
 
 ### 11.9 同轮数曲线插值
 
-候选平均轮数 \(q\) 位于参考曲线相邻点 \((q_l,a_l)\)、\((q_h,a_h)\) 之间时：
+候选平均轮数 $q$ 位于参考曲线相邻点 $(q_l,a_l)$、$(q_h,a_h)$ 之间时：
 
-\[
+$$
 a_{ref}(q)=a_l+
 \frac{q-q_l}{q_h-q_l}(a_h-a_l).
-\]
+$$
 
 只做区间内插值，不外推。报告
-\(a_{ref}(q)-a_{candidate}(q)\)。该比较是描述性的，不等同于显著性检验。
+$a_{ref}(q)-a_{candidate}(q)$。该比较是描述性的，不等同于显著性检验。
 
-若参考点满足 \(q_{ref}\le q_{cand}\)、\(a_{ref}\ge a_{cand}\)，且至少一个严格不等，
+若参考点满足 $q_{ref}\le q_{cand}$、$a_{ref}\ge a_{cand}$，且至少一个严格不等，
 则参考点离散 Pareto 支配候选点。
 
 对应实现：`benchmark.py`、`ablation.py`、`evaluation.py`、`curve_analysis.py`。
@@ -631,7 +631,7 @@ DDXPlus train 1,025,602 例；独立 test 按疾病最多 100 例，共 4,836 �
 - 但是 test split 已在更早阶段用于 EIG/RDC、报告层消融和历史门控。因此从整个项目
   生命周期看，它已不是完全未观察的最终测试集。若要形成最严格的论文主结果，建议
   使用新的外部数据集、额外留出集或预注册的 nested evaluation。
-- 模拟器的真实 \(Z\)、真实 \(M\) 和注入噪声率只用于生成回答与事后评测，不进入回溯
+- 模拟器的真实 $Z$、真实 $M$ 和注入噪声率只用于生成回答与事后评测，不进入回溯
   检测分数。
 
 ## 14. 仓库文件逐项说明
