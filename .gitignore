@@ -1,0 +1,59 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments and packaging outputs
+.venv/
+venv/
+env/
+ENV/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+!.env.example
+*.local
+
+# Editors and operating-system files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Jupyter and logs
+.ipynb_checkpoints/
+*.log
+
+# Research scratch space: downloaded papers, rendered pages, inspections
+tmp/
+
+# DDXPlus patient archives are large and may have redistribution restrictions.
+data/ddxplus/release_*_patients.zip
+
+# Generated fitted models can be reproduced from the training archive.
+data/ddxplus/model-*.json
+
+# High-volume raw experiment traces. Keep reports, aggregate CSVs and figures.
+artifacts/**/*case_outcomes.csv
+artifacts/**/ddxplus_gate_events.csv
+
+# Office temporary files
+~$*.xlsx
+~$*.docx
+~$*.pptx

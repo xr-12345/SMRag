@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "powerful-medrag"
+version = "0.1.0"
+description = "A research prototype for uncertainty-aware, turn-efficient medical questioning"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "PowerfulMedRAG contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+experiment = ["matplotlib>=3.7", "numpy>=1.24"]
+
+[project.scripts]
+powerful-medrag = "powerful_medrag.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
