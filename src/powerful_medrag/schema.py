@@ -151,6 +151,24 @@ class Observation:
     value: str
     certainty: CertaintyCue = CertaintyCue.NONE
     raw_text: str = ""
+    extraction_confidence: float | None = None
+    source: str = "patient"
+    time: str = ""
+    activity: str = ""
+    location: str = ""
+    duration: str = ""
+    severity: str = ""
+    conflict_status: str = ""
+    evidence_span: str = ""
+    # Simulation-only privileged metadata.  Real gates must never read this;
+    # only the explicitly named OracleMisreportGate is allowed to use it.
+    oracle_report_mode: str = ""
+
+    def __post_init__(self) -> None:
+        if self.extraction_confidence is not None and not (
+            0.0 <= self.extraction_confidence <= 1.0
+        ):
+            raise ValueError("extraction_confidence must be in [0, 1]")
 
 
 def make_binary_spec(

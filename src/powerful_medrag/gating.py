@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
-from typing import TYPE_CHECKING, Protocol
+from dataclasses import dataclass, field
+from typing import TYPE_CHECKING, Mapping, Protocol
 
 from .schema import UNKNOWN, CertaintyCue, Observation
 
@@ -16,6 +16,235 @@ class MisreportGate(Protocol):
     def probability(
         self, tracker: "BeliefTracker", observation: Observation
     ) -> float: ...
+
+
+LEARNED_GATE_FEATURES = (
+    "surprisal",
+    "direct_conflicts",
+    "is_uncertain",
+    "is_unknown",
+    "history_unreliable_fraction",
+    "top_probability",
+    "normalized_belief_entropy",
+    "diagnostic_impact",
+    "extraction_uncertainty",
+)
+
+
+@dataclass(frozen=True)
+class ObservableGateSignals:
+    """Signals available after receiving an answer but before accepting it."""
+
+    surprisal: float
+    direct_conflicts: float
+    is_uncertain: float
+    is_unknown: float
+    history_unreliable_fraction: float
+    top_probability: float
+    normalized_belief_entropy: float
+    diagnostic_impact: float
+    extraction_uncertainty: float
+
+    def as_mapping(self) -> dict[str, float]:
+        return {
+            feature: float(getattr(self, feature))
+            for feature in LEARNED_GATE_FEATURES
+        }
+
+
+def observable_gate_signals(
+    tracker: "BeliefTracker", observation: Observation
+) -> ObservableGateSignals:
+    """Extract label-free gate inputs without using future or simulator truth."""
+
+    predictive_probability = HeuristicMisreportGate.predictive_probability(
+        tracker, observation
+    )
+    direct_conflicts = sum(
+        previous.observation.key == observation.key
+        and previous.observation.value != UNKNOWN
+        and observation.value != UNKNOWN
+        and previous.observation.value != observation.value
+        for previous in tracker.history
+    )
+    unreliable_history = sum(
+        previous.observation.value == UNKNOWN
+        or previous.observation.certainty == CertaintyCue.UNCERTAIN
+        for previous in tracker.history
+    )
+    history_fraction = unreliable_history / max(1, len(tracker.history))
+    top_probability = max(tracker.belief.values())
+    disease_count = len(tracker.belief)
+    belief_entropy = -sum(
+        probability * math.log2(probability)
+        for probability in tracker.belief.values()
+        if probability > 0
+    )
+    normalized_entropy = (
+        belief_entropy / math.log2(disease_count) if disease_count > 1 else 0.0
+    )
+
+    # Compare the ordinary Bayesian-update explanation with retaining the
+    # current belief.  The gate has not been invoked here: the fixed cue prior
+    # is supplied explicitly, preventing recursion and privileged-label use.
+    base_mode_prior = tracker.channel.parameters.cue_priors[observation.certainty]
+    likelihoods = tracker.observation_likelihoods(observation, base_mode_prior)
+    unnormalized = {
+        disease: tracker.belief[disease] * likelihoods[disease]
+        for disease in tracker.model.diseases
+    }
+    denominator = sum(unnormalized.values())
+    ordinary_posterior = {
+        disease: value / denominator for disease, value in unnormalized.items()
+    }
+    diagnostic_impact = 0.5 * sum(
+        abs(tracker.belief[disease] - ordinary_posterior[disease])
+        for disease in tracker.model.diseases
+    )
+    extraction_uncertainty = (
+        0.0
+        if observation.extraction_confidence is None
+        else 1.0 - observation.extraction_confidence
+    )
+    return ObservableGateSignals(
+        surprisal=-math.log(min(max(predictive_probability, 1e-12), 1.0)),
+        direct_conflicts=float(min(direct_conflicts, 2)),
+        is_uncertain=float(observation.certainty == CertaintyCue.UNCERTAIN),
+        is_unknown=float(observation.value == UNKNOWN),
+        history_unreliable_fraction=history_fraction,
+        top_probability=top_probability,
+        normalized_belief_entropy=normalized_entropy,
+        diagnostic_impact=diagnostic_impact,
+        extraction_uncertainty=extraction_uncertainty,
+    )
+
+
+@dataclass(frozen=True)
+class LearnedMisreportGate:
+    """Serializable calibrated logistic gate over observable online signals."""
+
+    intercept: float
+    coefficients: Mapping[str, float]
+    feature_means: Mapping[str, float] = field(default_factory=dict)
+    feature_scales: Mapping[str, float] = field(default_factory=dict)
+    calibration_intercept: float = 0.0
+    calibration_slope: float = 1.0
+    minimum_probability: float = 0.005
+    single_answer_cap: float = 0.15
+    conflict_cap: float = 0.40
+    activation_threshold: float = 0.01
+
+    def __post_init__(self) -> None:
+        unknown = set(self.coefficients) - set(LEARNED_GATE_FEATURES)
+        if unknown:
+            raise ValueError(f"unknown learned-gate features: {sorted(unknown)}")
+        if self.calibration_slope < 0:
+            raise ValueError("calibration slope cannot be negative")
+        if not (
+            0 <= self.minimum_probability
+            <= self.single_answer_cap
+            <= self.conflict_cap
+            < 1
+        ):
+            raise ValueError("invalid learned-gate probability limits")
+        if any(scale <= 0 for scale in self.feature_scales.values()):
+            raise ValueError("feature scales must be positive")
+
+    def probability(
+        self, tracker: "BeliefTracker", observation: Observation
+    ) -> float:
+        signals = observable_gate_signals(tracker, observation).as_mapping()
+        direct_conflicts = signals["direct_conflicts"]
+        return self.probability_from_features(signals, has_conflict=bool(direct_conflicts))
+
+    def probability_from_features(
+        self, features: Mapping[str, float], *, has_conflict: bool | None = None
+    ) -> float:
+        missing = set(self.coefficients) - set(features)
+        if missing:
+            raise ValueError(f"missing learned-gate features: {sorted(missing)}")
+        logit = self.intercept
+        for feature, coefficient in self.coefficients.items():
+            value = float(features[feature])
+            mean = self.feature_means.get(feature, 0.0)
+            scale = self.feature_scales.get(feature, 1.0)
+            logit += coefficient * (value - mean) / scale
+        calibrated_logit = self.calibration_intercept + self.calibration_slope * logit
+        probability = _sigmoid(calibrated_logit)
+        conflict = (
+            bool(float(features.get("direct_conflicts", 0.0)))
+            if has_conflict is None
+            else has_conflict
+        )
+        cap = self.conflict_cap if conflict else self.single_answer_cap
+        return min(cap, max(self.minimum_probability, probability))
+
+    def to_dict(self) -> dict[str, object]:
+        return {
+            "intercept": self.intercept,
+            "coefficients": dict(self.coefficients),
+            "feature_means": dict(self.feature_means),
+            "feature_scales": dict(self.feature_scales),
+            "calibration_intercept": self.calibration_intercept,
+            "calibration_slope": self.calibration_slope,
+            "minimum_probability": self.minimum_probability,
+            "single_answer_cap": self.single_answer_cap,
+            "conflict_cap": self.conflict_cap,
+            "activation_threshold": self.activation_threshold,
+        }
+
+    @classmethod
+    def from_dict(cls, data: Mapping[str, object]) -> "LearnedMisreportGate":
+        def numeric_mapping(name: str) -> dict[str, float]:
+            raw = data.get(name, {})
+            if not isinstance(raw, Mapping):
+                raise ValueError(f"{name} must be a mapping")
+            return {str(key): float(value) for key, value in raw.items()}
+
+        return cls(
+            intercept=float(data["intercept"]),
+            coefficients=numeric_mapping("coefficients"),
+            feature_means=numeric_mapping("feature_means"),
+            feature_scales=numeric_mapping("feature_scales"),
+            calibration_intercept=float(data.get("calibration_intercept", 0.0)),
+            calibration_slope=float(data.get("calibration_slope", 1.0)),
+            minimum_probability=float(data.get("minimum_probability", 0.005)),
+            single_answer_cap=float(data.get("single_answer_cap", 0.15)),
+            conflict_cap=float(data.get("conflict_cap", 0.40)),
+            activation_threshold=float(data.get("activation_threshold", 0.01)),
+        )
+
+
+@dataclass(frozen=True)
+class OracleMisreportGate:
+    """Simulation-only ceiling that reads explicitly privileged metadata."""
+
+    positive_probability: float = 0.49
+    negative_probability: float = 0.0
+    activation_threshold: float = 0.01
+
+    def __post_init__(self) -> None:
+        if not 0 <= self.negative_probability <= self.positive_probability < 0.5:
+            raise ValueError("oracle probabilities must satisfy 0 <= negative <= positive < 0.5")
+
+    def probability(
+        self, tracker: "BeliefTracker", observation: Observation
+    ) -> float:
+        del tracker
+        if not observation.oracle_report_mode:
+            raise ValueError("oracle gate requires simulation-only oracle_report_mode")
+        return (
+            self.positive_probability
+            if observation.oracle_report_mode == "misreported"
+            else self.negative_probability
+        )
+
+
+def _sigmoid(value: float) -> float:
+    if value >= 0:
+        return 1.0 / (1.0 + math.exp(-value))
+    exponential = math.exp(value)
+    return exponential / (1.0 + exponential)
 
 
 @dataclass(frozen=True)

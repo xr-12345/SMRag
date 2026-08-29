@@ -6,6 +6,7 @@ from powerful_medrag.questioning import (
     MedRAGReciprocalDegreeSelector,
     NumpyQuestionSelector,
     QuestionSelector,
+    RandomQuestionSelector,
 )
 from powerful_medrag.schema import ClinicalCase, FeatureKey, Observation, VariableSpec, make_binary_spec
 
@@ -106,6 +107,22 @@ class QuestionSelectorTests(unittest.TestCase):
         ranking = selector.rank(BeliefTracker(model))
         self.assertEqual(ranking[0].key, rare)
         self.assertEqual(ranking[0].utility, 1.0)
+
+    def test_random_selector_is_seeded_and_non_mutating(self):
+        feature_a = FeatureKey("a")
+        feature_b = FeatureKey("b")
+        model = DiseaseStateModel.fit(
+            [
+                ClinicalCase("A", {feature_a: "present", feature_b: "absent"}),
+                ClinicalCase("B", {feature_a: "absent", feature_b: "present"}),
+            ],
+            [make_binary_spec("a"), make_binary_spec("b")],
+        )
+        tracker = BeliefTracker(model)
+        first = RandomQuestionSelector(seed=7).rank(tracker)
+        second = RandomQuestionSelector(seed=7).rank(tracker)
+        self.assertEqual([row.key for row in first], [row.key for row in second])
+        self.assertEqual(tracker.history, [])
 
 
 if __name__ == "__main__":

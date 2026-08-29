@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass
 from dataclasses import replace
 from collections import Counter
@@ -149,6 +150,42 @@ class FixedOrderQuestionSelector(QuestionSelector):
         # Keep the true EIG for analysis, but make the baseline's continuation
         # independent of the EIG-specific minimum-utility stopping rule.
         return [replace(self.score(tracker, key), utility=1.0) for key in keys]
+
+
+class RandomQuestionSelector(QuestionSelector):
+    """Deterministic random-order baseline keyed by seed and dialogue history."""
+
+    def __init__(self, *, seed: int = 2026) -> None:
+        super().__init__()
+        self.seed = seed
+
+    def rank(
+        self,
+        tracker: BeliefTracker,
+        *,
+        excluded: set[FeatureKey] | None = None,
+    ) -> list[QuestionScore]:
+        excluded_keys = excluded or set()
+        history_token = "|".join(
+            f"{update.observation.key.token}={update.observation.value}"
+            for update in tracker.history
+        )
+        ranking: list[QuestionScore] = []
+        for key, spec in tracker.model.specs.items():
+            if (
+                key in excluded_keys
+                or not spec.askable
+                or not _question_is_available(tracker, key)
+            ):
+                continue
+            score = self.score(tracker, key)
+            digest = hashlib.blake2b(
+                f"{self.seed}|{history_token}|{key.token}".encode("utf-8"),
+                digest_size=8,
+            ).digest()
+            random_utility = int.from_bytes(digest, "big") / (2**64)
+            ranking.append(replace(score, utility=random_utility))
+        return sorted(ranking, key=lambda item: item.utility, reverse=True)
 
 
 class PrevalenceQuestionSelector(QuestionSelector):

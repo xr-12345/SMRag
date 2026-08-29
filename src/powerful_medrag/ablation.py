@@ -30,7 +30,9 @@ from .estimation import DiseaseStateModel
 from .gating import (
     HeuristicMisreportGate,
     HistoryReliabilityMisreportGate,
+    LearnedMisreportGate,
     MisreportGate,
+    OracleMisreportGate,
     SparseSurprisalMisreportGate,
 )
 from .questioning import NumpyQuestionSelector
@@ -51,6 +53,8 @@ NO_MISREPORT = "no_misreport"
 ADAPTIVE_HEURISTIC = "adaptive_heuristic"
 ADAPTIVE_SPARSE = "adaptive_sparse"
 ADAPTIVE_HISTORY = "adaptive_history"
+ADAPTIVE_LEARNED = "adaptive_learned"
+ORACLE_GATE = "oracle_gate"
 ABLATION_VARIANTS = (
     FULL_TWO_LAYER,
     DIRECT_RELIABLE,
@@ -116,7 +120,9 @@ def unknown_or_uncertain_as_negative(
     )
 
 
-def build_ablation_runtime(name: str) -> Runtime:
+def build_ablation_runtime(
+    name: str, *, learned_gate: LearnedMisreportGate | None = None
+) -> Runtime:
     if name == FULL_TWO_LAYER:
         return NumpyQuestionSelector(), AnswerChannel(), None, None
     if name == DIRECT_RELIABLE:
@@ -151,6 +157,22 @@ def build_ablation_runtime(name: str) -> Runtime:
             None,
             HistoryReliabilityMisreportGate(),
         )
+    if name == ADAPTIVE_LEARNED:
+        if learned_gate is None:
+            raise ValueError("adaptive_learned requires a fitted learned gate")
+        return (
+            NumpyQuestionSelector(),
+            answer_channel_without_misreport(),
+            None,
+            learned_gate,
+        )
+    if name == ORACLE_GATE:
+        return (
+            NumpyQuestionSelector(),
+            answer_channel_without_misreport(),
+            None,
+            OracleMisreportGate(),
+        )
     raise ValueError(f"unknown ablation strategy: {name}")
 
 
@@ -167,6 +189,7 @@ def run_ablation_curve_experiment(
     workers: int = 1,
     executor_type: str = "thread",
     raw_outcomes: MutableSequence[CaseOutcome] | None = None,
+    learned_gate: LearnedMisreportGate | None = None,
 ) -> list[CurvePoint]:
     """Compare inference ablations under identical feature-indexed reports."""
 
@@ -183,7 +206,7 @@ def run_ablation_curve_experiment(
         if case.diagnosis not in model.diseases:
             raise ValueError(f"test disease missing from model: {case.diagnosis}")
 
-    runtimes = _make_runtimes(model, variants)
+    runtimes = _make_runtimes(model, variants, learned_gate=learned_gate)
     tasks = [
         (case, noise_rate)
         for noise_rate in noise_rates
@@ -210,6 +233,7 @@ def run_ablation_curve_experiment(
             initargs=(
                 model,
                 variants,
+                learned_gate,
                 posterior_thresholds,
                 max_questions,
                 seed,
@@ -274,9 +298,15 @@ def run_ablation_curve_experiment(
 
 
 def _make_runtimes(
-    model: DiseaseStateModel, variants: tuple[str, ...]
+    model: DiseaseStateModel,
+    variants: tuple[str, ...],
+    *,
+    learned_gate: LearnedMisreportGate | None = None,
 ) -> dict[str, Runtime]:
-    runtimes = {name: build_ablation_runtime(name) for name in variants}
+    runtimes = {
+        name: build_ablation_runtime(name, learned_gate=learned_gate)
+        for name in variants
+    }
     for selector, channel, _, gate in runtimes.values():
         selector._ensure_numpy_cache(
             BeliefTracker(model, channel, misreport_gate=gate)
@@ -376,6 +406,7 @@ def _evaluate_case_noise(
 def _initialize_process_worker(
     model: DiseaseStateModel,
     variants: tuple[str, ...],
+    learned_gate: LearnedMisreportGate | None,
     posterior_thresholds: tuple[float, ...],
     max_questions: int,
     seed: int,
@@ -383,7 +414,7 @@ def _initialize_process_worker(
     global _PROCESS_CONTEXT
     _PROCESS_CONTEXT = (
         model,
-        _make_runtimes(model, variants),
+        _make_runtimes(model, variants, learned_gate=learned_gate),
         posterior_thresholds,
         max_questions,
         seed,

@@ -1,0 +1,44 @@
+{
+  "protocol_version": "1.0",
+  "frozen_on": "2026-08-29",
+  "scope": "Frozen evaluation criteria for reliability-aware gates and joint new/verify/stop policies. Validation is used for selection; a new untouched holdout or external dataset is required for confirmatory claims.",
+  "primary_reference": "full_two_layer",
+  "criteria": {
+    "maximum_top1_accuracy_drop_absolute": 0.005,
+    "maximum_relative_brier_degradation": 0.05,
+    "minimum_average_total_questions_saved": 1.0,
+    "low_noise_efficiency_reference": "no_misreport",
+    "high_noise_accuracy_reference": "full_two_layer",
+    "pareto_requirement": "better_or_non_dominated_at_majority_of_frozen_stopping_thresholds",
+    "gate_requirement": "outperform_random_score_and_fixed_prior_on_validation-frozen AUROC, AUPRC, Brier, and ECE"
+  },
+  "required_noise_rates": [0.0, 0.1, 0.2, 0.3],
+  "required_answer_stressors": [
+    "unknown",
+    "uncertain",
+    "flip",
+    "contradiction",
+    "missing",
+    "context_dependent"
+  ],
+  "required_reporting": [
+    "top1_accuracy",
+    "topk_accuracy",
+    "average_new_questions",
+    "average_verification_questions",
+    "total_atomic_questions",
+    "interaction_turns",
+    "brier_score",
+    "expected_calibration_error",
+    "misreport_auroc",
+    "misreport_auprc",
+    "unnecessary_verification_rate",
+    "conflict_resolution_rate",
+    "premature_stop_rate",
+    "accuracy_question_pareto",
+    "case_clustered_confidence_intervals",
+    "paired_case_level_statistics"
+  ],
+  "safety_metrics_status": "Red-flag miss and under-triage rates are mandatory only after an explicit, source-backed risk-label mapping is frozen; they must not be inferred ad hoc from DDXPlus.",
+  "failure_policy": "Report every frozen criterion, including failures. Do not change thresholds after test evaluation."
+}

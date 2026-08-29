@@ -123,7 +123,14 @@ class StructuredPatientSimulator:
     def answer(self, key: FeatureKey) -> tuple[Observation, ReportMode]:
         spec = self.model.specs[key]
         if key not in self.latent_states:
-            return Observation(key=key, value=UNKNOWN), ReportMode.UNKNOWN
+            return (
+                Observation(
+                    key=key,
+                    value=UNKNOWN,
+                    oracle_report_mode=ReportMode.UNKNOWN.value,
+                ),
+                ReportMode.UNKNOWN,
+            )
         occurrence = self._answer_counts.get(key, 0)
         self._answer_counts[key] = occurrence + 1
         digest = hashlib.blake2b(
@@ -145,7 +152,12 @@ class StructuredPatientSimulator:
             # A misreport may be said confidently; mode remains unobserved.
             certainty = CertaintyCue.CERTAIN
         return (
-            Observation(key=key, value=observed_value, certainty=certainty),
+            Observation(
+                key=key,
+                value=observed_value,
+                certainty=certainty,
+                oracle_report_mode=mode.value,
+            ),
             mode,
         )
 

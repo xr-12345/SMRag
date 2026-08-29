@@ -202,6 +202,24 @@ python -m powerful_medrag clarify-ddxplus `
 再允许最多两次回溯审计。验证结果将三者分别定位为“最少额外轮数”“最佳中高噪声
 效率”和“最高召回率”，主方法仍采用 `retro_utility_u050_b1`。
 
+## 可靠度联合决策研究分支
+
+仓库现在另有一个保持旧基线不变的实验分支：把新问题、旧回答复核和停止暴露为同一
+动作接口，并加入可学习门控、oracle 上界、Top-k/ECE/原子问题数和过早停止等指标。
+无外部数据的代码检查可运行：
+
+```powershell
+python -m powerful_medrag pilot-reliability `
+  --output-dir artifacts/toy-reliability-pilot `
+  --seeds 2026 2027 2028 `
+  --minimum-action-utility 0.08
+```
+
+当前 toy pilot 提升了准确率和 Brier，但复核成本使总原子问题数没有下降，因此**尚未
+达到预注册效率标准**。DDXPlus 原始患者 ZIP 和训练模型不在仓库中，新的正式实验尚未
+重跑。审计、方法、文献边界、实验协议和论文草稿见 `docs/`；冻结标准见
+`configs/preregistered_success_criteria.json`。
+
 ## 代码结构
 
 - `schema.py`：带时间/活动/部位上下文的变量、病例和回答；
@@ -216,6 +234,9 @@ python -m powerful_medrag clarify-ddxplus `
 - `ablation.py`：报告层消融、病例聚类统计与四面板 Pareto 曲线；
 - `clarification.py`：异常检测、同证据澄清及检测精度/召回率诊断；
 - `curve_analysis.py`：按平均轮数插值的同预算曲线比较与 Pareto 检查；
+- `gate_learning.py`：可解释逻辑回归门控、验证集校准和序列化；
+- `decision.py`：新问、一次复核和可靠度/可选安全约束停止的联合动作接口；
+- `reliability_experiment.py`：Top-k、原子问题、ECE、复核和过早停止实验统计；
 - `cli.py`：训练、参数检查和演示命令。
 
 ## 当前实验边界
@@ -223,5 +244,5 @@ python -m powerful_medrag clarify-ddxplus `
 - 结构化回答用于隔离验证概率模型，尚未加入 LLM 文本解析误差；
 - 各临床变量在给定疾病后条件独立，这是第一版的朴素贝叶斯假设；
 - 默认通道参数是可解释的初始值，正式实验应从带复核标签的问诊数据估计；
-- 当前“少轮次”来自 EIG 排序和置信度停止；已经加入 MedRAG 度中心性公式适配，
-  后续还应加入固定顺序与随机提问等补充基线。
+- 当前“少轮次”来自 EIG 排序和置信度停止；已经加入 MedRAG 度中心性公式适配及
+  可重复的随机提问基线。

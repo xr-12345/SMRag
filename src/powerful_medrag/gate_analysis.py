@@ -13,7 +13,7 @@ from .belief import BeliefTracker, entropy
 from .benchmark import _stable_seed
 from .channel import AnswerChannel, ReportMode, answer_channel_without_misreport
 from .estimation import DiseaseStateModel
-from .gating import HeuristicMisreportGate
+from .gating import HeuristicMisreportGate, observable_gate_signals
 from .questioning import NumpyQuestionSelector
 from .schema import UNKNOWN, ClinicalCase
 from .simulator import PatientProfile, StructuredPatientSimulator
@@ -42,6 +42,13 @@ class GateEvent:
     latent_misreport: int
     wrong_report: int
     harmful_misreport: int
+    direct_conflicts: float
+    is_uncertain: float
+    is_unknown: float
+    history_unreliable_fraction: float
+    normalized_belief_entropy: float
+    diagnostic_impact: float
+    extraction_uncertainty: float
 
 
 @dataclass(frozen=True)
@@ -57,6 +64,8 @@ class GateDiagnosticSummary:
     surprisal_average_precision: float | None
     gate_auroc: float | None
     gate_average_precision: float | None
+    gate_brier_score: float
+    gate_expected_calibration_error: float
     activation_threshold: float
     activations: int
     activation_precision: float | None
@@ -191,6 +200,7 @@ def _evaluate_case_noise(
         predictive_probability = gate.predictive_probability(tracker, observation)
         predictive_probability = min(max(predictive_probability, 1e-300), 1.0)
         gate_probability = gate.probability(tracker, observation)
+        signals = observable_gate_signals(tracker, observation)
         top_diagnosis = max(tracker.belief, key=tracker.belief.__getitem__)
         true_state = patient.latent_states.get(key, UNKNOWN)
         wrong_report = int(
@@ -220,6 +230,13 @@ def _evaluate_case_noise(
                 latent_misreport=latent_misreport,
                 wrong_report=wrong_report,
                 harmful_misreport=int(latent_misreport and wrong_report),
+                direct_conflicts=signals.direct_conflicts,
+                is_uncertain=signals.is_uncertain,
+                is_unknown=signals.is_unknown,
+                history_unreliable_fraction=signals.history_unreliable_fraction,
+                normalized_belief_entropy=signals.normalized_belief_entropy,
+                diagnostic_impact=signals.diagnostic_impact,
+                extraction_uncertainty=signals.extraction_uncertainty,
             )
         )
         tracker.update(observation)
@@ -302,6 +319,10 @@ def summarize_gate_events(
                     ),
                     gate_auroc=_roc_auc(labels, gate_scores),
                     gate_average_precision=_average_precision(labels, gate_scores),
+                    gate_brier_score=_brier_score(labels, gate_scores),
+                    gate_expected_calibration_error=_expected_calibration_error(
+                        labels, gate_scores
+                    ),
                     activation_threshold=activation_threshold,
                     activations=activations,
                     activation_precision=(
@@ -363,8 +384,93 @@ def _average_precision(labels: list[int], scores: list[float]) -> float | None:
     return average_precision
 
 
+def _brier_score(labels: list[int], probabilities: list[float]) -> float:
+    if len(labels) != len(probabilities) or not labels:
+        raise ValueError("Brier score needs equally non-empty labels and probabilities")
+    return sum(
+        (probability - label) ** 2
+        for label, probability in zip(labels, probabilities)
+    ) / len(labels)
+
+
+def _expected_calibration_error(
+    labels: list[int], probabilities: list[float], *, bins: int = 10
+) -> float:
+    if len(labels) != len(probabilities) or not labels:
+        raise ValueError("ECE needs equally non-empty labels and probabilities")
+    if bins <= 0:
+        raise ValueError("ECE bins must be positive")
+    bucket_labels: list[list[int]] = [[] for _ in range(bins)]
+    bucket_probabilities: list[list[float]] = [[] for _ in range(bins)]
+    for label, probability in zip(labels, probabilities):
+        if not 0 <= probability <= 1:
+            raise ValueError("calibration probabilities must be in [0, 1]")
+        index = min(int(probability * bins), bins - 1)
+        bucket_labels[index].append(label)
+        bucket_probabilities[index].append(probability)
+    total = len(labels)
+    return sum(
+        (len(group_labels) / total)
+        * abs(
+            sum(group_labels) / len(group_labels)
+            - sum(group_probabilities) / len(group_probabilities)
+        )
+        for group_labels, group_probabilities in zip(
+            bucket_labels, bucket_probabilities
+        )
+        if group_labels
+    )
+
+
 def save_gate_events_csv(events: Iterable[GateEvent], path: str | Path) -> None:
     _save_dataclasses_csv(events, GateEvent, path)
+
+
+def load_gate_events_csv(path: str | Path) -> list[GateEvent]:
+    integer_fields = {
+        "seed",
+        "turn",
+        "correct_top_before_answer",
+        "latent_misreport",
+        "wrong_report",
+        "harmful_misreport",
+    }
+    float_fields = {
+        "noise_rate",
+        "predictive_probability",
+        "surprisal",
+        "gate_probability",
+        "top_probability",
+        "belief_entropy",
+        "direct_conflicts",
+        "is_uncertain",
+        "is_unknown",
+        "history_unreliable_fraction",
+        "normalized_belief_entropy",
+        "diagnostic_impact",
+        "extraction_uncertainty",
+    }
+    rows: list[GateEvent] = []
+    with Path(path).open("r", encoding="utf-8", newline="") as handle:
+        for raw in csv.DictReader(handle):
+            converted: dict[str, object] = {}
+            for field in fields(GateEvent):
+                if field.name not in raw:
+                    raise ValueError(
+                        f"gate event file lacks learned-gate field {field.name!r}; "
+                        "regenerate events with the current collector"
+                    )
+                value = raw[field.name]
+                if field.name in integer_fields:
+                    converted[field.name] = int(value)
+                elif field.name in float_fields:
+                    converted[field.name] = float(value)
+                else:
+                    converted[field.name] = value
+            rows.append(GateEvent(**converted))  # type: ignore[arg-type]
+    if not rows:
+        raise ValueError("gate event file is empty")
+    return rows
 
 
 def save_gate_summaries_csv(

@@ -320,6 +320,13 @@ def _ablate_ddxplus_command(args: argparse.Namespace) -> int:
     if len(set(experiment_seeds)) != len(experiment_seeds):
         raise ValueError("--seeds cannot contain duplicates")
     variants = tuple(args.variants) if args.variants else ABLATION_VARIANTS
+    learned_gate = None
+    if "adaptive_learned" in variants:
+        if args.learned_gate is None:
+            raise ValueError("adaptive_learned requires --learned-gate")
+        from .gate_learning import load_learned_gate
+
+        learned_gate = load_learned_gate(args.learned_gate)
     args.output_dir.mkdir(parents=True, exist_ok=True)
     all_points = []
     all_outcomes = []
@@ -346,6 +353,7 @@ def _ablate_ddxplus_command(args: argparse.Namespace) -> int:
             workers=args.workers,
             executor_type=args.executor,
             raw_outcomes=raw_outcomes,
+            learned_gate=learned_gate,
         )
         run_dir.mkdir(parents=True, exist_ok=True)
         save_curve_csv(points, run_dir / "ddxplus_ablation_curve_results.csv")
@@ -457,6 +465,249 @@ def _analyze_gate_ddxplus_command(args: argparse.Namespace) -> int:
             f"{surprise_auc:>12s} {gate_auc:>9s} "
             f"{precision:>9s} {recall:>7s}"
         )
+    return 0
+
+
+def _fit_gate_command(args: argparse.Namespace) -> int:
+    import hashlib
+
+    from .gate_analysis import (
+        _average_precision,
+        _brier_score,
+        _expected_calibration_error,
+        _roc_auc,
+        load_gate_events_csv,
+    )
+    from .gate_learning import (
+        examples_from_gate_events,
+        fit_logistic_gate,
+        save_learned_gate,
+    )
+
+    if not 0 < args.calibration_fraction < 1:
+        raise ValueError("--calibration-fraction must be in (0, 1)")
+    events = load_gate_events_csv(args.events)
+    case_ids = sorted({event.case_id for event in events})
+    calibration_cases = {
+        case_id
+        for case_id in case_ids
+        if int.from_bytes(
+            hashlib.blake2b(
+                f"{args.split_seed}|{case_id}".encode("utf-8"), digest_size=8
+            ).digest(),
+            "big",
+        )
+        / (2**64)
+        < args.calibration_fraction
+    }
+    training_events = [
+        event for event in events if event.case_id not in calibration_cases
+    ]
+    calibration_events = [
+        event for event in events if event.case_id in calibration_cases
+    ]
+    if not training_events or not calibration_events:
+        raise ValueError("case-grouped split produced an empty partition")
+    training_examples = examples_from_gate_events(
+        training_events, target=args.target
+    )
+    calibration_examples = examples_from_gate_events(
+        calibration_events, target=args.target
+    )
+    gate = fit_logistic_gate(
+        training_examples,
+        calibration_examples=calibration_examples,
+        iterations=args.iterations,
+        learning_rate=args.learning_rate,
+        l2_strength=args.l2_strength,
+    )
+    save_learned_gate(gate, args.output)
+    labels = [example.label for example in calibration_examples]
+    probabilities = [
+        gate.probability_from_features(example.features)
+        for example in calibration_examples
+    ]
+    auc = _roc_auc(labels, probabilities)
+    average_precision = _average_precision(labels, probabilities)
+    print(
+        f"learned gate: train_cases={len(case_ids) - len(calibration_cases)} "
+        f"calibration_cases={len(calibration_cases)} target={args.target}"
+    )
+    print(
+        "held-out calibration: "
+        f"AUROC={auc if auc is not None else 'N/A'} "
+        f"AUPRC={average_precision if average_precision is not None else 'N/A'} "
+        f"Brier={_brier_score(labels, probabilities):.6f} "
+        f"ECE={_expected_calibration_error(labels, probabilities):.6f}"
+    )
+    print(f"saved: {args.output}")
+    return 0
+
+
+def _pilot_reliability_command(args: argparse.Namespace) -> int:
+    from .decision import ReliabilityAwarePolicyConfig
+    from .reliability_experiment import (
+        ReliabilityCaseOutcome,
+        ReliabilitySummary,
+        run_toy_reliability_pilot,
+        save_reliability_csv,
+        summarize_reliability_outcomes,
+    )
+
+    training_cases, specs = generate_toy_cases(
+        cases_per_disease=args.training_cases_per_disease,
+        seed=args.training_seed,
+    )
+    evaluation_cases, _ = generate_toy_cases(
+        cases_per_disease=args.evaluation_cases_per_disease,
+        seed=args.sample_seed,
+    )
+    model = DiseaseStateModel.fit(
+        training_cases,
+        specs,
+        hierarchical_strength=args.hierarchical_strength,
+    )
+    outcomes = run_toy_reliability_pilot(
+        model,
+        evaluation_cases,
+        noise_rates=tuple(args.noise_rates),
+        seeds=tuple(args.seeds),
+        max_total_turns=args.max_total_turns,
+        policy_config=ReliabilityAwarePolicyConfig(
+            posterior_threshold=args.policy_posterior_threshold,
+            posterior_margin_threshold=args.policy_margin_threshold,
+            minimum_action_utility=args.minimum_action_utility,
+            verification_cost=args.verification_cost,
+            minimum_unreliable_history_cues_for_verification=(
+                args.minimum_history_cues
+            ),
+            max_total_turns=args.max_total_turns,
+        ),
+    )
+    summaries = summarize_reliability_outcomes(outcomes)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    outcome_path = args.output_dir / "toy_reliability_outcomes.csv"
+    summary_path = args.output_dir / "toy_reliability_summary.csv"
+    save_reliability_csv(outcomes, ReliabilityCaseOutcome, outcome_path)
+    save_reliability_csv(summaries, ReliabilitySummary, summary_path)
+    lines = [
+        "# Toy reliability-aware policy pilot",
+        "",
+        "This is a synthetic smoke/pilot experiment, not a DDXPlus or clinical result.",
+        "It uses disjoint toy-data generation seeds for model fitting and evaluation.",
+        (
+            f"Frozen policy for this run: posterior={args.policy_posterior_threshold}, "
+            f"margin={args.policy_margin_threshold}, min_utility={args.minimum_action_utility}, "
+            f"verification_cost={args.verification_cost}, "
+            f"minimum_history_cues={args.minimum_history_cues}."
+        ),
+        "",
+        "| strategy | noise | top-1 | new | verify | total | Brier | ECE | premature stop |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|",
+    ]
+    for row in summaries:
+        lines.append(
+            f"| {row.strategy} | {row.noise_rate:.2f} | {row.top1_accuracy:.3f} | "
+            f"{row.average_new_questions:.2f} | {row.average_verification_questions:.2f} | "
+            f"{row.average_total_atomic_questions:.2f} | {row.brier_score:.3f} | "
+            f"{row.expected_calibration_error:.3f} | {row.premature_stop_rate:.3f} |"
+        )
+    lines.extend(
+        [
+            "",
+            "## Interpretation against the frozen criteria",
+            "",
+            "This pilot validates action plumbing and paired accounting. The table below reports "
+            "joint-policy minus `full_two_layer`; negative question deltas are better.",
+            "",
+            "| noise | accuracy delta (pp) | total-question delta | relative Brier change |",
+            "|---:|---:|---:|---:|",
+        ]
+    )
+    summary_index = {
+        (row.strategy, row.noise_rate): row for row in summaries
+    }
+    meets_efficiency = True
+    for noise_rate in sorted(set(args.noise_rates)):
+        joint = summary_index[("joint_new_verify_stop", noise_rate)]
+        full = summary_index[("full_two_layer", noise_rate)]
+        question_delta = (
+            joint.average_total_atomic_questions
+            - full.average_total_atomic_questions
+        )
+        meets_efficiency &= question_delta <= -1.0
+        lines.append(
+            f"| {noise_rate:.2f} | {(joint.top1_accuracy - full.top1_accuracy) * 100:+.2f} | "
+            f"{question_delta:+.2f} | {(joint.brier_score / full.brier_score - 1) * 100:+.1f}% |"
+        )
+    lines.extend(
+        [
+            "",
+            (
+                "The pilot meets the frozen one-question efficiency criterion."
+                if meets_efficiency
+                else "The pilot **does not** meet the frozen requirement to save at least one total atomic question."
+            ),
+            "It is a synthetic toy trend check, not evidence for DDXPlus performance or clinical safety.",
+        ]
+    )
+    (args.output_dir / "REPORT.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"case-level outcomes: {outcome_path}")
+    print(f"summary: {summary_path}")
+    print(f"report: {args.output_dir / 'REPORT.md'}")
+    return 0
+
+
+def _benchmark_reliability_ddxplus_command(args: argparse.Namespace) -> int:
+    from .ddxplus import sample_balanced_ddxplus_cases
+    from .decision import ReliabilityAwarePolicyConfig
+    from .reliability_experiment import (
+        ReliabilityCaseOutcome,
+        ReliabilitySummary,
+        run_reliability_experiment,
+        save_reliability_csv,
+        summarize_reliability_outcomes,
+    )
+
+    model = DiseaseStateModel.load(args.model)
+    askable_features = {key for key, spec in model.specs.items() if spec.askable}
+    cases = sample_balanced_ddxplus_cases(
+        args.patients,
+        args.evidences,
+        cases_per_disease=args.cases_per_disease,
+        seed=args.sample_seed,
+        available_features=askable_features,
+    )
+    print(
+        f"reliability benchmark: {len(cases)} cases; sample seed={args.sample_seed}",
+        flush=True,
+    )
+    outcomes = run_reliability_experiment(
+        model,
+        cases,
+        noise_rates=tuple(args.noise_rates),
+        seeds=tuple(args.seeds),
+        max_total_turns=args.max_total_turns,
+        strategies=tuple(args.strategies),
+        policy_config=ReliabilityAwarePolicyConfig(
+            posterior_threshold=args.policy_posterior_threshold,
+            posterior_margin_threshold=args.policy_margin_threshold,
+            minimum_action_utility=args.minimum_action_utility,
+            verification_cost=args.verification_cost,
+            minimum_unreliable_history_cues_for_verification=(
+                args.minimum_history_cues
+            ),
+            max_total_turns=args.max_total_turns,
+        ),
+    )
+    summaries = summarize_reliability_outcomes(outcomes)
+    args.output_dir.mkdir(parents=True, exist_ok=True)
+    outcome_path = args.output_dir / "ddxplus_reliability_outcomes.csv"
+    summary_path = args.output_dir / "ddxplus_reliability_summary.csv"
+    save_reliability_csv(outcomes, ReliabilityCaseOutcome, outcome_path)
+    save_reliability_csv(summaries, ReliabilitySummary, summary_path)
+    print(f"case-level outcomes: {outcome_path}")
+    print(f"summary: {summary_path}")
     return 0
 
 
@@ -648,7 +899,14 @@ def build_parser() -> argparse.ArgumentParser:
             "adaptive_heuristic",
             "adaptive_sparse",
             "adaptive_history",
+            "adaptive_learned",
+            "oracle_gate",
         ),
+    )
+    ablation_parser.add_argument(
+        "--learned-gate",
+        type=Path,
+        help="fit-gate 生成的 JSON；选择 adaptive_learned 时必需",
     )
     ablation_parser.set_defaults(func=_ablate_ddxplus_command)
 
@@ -672,6 +930,91 @@ def build_parser() -> argparse.ArgumentParser:
         "--executor", choices=("thread", "process"), default="thread"
     )
     gate_parser.set_defaults(func=_analyze_gate_ddxplus_command)
+
+    fit_gate_parser = subparsers.add_parser(
+        "fit-gate", help="用训练/验证逐轮事件拟合并校准逻辑回归误报门控"
+    )
+    fit_gate_parser.add_argument("--events", required=True, type=Path)
+    fit_gate_parser.add_argument("--output", required=True, type=Path)
+    fit_gate_parser.add_argument(
+        "--target",
+        choices=("latent_misreport", "wrong_report", "harmful_misreport"),
+        default="harmful_misreport",
+    )
+    fit_gate_parser.add_argument("--calibration-fraction", type=float, default=0.2)
+    fit_gate_parser.add_argument("--split-seed", type=int, default=2026)
+    fit_gate_parser.add_argument("--iterations", type=int, default=2000)
+    fit_gate_parser.add_argument("--learning-rate", type=float, default=0.05)
+    fit_gate_parser.add_argument("--l2-strength", type=float, default=0.01)
+    fit_gate_parser.set_defaults(func=_fit_gate_command)
+
+    pilot_parser = subparsers.add_parser(
+        "pilot-reliability",
+        help="运行无需外部数据的 new/verify/stop 合成 pilot",
+    )
+    pilot_parser.add_argument("--output-dir", required=True, type=Path)
+    pilot_parser.add_argument("--training-cases-per-disease", type=int, default=300)
+    pilot_parser.add_argument("--evaluation-cases-per-disease", type=int, default=100)
+    pilot_parser.add_argument("--training-seed", type=int, default=101)
+    pilot_parser.add_argument("--sample-seed", type=int, default=2026)
+    pilot_parser.add_argument("--seeds", type=int, nargs="+", default=[2026, 2027, 2028])
+    pilot_parser.add_argument(
+        "--noise-rates", type=float, nargs="+", default=[0.0, 0.1, 0.2, 0.3]
+    )
+    pilot_parser.add_argument("--max-total-turns", type=int, default=8)
+    pilot_parser.add_argument("--hierarchical-strength", type=float, default=5.0)
+    pilot_parser.add_argument("--policy-posterior-threshold", type=float, default=0.85)
+    pilot_parser.add_argument("--policy-margin-threshold", type=float, default=0.70)
+    pilot_parser.add_argument("--minimum-action-utility", type=float, default=0.03)
+    pilot_parser.add_argument("--verification-cost", type=float, default=0.03)
+    pilot_parser.add_argument("--minimum-history-cues", type=int, default=1)
+    pilot_parser.set_defaults(func=_pilot_reliability_command)
+
+    reliability_parser = subparsers.add_parser(
+        "benchmark-reliability-ddxplus",
+        help="在冻结 DDXPlus split 上比较 new/verify/stop 与现有基线",
+    )
+    reliability_parser.add_argument("--model", required=True, type=Path)
+    reliability_parser.add_argument("--patients", required=True, type=Path)
+    reliability_parser.add_argument("--evidences", required=True, type=Path)
+    reliability_parser.add_argument("--output-dir", required=True, type=Path)
+    reliability_parser.add_argument("--cases-per-disease", type=int, default=20)
+    reliability_parser.add_argument("--sample-seed", type=int, default=2026)
+    reliability_parser.add_argument(
+        "--seeds", type=int, nargs="+", default=[2026, 2027, 2028]
+    )
+    reliability_parser.add_argument(
+        "--noise-rates", type=float, nargs="+", default=[0.0, 0.1, 0.2, 0.3]
+    )
+    reliability_parser.add_argument("--max-total-turns", type=int, default=15)
+    reliability_parser.add_argument(
+        "--strategies",
+        nargs="+",
+        default=[
+            "random_reliable",
+            "ordinary_eig_reliable",
+            "full_two_layer",
+            "adaptive_history",
+            "joint_new_verify_stop",
+        ],
+        choices=(
+            "random_reliable",
+            "ordinary_eig_reliable",
+            "full_two_layer",
+            "adaptive_history",
+            "joint_new_verify_stop",
+        ),
+    )
+    reliability_parser.add_argument(
+        "--policy-posterior-threshold", type=float, default=0.85
+    )
+    reliability_parser.add_argument(
+        "--policy-margin-threshold", type=float, default=0.70
+    )
+    reliability_parser.add_argument("--minimum-action-utility", type=float, default=0.08)
+    reliability_parser.add_argument("--verification-cost", type=float, default=0.03)
+    reliability_parser.add_argument("--minimum-history-cues", type=int, default=1)
+    reliability_parser.set_defaults(func=_benchmark_reliability_ddxplus_command)
 
     clarification_parser = subparsers.add_parser(
         "clarify-ddxplus",
