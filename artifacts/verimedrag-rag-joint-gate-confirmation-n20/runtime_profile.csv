@@ -1,0 +1,14 @@
+metric,value
+index_snippets,125847
+cold_query_latency_ms,212.2
+warm_query_latency_ms,0.003
+cache_hit_rate,0.8296
+mean_wall_seconds_per_dialogue,4.356
+peak_rss_mb,2018.4
+mean_ordinary_retrieves,9.9
+mean_counterfactual_retrieves,74.4
+counterfactual_delete_count,59.7
+counterfactual_weaken_count,0.0
+counterfactual_flip_count,0.0
+n20_total_trajectories,35280
+projected_n20_hours_single_thread,42.7

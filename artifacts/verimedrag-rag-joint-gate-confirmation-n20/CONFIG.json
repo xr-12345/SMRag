@@ -1,0 +1,113 @@
+{
+  "phase": "2C",
+  "task": "Frozen-config N=20 confirmation experiment (no further tuning)",
+  "purpose": [
+    "confirm retrieval ranking produces stable benefit",
+    "confirm joint gate improves verification efficiency without adding question burden",
+    "confirm Phase-2B Brier improvement replicates across seeds and unseen cases"
+  ],
+  "split": "validate",
+  "data": {
+    "model": "data/ddxplus/model-full.json",
+    "patients": "data/ddxplus/release_validate_patients.zip",
+    "evidences": "data/ddxplus/release_evidences.json",
+    "corpus": "data/medrag-textbooks",
+    "diseases": 49,
+    "cases_per_disease": 20,
+    "total_cases": 980,
+    "manifest": "artifacts/verimedrag-hypothesis-validation-2026/config/validation_case_manifest.csv",
+    "sample_seed": 2026
+  },
+  "confirmation_split": {
+    "primary_subset": {
+      "rule": "exclude the 245 screen cases (first 5/disease in screen_case_manifest.csv); remaining 15/disease",
+      "cases": 735,
+      "overlap_with_screen": 0
+    },
+    "secondary_pooled_subset": {
+      "rule": "full 980 cases (not described as fully independent)",
+      "cases": 980
+    }
+  },
+  "seeds": [2026, 2027, 2028],
+  "noise_rates": [0.0, 0.1, 0.2, 0.3],
+  "max_total_turns": 15,
+  "frozen_config": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "suspicious_report_threshold": 0.05,
+    "verification_cost": 0.03,
+    "minimum_unreliable_history_cues_for_verification": 1,
+    "maximum_verifications": 1,
+    "retrieval_mode": "dynamic_rag",
+    "retrieval_top_k": 10,
+    "query_disease_top_k": 5,
+    "retrieval_impact_weight": 1.0,
+    "note": "weight, gate threshold, and stop thresholds are FROZEN; no tuning this phase"
+  },
+  "configs": [
+    {"label": "rank_only_w0.0", "gate_mode": "rank_only", "retrieval_impact_weight": 0.0, "role": "control"},
+    {"label": "rank_only_w1.0", "gate_mode": "rank_only", "retrieval_impact_weight": 1.0, "role": "retrieval ranking only"},
+    {"label": "joint_gate_w1.0", "gate_mode": "joint_gate", "retrieval_impact_weight": 1.0, "role": "full VeriMedRAG decision mechanism"}
+  ],
+  "pairwise_comparisons": [
+    {"name": "ranking contribution", "a": "rank_only_w1.0", "b": "rank_only_w0.0"},
+    {"name": "gating additional contribution", "a": "joint_gate_w1.0", "b": "rank_only_w1.0"},
+    {"name": "total contribution", "a": "joint_gate_w1.0", "b": "rank_only_w0.0"}
+  ],
+  "counterfactual": {
+    "operations": ["delete"],
+    "weaken_used": false,
+    "flip_used": false,
+    "note": "formal path is delete-only; do not claim delete/weaken/flip were all used"
+  },
+  "statistics": {
+    "analysis_unit": "case-level paired",
+    "bootstrap": {
+      "unit": "case_id",
+      "seeds_resampled_together": true,
+      "stratified": "within disease",
+      "repetitions": 10000,
+      "seed": 2026,
+      "levels": ["noise=0.2", "noise=0.3", "pooled 0.2/0.3"],
+      "output": "paired delta + 95% CI"
+    },
+    "top1_extra": "paired wrong->correct / correct->wrong counts + McNemar (supplementary)",
+    "triggered_precision_ci": "Wilson 95% CI",
+    "ece_bins": 15,
+    "ece_bins_type": "equal-width"
+  },
+  "acceptance_criteria": {
+    "judged_on": "735-case primary confirmation subset",
+    "go_requires": [
+      {"id": 1, "criterion": "pooled noise 0.2/0.3 Brier paired delta < 0 AND 95% CI upper bound < 0"},
+      {"id": 2, "criterion": "Top-1 non-inferior: paired delta 95% CI lower bound >= -0.005"},
+      {"id": 3, "criterion": "mean total atomic questions increase <= 0.25"},
+      {"id": 4, "criterion": "unnecessary verification rate direction = decrease"},
+      {"id": 5, "criterion": "conflict resolution rate direction = increase"},
+      {"id": 6, "criterion": "retrieval-triggered verification precision clearly above candidate misreport base rate"},
+      {"id": 7, "criterion": "at least one primary clinical/safety endpoint improves NOT solely via more questions"}
+    ],
+    "verdicts": {
+      "all_met": "Go",
+      "brier_significant_and_top1_non_inferior_but_efficiency_unstable": "Conditional Go",
+      "brier_advantage_gone_or_top1_clearly_degraded": "No-Go",
+      "only_trajectory_change_no_clinical_calibration_or_safety_benefit": "No-Go"
+    },
+    "note": "these criteria are written BEFORE running and must not be changed after seeing results"
+  },
+  "red_lines": [
+    "no DDXPlus test access",
+    "no re-tuning of weights / gate thresholds / stop thresholds",
+    "no new model or policy",
+    "no LLM / dense retriever / SFT / RL",
+    "no modification of existing formal results",
+    "no overwriting Phase 2A/2B artifacts",
+    "no modification of preregistered success criteria",
+    "full N=20 not described as fully independent confirmation set",
+    "no evaluation truth in action decisions",
+    "no git commit",
+    "no changing Go/No-Go thresholds based on results"
+  ]
+}

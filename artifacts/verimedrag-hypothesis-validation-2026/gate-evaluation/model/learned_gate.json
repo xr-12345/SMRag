@@ -1,0 +1,42 @@
+{
+  "activation_threshold": 0.01,
+  "calibration_intercept": 0.047885532845092296,
+  "calibration_slope": 1.1116432966269276,
+  "coefficients": {
+    "diagnostic_impact": 0.3159046200339903,
+    "direct_conflicts": 0.0,
+    "extraction_uncertainty": 0.0,
+    "history_unreliable_fraction": 0.21809204817548752,
+    "is_uncertain": -0.16273232286700515,
+    "is_unknown": -0.2931963250761292,
+    "normalized_belief_entropy": -0.08706447510037954,
+    "surprisal": 0.6783607499225989,
+    "top_probability": 0.08757329426529585
+  },
+  "conflict_cap": 0.4,
+  "feature_means": {
+    "diagnostic_impact": 0.1443068447840144,
+    "direct_conflicts": 0.0,
+    "extraction_uncertainty": 0.0,
+    "history_unreliable_fraction": 0.08965922158940748,
+    "is_uncertain": 0.03925503450218279,
+    "is_unknown": 0.07542599633854387,
+    "normalized_belief_entropy": 0.25897197697518465,
+    "surprisal": 0.8333697512369667,
+    "top_probability": 0.6985970676027671
+  },
+  "feature_scales": {
+    "diagnostic_impact": 0.2007058716657108,
+    "direct_conflicts": 1e-06,
+    "extraction_uncertainty": 1e-06,
+    "history_unreliable_fraction": 0.1260937233572938,
+    "is_uncertain": 0.19420112452922414,
+    "is_unknown": 0.26407747994647673,
+    "normalized_belief_entropy": 0.2856235606214508,
+    "surprisal": 0.9198674184224047,
+    "top_probability": 0.3395196285408629
+  },
+  "intercept": -3.4273943563765252,
+  "minimum_probability": 0.005,
+  "single_answer_cap": 0.15
+}

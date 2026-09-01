@@ -1,0 +1,28 @@
+{
+  "phase": "VeriMedRAG minimal RAG, phase 1 (modules + tests + N=1 smoke)",
+  "git_head": "e661311",
+  "python": "3.13.13 (miniforge)",
+  "corpus": "data/medrag-textbooks (official MedRAG Textbooks, 18 books, 125847 snippets, 209MB)",
+  "retrieval": {
+    "method": "Okapi BM25 (pure Python, k1=1.5, b=0.75)",
+    "tokenizer": "lowercase [a-z0-9]+",
+    "query_disease_top_k": 5,
+    "retrieval_top_k": 10,
+    "cache": "per-query list of (snippet_id, score) in-memory"
+  },
+  "smoke_freeze": {
+    "case": "first release_validate_patients.zip case (case_id=0, Anemia)",
+    "noise_rate": 0.2,
+    "seed": 2026,
+    "max_total_turns": 8,
+    "retrieval_impact_weight": 0.5,
+    "modes": ["no_rag", "static_rag", "dynamic_rag"]
+  },
+  "red_lines_honoured": [
+    "release_validate_patients.zip only (never release_test_patients.zip)",
+    "no oracle_selection / oracle_correction (policy never reads latent state)",
+    "no LLM, no dense retriever, no SFT/RL",
+    "new artifacts directory only (no overwrite of prior results)",
+    "no git commit"
+  ]
+}

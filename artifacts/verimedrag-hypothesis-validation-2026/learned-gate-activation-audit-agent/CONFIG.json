@@ -1,0 +1,57 @@
+{
+  "protocol_version": "1.0",
+  "phase": "learned-gate activation audit (frozen primary point)",
+  "frozen_on": "2026-08-31",
+  "question": "does using the learned gate's activation_threshold=0.01 to OPEN VerifyOld (not merely rescore it) change Prompt #8's NO-GO?",
+  "git": {
+    "HEAD": "e661311f91510df39018d04d9c966a110b836018",
+    "branch": "main",
+    "uncommitted_changes": [
+      "src/powerful_medrag/cli.py",
+      "src/powerful_medrag/decision.py",
+      "src/powerful_medrag/reliability_experiment.py",
+      "tests/test_decision.py",
+      "tests/test_reliability_experiment.py (untracked)"
+    ],
+    "diff_snapshot": "git_diff.txt"
+  },
+  "gate_model": {
+    "path": "gate-evaluation/model/learned_gate.json",
+    "label": "harmful_misreport",
+    "activation_threshold": 0.01,
+    "frozen": true,
+    "retrained_or_recalibrated_this_phase": false
+  },
+  "fix_under_review": {
+    "description": "learned risk exceeding activation_threshold can OPEN VerifyOld even when the history reliability cue gate is closed; UNKNOWN and already-verified reports cannot trigger; reports and report_risks are strictly one-to-one.",
+    "files": [
+      "src/powerful_medrag/decision.py",
+      "src/powerful_medrag/reliability_experiment.py",
+      "src/powerful_medrag/cli.py",
+      "tests/test_decision.py",
+      "tests/test_reliability_experiment.py"
+    ]
+  },
+  "frozen_parameters": {
+    "posterior_threshold": 0.85,
+    "cases_per_disease": 20,
+    "sample_seed": 2026,
+    "seeds": [2026, 2027, 2028],
+    "noise_rates": [0.0, 0.1, 0.2, 0.3],
+    "max_total_turns": 15,
+    "margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "verification_cost": 0.03,
+    "minimum_history_cues": 1,
+    "maximum_verifications": 1
+  },
+  "strategies": ["joint_new_verify_stop", "joint_learned_gate"],
+  "output": "learned-gate-activation-audit-agent/seed-<SEED>/ddxplus_reliability_outcomes.csv",
+  "expected_case_records_total": 23520,
+  "baseline_reference": {
+    "source": "matched-budget/reliability-sweep/t085/ (frozen)",
+    "regression": "new joint_new_verify_stop must be byte-identical to frozen t085 joint"
+  },
+  "preregistered_success_criteria": "configs/preregistered_success_criteria.json (frozen, unmodified)",
+  "test_split_policy": "NOT accessed (input is release_validate_patients.zip only)"
+}

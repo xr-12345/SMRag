@@ -1,0 +1,4 @@
+config,n_candidates,n_comparable_candidates,candidate_misreport_base_rate,n_triggered_verifications,n_triggered_comparable,triggered_precision,triggered_precision_wilson_low,triggered_precision_wilson_high,precision_enrichment,case_outcomes_triggered_verifications,case_outcomes_triggered_hits,avg_normalized_retrieval_impact
+rank_only_w0.0,78969,78969,0.089035,0,0,0.0,0.0,0.0,0.0,0,0,0.17941
+rank_only_w1.0,61923,61923,0.075142,0,0,0.0,0.0,0.0,0.0,0,0,0.178913
+joint_gate_w1.0,62446,62446,0.076946,554,554,0.617329,0.576178,0.656863,8.0228,554,317,0.184897

@@ -1,0 +1,11 @@
+{
+  "case_id_semantics": "str(0-based data-row index within the validate CSV; 0 == first data row after header)",
+  "normalization": "PATHOLOGY|AGE|SEX|sorted(DIFFERENTIAL_DIAGNOSIS)|sorted(EVIDENCES)|INITIAL_EVIDENCE, SHA256[:16]",
+  "train_rows": 1025602,
+  "train_unique_normalized_hashes": 1015440,
+  "validate_rows": 132448,
+  "validate_normalized_exact_duplicates_in_train": 1643,
+  "manifest_cases": 980,
+  "manifest_exact_train_duplicates": 31,
+  "missing_case_ids": []
+}

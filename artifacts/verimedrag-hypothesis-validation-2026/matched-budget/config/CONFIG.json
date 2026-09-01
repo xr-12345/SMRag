@@ -1,0 +1,64 @@
+{
+  "protocol_version": "1.0",
+  "phase": "prompt-6 matched-budget Pareto + identification/correction bottleneck decomposition",
+  "frozen_on": "2026-08-30",
+  "git": {
+    "HEAD": "e661311f91510df39018d04d9c966a110b836018",
+    "branch": "main",
+    "uncommitted_changes": [
+      "src/powerful_medrag/cli.py",
+      "src/powerful_medrag/decision.py",
+      "src/powerful_medrag/reliability_experiment.py",
+      "tests/test_decision.py",
+      "tests/test_reliability_experiment.py"
+    ],
+    "diff_snapshot": "config/git_diff.txt"
+  },
+  "frozen_parameters": {
+    "cases_per_disease": 20,
+    "sample_seed": 2026,
+    "seeds": [2026, 2027, 2028],
+    "noise_rates": [0.0, 0.1, 0.2, 0.3],
+    "max_total_turns": 15,
+    "posterior_thresholds": [0.60, 0.70, 0.80, 0.85, 0.90, 0.95],
+    "margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "verification_cost": 0.03,
+    "minimum_history_cues": 1,
+    "maximum_verifications": 1
+  },
+  "reliability_sweep": {
+    "command": "benchmark-reliability-ddxplus",
+    "strategies": [
+      "full_two_layer",
+      "joint_new_verify_stop",
+      "oracle_verify",
+      "oracle_select_same_channel"
+    ],
+    "parallelization": "18 processes = 6 thresholds x 3 seeds; single seed per process",
+    "expected_case_records_per_threshold": 47040,
+    "expected_case_records_total": 282240,
+    "output": "reliability-sweep/t0XX/seed-YYYY/ddxplus_reliability_outcomes.csv"
+  },
+  "retro_sweep": {
+    "command": "clarify-ddxplus",
+    "variants": ["retro_utility_u050_b1"],
+    "thresholds": [0.60, 0.70, 0.80, 0.85, 0.90, 0.95],
+    "seeds": [2026, 2027, 2028],
+    "expected_case_records_per_seed": 23520,
+    "expected_case_records_total": 70560,
+    "output": "retro-sweep/seed-YYYY/"
+  },
+  "fixes_this_phase": [
+    "threshold propagation: non-joint StopRule now reads policy_config.posterior_threshold (was hardcoded 0.85)",
+    "oracle_selection / oracle_correction split replaces the single oracle_verification bool",
+    "new oracle_select_same_channel upper bound = perfect selection + normal re-ask channel"
+  ],
+  "preregistered_success_criteria": "configs/preregistered_success_criteria.json (frozen, unmodified)",
+  "test_split_policy": "NOT accessed in this phase (inputs are release_validate_patients.zip only)",
+  "oracle_semantics": {
+    "oracle_verify": "oracle detection + oracle correction upper bound",
+    "oracle_select_same_channel": "oracle detection + normal re-ask channel upper bound",
+    "joint_new_verify_stop": "deployable retrospective detection + normal re-ask"
+  }
+}

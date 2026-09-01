@@ -1,0 +1,791 @@
+diff --git a/src/powerful_medrag/cli.py b/src/powerful_medrag/cli.py
+index e457449..ce50a36 100644
+--- a/src/powerful_medrag/cli.py
++++ b/src/powerful_medrag/cli.py
+@@ -678,6 +678,16 @@ def _benchmark_reliability_ddxplus_command(args: argparse.Namespace) -> int:
+         seed=args.sample_seed,
+         available_features=askable_features,
+     )
++    learned_gate = None
++    if "joint_learned_gate" in tuple(args.strategies):
++        if args.learned_verification_gate is None:
++            raise ValueError(
++                "joint_learned_gate requires --learned-verification-gate <json>"
++            )
++        from .gate_learning import load_learned_gate
++
++        learned_gate = load_learned_gate(args.learned_verification_gate)
++        print(f"loaded learned verification gate: {args.learned_verification_gate}")
+     print(
+         f"reliability benchmark: {len(cases)} cases; sample seed={args.sample_seed}",
+         flush=True,
+@@ -689,6 +699,7 @@ def _benchmark_reliability_ddxplus_command(args: argparse.Namespace) -> int:
+         seeds=tuple(args.seeds),
+         max_total_turns=args.max_total_turns,
+         strategies=tuple(args.strategies),
++        learned_verification_gate=learned_gate,
+         policy_config=ReliabilityAwarePolicyConfig(
+             posterior_threshold=args.policy_posterior_threshold,
+             posterior_margin_threshold=args.policy_margin_threshold,
+@@ -996,6 +1007,8 @@ def build_parser() -> argparse.ArgumentParser:
+             "full_two_layer",
+             "adaptive_history",
+             "joint_new_verify_stop",
++            "oracle_verify",
++            "oracle_select_same_channel",
+         ],
+         choices=(
+             "random_reliable",
+@@ -1003,8 +1016,17 @@ def build_parser() -> argparse.ArgumentParser:
+             "full_two_layer",
+             "adaptive_history",
+             "joint_new_verify_stop",
++            "joint_learned_gate",
++            "oracle_verify",
++            "oracle_select_same_channel",
+         ),
+     )
++    reliability_parser.add_argument(
++        "--learned-verification-gate",
++        type=Path,
++        default=None,
++        help="LearnedMisreportGate JSON (from gate_learning) used by joint_learned_gate",
++    )
+     reliability_parser.add_argument(
+         "--policy-posterior-threshold", type=float, default=0.85
+     )
+diff --git a/src/powerful_medrag/decision.py b/src/powerful_medrag/decision.py
+index 151dd36..5f68197 100644
+--- a/src/powerful_medrag/decision.py
++++ b/src/powerful_medrag/decision.py
+@@ -16,10 +16,12 @@ from .belief import BeliefTracker
+ from .channel import ReportMode
+ from .clarification import (
+     RetrospectiveClarificationProtocol,
++    RetrospectiveScore,
+     SurprisalClarificationProtocol,
+ )
++from .gating import LearnedMisreportGate
+ from .questioning import NumpyQuestionSelector, QuestionScore, QuestionSelector
+-from .schema import UNKNOWN, FeatureKey, Observation, VariableSpec
++from .schema import UNKNOWN, CertaintyCue, FeatureKey, Observation, VariableSpec
+ from .simulator import StructuredPatientSimulator
+ 
+ 
+@@ -155,10 +157,16 @@ class ReliabilityAwareActionPolicy:
+         selector: QuestionSelector | None = None,
+         config: ReliabilityAwarePolicyConfig | None = None,
+         safety_constraint: SafetyConstraint | None = None,
++        oracle_selection: bool = False,
++        oracle_correction: bool = False,
++        verification_risk_gate: LearnedMisreportGate | None = None,
+     ) -> None:
+         self.selector = selector or NumpyQuestionSelector()
+         self.config = config or ReliabilityAwarePolicyConfig()
+         self.safety_constraint = safety_constraint
++        self.oracle_selection = oracle_selection
++        self.oracle_correction = oracle_correction
++        self.verification_risk_gate = verification_risk_gate
+         self.retrospective = RetrospectiveClarificationProtocol(
+             score_threshold=0.0,
+             max_clarifications=max(1, self.config.maximum_verifications),
+@@ -174,6 +182,8 @@ class ReliabilityAwareActionPolicy:
+         asked: set[FeatureKey],
+         verified_report_indices: set[int],
+         verification_count: int,
++        oracle_states: Mapping[FeatureKey, str] | None = None,
++        report_risks: tuple[float, ...] = (),
+     ) -> list[ActionScore]:
+         actions: list[ActionScore] = []
+         for question in self.selector.rank(tracker, excluded=asked):
+@@ -187,18 +197,48 @@ class ReliabilityAwareActionPolicy:
+             unreliable_history_cues
+             >= self.config.minimum_unreliable_history_cues_for_verification
+         )
++        if self.verification_risk_gate is not None:
++            if len(report_risks) != len(reports):
++                raise ValueError(
++                    "learned verification risks must align one-to-one with reports"
++                )
++            verification_gate_open = verification_gate_open or any(
++                index not in verified_report_indices
++                and report.value != UNKNOWN
++                and report_risks[index]
++                > self.verification_risk_gate.activation_threshold
++                for index, report in enumerate(reports)
++            )
++        if self.oracle_selection and oracle_states is not None:
++            verification_gate_open = True
+         if (
+             verification_count < self.config.maximum_verifications
+             and reports
+             and verification_gate_open
+         ):
+-            scores = self.retrospective.rank(
+-                tracker.model,
+-                initial_observations,
+-                reports,
+-                excluded=verified_report_indices,
+-            )
+-            actions.extend(self._verification_action(score) for score in scores)
++            if self.oracle_selection and oracle_states is not None:
++                for index in _oracle_wrong_reports(
++                    reports, verified_report_indices, oracle_states
++                ):
++                    actions.append(
++                        ActionScore(
++                            kind=ActionKind.VERIFY,
++                            utility=1.0,
++                            report_index=index,
++                            explanation=(
++                                "oracle verification of a truly-misreported answer"
++                            ),
++                        )
++                    )
++            else:
++                scores = self._verification_scores(
++                    tracker,
++                    initial_observations=initial_observations,
++                    reports=reports,
++                    verified_report_indices=verified_report_indices,
++                    report_risks=report_risks,
++                )
++                actions.extend(self._verification_action(score) for score in scores)
+         return sorted(actions, key=lambda action: action.utility, reverse=True)
+ 
+     def choose_action(
+@@ -210,6 +250,8 @@ class ReliabilityAwareActionPolicy:
+         asked: set[FeatureKey],
+         verified_report_indices: set[int],
+         verification_count: int,
++        oracle_states: Mapping[FeatureKey, str] | None = None,
++        report_risks: tuple[float, ...] = (),
+     ) -> ActionScore:
+         actions = self.rank_actions(
+             tracker,
+@@ -218,19 +260,32 @@ class ReliabilityAwareActionPolicy:
+             asked=asked,
+             verified_report_indices=verified_report_indices,
+             verification_count=verification_count,
++            oracle_states=oracle_states,
++            report_risks=report_risks,
+         )
+         best = actions[0] if actions else None
+-        all_report_scores = (
+-            self.retrospective.rank(
+-                tracker.model,
+-                initial_observations,
+-                reports,
+-                excluded=verified_report_indices,
++        if self.oracle_selection and oracle_states is not None:
++            suspicious = (
++                1.0
++                if verification_count < self.config.maximum_verifications
++                and _oracle_wrong_reports(
++                    reports, verified_report_indices, oracle_states
++                )
++                else 0.0
+             )
+-            if reports
+-            else []
+-        )
+-        suspicious = max((score.score for score in all_report_scores), default=0.0)
++        else:
++            all_report_scores = (
++                self._verification_scores(
++                    tracker,
++                    initial_observations=initial_observations,
++                    reports=reports,
++                    verified_report_indices=verified_report_indices,
++                    report_risks=report_risks,
++                )
++                if reports
++                else []
++            )
++            suspicious = max((score.score for score in all_report_scores), default=0.0)
+         ranked = tracker.ranked_diseases()
+         top_probability = ranked[0][1]
+         margin = top_probability - (ranked[1][1] if len(ranked) > 1 else 0.0)
+@@ -274,6 +329,41 @@ class ReliabilityAwareActionPolicy:
+             explanation="expected disease entropy reduction minus new-question burden",
+         )
+ 
++    def _verification_scores(
++        self,
++        tracker: BeliefTracker,
++        *,
++        initial_observations: tuple[Observation, ...],
++        reports: tuple[Observation, ...],
++        verified_report_indices: set[int],
++        report_risks: tuple[float, ...],
++    ) -> list[RetrospectiveScore]:
++        scores = self.retrospective.rank(
++            tracker.model,
++            initial_observations,
++            reports,
++            excluded=verified_report_indices,
++        )
++        if self.verification_risk_gate is None:
++            return scores
++        if len(report_risks) != len(reports):
++            raise ValueError(
++                "learned verification risks must align one-to-one with reports"
++            )
++        replaced: list[RetrospectiveScore] = []
++        for score in scores:
++            index = score.report_index
++            learned_risk = report_risks[index]
++            replaced.append(
++                RetrospectiveScore(
++                    report_index=index,
++                    error_probability=learned_risk,
++                    diagnostic_influence=score.diagnostic_influence,
++                    score=learned_risk * score.diagnostic_influence,
++                )
++            )
++        return replaced
++
+     def _verification_action(self, score) -> ActionScore:
+         reliability_gain = _binary_entropy(score.error_probability)
+         disease_gain = score.error_probability * score.diagnostic_influence
+@@ -310,6 +400,7 @@ def run_reliability_aware_dialogue(
+         tracker.update(observation)
+     asked = {observation.key for observation in initial_observations}
+     reports: list[Observation] = []
++    report_risks: list[float] = []
+     verified: set[int] = set()
+     turns: list[PolicyTurn] = []
+     verification_count = 0
+@@ -324,6 +415,12 @@ def run_reliability_aware_dialogue(
+             asked=asked,
+             verified_report_indices=verified,
+             verification_count=verification_count,
++            oracle_states=(
++                patient.latent_states
++                if policy.oracle_selection or policy.oracle_correction
++                else None
++            ),
++            report_risks=tuple(report_risks),
+         )
+         if action.kind == ActionKind.STOP:
+             stop_reason = action.explanation
+@@ -333,7 +430,13 @@ def run_reliability_aware_dialogue(
+             if action.key is None:
+                 raise RuntimeError("new-question action lacks a feature key")
+             observation, true_mode = patient.answer(action.key)
++            learned_risk = 0.0
++            if policy.verification_risk_gate is not None:
++                learned_risk = policy.verification_risk_gate.probability(
++                    tracker, observation
++                )
+             reports.append(observation)
++            report_risks.append(learned_risk)
+             tracker.update(observation)
+             asked.add(action.key)
+             turns.append(
+@@ -351,9 +454,21 @@ def run_reliability_aware_dialogue(
+         if report_index is None or report_index >= len(reports):
+             raise RuntimeError("verification action has an invalid report index")
+         original = reports[report_index]
+-        clarification, true_mode = patient.answer(original.key)
+-        resolved = SurprisalClarificationProtocol.resolve(original, clarification)
+-        true_state = patient.latent_states.get(original.key, UNKNOWN)
++        if policy.oracle_correction:
++            true_state = patient.latent_states.get(original.key, UNKNOWN)
++            clarification = Observation(
++                key=original.key,
++                value=true_state,
++                certainty=(
++                    CertaintyCue.CERTAIN if true_state != UNKNOWN else CertaintyCue.NONE
++                ),
++            )
++            true_mode = ReportMode.CERTAIN
++            resolved = clarification
++        else:
++            clarification, true_mode = patient.answer(original.key)
++            resolved = SurprisalClarificationProtocol.resolve(original, clarification)
++            true_state = patient.latent_states.get(original.key, UNKNOWN)
+         original_wrong = (
+             true_state != UNKNOWN
+             and original.value != UNKNOWN
+@@ -438,3 +553,23 @@ def _binary_entropy(probability: float) -> float:
+     return -probability * math.log2(probability) - (1 - probability) * math.log2(
+         1 - probability
+     )
++
++
++def _oracle_wrong_reports(
++    reports: tuple[Observation, ...],
++    verified_report_indices: set[int],
++    oracle_states: Mapping[FeatureKey, str],
++) -> list[int]:
++    """Indices of reports whose value disagrees with the true state.
++
++    Oracle-only bookkeeping: it reads the simulator's privileged true state
++    (``oracle_states``), so it must never be used by a deployable policy.
++    """
++    wrong: list[int] = []
++    for index, report in enumerate(reports):
++        if index in verified_report_indices or report.value == UNKNOWN:
++            continue
++        true_state = oracle_states.get(report.key, UNKNOWN)
++        if true_state != UNKNOWN and report.value != true_state:
++            wrong.append(index)
++    return wrong
+diff --git a/src/powerful_medrag/reliability_experiment.py b/src/powerful_medrag/reliability_experiment.py
+index 272dc3f..5db4f51 100644
+--- a/src/powerful_medrag/reliability_experiment.py
++++ b/src/powerful_medrag/reliability_experiment.py
+@@ -18,7 +18,7 @@ from .decision import (
+ )
+ from .estimation import DiseaseStateModel
+ from .gate_analysis import _expected_calibration_error
+-from .gating import HistoryReliabilityMisreportGate
++from .gating import HistoryReliabilityMisreportGate, LearnedMisreportGate
+ from .questioning import NumpyQuestionSelector, RandomQuestionSelector
+ from .schema import ClinicalCase
+ from .simulator import (
+@@ -79,6 +79,7 @@ def run_reliability_experiment(
+     seeds: tuple[int, ...] = (2026, 2027, 2028),
+     max_total_turns: int = 8,
+     policy_config: ReliabilityAwarePolicyConfig | None = None,
++    learned_verification_gate: LearnedMisreportGate | None = None,
+     strategies: tuple[str, ...] = (
+         "random_reliable",
+         "ordinary_eig_reliable",
+@@ -96,10 +97,18 @@ def run_reliability_experiment(
+         "full_two_layer",
+         "adaptive_history",
+         "joint_new_verify_stop",
++        "joint_learned_gate",
++        "oracle_verify",
++        "oracle_select_same_channel",
+     }
+     unknown_strategies = set(strategies) - allowed_strategies
+     if not strategies or unknown_strategies:
+         raise ValueError(f"unknown reliability strategies: {sorted(unknown_strategies)}")
++    if "joint_learned_gate" in strategies and learned_verification_gate is None:
++        raise ValueError(
++            "joint_learned_gate requires a learned_verification_gate "
++            "(load it via gate_learning.load_learned_gate)"
++        )
+     rows: list[ReliabilityCaseOutcome] = []
+     for seed in seeds:
+         for noise_rate in noise_rates:
+@@ -113,7 +122,12 @@ def run_reliability_experiment(
+                         profile=PatientProfile.from_noise_rate(noise_rate),
+                         seed=paired_seed,
+                     )
+-                    if strategy == "joint_new_verify_stop":
++                    if strategy in (
++                        "joint_new_verify_stop",
++                        "joint_learned_gate",
++                        "oracle_verify",
++                        "oracle_select_same_channel",
++                    ):
+                         tracker = BeliefTracker(
+                             model,
+                             answer_channel_without_misreport(),
+@@ -125,7 +139,17 @@ def run_reliability_experiment(
+                                 or ReliabilityAwarePolicyConfig(
+                                     max_total_turns=max_total_turns,
+                                 )
+-                            )
++                            ),
++                            oracle_selection=(
++                                strategy
++                                in ("oracle_verify", "oracle_select_same_channel")
++                            ),
++                            oracle_correction=(strategy == "oracle_verify"),
++                            verification_risk_gate=(
++                                learned_verification_gate
++                                if strategy == "joint_learned_gate"
++                                else None
++                            ),
+                         )
+                         result = run_reliability_aware_dialogue(
+                             patient,
+@@ -168,7 +192,11 @@ def run_reliability_experiment(
+                             selector=selector,
+                             stop_rule=StopRule(
+                                 max_questions=max_total_turns,
+-                                posterior_threshold=0.85,
++                                posterior_threshold=(
++                                    policy_config.posterior_threshold
++                                    if policy_config is not None
++                                    else 0.85
++                                ),
+                                 entropy_threshold=0.0,
+                                 minimum_question_utility=0.0,
+                             ),
+diff --git a/tests/test_decision.py b/tests/test_decision.py
+index 6d37c7a..3c4dcf9 100644
+--- a/tests/test_decision.py
++++ b/tests/test_decision.py
+@@ -1,20 +1,54 @@
+ import unittest
+ 
+ from powerful_medrag.belief import BeliefTracker
++from powerful_medrag.channel import (
++    AnswerChannel,
++    ChannelParameters,
++    ModeRates,
++    ReportMode,
++)
+ from powerful_medrag.decision import (
+     ActionKind,
+     ReliabilityAwareActionPolicy,
+     ReliabilityAwarePolicyConfig,
+     RequiredFeatureSafetyConstraint,
++    _oracle_wrong_reports,
+     clarification_question,
+     run_reliability_aware_dialogue,
+ )
+ from powerful_medrag.demo_data import generate_toy_cases
+ from powerful_medrag.estimation import DiseaseStateModel
++from powerful_medrag.gating import LEARNED_GATE_FEATURES, LearnedMisreportGate
+ from powerful_medrag.schema import CertaintyCue, FeatureKey, Observation
+ from powerful_medrag.simulator import PatientProfile, StructuredPatientSimulator
+ 
+ 
++def _constant_learned_gate() -> LearnedMisreportGate:
++    """A degenerate-but-valid gate returning a constant probability (0.15)."""
++    return LearnedMisreportGate(
++        intercept=0.0,
++        coefficients={feature: 0.0 for feature in LEARNED_GATE_FEATURES},
++    )
++
++
++class _RecordingGate:
++    """Wraps a gate, snapshotting the tracker the moment ``probability`` runs."""
++
++    def __init__(self, inner: LearnedMisreportGate):
++        self.inner = inner
++        self.activation_threshold = inner.activation_threshold
++        self.calls: list[tuple[Observation, tuple[Observation, ...]]] = []
++
++    def probability(self, tracker, observation) -> float:
++        self.calls.append(
++            (
++                observation,
++                tuple(update.observation for update in tracker.history),
++            )
++        )
++        return self.inner.probability(tracker, observation)
++
++
+ class ReliabilityAwareDecisionTests(unittest.TestCase):
+     def setUp(self):
+         cases, specs = generate_toy_cases(cases_per_disease=30, seed=41)
+@@ -98,6 +132,311 @@ class ReliabilityAwareDecisionTests(unittest.TestCase):
+         self.assertIn("不知道", prompt)
+         self.assertNotIn("说错", prompt)
+ 
++    def test_oracle_wrong_reports_flags_only_truly_wrong_values(self):
++        key = FeatureKey("fever")
++        states = {key: "present"}
++        wrong = Observation(key, "absent", certainty=CertaintyCue.CERTAIN)
++        right = Observation(key, "present", certainty=CertaintyCue.CERTAIN)
++        self.assertEqual(_oracle_wrong_reports((wrong, right), set(), states), [0])
++        self.assertEqual(_oracle_wrong_reports((wrong,), {0}, states), [])
++        self.assertEqual(
++            _oracle_wrong_reports(
++                (Observation(key, "__unknown__", certainty=CertaintyCue.NONE),), set(), states
++            ),
++            [],
++        )
++
++    def test_oracle_verification_ranks_verify_for_wrong_report(self):
++        key = FeatureKey("fever")
++        states = {key: "present"}
++        patient = StructuredPatientSimulator(
++            diagnosis=self.case.diagnosis,
++            latent_states=self.case.states,
++            model=self.model,
++            profile=PatientProfile.from_noise_rate(0.0),
++            seed=1,
++        )
++        tracker = BeliefTracker(self.model)
++        policy = ReliabilityAwareActionPolicy(
++            oracle_selection=True, oracle_correction=True
++        )
++        wrong = Observation(key, "absent", certainty=CertaintyCue.CERTAIN)
++        actions = policy.rank_actions(
++            tracker,
++            initial_observations=(),
++            reports=(wrong,),
++            asked={key},
++            verified_report_indices=set(),
++            verification_count=0,
++            oracle_states=states,
++        )
++        verify = [action for action in actions if action.kind == ActionKind.VERIFY]
++        self.assertTrue(verify)
++        self.assertEqual(verify[0].report_index, 0)
++        self.assertEqual(verify[0].utility, 1.0)
++
++    def test_oracle_select_same_channel_ranks_verify_without_correction(self):
++        # Perfect selection alone (no oracle correction) still flags the wrong
++        # report for verification — the same selection used by oracle_verify.
++        key = FeatureKey("fever")
++        states = {key: "present"}
++        tracker = BeliefTracker(self.model)
++        policy = ReliabilityAwareActionPolicy(
++            oracle_selection=True, oracle_correction=False
++        )
++        wrong = Observation(key, "absent", certainty=CertaintyCue.CERTAIN)
++        actions = policy.rank_actions(
++            tracker,
++            initial_observations=(),
++            reports=(wrong,),
++            asked={key},
++            verified_report_indices=set(),
++            verification_count=0,
++            oracle_states=states,
++        )
++        verify = [action for action in actions if action.kind == ActionKind.VERIFY]
++        self.assertTrue(verify)
++        self.assertEqual(verify[0].report_index, 0)
++        self.assertEqual(verify[0].utility, 1.0)
++
++    def test_oracle_dialogue_resolves_a_wrong_report(self):
++        key = FeatureKey("fever")
++        # Force one latent state to "present" so a CERTAIN "absent" is a misreport.
++        states = dict(self.case.states)
++        states[key] = "present"
++        patient = StructuredPatientSimulator(
++            diagnosis=self.case.diagnosis,
++            latent_states=states,
++            model=self.model,
++            profile=PatientProfile.from_noise_rate(0.0),
++            seed=1,
++        )
++        policy = ReliabilityAwareActionPolicy(
++            config=ReliabilityAwarePolicyConfig(max_total_turns=4),
++            oracle_selection=True,
++            oracle_correction=True,
++        )
++        result = run_reliability_aware_dialogue(patient, policy=policy)
++        self.assertGreaterEqual(result.verification_questions, 0)
++        self.assertLessEqual(len(result.turns), 4)
++        self.assertEqual(
++            len(result.turns),
++            result.new_questions + result.verification_questions,
++        )
++
++    def test_oracle_selection_and_correction_are_independent(self):
++        # A patient whose channel always misreports lets us observe the two
++        # correction channels: oracle_correction substitutes the true latent
++        # state, while the same-channel correction re-asks the patient (which
++        # here keeps misreporting) instead of reading latent_states.
++        def run(oracle_correction: bool):
++            key = FeatureKey("fever")
++            states = dict(self.case.states)
++            states[key] = "present"
++            profile = PatientProfile(
++                mode_prior={
++                    ReportMode.CERTAIN: 0.0,
++                    ReportMode.UNCERTAIN: 0.0,
++                    ReportMode.UNKNOWN: 0.0,
++                    ReportMode.MISREPORTED: 1.0,
++                }
++            )
++            channel = AnswerChannel(
++                ChannelParameters(
++                    rates={
++                        mode: ModeRates(correct=0.0, unknown=0.0, wrong=1.0)
++                        for mode in ReportMode
++                    }
++                )
++            )
++            patient = StructuredPatientSimulator(
++                diagnosis=self.case.diagnosis,
++                latent_states=states,
++                model=self.model,
++                channel=channel,
++                profile=profile,
++                seed=1,
++            )
++            policy = ReliabilityAwareActionPolicy(
++                config=ReliabilityAwarePolicyConfig(max_total_turns=6),
++                oracle_selection=True,
++                oracle_correction=oracle_correction,
++            )
++            return patient, run_reliability_aware_dialogue(patient, policy=policy)
++
++        patient_oracle, oracle_result = run(oracle_correction=True)
++        patient_channel, channel_result = run(oracle_correction=False)
++
++        oracle_verifies = [
++            turn
++            for turn in oracle_result.turns
++            if turn.action.kind == ActionKind.VERIFY
++        ]
++        channel_verifies = [
++            turn
++            for turn in channel_result.turns
++            if turn.action.kind == ActionKind.VERIFY
++        ]
++        self.assertTrue(oracle_verifies)
++        self.assertTrue(channel_verifies)
++        for turn in oracle_verifies:
++            self.assertEqual(
++                turn.observation.value,
++                patient_oracle.latent_states[turn.observation.key],
++            )
++        for turn in channel_verifies:
++            # Same-channel correction never reads latent_states: it re-asks the
++            # always-misreporting patient, so the resolved value stays wrong.
++            self.assertNotEqual(
++                turn.observation.value,
++                patient_channel.latent_states[turn.observation.key],
++            )
++
++    def test_learned_gate_replaces_verification_error_probability(self):
++        tracker = BeliefTracker(self.model)
++        policy = ReliabilityAwareActionPolicy(
++            config=ReliabilityAwarePolicyConfig(
++                verification_cost=0.0,
++                decision_impact_weight=10.0,
++                minimum_unreliable_history_cues_for_verification=0,
++            ),
++            verification_risk_gate=_constant_learned_gate(),
++        )
++        report = Observation(
++            FeatureKey("fever"), "present", certainty=CertaintyCue.CERTAIN
++        )
++        tracker.update(report)
++        actions = policy.rank_actions(
++            tracker,
++            initial_observations=(),
++            reports=(report,),
++            asked={report.key},
++            verified_report_indices=set(),
++            verification_count=0,
++            report_risks=(0.99,),
++        )
++        verify = [action for action in actions if action.kind == ActionKind.VERIFY]
++        self.assertTrue(verify)
++        self.assertEqual(verify[0].report_index, 0)
++        # The saved learned risk (0.99) replaces the retrospective error
++        # probability in the verification utility.
++        self.assertAlmostEqual(verify[0].disease_information_gain, 0.99)
++
++    def test_learned_gate_activation_opens_verification_without_history_cue(self):
++        tracker = BeliefTracker(self.model)
++        policy = ReliabilityAwareActionPolicy(
++            config=ReliabilityAwarePolicyConfig(
++                verification_cost=0.0,
++                decision_impact_weight=10.0,
++                minimum_unreliable_history_cues_for_verification=1,
++            ),
++            verification_risk_gate=_constant_learned_gate(),
++        )
++        report = Observation(
++            FeatureKey("fever"), "present", certainty=CertaintyCue.CERTAIN
++        )
++        tracker.update(report)
++        actions = policy.rank_actions(
++            tracker,
++            initial_observations=(),
++            reports=(report,),
++            asked={report.key},
++            verified_report_indices=set(),
++            verification_count=0,
++            report_risks=(0.15,),
++        )
++        self.assertIn(ActionKind.VERIFY, {action.kind for action in actions})
++
++    def test_learned_gate_rejects_misaligned_saved_risks(self):
++        tracker = BeliefTracker(self.model)
++        policy = ReliabilityAwareActionPolicy(
++            verification_risk_gate=_constant_learned_gate()
++        )
++        report = Observation(
++            FeatureKey("fever"), "present", certainty=CertaintyCue.CERTAIN
++        )
++        tracker.update(report)
++        with self.assertRaisesRegex(ValueError, "align one-to-one"):
++            policy.rank_actions(
++                tracker,
++                initial_observations=(),
++                reports=(report,),
++                asked={report.key},
++                verified_report_indices=set(),
++                verification_count=0,
++                report_risks=(),
++            )
++
++    def test_learned_gate_scores_report_before_tracker_update(self):
++        patient = StructuredPatientSimulator(
++            diagnosis=self.case.diagnosis,
++            latent_states=self.case.states,
++            model=self.model,
++            profile=PatientProfile.from_noise_rate(0.2),
++            seed=9,
++        )
++        recorder = _RecordingGate(_constant_learned_gate())
++        policy = ReliabilityAwareActionPolicy(
++            config=ReliabilityAwarePolicyConfig(max_total_turns=6),
++            verification_risk_gate=recorder,
++        )
++        run_reliability_aware_dialogue(patient, policy=policy)
++        self.assertTrue(recorder.calls)
++        for observation, history_at_score_time in recorder.calls:
++            # The answer must not yet be inside the tracker when it is scored.
++            self.assertTrue(
++                all(prior is not observation for prior in history_at_score_time)
++            )
++
++    def test_learned_gate_reasks_does_not_read_truth(self):
++        key = FeatureKey("fever")
++        states = dict(self.case.states)
++        states[key] = "present"
++        profile = PatientProfile(
++            mode_prior={
++                ReportMode.CERTAIN: 0.0,
++                ReportMode.UNCERTAIN: 0.0,
++                ReportMode.UNKNOWN: 0.0,
++                ReportMode.MISREPORTED: 1.0,
++            }
++        )
++        channel = AnswerChannel(
++            ChannelParameters(
++                rates={
++                    mode: ModeRates(correct=0.0, unknown=0.0, wrong=1.0)
++                    for mode in ReportMode
++                }
++            )
++        )
++        patient = StructuredPatientSimulator(
++            diagnosis=self.case.diagnosis,
++            latent_states=states,
++            model=self.model,
++            channel=channel,
++            profile=profile,
++            seed=1,
++        )
++        policy = ReliabilityAwareActionPolicy(
++            config=ReliabilityAwarePolicyConfig(
++                max_total_turns=6,
++                maximum_verifications=1,
++                verification_cost=0.0,
++                decision_impact_weight=1e9,
++                minimum_unreliable_history_cues_for_verification=0,
++            ),
++            verification_risk_gate=_constant_learned_gate(),
++        )
++        result = run_reliability_aware_dialogue(patient, policy=policy)
++        self.assertGreaterEqual(result.verification_questions, 1)
++        for turn in result.turns:
++            if turn.action.kind == ActionKind.VERIFY:
++                # Same-channel re-ask of an always-misreporting patient keeps
++                # the wrong value: it never reads latent_states like the oracle.
++                self.assertNotEqual(
++                    turn.observation.value,
++                    patient.latent_states[turn.observation.key],
++                )
++
+     def test_missing_required_safety_feature_prevents_confident_stop(self):
+         tracker = BeliefTracker(self.model)
+         tracker.belief = {

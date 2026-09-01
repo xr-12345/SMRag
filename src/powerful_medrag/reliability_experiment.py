@@ -18,7 +18,7 @@ from .decision import (
 )
 from .estimation import DiseaseStateModel
 from .gate_analysis import _expected_calibration_error
-from .gating import HistoryReliabilityMisreportGate
+from .gating import HistoryReliabilityMisreportGate, LearnedMisreportGate
 from .questioning import NumpyQuestionSelector, RandomQuestionSelector
 from .schema import ClinicalCase
 from .simulator import (
@@ -79,6 +79,7 @@ def run_reliability_experiment(
     seeds: tuple[int, ...] = (2026, 2027, 2028),
     max_total_turns: int = 8,
     policy_config: ReliabilityAwarePolicyConfig | None = None,
+    learned_verification_gate: LearnedMisreportGate | None = None,
     strategies: tuple[str, ...] = (
         "random_reliable",
         "ordinary_eig_reliable",
@@ -96,10 +97,18 @@ def run_reliability_experiment(
         "full_two_layer",
         "adaptive_history",
         "joint_new_verify_stop",
+        "joint_learned_gate",
+        "oracle_verify",
+        "oracle_select_same_channel",
     }
     unknown_strategies = set(strategies) - allowed_strategies
     if not strategies or unknown_strategies:
         raise ValueError(f"unknown reliability strategies: {sorted(unknown_strategies)}")
+    if "joint_learned_gate" in strategies and learned_verification_gate is None:
+        raise ValueError(
+            "joint_learned_gate requires a learned_verification_gate "
+            "(load it via gate_learning.load_learned_gate)"
+        )
     rows: list[ReliabilityCaseOutcome] = []
     for seed in seeds:
         for noise_rate in noise_rates:
@@ -113,7 +122,12 @@ def run_reliability_experiment(
                         profile=PatientProfile.from_noise_rate(noise_rate),
                         seed=paired_seed,
                     )
-                    if strategy == "joint_new_verify_stop":
+                    if strategy in (
+                        "joint_new_verify_stop",
+                        "joint_learned_gate",
+                        "oracle_verify",
+                        "oracle_select_same_channel",
+                    ):
                         tracker = BeliefTracker(
                             model,
                             answer_channel_without_misreport(),
@@ -125,7 +139,17 @@ def run_reliability_experiment(
                                 or ReliabilityAwarePolicyConfig(
                                     max_total_turns=max_total_turns,
                                 )
-                            )
+                            ),
+                            oracle_selection=(
+                                strategy
+                                in ("oracle_verify", "oracle_select_same_channel")
+                            ),
+                            oracle_correction=(strategy == "oracle_verify"),
+                            verification_risk_gate=(
+                                learned_verification_gate
+                                if strategy == "joint_learned_gate"
+                                else None
+                            ),
                         )
                         result = run_reliability_aware_dialogue(
                             patient,
@@ -168,7 +192,11 @@ def run_reliability_experiment(
                             selector=selector,
                             stop_rule=StopRule(
                                 max_questions=max_total_turns,
-                                posterior_threshold=0.85,
+                                posterior_threshold=(
+                                    policy_config.posterior_threshold
+                                    if policy_config is not None
+                                    else 0.85
+                                ),
                                 entropy_threshold=0.0,
                                 minimum_question_utility=0.0,
                             ),

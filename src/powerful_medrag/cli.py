@@ -678,6 +678,16 @@ def _benchmark_reliability_ddxplus_command(args: argparse.Namespace) -> int:
         seed=args.sample_seed,
         available_features=askable_features,
     )
+    learned_gate = None
+    if "joint_learned_gate" in tuple(args.strategies):
+        if args.learned_verification_gate is None:
+            raise ValueError(
+                "joint_learned_gate requires --learned-verification-gate <json>"
+            )
+        from .gate_learning import load_learned_gate
+
+        learned_gate = load_learned_gate(args.learned_verification_gate)
+        print(f"loaded learned verification gate: {args.learned_verification_gate}")
     print(
         f"reliability benchmark: {len(cases)} cases; sample seed={args.sample_seed}",
         flush=True,
@@ -689,6 +699,7 @@ def _benchmark_reliability_ddxplus_command(args: argparse.Namespace) -> int:
         seeds=tuple(args.seeds),
         max_total_turns=args.max_total_turns,
         strategies=tuple(args.strategies),
+        learned_verification_gate=learned_gate,
         policy_config=ReliabilityAwarePolicyConfig(
             posterior_threshold=args.policy_posterior_threshold,
             posterior_margin_threshold=args.policy_margin_threshold,
@@ -996,6 +1007,8 @@ def build_parser() -> argparse.ArgumentParser:
             "full_two_layer",
             "adaptive_history",
             "joint_new_verify_stop",
+            "oracle_verify",
+            "oracle_select_same_channel",
         ],
         choices=(
             "random_reliable",
@@ -1003,7 +1016,16 @@ def build_parser() -> argparse.ArgumentParser:
             "full_two_layer",
             "adaptive_history",
             "joint_new_verify_stop",
+            "joint_learned_gate",
+            "oracle_verify",
+            "oracle_select_same_channel",
         ),
+    )
+    reliability_parser.add_argument(
+        "--learned-verification-gate",
+        type=Path,
+        default=None,
+        help="LearnedMisreportGate JSON (from gate_learning) used by joint_learned_gate",
     )
     reliability_parser.add_argument(
         "--policy-posterior-threshold", type=float, default=0.85

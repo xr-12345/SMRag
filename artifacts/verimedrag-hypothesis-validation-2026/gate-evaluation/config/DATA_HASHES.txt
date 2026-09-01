@@ -1,0 +1,7 @@
+# Data / model SHA256 — prompt #7 learned-gate evaluation
+174ae1d56f36a15b7144838ecd214e1e1748a5369fc90c559529b6dc6ecfb218  data/ddxplus/release_train_patients.zip
+625a96855becf0efe5da339fd3d440aa99597d48f784957a97dacc3fceaa7e40  data/ddxplus/release_validate_patients.zip
+ad3bb981f3453fd7abffb35cc595a1c02197e409c581bff97c1265c33eb00d23  data/ddxplus/release_test_patients.zip
+a8c95e7f5a41987a5cc60fb334455ecf819b5aea267e1503abf3064a4cf290c8  data/ddxplus/model-full.json
+281c78b044ae60514e28ecc9052d08a8225dd3e2db3f00f8788b99c47b05e0c0  data/ddxplus/release_evidences.json
+61e16706a2ab78efb997bab8a865c83b46151b10b0377b63530745f1e18e71a8  data/ddxplus/release_conditions.json

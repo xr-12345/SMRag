@@ -116,6 +116,7 @@ class RetrospectiveScore:
     error_probability: float
     diagnostic_influence: float
     score: float
+    retrieval_impact: float = 0.0
 
 
 @dataclass(frozen=True)

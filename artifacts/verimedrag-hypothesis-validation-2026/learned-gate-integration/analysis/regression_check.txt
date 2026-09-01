@@ -1,0 +1,5 @@
+frozen joint rows: 70560
+re-run joint rows: 70560
+shared (case,seed,noise,threshold) keys: 70560
+exact-match ratio: 70560/70560
+REGRESSION PASS: re-run joint_new_verify_stop is byte-identical to frozen.

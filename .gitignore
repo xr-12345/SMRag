@@ -52,6 +52,19 @@ data/ddxplus/model-*.json
 # High-volume raw experiment traces. Keep reports, aggregate CSVs and figures.
 artifacts/**/*case_outcomes.csv
 artifacts/**/ddxplus_gate_events.csv
+artifacts/**/*gate_events.csv
+artifacts/**/*gate_predictions.csv
+artifacts/**/*_outcomes.csv
+artifacts/**/*_outcomes_normalized.csv
+artifacts/**/turn_observations.csv
+artifacts/**/candidate_events.csv
+artifacts/**/paired_deltas_*.csv
+
+# External medical textbook corpus (large, not redistributable).
+data/medrag-textbooks/
+
+# Archived/bundled experiment outputs (redundant with the unpacked report dirs).
+artifacts/**/*.zip
 
 # Office temporary files
 ~$*.xlsx

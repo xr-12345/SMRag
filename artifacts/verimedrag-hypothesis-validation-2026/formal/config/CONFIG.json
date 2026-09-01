@@ -1,0 +1,50 @@
+{
+  "protocol_version": "1.0",
+  "phase": "prompt-5 formal N=20 validation (max-total-turns=15 screening)",
+  "frozen_on": "2026-08-30",
+  "git": {
+    "HEAD": "e661311f91510df39018d04d9c966a110b836018",
+    "branch": "main",
+    "uncommitted_changes": [
+      "src/powerful_medrag/cli.py",
+      "src/powerful_medrag/decision.py",
+      "src/powerful_medrag/reliability_experiment.py",
+      "tests/test_decision.py"
+    ],
+    "diff_snapshot": "config/git_diff.txt"
+  },
+  "frozen_parameters": {
+    "cases_per_disease": 20,
+    "sample_seed": 2026,
+    "seeds": [2026, 2027, 2028],
+    "noise_rates": [0.0, 0.1, 0.2, 0.3],
+    "max_total_turns": 15,
+    "max_questions_retro": 15,
+    "posterior_threshold": 0.85,
+    "margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "verification_cost": 0.03,
+    "minimum_history_cues": 1
+  },
+  "reliability_runner": {
+    "command": "benchmark-reliability-ddxplus",
+    "strategies": [
+      "ordinary_eig_reliable",
+      "full_two_layer",
+      "adaptive_history",
+      "joint_new_verify_stop",
+      "oracle_verify"
+    ],
+    "expected_case_records": 58800
+  },
+  "retro_runner": {
+    "command": "clarify-ddxplus",
+    "variants": ["retro_utility_u050_b1"],
+    "thresholds": [0.85],
+    "expected_case_records_per_seed": 3920,
+    "expected_case_records_total": 11760
+  },
+  "preregistered_success_criteria": "configs/preregistered_success_criteria.json (frozen, unmodified)",
+  "test_split_policy": "NOT accessed in this phase",
+  "oracle_verify_semantics": "oracle detection + oracle correction upper bound (reads latent_states; not a deployable method)"
+}

@@ -1,0 +1,76 @@
+{
+  "phase": "2B",
+  "task": "N=5 joint-gate screening + retrieval cost assessment",
+  "split": "validate",
+  "data": {
+    "model": "data/ddxplus/model-full.json",
+    "patients": "data/ddxplus/release_validate_patients.zip",
+    "evidences": "data/ddxplus/release_evidences.json",
+    "corpus": "data/medrag-textbooks",
+    "corpus_snippets": 125847,
+    "diseases": 49,
+    "cases_per_disease": 5,
+    "total_cases": 245,
+    "manifest_source": "artifacts/verimedrag-hypothesis-validation-2026/config/validation_case_manifest.csv",
+    "manifest_rule": "first 5 case_ids per disease from the frozen N=20 manifest, reproduced via sample_balanced_ddxplus_cases(cases_per_disease=20, seed=2026)",
+    "sample_seed": 2026,
+    "patient_seed": 2026,
+    "pilot_seed_fn": "blake2b(f'{seed}|{case_id}|{noise_rate:.8f}', digest_size=8)"
+  },
+  "noise_rates": [0.2, 0.3],
+  "frozen_config": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "suspicious_report_threshold": 0.05,
+    "verification_cost": 0.03,
+    "minimum_unreliable_history_cues_for_verification": 1,
+    "maximum_verifications": 1,
+    "max_total_turns": 15,
+    "retrieval_mode": "dynamic_rag",
+    "retrieval_top_k": 10,
+    "query_disease_top_k": 5
+  },
+  "screening_configs": [
+    {"label": "rank_only_w0.0", "gate_mode": "rank_only", "retrieval_impact_weight": 0.0, "role": "baseline control"},
+    {"label": "rank_only_w0.1", "gate_mode": "rank_only", "retrieval_impact_weight": 0.1, "role": "rank-only sweep"},
+    {"label": "rank_only_w0.5", "gate_mode": "rank_only", "retrieval_impact_weight": 0.5, "role": "rank-only sweep"},
+    {"label": "rank_only_w1.0", "gate_mode": "rank_only", "retrieval_impact_weight": 1.0, "role": "rank-only sweep"},
+    {"label": "joint_gate_w0.1", "gate_mode": "joint_gate", "retrieval_impact_weight": 0.1, "role": "joint-gate sweep"},
+    {"label": "joint_gate_w0.5", "gate_mode": "joint_gate", "retrieval_impact_weight": 0.5, "role": "joint-gate sweep"},
+    {"label": "joint_gate_w1.0", "gate_mode": "joint_gate", "retrieval_impact_weight": 1.0, "role": "joint-gate sweep"}
+  ],
+  "gate_formulas": {
+    "retrieval_activation_value_i": "error_probability_i * normalized_retrieval_impact_i - verification_cost",
+    "gate_open_condition": "max_i(activation_value) >= minimum_action_utility AND history gate closed AND gate_mode == joint_gate AND retrieval_mode != no_rag",
+    "final_verification_utility_i": "existing_verification_utility_i + retrieval_impact_weight * error_probability_i * normalized_retrieval_impact_i",
+    "normalized_retrieval_impact_i": "clamp(1 - jaccard(baseline_hits, after_delete_i), 0, 1)",
+    "note_weight0_joint_gate": "weight=0 does NOT zero the activation value: activation = error_prob * impact - cost is weight-independent, so joint_gate_w* (even a hypothetical w=0) can still open the gate via activation value"
+  },
+  "counterfactual": {
+    "operations_used": ["delete"],
+    "weaken_used": false,
+    "flip_used": false,
+    "note": "current _retrieval_impacts uses delete-only; weaken/flip are implemented in retrieval.py but not invoked by the gate"
+  },
+  "metrics": [
+    "top1_accuracy", "top3_accuracy", "brier_score",
+    "new_questions", "verification_questions", "total_atomic_questions",
+    "unnecessary_verification_rate", "conflict_resolution_rate", "premature_stop_rate",
+    "retrieval_triggered_verifications", "retrieval_triggered_cases", "triggered_verification_true_hit_rate",
+    "gate_open_but_asknew", "gate_open_and_verify",
+    "retrieval_changes_verifyold_ranking", "retrieval_changes_final_action",
+    "ordinary_retrieves", "counterfactual_retrieves"
+  ],
+  "red_lines": [
+    "no N=20 run",
+    "no test-split access",
+    "no old-artifact overwrite",
+    "no preregistered success-criteria modification",
+    "no LLM / dense retriever / SFT / RL",
+    "no evaluation truth in action decisions",
+    "no per-case hand-tuned thresholds",
+    "no git commit",
+    "N=5 results are not packaged as formal conclusions"
+  ]
+}

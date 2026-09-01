@@ -1,0 +1,5 @@
+frozen t085 joint rows: 11760
+new joint rows: 11760
+shared (case_id, seed, noise) keys: 11760
+byte-identical rows: 11760/11760
+REGRESSION PASS: new joint_new_verify_stop is byte-identical to frozen t085.

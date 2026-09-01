@@ -1,0 +1,46 @@
+{
+  "phase": "VeriMedRAG phase 2A (retrieval joint gate)",
+  "config_class": "ReliabilityAwarePolicyConfig",
+  "retrieval_gate_mode": {
+    "field": "retrieval_gate_mode",
+    "type": "RetrievalGateMode",
+    "default": "rank_only",
+    "values": {
+      "rank_only": "retrieval impact only re-ranks VerifyOld candidates the history/learned gate already allowed; never opens the gate (default path byte-identical to pre-change behaviour)",
+      "joint_gate": "retrieval impact may additionally open the VerifyOld gate when max_i(retrieval_activation_value_i) >= minimum_action_utility"
+    }
+  },
+  "joint_gate_activation": {
+    "formula": "retrieval_activation_value_i = error_probability_i * normalized_retrieval_impact_i - verification_cost",
+    "open_condition": "max_i(retrieval_activation_value_i) >= minimum_action_utility",
+    "error_probability_source": "label-free retrospective estimate (clarification._report_error_probability)",
+    "normalized_retrieval_impact_range": "[0, 1]",
+    "normalized_retrieval_impact_formula": "clamp(1 - jaccard(baseline_hits, after_delete_hits), 0, 1)"
+  },
+  "verification_final_utility": {
+    "formula": "final_verification_utility_i = existing_verification_utility_i + retrieval_impact_weight * error_probability_i * normalized_retrieval_impact_i",
+    "existing_verification_utility_source": "existing _verification_action formula (disease_gain with diagnostic_influence + reliability/decision terms - cost)",
+    "note": "opened VerifyOld candidates still compete against best AskNew and Stop utility; verification is never forced"
+  },
+  "fields": {
+    "retrieval_gate_mode": "rank_only",
+    "retrieval_impact_weight": 0.0,
+    "minimum_action_utility": 0.03,
+    "verification_cost": 0.03,
+    "retrieval_mode": "no_rag",
+    "retrieval_top_k": 10,
+    "query_disease_top_k": 5
+  },
+  "toy_smoke_config": {
+    "retrieval_mode": "dynamic_rag",
+    "retrieval_gate_mode": "joint_gate",
+    "retrieval_impact_weight": 2.0,
+    "minimum_action_utility": 0.03,
+    "corpus": "tiny in-memory corpus (fever + myalgia snippets only)",
+    "model": "toy (influenza / common_cold / allergic_rhinitis)"
+  },
+  "forbidden": [
+    "retrieval_impact > threshold -> directly VerifyOld",
+    "prediction path reading latent_state / true_wrongness / noise_type / true disease"
+  ]
+}

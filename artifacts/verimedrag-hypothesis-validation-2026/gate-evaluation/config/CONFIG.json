@@ -1,0 +1,75 @@
+{
+  "protocol_version": "1.0",
+  "phase": "prompt-7 learned-gate independent evaluation (gate_requirement)",
+  "frozen_on": "2026-08-31",
+  "git": {
+    "HEAD": "e661311f91510df39018d04d9c966a110b836018",
+    "branch": "main",
+    "uncommitted_changes": [
+      "src/powerful_medrag/cli.py",
+      "src/powerful_medrag/decision.py",
+      "src/powerful_medrag/reliability_experiment.py",
+      "tests/test_decision.py",
+      "tests/test_reliability_experiment.py"
+    ],
+    "diff_snapshot": "config/git_diff.txt"
+  },
+  "frozen_parameters": {
+    "model": "data/ddxplus/model-full.json",
+    "evidence_json": "data/ddxplus/release_evidences.json",
+    "train": {
+      "patients": "data/ddxplus/release_train_patients.zip",
+      "cases_per_disease": 20,
+      "sample_seed": 101,
+      "seeds": [101, 102, 103],
+      "max_questions": 15,
+      "noise_rates": [0.0, 0.1, 0.2, 0.3]
+    },
+    "validation": {
+      "patients": "data/ddxplus/release_validate_patients.zip",
+      "cases_per_disease": 20,
+      "sample_seed": 2026,
+      "seeds": [2026, 2027, 2028],
+      "max_questions": 15,
+      "noise_rates": [0.0, 0.1, 0.2, 0.3],
+      "manifest": "artifacts/verimedrag-hypothesis-validation-2026/formal/config/validation_case_manifest_with_duplicate_flag.csv",
+      "expected_cases": 980,
+      "exact_train_duplicate_cases": 31
+    },
+    "fit_gate": {
+      "target": "harmful_misreport",
+      "calibration_fraction": 0.2,
+      "split_seed": 2026,
+      "iterations": 2000,
+      "learning_rate": 0.05,
+      "l2_strength": 0.01
+    }
+  },
+  "label_semantics": {
+    "primary_label": "harmful_misreport = latent_misreport AND wrong_report",
+    "note": "indicates a MISREPORTED-mode answer whose reported value is wrong; does NOT itself assert the error changed the final diagnosis. Must NOT be described as 'clinically harmful error'.",
+    "auxiliary_labels": ["wrong_report", "latent_misreport"],
+    "exploratory_label": "decision_sensitive_wrong = wrong_report AND diagnostic_impact >= q75, q75 frozen from train wrong_report events only"
+  },
+  "methods_compared": [
+    "learned_gate",
+    "heuristic_gate",
+    "calibrated_surprisal",
+    "fixed_prior",
+    "deterministic_random"
+  ],
+  "metrics": ["AUROC", "AUPRC", "Brier", "ECE (10 bins)", "calibration_slope", "calibration_intercept"],
+  "conditions": [
+    "pooled_noisy (0.1, 0.2, 0.3)",
+    "all (0.0, 0.1, 0.2, 0.3)",
+    "per_noise_rate"
+  ],
+  "forbidden_inputs": [
+    "noise_rate",
+    "true_state",
+    "true_report_mode",
+    "true_diagnosis"
+  ],
+  "test_split_policy": "NOT accessed in this phase (inputs are release_train_patients.zip and release_validate_patients.zip only)",
+  "preregistered_success_criteria": "configs/preregistered_success_criteria.json (frozen, unmodified)"
+}

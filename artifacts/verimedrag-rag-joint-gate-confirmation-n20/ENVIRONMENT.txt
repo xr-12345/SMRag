@@ -1,0 +1,22 @@
+=== Environment ===
+generated_at: 2026-08-31T15:27:01Z
+platform: Darwin arm64
+os_version: 26.4
+cpu_count: 18
+total_ram_gb: 64.0
+python: Python 3.13.13
+python_path: /Users/xr-12345/miniforge3/bin/python3
+git_head: e661311
+git_branch: main
+
+=== key package versions ===
+python 3.13.13
+numpy 2.4.6
+scipy 1.18.0
+
+=== data paths ===
+model: data/ddxplus/model-full.json
+patients: data/ddxplus/release_validate_patients.zip
+evidences: data/ddxplus/release_evidences.json
+corpus: data/medrag-textbooks
+manifest: artifacts/verimedrag-hypothesis-validation-2026/config/validation_case_manifest.csv

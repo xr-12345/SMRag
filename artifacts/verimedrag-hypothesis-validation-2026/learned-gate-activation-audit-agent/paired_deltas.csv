@@ -1,0 +1,5 @@
+noise_rate,delta_top1,delta_brier,delta_total_questions,delta_verification_questions,delta_unnecessary_rate,delta_conflict_resolution_rate,delta_premature_stop_rate
+0.0,0.002721,-0.001899,0.486054,0.657483,0.023189,-0.023683,-0.000340
+0.1,0.009864,-0.020963,0.551361,0.393197,0.130348,-0.126809,-0.011905
+0.2,0.004082,-0.010729,0.538776,0.170408,0.169551,-0.159975,-0.010204
+0.3,0.010544,-0.024463,0.505442,0.037075,0.201638,-0.185614,-0.018707

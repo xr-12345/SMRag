@@ -1,0 +1,981 @@
+case_id,diagnosis,split,sample_seed,cases_per_disease
+83110,Acute COPD exacerbation / infection,train,101,20
+944125,Acute COPD exacerbation / infection,train,101,20
+977609,Acute COPD exacerbation / infection,train,101,20
+977519,Acute COPD exacerbation / infection,train,101,20
+845515,Acute COPD exacerbation / infection,train,101,20
+168911,Acute COPD exacerbation / infection,train,101,20
+298471,Acute COPD exacerbation / infection,train,101,20
+670889,Acute COPD exacerbation / infection,train,101,20
+204105,Acute COPD exacerbation / infection,train,101,20
+488365,Acute COPD exacerbation / infection,train,101,20
+374499,Acute COPD exacerbation / infection,train,101,20
+490139,Acute COPD exacerbation / infection,train,101,20
+326964,Acute COPD exacerbation / infection,train,101,20
+399656,Acute COPD exacerbation / infection,train,101,20
+291729,Acute COPD exacerbation / infection,train,101,20
+553493,Acute COPD exacerbation / infection,train,101,20
+355550,Acute COPD exacerbation / infection,train,101,20
+559159,Acute COPD exacerbation / infection,train,101,20
+284737,Acute COPD exacerbation / infection,train,101,20
+297947,Acute COPD exacerbation / infection,train,101,20
+854552,Acute dystonic reactions,train,101,20
+100450,Acute dystonic reactions,train,101,20
+140164,Acute dystonic reactions,train,101,20
+843001,Acute dystonic reactions,train,101,20
+566515,Acute dystonic reactions,train,101,20
+392451,Acute dystonic reactions,train,101,20
+158189,Acute dystonic reactions,train,101,20
+700135,Acute dystonic reactions,train,101,20
+218579,Acute dystonic reactions,train,101,20
+549228,Acute dystonic reactions,train,101,20
+308355,Acute dystonic reactions,train,101,20
+880747,Acute dystonic reactions,train,101,20
+363812,Acute dystonic reactions,train,101,20
+363277,Acute dystonic reactions,train,101,20
+708520,Acute dystonic reactions,train,101,20
+243006,Acute dystonic reactions,train,101,20
+125749,Acute dystonic reactions,train,101,20
+756417,Acute dystonic reactions,train,101,20
+1014207,Acute dystonic reactions,train,101,20
+770043,Acute dystonic reactions,train,101,20
+709282,Acute laryngitis,train,101,20
+53641,Acute laryngitis,train,101,20
+689638,Acute laryngitis,train,101,20
+772804,Acute laryngitis,train,101,20
+341353,Acute laryngitis,train,101,20
+868258,Acute laryngitis,train,101,20
+635761,Acute laryngitis,train,101,20
+480442,Acute laryngitis,train,101,20
+922986,Acute laryngitis,train,101,20
+179427,Acute laryngitis,train,101,20
+194935,Acute laryngitis,train,101,20
+178240,Acute laryngitis,train,101,20
+467978,Acute laryngitis,train,101,20
+467683,Acute laryngitis,train,101,20
+320470,Acute laryngitis,train,101,20
+479328,Acute laryngitis,train,101,20
+496970,Acute laryngitis,train,101,20
+669158,Acute laryngitis,train,101,20
+140095,Acute laryngitis,train,101,20
+587896,Acute laryngitis,train,101,20
+193810,Acute otitis media,train,101,20
+754414,Acute otitis media,train,101,20
+101740,Acute otitis media,train,101,20
+658828,Acute otitis media,train,101,20
+764353,Acute otitis media,train,101,20
+58841,Acute otitis media,train,101,20
+773677,Acute otitis media,train,101,20
+373563,Acute otitis media,train,101,20
+256586,Acute otitis media,train,101,20
+175508,Acute otitis media,train,101,20
+173022,Acute otitis media,train,101,20
+410120,Acute otitis media,train,101,20
+118252,Acute otitis media,train,101,20
+473752,Acute otitis media,train,101,20
+995288,Acute otitis media,train,101,20
+829920,Acute otitis media,train,101,20
+339985,Acute otitis media,train,101,20
+194569,Acute otitis media,train,101,20
+755260,Acute otitis media,train,101,20
+153689,Acute otitis media,train,101,20
+274930,Acute pulmonary edema,train,101,20
+534094,Acute pulmonary edema,train,101,20
+52125,Acute pulmonary edema,train,101,20
+702401,Acute pulmonary edema,train,101,20
+537324,Acute pulmonary edema,train,101,20
+4371,Acute pulmonary edema,train,101,20
+506595,Acute pulmonary edema,train,101,20
+844820,Acute pulmonary edema,train,101,20
+154743,Acute pulmonary edema,train,101,20
+671759,Acute pulmonary edema,train,101,20
+771735,Acute pulmonary edema,train,101,20
+287283,Acute pulmonary edema,train,101,20
+288283,Acute pulmonary edema,train,101,20
+848985,Acute pulmonary edema,train,101,20
+707587,Acute pulmonary edema,train,101,20
+4640,Acute pulmonary edema,train,101,20
+879748,Acute pulmonary edema,train,101,20
+664577,Acute pulmonary edema,train,101,20
+377804,Acute pulmonary edema,train,101,20
+428105,Acute pulmonary edema,train,101,20
+625296,Acute rhinosinusitis,train,101,20
+214775,Acute rhinosinusitis,train,101,20
+905446,Acute rhinosinusitis,train,101,20
+1011242,Acute rhinosinusitis,train,101,20
+1011372,Acute rhinosinusitis,train,101,20
+633200,Acute rhinosinusitis,train,101,20
+544569,Acute rhinosinusitis,train,101,20
+778628,Acute rhinosinusitis,train,101,20
+850137,Acute rhinosinusitis,train,101,20
+541328,Acute rhinosinusitis,train,101,20
+541471,Acute rhinosinusitis,train,101,20
+673159,Acute rhinosinusitis,train,101,20
+731475,Acute rhinosinusitis,train,101,20
+409228,Acute rhinosinusitis,train,101,20
+492845,Acute rhinosinusitis,train,101,20
+333705,Acute rhinosinusitis,train,101,20
+599904,Acute rhinosinusitis,train,101,20
+589310,Acute rhinosinusitis,train,101,20
+931063,Acute rhinosinusitis,train,101,20
+392169,Acute rhinosinusitis,train,101,20
+237750,Allergic sinusitis,train,101,20
+185600,Allergic sinusitis,train,101,20
+424525,Allergic sinusitis,train,101,20
+513805,Allergic sinusitis,train,101,20
+339264,Allergic sinusitis,train,101,20
+229790,Allergic sinusitis,train,101,20
+160933,Allergic sinusitis,train,101,20
+417657,Allergic sinusitis,train,101,20
+274628,Allergic sinusitis,train,101,20
+264743,Allergic sinusitis,train,101,20
+631508,Allergic sinusitis,train,101,20
+352069,Allergic sinusitis,train,101,20
+252228,Allergic sinusitis,train,101,20
+955393,Allergic sinusitis,train,101,20
+509555,Allergic sinusitis,train,101,20
+126677,Allergic sinusitis,train,101,20
+240780,Allergic sinusitis,train,101,20
+39326,Allergic sinusitis,train,101,20
+765219,Allergic sinusitis,train,101,20
+55076,Allergic sinusitis,train,101,20
+521352,Anaphylaxis,train,101,20
+324652,Anaphylaxis,train,101,20
+706004,Anaphylaxis,train,101,20
+740839,Anaphylaxis,train,101,20
+406802,Anaphylaxis,train,101,20
+343487,Anaphylaxis,train,101,20
+179971,Anaphylaxis,train,101,20
+475861,Anaphylaxis,train,101,20
+597090,Anaphylaxis,train,101,20
+387314,Anaphylaxis,train,101,20
+516737,Anaphylaxis,train,101,20
+905672,Anaphylaxis,train,101,20
+469511,Anaphylaxis,train,101,20
+197962,Anaphylaxis,train,101,20
+531308,Anaphylaxis,train,101,20
+867166,Anaphylaxis,train,101,20
+809372,Anaphylaxis,train,101,20
+515846,Anaphylaxis,train,101,20
+347354,Anaphylaxis,train,101,20
+232954,Anaphylaxis,train,101,20
+443939,Anemia,train,101,20
+205270,Anemia,train,101,20
+576520,Anemia,train,101,20
+496605,Anemia,train,101,20
+424820,Anemia,train,101,20
+116156,Anemia,train,101,20
+842984,Anemia,train,101,20
+881650,Anemia,train,101,20
+179613,Anemia,train,101,20
+313500,Anemia,train,101,20
+320442,Anemia,train,101,20
+567545,Anemia,train,101,20
+643980,Anemia,train,101,20
+36239,Anemia,train,101,20
+452112,Anemia,train,101,20
+583587,Anemia,train,101,20
+905291,Anemia,train,101,20
+708506,Anemia,train,101,20
+550545,Anemia,train,101,20
+631705,Anemia,train,101,20
+49022,Atrial fibrillation,train,101,20
+91849,Atrial fibrillation,train,101,20
+233776,Atrial fibrillation,train,101,20
+359608,Atrial fibrillation,train,101,20
+887394,Atrial fibrillation,train,101,20
+717390,Atrial fibrillation,train,101,20
+979053,Atrial fibrillation,train,101,20
+464821,Atrial fibrillation,train,101,20
+189698,Atrial fibrillation,train,101,20
+257234,Atrial fibrillation,train,101,20
+947323,Atrial fibrillation,train,101,20
+242065,Atrial fibrillation,train,101,20
+793714,Atrial fibrillation,train,101,20
+805552,Atrial fibrillation,train,101,20
+142440,Atrial fibrillation,train,101,20
+834549,Atrial fibrillation,train,101,20
+395948,Atrial fibrillation,train,101,20
+978749,Atrial fibrillation,train,101,20
+406336,Atrial fibrillation,train,101,20
+731414,Atrial fibrillation,train,101,20
+33541,Boerhaave,train,101,20
+585432,Boerhaave,train,101,20
+136723,Boerhaave,train,101,20
+1017412,Boerhaave,train,101,20
+330696,Boerhaave,train,101,20
+912512,Boerhaave,train,101,20
+276752,Boerhaave,train,101,20
+718112,Boerhaave,train,101,20
+116121,Boerhaave,train,101,20
+110793,Boerhaave,train,101,20
+837840,Boerhaave,train,101,20
+711373,Boerhaave,train,101,20
+33133,Boerhaave,train,101,20
+655572,Boerhaave,train,101,20
+579114,Boerhaave,train,101,20
+776124,Boerhaave,train,101,20
+333754,Boerhaave,train,101,20
+245292,Boerhaave,train,101,20
+812850,Boerhaave,train,101,20
+114668,Boerhaave,train,101,20
+189783,Bronchiectasis,train,101,20
+931146,Bronchiectasis,train,101,20
+357152,Bronchiectasis,train,101,20
+709498,Bronchiectasis,train,101,20
+428519,Bronchiectasis,train,101,20
+199296,Bronchiectasis,train,101,20
+780119,Bronchiectasis,train,101,20
+880496,Bronchiectasis,train,101,20
+547231,Bronchiectasis,train,101,20
+69067,Bronchiectasis,train,101,20
+971150,Bronchiectasis,train,101,20
+244580,Bronchiectasis,train,101,20
+726185,Bronchiectasis,train,101,20
+178427,Bronchiectasis,train,101,20
+120555,Bronchiectasis,train,101,20
+386650,Bronchiectasis,train,101,20
+762079,Bronchiectasis,train,101,20
+710774,Bronchiectasis,train,101,20
+494183,Bronchiectasis,train,101,20
+882314,Bronchiectasis,train,101,20
+357491,Bronchiolitis,train,101,20
+920364,Bronchiolitis,train,101,20
+614466,Bronchiolitis,train,101,20
+844124,Bronchiolitis,train,101,20
+750070,Bronchiolitis,train,101,20
+26116,Bronchiolitis,train,101,20
+432742,Bronchiolitis,train,101,20
+657905,Bronchiolitis,train,101,20
+826287,Bronchiolitis,train,101,20
+101802,Bronchiolitis,train,101,20
+173447,Bronchiolitis,train,101,20
+100473,Bronchiolitis,train,101,20
+568404,Bronchiolitis,train,101,20
+712363,Bronchiolitis,train,101,20
+485728,Bronchiolitis,train,101,20
+971169,Bronchiolitis,train,101,20
+74151,Bronchiolitis,train,101,20
+971161,Bronchiolitis,train,101,20
+262786,Bronchiolitis,train,101,20
+948251,Bronchiolitis,train,101,20
+880852,Bronchitis,train,101,20
+761717,Bronchitis,train,101,20
+669108,Bronchitis,train,101,20
+752560,Bronchitis,train,101,20
+546851,Bronchitis,train,101,20
+608973,Bronchitis,train,101,20
+791042,Bronchitis,train,101,20
+374033,Bronchitis,train,101,20
+213845,Bronchitis,train,101,20
+685412,Bronchitis,train,101,20
+26916,Bronchitis,train,101,20
+88242,Bronchitis,train,101,20
+279930,Bronchitis,train,101,20
+684787,Bronchitis,train,101,20
+971584,Bronchitis,train,101,20
+466177,Bronchitis,train,101,20
+972818,Bronchitis,train,101,20
+650424,Bronchitis,train,101,20
+971568,Bronchitis,train,101,20
+651547,Bronchitis,train,101,20
+238785,Bronchospasm / acute asthma exacerbation,train,101,20
+957530,Bronchospasm / acute asthma exacerbation,train,101,20
+291770,Bronchospasm / acute asthma exacerbation,train,101,20
+352915,Bronchospasm / acute asthma exacerbation,train,101,20
+495938,Bronchospasm / acute asthma exacerbation,train,101,20
+528081,Bronchospasm / acute asthma exacerbation,train,101,20
+427849,Bronchospasm / acute asthma exacerbation,train,101,20
+898505,Bronchospasm / acute asthma exacerbation,train,101,20
+148104,Bronchospasm / acute asthma exacerbation,train,101,20
+86102,Bronchospasm / acute asthma exacerbation,train,101,20
+653049,Bronchospasm / acute asthma exacerbation,train,101,20
+55879,Bronchospasm / acute asthma exacerbation,train,101,20
+967934,Bronchospasm / acute asthma exacerbation,train,101,20
+392750,Bronchospasm / acute asthma exacerbation,train,101,20
+718101,Bronchospasm / acute asthma exacerbation,train,101,20
+468460,Bronchospasm / acute asthma exacerbation,train,101,20
+138900,Bronchospasm / acute asthma exacerbation,train,101,20
+499752,Bronchospasm / acute asthma exacerbation,train,101,20
+666162,Bronchospasm / acute asthma exacerbation,train,101,20
+967472,Bronchospasm / acute asthma exacerbation,train,101,20
+667403,Chagas,train,101,20
+87087,Chagas,train,101,20
+454798,Chagas,train,101,20
+85197,Chagas,train,101,20
+859175,Chagas,train,101,20
+333952,Chagas,train,101,20
+180154,Chagas,train,101,20
+110264,Chagas,train,101,20
+669696,Chagas,train,101,20
+563013,Chagas,train,101,20
+567245,Chagas,train,101,20
+719708,Chagas,train,101,20
+678419,Chagas,train,101,20
+75108,Chagas,train,101,20
+279217,Chagas,train,101,20
+808273,Chagas,train,101,20
+902724,Chagas,train,101,20
+539928,Chagas,train,101,20
+900575,Chagas,train,101,20
+21760,Chagas,train,101,20
+57944,Chronic rhinosinusitis,train,101,20
+132474,Chronic rhinosinusitis,train,101,20
+631415,Chronic rhinosinusitis,train,101,20
+389981,Chronic rhinosinusitis,train,101,20
+248326,Chronic rhinosinusitis,train,101,20
+815186,Chronic rhinosinusitis,train,101,20
+108797,Chronic rhinosinusitis,train,101,20
+326077,Chronic rhinosinusitis,train,101,20
+569311,Chronic rhinosinusitis,train,101,20
+822901,Chronic rhinosinusitis,train,101,20
+814196,Chronic rhinosinusitis,train,101,20
+462423,Chronic rhinosinusitis,train,101,20
+831472,Chronic rhinosinusitis,train,101,20
+506757,Chronic rhinosinusitis,train,101,20
+450795,Chronic rhinosinusitis,train,101,20
+219352,Chronic rhinosinusitis,train,101,20
+564828,Chronic rhinosinusitis,train,101,20
+919447,Chronic rhinosinusitis,train,101,20
+765026,Chronic rhinosinusitis,train,101,20
+93728,Chronic rhinosinusitis,train,101,20
+69999,Cluster headache,train,101,20
+726415,Cluster headache,train,101,20
+277802,Cluster headache,train,101,20
+28281,Cluster headache,train,101,20
+549905,Cluster headache,train,101,20
+102434,Cluster headache,train,101,20
+299359,Cluster headache,train,101,20
+344446,Cluster headache,train,101,20
+599243,Cluster headache,train,101,20
+974451,Cluster headache,train,101,20
+38844,Cluster headache,train,101,20
+86997,Cluster headache,train,101,20
+225076,Cluster headache,train,101,20
+761918,Cluster headache,train,101,20
+55743,Cluster headache,train,101,20
+63074,Cluster headache,train,101,20
+974161,Cluster headache,train,101,20
+724064,Cluster headache,train,101,20
+228951,Cluster headache,train,101,20
+975104,Cluster headache,train,101,20
+121730,Croup,train,101,20
+381356,Croup,train,101,20
+671961,Croup,train,101,20
+194850,Croup,train,101,20
+568083,Croup,train,101,20
+542518,Croup,train,101,20
+420604,Croup,train,101,20
+23548,Croup,train,101,20
+491023,Croup,train,101,20
+309607,Croup,train,101,20
+987172,Croup,train,101,20
+814076,Croup,train,101,20
+134494,Croup,train,101,20
+606327,Croup,train,101,20
+71161,Croup,train,101,20
+467982,Croup,train,101,20
+609415,Croup,train,101,20
+694508,Croup,train,101,20
+281542,Croup,train,101,20
+234048,Croup,train,101,20
+740715,Ebola,train,101,20
+534125,Ebola,train,101,20
+115465,Ebola,train,101,20
+832703,Ebola,train,101,20
+438203,Ebola,train,101,20
+695018,Ebola,train,101,20
+645814,Ebola,train,101,20
+505258,Ebola,train,101,20
+928207,Ebola,train,101,20
+741012,Ebola,train,101,20
+680446,Ebola,train,101,20
+255135,Ebola,train,101,20
+430411,Ebola,train,101,20
+257412,Ebola,train,101,20
+759836,Ebola,train,101,20
+819044,Ebola,train,101,20
+818120,Ebola,train,101,20
+452319,Ebola,train,101,20
+510169,Ebola,train,101,20
+975188,Ebola,train,101,20
+946328,Epiglottitis,train,101,20
+388107,Epiglottitis,train,101,20
+786435,Epiglottitis,train,101,20
+437313,Epiglottitis,train,101,20
+86411,Epiglottitis,train,101,20
+803109,Epiglottitis,train,101,20
+921010,Epiglottitis,train,101,20
+831278,Epiglottitis,train,101,20
+667970,Epiglottitis,train,101,20
+703263,Epiglottitis,train,101,20
+768622,Epiglottitis,train,101,20
+305330,Epiglottitis,train,101,20
+769127,Epiglottitis,train,101,20
+503192,Epiglottitis,train,101,20
+665392,Epiglottitis,train,101,20
+1025154,Epiglottitis,train,101,20
+58210,Epiglottitis,train,101,20
+671047,Epiglottitis,train,101,20
+488278,Epiglottitis,train,101,20
+822653,Epiglottitis,train,101,20
+87207,GERD,train,101,20
+660085,GERD,train,101,20
+75550,GERD,train,101,20
+734839,GERD,train,101,20
+610624,GERD,train,101,20
+87822,GERD,train,101,20
+452604,GERD,train,101,20
+326019,GERD,train,101,20
+24601,GERD,train,101,20
+773441,GERD,train,101,20
+40170,GERD,train,101,20
+676660,GERD,train,101,20
+354308,GERD,train,101,20
+1007572,GERD,train,101,20
+702459,GERD,train,101,20
+163327,GERD,train,101,20
+208198,GERD,train,101,20
+312328,GERD,train,101,20
+111513,GERD,train,101,20
+709533,GERD,train,101,20
+685140,Guillain-Barré syndrome,train,101,20
+484771,Guillain-Barré syndrome,train,101,20
+133693,Guillain-Barré syndrome,train,101,20
+850163,Guillain-Barré syndrome,train,101,20
+526355,Guillain-Barré syndrome,train,101,20
+340323,Guillain-Barré syndrome,train,101,20
+784073,Guillain-Barré syndrome,train,101,20
+469211,Guillain-Barré syndrome,train,101,20
+275352,Guillain-Barré syndrome,train,101,20
+691828,Guillain-Barré syndrome,train,101,20
+891757,Guillain-Barré syndrome,train,101,20
+409416,Guillain-Barré syndrome,train,101,20
+13760,Guillain-Barré syndrome,train,101,20
+832459,Guillain-Barré syndrome,train,101,20
+414962,Guillain-Barré syndrome,train,101,20
+701133,Guillain-Barré syndrome,train,101,20
+670503,Guillain-Barré syndrome,train,101,20
+488762,Guillain-Barré syndrome,train,101,20
+139008,Guillain-Barré syndrome,train,101,20
+297636,Guillain-Barré syndrome,train,101,20
+217497,HIV (initial infection),train,101,20
+128572,HIV (initial infection),train,101,20
+305359,HIV (initial infection),train,101,20
+158833,HIV (initial infection),train,101,20
+132286,HIV (initial infection),train,101,20
+311244,HIV (initial infection),train,101,20
+897560,HIV (initial infection),train,101,20
+377604,HIV (initial infection),train,101,20
+460514,HIV (initial infection),train,101,20
+795604,HIV (initial infection),train,101,20
+957525,HIV (initial infection),train,101,20
+19851,HIV (initial infection),train,101,20
+1022241,HIV (initial infection),train,101,20
+97695,HIV (initial infection),train,101,20
+345682,HIV (initial infection),train,101,20
+475019,HIV (initial infection),train,101,20
+289586,HIV (initial infection),train,101,20
+731677,HIV (initial infection),train,101,20
+399450,HIV (initial infection),train,101,20
+752672,HIV (initial infection),train,101,20
+136794,Influenza,train,101,20
+761465,Influenza,train,101,20
+1004547,Influenza,train,101,20
+173637,Influenza,train,101,20
+636739,Influenza,train,101,20
+132959,Influenza,train,101,20
+366703,Influenza,train,101,20
+870595,Influenza,train,101,20
+483586,Influenza,train,101,20
+628672,Influenza,train,101,20
+719004,Influenza,train,101,20
+471217,Influenza,train,101,20
+1004959,Influenza,train,101,20
+761699,Influenza,train,101,20
+518982,Influenza,train,101,20
+391614,Influenza,train,101,20
+53430,Influenza,train,101,20
+783541,Influenza,train,101,20
+753321,Influenza,train,101,20
+871378,Influenza,train,101,20
+263895,Inguinal hernia,train,101,20
+943529,Inguinal hernia,train,101,20
+756250,Inguinal hernia,train,101,20
+311723,Inguinal hernia,train,101,20
+606363,Inguinal hernia,train,101,20
+527962,Inguinal hernia,train,101,20
+162591,Inguinal hernia,train,101,20
+210932,Inguinal hernia,train,101,20
+477198,Inguinal hernia,train,101,20
+207626,Inguinal hernia,train,101,20
+289153,Inguinal hernia,train,101,20
+525423,Inguinal hernia,train,101,20
+249935,Inguinal hernia,train,101,20
+661858,Inguinal hernia,train,101,20
+540969,Inguinal hernia,train,101,20
+980520,Inguinal hernia,train,101,20
+980513,Inguinal hernia,train,101,20
+133393,Inguinal hernia,train,101,20
+123812,Inguinal hernia,train,101,20
+792704,Inguinal hernia,train,101,20
+541122,Larygospasm,train,101,20
+118914,Larygospasm,train,101,20
+334458,Larygospasm,train,101,20
+19193,Larygospasm,train,101,20
+551280,Larygospasm,train,101,20
+72780,Larygospasm,train,101,20
+419610,Larygospasm,train,101,20
+778134,Larygospasm,train,101,20
+473023,Larygospasm,train,101,20
+140197,Larygospasm,train,101,20
+439176,Larygospasm,train,101,20
+987358,Larygospasm,train,101,20
+197086,Larygospasm,train,101,20
+805113,Larygospasm,train,101,20
+196074,Larygospasm,train,101,20
+335987,Larygospasm,train,101,20
+198671,Larygospasm,train,101,20
+456608,Larygospasm,train,101,20
+236216,Larygospasm,train,101,20
+308441,Larygospasm,train,101,20
+421654,Localized edema,train,101,20
+673639,Localized edema,train,101,20
+710864,Localized edema,train,101,20
+702675,Localized edema,train,101,20
+697493,Localized edema,train,101,20
+701273,Localized edema,train,101,20
+776029,Localized edema,train,101,20
+444172,Localized edema,train,101,20
+508947,Localized edema,train,101,20
+875012,Localized edema,train,101,20
+942501,Localized edema,train,101,20
+264376,Localized edema,train,101,20
+880441,Localized edema,train,101,20
+360299,Localized edema,train,101,20
+737100,Localized edema,train,101,20
+69051,Localized edema,train,101,20
+437708,Localized edema,train,101,20
+837905,Localized edema,train,101,20
+470301,Localized edema,train,101,20
+161490,Localized edema,train,101,20
+9199,Myasthenia gravis,train,101,20
+941456,Myasthenia gravis,train,101,20
+520803,Myasthenia gravis,train,101,20
+685997,Myasthenia gravis,train,101,20
+150241,Myasthenia gravis,train,101,20
+433876,Myasthenia gravis,train,101,20
+272079,Myasthenia gravis,train,101,20
+843305,Myasthenia gravis,train,101,20
+506577,Myasthenia gravis,train,101,20
+194526,Myasthenia gravis,train,101,20
+816095,Myasthenia gravis,train,101,20
+928509,Myasthenia gravis,train,101,20
+764984,Myasthenia gravis,train,101,20
+593944,Myasthenia gravis,train,101,20
+617700,Myasthenia gravis,train,101,20
+510873,Myasthenia gravis,train,101,20
+78344,Myasthenia gravis,train,101,20
+649377,Myasthenia gravis,train,101,20
+279100,Myasthenia gravis,train,101,20
+282574,Myasthenia gravis,train,101,20
+990215,Myocarditis,train,101,20
+452307,Myocarditis,train,101,20
+892472,Myocarditis,train,101,20
+564111,Myocarditis,train,101,20
+146816,Myocarditis,train,101,20
+584346,Myocarditis,train,101,20
+634499,Myocarditis,train,101,20
+480422,Myocarditis,train,101,20
+731903,Myocarditis,train,101,20
+711515,Myocarditis,train,101,20
+66006,Myocarditis,train,101,20
+294735,Myocarditis,train,101,20
+919586,Myocarditis,train,101,20
+247639,Myocarditis,train,101,20
+783764,Myocarditis,train,101,20
+213967,Myocarditis,train,101,20
+133373,Myocarditis,train,101,20
+538072,Myocarditis,train,101,20
+486254,Myocarditis,train,101,20
+879448,Myocarditis,train,101,20
+116703,PSVT,train,101,20
+793386,PSVT,train,101,20
+686908,PSVT,train,101,20
+410750,PSVT,train,101,20
+1019616,PSVT,train,101,20
+548175,PSVT,train,101,20
+120682,PSVT,train,101,20
+367077,PSVT,train,101,20
+637776,PSVT,train,101,20
+449419,PSVT,train,101,20
+453208,PSVT,train,101,20
+289884,PSVT,train,101,20
+646771,PSVT,train,101,20
+390644,PSVT,train,101,20
+129812,PSVT,train,101,20
+238976,PSVT,train,101,20
+300784,PSVT,train,101,20
+756826,PSVT,train,101,20
+232114,PSVT,train,101,20
+431973,PSVT,train,101,20
+611541,Pancreatic neoplasm,train,101,20
+991439,Pancreatic neoplasm,train,101,20
+755642,Pancreatic neoplasm,train,101,20
+845219,Pancreatic neoplasm,train,101,20
+763334,Pancreatic neoplasm,train,101,20
+898900,Pancreatic neoplasm,train,101,20
+302303,Pancreatic neoplasm,train,101,20
+990990,Pancreatic neoplasm,train,101,20
+43815,Pancreatic neoplasm,train,101,20
+863010,Pancreatic neoplasm,train,101,20
+725444,Pancreatic neoplasm,train,101,20
+6344,Pancreatic neoplasm,train,101,20
+144249,Pancreatic neoplasm,train,101,20
+899494,Pancreatic neoplasm,train,101,20
+244541,Pancreatic neoplasm,train,101,20
+83693,Pancreatic neoplasm,train,101,20
+894114,Pancreatic neoplasm,train,101,20
+790892,Pancreatic neoplasm,train,101,20
+477494,Pancreatic neoplasm,train,101,20
+705682,Pancreatic neoplasm,train,101,20
+882590,Panic attack,train,101,20
+368726,Panic attack,train,101,20
+48185,Panic attack,train,101,20
+686134,Panic attack,train,101,20
+529354,Panic attack,train,101,20
+317411,Panic attack,train,101,20
+588721,Panic attack,train,101,20
+959078,Panic attack,train,101,20
+368431,Panic attack,train,101,20
+823633,Panic attack,train,101,20
+225568,Panic attack,train,101,20
+833354,Panic attack,train,101,20
+969144,Panic attack,train,101,20
+89883,Panic attack,train,101,20
+26456,Panic attack,train,101,20
+14170,Panic attack,train,101,20
+881000,Panic attack,train,101,20
+265201,Panic attack,train,101,20
+612184,Panic attack,train,101,20
+287262,Panic attack,train,101,20
+1006526,Pericarditis,train,101,20
+192884,Pericarditis,train,101,20
+935988,Pericarditis,train,101,20
+655272,Pericarditis,train,101,20
+584004,Pericarditis,train,101,20
+820664,Pericarditis,train,101,20
+222691,Pericarditis,train,101,20
+492386,Pericarditis,train,101,20
+121485,Pericarditis,train,101,20
+323996,Pericarditis,train,101,20
+923654,Pericarditis,train,101,20
+280218,Pericarditis,train,101,20
+1006086,Pericarditis,train,101,20
+507777,Pericarditis,train,101,20
+871057,Pericarditis,train,101,20
+81620,Pericarditis,train,101,20
+407994,Pericarditis,train,101,20
+709085,Pericarditis,train,101,20
+404190,Pericarditis,train,101,20
+1006699,Pericarditis,train,101,20
+22759,Pneumonia,train,101,20
+633946,Pneumonia,train,101,20
+785248,Pneumonia,train,101,20
+667732,Pneumonia,train,101,20
+1000832,Pneumonia,train,101,20
+297974,Pneumonia,train,101,20
+168027,Pneumonia,train,101,20
+932658,Pneumonia,train,101,20
+701440,Pneumonia,train,101,20
+768981,Pneumonia,train,101,20
+781408,Pneumonia,train,101,20
+842653,Pneumonia,train,101,20
+423463,Pneumonia,train,101,20
+11772,Pneumonia,train,101,20
+662142,Pneumonia,train,101,20
+553666,Pneumonia,train,101,20
+70909,Pneumonia,train,101,20
+954451,Pneumonia,train,101,20
+625305,Pneumonia,train,101,20
+121873,Pneumonia,train,101,20
+257342,Possible NSTEMI / STEMI,train,101,20
+266260,Possible NSTEMI / STEMI,train,101,20
+39389,Possible NSTEMI / STEMI,train,101,20
+461717,Possible NSTEMI / STEMI,train,101,20
+787146,Possible NSTEMI / STEMI,train,101,20
+507944,Possible NSTEMI / STEMI,train,101,20
+817377,Possible NSTEMI / STEMI,train,101,20
+367837,Possible NSTEMI / STEMI,train,101,20
+311016,Possible NSTEMI / STEMI,train,101,20
+932196,Possible NSTEMI / STEMI,train,101,20
+787323,Possible NSTEMI / STEMI,train,101,20
+787550,Possible NSTEMI / STEMI,train,101,20
+603839,Possible NSTEMI / STEMI,train,101,20
+657862,Possible NSTEMI / STEMI,train,101,20
+223332,Possible NSTEMI / STEMI,train,101,20
+271527,Possible NSTEMI / STEMI,train,101,20
+243397,Possible NSTEMI / STEMI,train,101,20
+361101,Possible NSTEMI / STEMI,train,101,20
+408423,Possible NSTEMI / STEMI,train,101,20
+411239,Possible NSTEMI / STEMI,train,101,20
+672200,Pulmonary embolism,train,101,20
+81477,Pulmonary embolism,train,101,20
+464522,Pulmonary embolism,train,101,20
+746685,Pulmonary embolism,train,101,20
+75116,Pulmonary embolism,train,101,20
+379522,Pulmonary embolism,train,101,20
+485245,Pulmonary embolism,train,101,20
+628995,Pulmonary embolism,train,101,20
+645344,Pulmonary embolism,train,101,20
+598873,Pulmonary embolism,train,101,20
+479080,Pulmonary embolism,train,101,20
+631136,Pulmonary embolism,train,101,20
+165663,Pulmonary embolism,train,101,20
+495576,Pulmonary embolism,train,101,20
+303820,Pulmonary embolism,train,101,20
+339526,Pulmonary embolism,train,101,20
+357215,Pulmonary embolism,train,101,20
+7930,Pulmonary embolism,train,101,20
+215389,Pulmonary embolism,train,101,20
+976460,Pulmonary embolism,train,101,20
+144022,Pulmonary neoplasm,train,101,20
+73813,Pulmonary neoplasm,train,101,20
+1023552,Pulmonary neoplasm,train,101,20
+672234,Pulmonary neoplasm,train,101,20
+769985,Pulmonary neoplasm,train,101,20
+382136,Pulmonary neoplasm,train,101,20
+167695,Pulmonary neoplasm,train,101,20
+560795,Pulmonary neoplasm,train,101,20
+750890,Pulmonary neoplasm,train,101,20
+458802,Pulmonary neoplasm,train,101,20
+80804,Pulmonary neoplasm,train,101,20
+384746,Pulmonary neoplasm,train,101,20
+850884,Pulmonary neoplasm,train,101,20
+1023662,Pulmonary neoplasm,train,101,20
+342320,Pulmonary neoplasm,train,101,20
+1024103,Pulmonary neoplasm,train,101,20
+754771,Pulmonary neoplasm,train,101,20
+58556,Pulmonary neoplasm,train,101,20
+674159,Pulmonary neoplasm,train,101,20
+1023794,Pulmonary neoplasm,train,101,20
+341522,SLE,train,101,20
+484388,SLE,train,101,20
+90595,SLE,train,101,20
+719463,SLE,train,101,20
+148656,SLE,train,101,20
+988216,SLE,train,101,20
+987911,SLE,train,101,20
+374297,SLE,train,101,20
+11504,SLE,train,101,20
+943249,SLE,train,101,20
+342527,SLE,train,101,20
+856067,SLE,train,101,20
+394673,SLE,train,101,20
+592555,SLE,train,101,20
+701699,SLE,train,101,20
+600916,SLE,train,101,20
+918598,SLE,train,101,20
+162151,SLE,train,101,20
+277572,SLE,train,101,20
+434798,SLE,train,101,20
+1015789,Sarcoidosis,train,101,20
+824215,Sarcoidosis,train,101,20
+1014392,Sarcoidosis,train,101,20
+207939,Sarcoidosis,train,101,20
+637021,Sarcoidosis,train,101,20
+79567,Sarcoidosis,train,101,20
+863784,Sarcoidosis,train,101,20
+685885,Sarcoidosis,train,101,20
+2063,Sarcoidosis,train,101,20
+513248,Sarcoidosis,train,101,20
+41252,Sarcoidosis,train,101,20
+892093,Sarcoidosis,train,101,20
+160389,Sarcoidosis,train,101,20
+602382,Sarcoidosis,train,101,20
+850381,Sarcoidosis,train,101,20
+285655,Sarcoidosis,train,101,20
+549281,Sarcoidosis,train,101,20
+910059,Sarcoidosis,train,101,20
+582022,Sarcoidosis,train,101,20
+675650,Sarcoidosis,train,101,20
+647246,Scombroid food poisoning,train,101,20
+958364,Scombroid food poisoning,train,101,20
+579262,Scombroid food poisoning,train,101,20
+136875,Scombroid food poisoning,train,101,20
+869550,Scombroid food poisoning,train,101,20
+408256,Scombroid food poisoning,train,101,20
+778718,Scombroid food poisoning,train,101,20
+26695,Scombroid food poisoning,train,101,20
+201901,Scombroid food poisoning,train,101,20
+728661,Scombroid food poisoning,train,101,20
+620495,Scombroid food poisoning,train,101,20
+256536,Scombroid food poisoning,train,101,20
+81370,Scombroid food poisoning,train,101,20
+657513,Scombroid food poisoning,train,101,20
+646336,Scombroid food poisoning,train,101,20
+956089,Scombroid food poisoning,train,101,20
+1016145,Scombroid food poisoning,train,101,20
+391373,Scombroid food poisoning,train,101,20
+825786,Scombroid food poisoning,train,101,20
+468516,Scombroid food poisoning,train,101,20
+28716,Spontaneous pneumothorax,train,101,20
+1002331,Spontaneous pneumothorax,train,101,20
+1002698,Spontaneous pneumothorax,train,101,20
+376336,Spontaneous pneumothorax,train,101,20
+655670,Spontaneous pneumothorax,train,101,20
+668960,Spontaneous pneumothorax,train,101,20
+358248,Spontaneous pneumothorax,train,101,20
+440572,Spontaneous pneumothorax,train,101,20
+430479,Spontaneous pneumothorax,train,101,20
+489676,Spontaneous pneumothorax,train,101,20
+890629,Spontaneous pneumothorax,train,101,20
+846014,Spontaneous pneumothorax,train,101,20
+645331,Spontaneous pneumothorax,train,101,20
+728907,Spontaneous pneumothorax,train,101,20
+577594,Spontaneous pneumothorax,train,101,20
+351633,Spontaneous pneumothorax,train,101,20
+468938,Spontaneous pneumothorax,train,101,20
+1002652,Spontaneous pneumothorax,train,101,20
+82264,Spontaneous pneumothorax,train,101,20
+927662,Spontaneous pneumothorax,train,101,20
+599003,Spontaneous rib fracture,train,101,20
+857946,Spontaneous rib fracture,train,101,20
+514455,Spontaneous rib fracture,train,101,20
+429416,Spontaneous rib fracture,train,101,20
+723725,Spontaneous rib fracture,train,101,20
+884053,Spontaneous rib fracture,train,101,20
+304548,Spontaneous rib fracture,train,101,20
+129975,Spontaneous rib fracture,train,101,20
+353649,Spontaneous rib fracture,train,101,20
+390154,Spontaneous rib fracture,train,101,20
+303463,Spontaneous rib fracture,train,101,20
+903974,Spontaneous rib fracture,train,101,20
+253432,Spontaneous rib fracture,train,101,20
+437746,Spontaneous rib fracture,train,101,20
+268338,Spontaneous rib fracture,train,101,20
+777283,Spontaneous rib fracture,train,101,20
+862313,Spontaneous rib fracture,train,101,20
+114141,Spontaneous rib fracture,train,101,20
+684588,Spontaneous rib fracture,train,101,20
+690764,Spontaneous rib fracture,train,101,20
+79887,Stable angina,train,101,20
+595715,Stable angina,train,101,20
+963304,Stable angina,train,101,20
+76528,Stable angina,train,101,20
+962647,Stable angina,train,101,20
+238578,Stable angina,train,101,20
+572610,Stable angina,train,101,20
+301892,Stable angina,train,101,20
+451907,Stable angina,train,101,20
+559506,Stable angina,train,101,20
+927682,Stable angina,train,101,20
+102621,Stable angina,train,101,20
+721970,Stable angina,train,101,20
+726262,Stable angina,train,101,20
+767581,Stable angina,train,101,20
+691251,Stable angina,train,101,20
+438670,Stable angina,train,101,20
+567207,Stable angina,train,101,20
+764356,Stable angina,train,101,20
+564805,Stable angina,train,101,20
+617798,Tuberculosis,train,101,20
+100122,Tuberculosis,train,101,20
+508929,Tuberculosis,train,101,20
+785678,Tuberculosis,train,101,20
+237071,Tuberculosis,train,101,20
+853983,Tuberculosis,train,101,20
+160801,Tuberculosis,train,101,20
+699462,Tuberculosis,train,101,20
+426650,Tuberculosis,train,101,20
+847323,Tuberculosis,train,101,20
+710830,Tuberculosis,train,101,20
+557759,Tuberculosis,train,101,20
+386164,Tuberculosis,train,101,20
+413590,Tuberculosis,train,101,20
+752985,Tuberculosis,train,101,20
+317279,Tuberculosis,train,101,20
+320683,Tuberculosis,train,101,20
+803846,Tuberculosis,train,101,20
+392336,Tuberculosis,train,101,20
+830288,Tuberculosis,train,101,20
+416149,URTI,train,101,20
+213616,URTI,train,101,20
+143578,URTI,train,101,20
+117295,URTI,train,101,20
+233327,URTI,train,101,20
+701742,URTI,train,101,20
+416725,URTI,train,101,20
+659862,URTI,train,101,20
+981558,URTI,train,101,20
+403151,URTI,train,101,20
+779021,URTI,train,101,20
+735469,URTI,train,101,20
+611058,URTI,train,101,20
+984763,URTI,train,101,20
+213426,URTI,train,101,20
+393145,URTI,train,101,20
+985412,URTI,train,101,20
+65130,URTI,train,101,20
+921561,URTI,train,101,20
+133556,URTI,train,101,20
+855886,Unstable angina,train,101,20
+689540,Unstable angina,train,101,20
+656280,Unstable angina,train,101,20
+962181,Unstable angina,train,101,20
+799473,Unstable angina,train,101,20
+962273,Unstable angina,train,101,20
+175818,Unstable angina,train,101,20
+760472,Unstable angina,train,101,20
+744958,Unstable angina,train,101,20
+265608,Unstable angina,train,101,20
+247982,Unstable angina,train,101,20
+424716,Unstable angina,train,101,20
+194547,Unstable angina,train,101,20
+334025,Unstable angina,train,101,20
+961346,Unstable angina,train,101,20
+873015,Unstable angina,train,101,20
+519124,Unstable angina,train,101,20
+587413,Unstable angina,train,101,20
+143935,Unstable angina,train,101,20
+745752,Unstable angina,train,101,20
+440653,Viral pharyngitis,train,101,20
+392120,Viral pharyngitis,train,101,20
+711182,Viral pharyngitis,train,101,20
+493337,Viral pharyngitis,train,101,20
+504897,Viral pharyngitis,train,101,20
+685287,Viral pharyngitis,train,101,20
+300430,Viral pharyngitis,train,101,20
+342034,Viral pharyngitis,train,101,20
+311051,Viral pharyngitis,train,101,20
+903422,Viral pharyngitis,train,101,20
+585120,Viral pharyngitis,train,101,20
+654123,Viral pharyngitis,train,101,20
+96933,Viral pharyngitis,train,101,20
+895735,Viral pharyngitis,train,101,20
+442565,Viral pharyngitis,train,101,20
+477295,Viral pharyngitis,train,101,20
+184487,Viral pharyngitis,train,101,20
+115053,Viral pharyngitis,train,101,20
+639484,Viral pharyngitis,train,101,20
+92867,Viral pharyngitis,train,101,20
+71397,Whooping cough,train,101,20
+973726,Whooping cough,train,101,20
+166473,Whooping cough,train,101,20
+676189,Whooping cough,train,101,20
+422692,Whooping cough,train,101,20
+249134,Whooping cough,train,101,20
+753248,Whooping cough,train,101,20
+841606,Whooping cough,train,101,20
+357989,Whooping cough,train,101,20
+281287,Whooping cough,train,101,20
+973675,Whooping cough,train,101,20
+911333,Whooping cough,train,101,20
+666497,Whooping cough,train,101,20
+239455,Whooping cough,train,101,20
+69189,Whooping cough,train,101,20
+689193,Whooping cough,train,101,20
+773058,Whooping cough,train,101,20
+365273,Whooping cough,train,101,20
+34803,Whooping cough,train,101,20
+350033,Whooping cough,train,101,20

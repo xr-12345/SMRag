@@ -1,0 +1,246 @@
+case_id,diagnosis,split,sample_seed,cases_per_disease
+80212,Acute COPD exacerbation / infection,validate,2026,5
+34898,Acute COPD exacerbation / infection,validate,2026,5
+83138,Acute COPD exacerbation / infection,validate,2026,5
+102209,Acute COPD exacerbation / infection,validate,2026,5
+130883,Acute COPD exacerbation / infection,validate,2026,5
+46753,Acute dystonic reactions,validate,2026,5
+115235,Acute dystonic reactions,validate,2026,5
+100333,Acute dystonic reactions,validate,2026,5
+72546,Acute dystonic reactions,validate,2026,5
+53079,Acute dystonic reactions,validate,2026,5
+41998,Acute laryngitis,validate,2026,5
+122931,Acute laryngitis,validate,2026,5
+31111,Acute laryngitis,validate,2026,5
+8310,Acute laryngitis,validate,2026,5
+41077,Acute laryngitis,validate,2026,5
+89256,Acute otitis media,validate,2026,5
+27519,Acute otitis media,validate,2026,5
+68624,Acute otitis media,validate,2026,5
+120617,Acute otitis media,validate,2026,5
+92863,Acute otitis media,validate,2026,5
+13849,Acute pulmonary edema,validate,2026,5
+77455,Acute pulmonary edema,validate,2026,5
+12181,Acute pulmonary edema,validate,2026,5
+114042,Acute pulmonary edema,validate,2026,5
+118143,Acute pulmonary edema,validate,2026,5
+43637,Acute rhinosinusitis,validate,2026,5
+40802,Acute rhinosinusitis,validate,2026,5
+37924,Acute rhinosinusitis,validate,2026,5
+97228,Acute rhinosinusitis,validate,2026,5
+20761,Acute rhinosinusitis,validate,2026,5
+20791,Allergic sinusitis,validate,2026,5
+73295,Allergic sinusitis,validate,2026,5
+121262,Allergic sinusitis,validate,2026,5
+57078,Allergic sinusitis,validate,2026,5
+13229,Allergic sinusitis,validate,2026,5
+25573,Anaphylaxis,validate,2026,5
+4070,Anaphylaxis,validate,2026,5
+97951,Anaphylaxis,validate,2026,5
+80277,Anaphylaxis,validate,2026,5
+89859,Anaphylaxis,validate,2026,5
+131225,Anemia,validate,2026,5
+1195,Anemia,validate,2026,5
+55433,Anemia,validate,2026,5
+121307,Anemia,validate,2026,5
+77351,Anemia,validate,2026,5
+75760,Atrial fibrillation,validate,2026,5
+83767,Atrial fibrillation,validate,2026,5
+61848,Atrial fibrillation,validate,2026,5
+105944,Atrial fibrillation,validate,2026,5
+87344,Atrial fibrillation,validate,2026,5
+61232,Boerhaave,validate,2026,5
+21,Boerhaave,validate,2026,5
+82888,Boerhaave,validate,2026,5
+128863,Boerhaave,validate,2026,5
+121385,Boerhaave,validate,2026,5
+44571,Bronchiectasis,validate,2026,5
+90954,Bronchiectasis,validate,2026,5
+59603,Bronchiectasis,validate,2026,5
+19706,Bronchiectasis,validate,2026,5
+46098,Bronchiectasis,validate,2026,5
+681,Bronchiolitis,validate,2026,5
+7013,Bronchiolitis,validate,2026,5
+11076,Bronchiolitis,validate,2026,5
+30073,Bronchiolitis,validate,2026,5
+37733,Bronchiolitis,validate,2026,5
+112339,Bronchitis,validate,2026,5
+51712,Bronchitis,validate,2026,5
+37629,Bronchitis,validate,2026,5
+112884,Bronchitis,validate,2026,5
+29740,Bronchitis,validate,2026,5
+51400,Bronchospasm / acute asthma exacerbation,validate,2026,5
+78207,Bronchospasm / acute asthma exacerbation,validate,2026,5
+69402,Bronchospasm / acute asthma exacerbation,validate,2026,5
+5640,Bronchospasm / acute asthma exacerbation,validate,2026,5
+119507,Bronchospasm / acute asthma exacerbation,validate,2026,5
+53395,Chagas,validate,2026,5
+121089,Chagas,validate,2026,5
+78162,Chagas,validate,2026,5
+74916,Chagas,validate,2026,5
+49933,Chagas,validate,2026,5
+125795,Chronic rhinosinusitis,validate,2026,5
+89009,Chronic rhinosinusitis,validate,2026,5
+105717,Chronic rhinosinusitis,validate,2026,5
+127360,Chronic rhinosinusitis,validate,2026,5
+108419,Chronic rhinosinusitis,validate,2026,5
+107435,Cluster headache,validate,2026,5
+123939,Cluster headache,validate,2026,5
+108535,Cluster headache,validate,2026,5
+22391,Cluster headache,validate,2026,5
+60326,Cluster headache,validate,2026,5
+52585,Croup,validate,2026,5
+51278,Croup,validate,2026,5
+78369,Croup,validate,2026,5
+92532,Croup,validate,2026,5
+33587,Croup,validate,2026,5
+2586,Ebola,validate,2026,5
+39846,Ebola,validate,2026,5
+5447,Ebola,validate,2026,5
+64748,Ebola,validate,2026,5
+28316,Ebola,validate,2026,5
+117692,Epiglottitis,validate,2026,5
+57703,Epiglottitis,validate,2026,5
+31351,Epiglottitis,validate,2026,5
+22238,Epiglottitis,validate,2026,5
+54952,Epiglottitis,validate,2026,5
+33471,GERD,validate,2026,5
+28829,GERD,validate,2026,5
+1651,GERD,validate,2026,5
+111892,GERD,validate,2026,5
+114028,GERD,validate,2026,5
+109937,Guillain-Barré syndrome,validate,2026,5
+107753,Guillain-Barré syndrome,validate,2026,5
+100894,Guillain-Barré syndrome,validate,2026,5
+9636,Guillain-Barré syndrome,validate,2026,5
+116991,Guillain-Barré syndrome,validate,2026,5
+70085,HIV (initial infection),validate,2026,5
+72012,HIV (initial infection),validate,2026,5
+101999,HIV (initial infection),validate,2026,5
+7571,HIV (initial infection),validate,2026,5
+130463,HIV (initial infection),validate,2026,5
+54787,Influenza,validate,2026,5
+48102,Influenza,validate,2026,5
+40335,Influenza,validate,2026,5
+102986,Influenza,validate,2026,5
+85736,Influenza,validate,2026,5
+29925,Inguinal hernia,validate,2026,5
+11918,Inguinal hernia,validate,2026,5
+7169,Inguinal hernia,validate,2026,5
+30065,Inguinal hernia,validate,2026,5
+81601,Inguinal hernia,validate,2026,5
+5803,Larygospasm,validate,2026,5
+12568,Larygospasm,validate,2026,5
+71499,Larygospasm,validate,2026,5
+107295,Larygospasm,validate,2026,5
+58290,Larygospasm,validate,2026,5
+52811,Localized edema,validate,2026,5
+21018,Localized edema,validate,2026,5
+37203,Localized edema,validate,2026,5
+36874,Localized edema,validate,2026,5
+92927,Localized edema,validate,2026,5
+83868,Myasthenia gravis,validate,2026,5
+15856,Myasthenia gravis,validate,2026,5
+26303,Myasthenia gravis,validate,2026,5
+84221,Myasthenia gravis,validate,2026,5
+93872,Myasthenia gravis,validate,2026,5
+72058,Myocarditis,validate,2026,5
+16418,Myocarditis,validate,2026,5
+33863,Myocarditis,validate,2026,5
+51886,Myocarditis,validate,2026,5
+7861,Myocarditis,validate,2026,5
+41820,PSVT,validate,2026,5
+74885,PSVT,validate,2026,5
+4251,PSVT,validate,2026,5
+41220,PSVT,validate,2026,5
+92941,PSVT,validate,2026,5
+85911,Pancreatic neoplasm,validate,2026,5
+14061,Pancreatic neoplasm,validate,2026,5
+102711,Pancreatic neoplasm,validate,2026,5
+90251,Pancreatic neoplasm,validate,2026,5
+4830,Pancreatic neoplasm,validate,2026,5
+105358,Panic attack,validate,2026,5
+97540,Panic attack,validate,2026,5
+61737,Panic attack,validate,2026,5
+38083,Panic attack,validate,2026,5
+84233,Panic attack,validate,2026,5
+78225,Pericarditis,validate,2026,5
+88032,Pericarditis,validate,2026,5
+123544,Pericarditis,validate,2026,5
+52374,Pericarditis,validate,2026,5
+86739,Pericarditis,validate,2026,5
+37266,Pneumonia,validate,2026,5
+76630,Pneumonia,validate,2026,5
+103775,Pneumonia,validate,2026,5
+59747,Pneumonia,validate,2026,5
+67430,Pneumonia,validate,2026,5
+87604,Possible NSTEMI / STEMI,validate,2026,5
+71249,Possible NSTEMI / STEMI,validate,2026,5
+116452,Possible NSTEMI / STEMI,validate,2026,5
+118067,Possible NSTEMI / STEMI,validate,2026,5
+217,Possible NSTEMI / STEMI,validate,2026,5
+50606,Pulmonary embolism,validate,2026,5
+100786,Pulmonary embolism,validate,2026,5
+68974,Pulmonary embolism,validate,2026,5
+20624,Pulmonary embolism,validate,2026,5
+111597,Pulmonary embolism,validate,2026,5
+56328,Pulmonary neoplasm,validate,2026,5
+49420,Pulmonary neoplasm,validate,2026,5
+94518,Pulmonary neoplasm,validate,2026,5
+97571,Pulmonary neoplasm,validate,2026,5
+20855,Pulmonary neoplasm,validate,2026,5
+12,SLE,validate,2026,5
+23837,SLE,validate,2026,5
+297,SLE,validate,2026,5
+44332,SLE,validate,2026,5
+35866,SLE,validate,2026,5
+85727,Sarcoidosis,validate,2026,5
+20485,Sarcoidosis,validate,2026,5
+101434,Sarcoidosis,validate,2026,5
+75733,Sarcoidosis,validate,2026,5
+109136,Sarcoidosis,validate,2026,5
+12377,Scombroid food poisoning,validate,2026,5
+102872,Scombroid food poisoning,validate,2026,5
+60577,Scombroid food poisoning,validate,2026,5
+69372,Scombroid food poisoning,validate,2026,5
+84903,Scombroid food poisoning,validate,2026,5
+67557,Spontaneous pneumothorax,validate,2026,5
+6756,Spontaneous pneumothorax,validate,2026,5
+78017,Spontaneous pneumothorax,validate,2026,5
+32891,Spontaneous pneumothorax,validate,2026,5
+27432,Spontaneous pneumothorax,validate,2026,5
+127331,Spontaneous rib fracture,validate,2026,5
+92888,Spontaneous rib fracture,validate,2026,5
+125147,Spontaneous rib fracture,validate,2026,5
+298,Spontaneous rib fracture,validate,2026,5
+39136,Spontaneous rib fracture,validate,2026,5
+51161,Stable angina,validate,2026,5
+99585,Stable angina,validate,2026,5
+54948,Stable angina,validate,2026,5
+131349,Stable angina,validate,2026,5
+4996,Stable angina,validate,2026,5
+61497,Tuberculosis,validate,2026,5
+119896,Tuberculosis,validate,2026,5
+111718,Tuberculosis,validate,2026,5
+123781,Tuberculosis,validate,2026,5
+3040,Tuberculosis,validate,2026,5
+53377,URTI,validate,2026,5
+57298,URTI,validate,2026,5
+132277,URTI,validate,2026,5
+67646,URTI,validate,2026,5
+95569,URTI,validate,2026,5
+114245,Unstable angina,validate,2026,5
+77692,Unstable angina,validate,2026,5
+34997,Unstable angina,validate,2026,5
+26335,Unstable angina,validate,2026,5
+97191,Unstable angina,validate,2026,5
+109084,Viral pharyngitis,validate,2026,5
+117339,Viral pharyngitis,validate,2026,5
+60118,Viral pharyngitis,validate,2026,5
+17404,Viral pharyngitis,validate,2026,5
+3287,Viral pharyngitis,validate,2026,5
+27936,Whooping cough,validate,2026,5
+28939,Whooping cough,validate,2026,5
+86202,Whooping cough,validate,2026,5
+122570,Whooping cough,validate,2026,5
+104168,Whooping cough,validate,2026,5

@@ -1,0 +1,29 @@
+{
+  "phase": "VeriMedRAG phase 2A (retrieval joint gate) toy smoke",
+  "model": "toy (influenza / common_cold / allergic_rhinitis)",
+  "corpus": "tiny in-memory corpus (fever + myalgia snippets only)",
+  "checks": {
+    "rank_only_does_not_auto_open": {
+      "passed": true,
+      "n_retrieval_triggered": 0,
+      "n_opened_by_retrieval_log": 0,
+      "best_action": "new"
+    },
+    "joint_gate_opens": {
+      "passed": true,
+      "n_retrieval_triggered": 3,
+      "best_action": "verify",
+      "best_report_index": 2,
+      "fever_activation_value": 0.238718,
+      "fever_error_probability": 0.268718,
+      "fever_normalized_impact": 1.0
+    },
+    "asknew_still_wins": {
+      "passed": true,
+      "gate_opened": true,
+      "best_action": "new",
+      "best_asknew_utility": 0.202897
+    }
+  },
+  "all_passed": true
+}

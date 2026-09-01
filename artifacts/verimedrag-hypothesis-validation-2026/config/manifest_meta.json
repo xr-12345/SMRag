@@ -1,0 +1,13 @@
+{
+  "generated_at_utc": "2026-08-30T07:59:42.185033Z",
+  "split": "validate",
+  "sample_seed": 2026,
+  "cases_per_disease": 20,
+  "n_cases": 980,
+  "n_diseases": 49,
+  "validate_patients_sha256": "625a96855becf0efe5da339fd3d440aa99597d48f784957a97dacc3fceaa7e40",
+  "evidences_sha256": "281c78b044ae60514e28ecc9052d08a8225dd3e2db3f00f8788b99c47b05e0c0",
+  "model_full_sha256": "a8c95e7f5a41987a5cc60fb334455ecf819b5aea267e1503abf3064a4cf290c8",
+  "git_commit": "e661311f91510df39018d04d9c966a110b836018",
+  "python_version": "Python 3.13.13"
+}

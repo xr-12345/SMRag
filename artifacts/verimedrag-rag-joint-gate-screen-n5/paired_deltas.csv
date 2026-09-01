@@ -1,0 +1,2941 @@
+case_id,diagnosis,noise_rate,config,delta_top1,delta_top3,delta_brier,delta_total_questions,delta_new_questions,delta_verification_questions
+83138,Acute COPD exacerbation / infection,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.2,rank_only_w0.1,0,0,2.601e-05,-1,-1,0
+130883,Acute COPD exacerbation / infection,0.2,rank_only_w0.1,-1,0,0.71294603,0,-1,1
+41998,Acute laryngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+89256,Acute otitis media,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+120617,Acute otitis media,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+68624,Acute otitis media,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+27519,Acute otitis media,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+114042,Acute pulmonary edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+92863,Acute otitis media,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+1195,Anemia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+55433,Anemia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+131225,Anemia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.2,rank_only_w0.1,0,0,0.0,1,0,1
+61848,Atrial fibrillation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+61232,Boerhaave,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+121307,Anemia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+21,Boerhaave,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+82888,Boerhaave,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+128863,Boerhaave,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+77351,Anemia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+681,Bronchiolitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.2,rank_only_w0.1,0,0,-0.60122548,4,3,1
+75760,Atrial fibrillation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+37733,Bronchiolitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+112339,Bronchitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+51712,Bronchitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+37629,Bronchitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+121385,Boerhaave,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+29740,Bronchitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+53395,Chagas,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+121089,Chagas,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+112884,Bronchitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+78162,Chagas,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+49933,Chagas,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+107435,Cluster headache,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+123939,Cluster headache,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+108535,Cluster headache,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+22391,Cluster headache,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+52585,Croup,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+60326,Cluster headache,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+74916,Chagas,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+92532,Croup,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+33587,Croup,0.2,rank_only_w0.1,0,0,-0.39685703,0,0,0
+39846,Ebola,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+5447,Ebola,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+78369,Croup,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+64748,Ebola,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+51278,Croup,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+2586,Ebola,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+28316,Ebola,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+28829,GERD,0.2,rank_only_w0.1,0,0,0.00075583,2,1,1
+57703,Epiglottitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+54952,Epiglottitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+33471,GERD,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+31351,Epiglottitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+22238,Epiglottitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+72012,HIV (initial infection),0.2,rank_only_w0.1,0,0,0.0,0,0,0
+1651,GERD,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+101999,HIV (initial infection),0.2,rank_only_w0.1,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+117692,Epiglottitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.2,rank_only_w0.1,0,0,0.0,0,0,0
+114028,GERD,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.2,rank_only_w0.1,0,0,0.0,0,0,0
+40335,Influenza,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+54787,Influenza,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+85736,Influenza,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.2,rank_only_w0.1,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+5803,Larygospasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+12568,Larygospasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+71499,Larygospasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+48102,Influenza,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+111892,GERD,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+52811,Localized edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+58290,Larygospasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+107295,Larygospasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+102986,Influenza,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+81601,Inguinal hernia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+21018,Localized edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+37203,Localized edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+72058,Myocarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+92927,Localized edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+51886,Myocarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+7861,Myocarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+41820,PSVT,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+33863,Myocarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+74885,PSVT,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+16418,Myocarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+41220,PSVT,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+4251,PSVT,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+14061,Pancreatic neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+36874,Localized edema,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+85911,Pancreatic neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+92941,PSVT,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+61737,Panic attack,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+38083,Panic attack,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+84233,Panic attack,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+88032,Pericarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+105358,Panic attack,0.2,rank_only_w0.1,0,0,-0.14112222,0,0,0
+97540,Panic attack,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+78225,Pericarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+76630,Pneumonia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+103775,Pneumonia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+59747,Pneumonia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+37266,Pneumonia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+123544,Pericarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+52374,Pericarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+86739,Pericarditis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+217,Possible NSTEMI / STEMI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+67430,Pneumonia,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+23837,SLE,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+297,SLE,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+35866,SLE,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+12,SLE,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+44332,SLE,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+51161,Stable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+61497,Tuberculosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+111718,Tuberculosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+123781,Tuberculosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+3040,Tuberculosis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+53377,URTI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+99585,Stable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+119896,Tuberculosis,0.2,rank_only_w0.1,0,0,-0.00608514,-3,-3,0
+57298,URTI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+4996,Stable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+54948,Stable angina,0.2,rank_only_w0.1,0,0,-0.19317471,0,0,0
+132277,URTI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+67646,URTI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+95569,URTI,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+77692,Unstable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+131349,Stable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+26335,Unstable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+34997,Unstable angina,0.2,rank_only_w0.1,0,-1,-0.65731216,1,1,0
+114245,Unstable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+27936,Whooping cough,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+104168,Whooping cough,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+122570,Whooping cough,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+3287,Viral pharyngitis,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+28939,Whooping cough,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+97191,Unstable angina,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+86202,Whooping cough,0.2,rank_only_w0.1,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+130883,Acute COPD exacerbation / infection,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+41998,Acute laryngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+120617,Acute otitis media,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+68624,Acute otitis media,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+27519,Acute otitis media,0.3,rank_only_w0.1,0,0,0.00781029,1,0,1
+114042,Acute pulmonary edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+92863,Acute otitis media,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+89256,Acute otitis media,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+1195,Anemia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+131225,Anemia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+55433,Anemia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+61232,Boerhaave,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+121307,Anemia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+61848,Atrial fibrillation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+82888,Boerhaave,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+21,Boerhaave,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+128863,Boerhaave,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+681,Bronchiolitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+77351,Anemia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+121385,Boerhaave,0.3,rank_only_w0.1,0,0,0.0215629,0,0,0
+37733,Bronchiolitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+37629,Bronchitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+51712,Bronchitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+112339,Bronchitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+29740,Bronchitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+112884,Bronchitis,0.3,rank_only_w0.1,0,0,0.13721941,0,-1,1
+125795,Chronic rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+121089,Chagas,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+53395,Chagas,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+74916,Chagas,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+49933,Chagas,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+107435,Cluster headache,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+123939,Cluster headache,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+60326,Cluster headache,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+22391,Cluster headache,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+108535,Cluster headache,0.3,rank_only_w0.1,0,0,0.0,1,0,1
+52585,Croup,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+78369,Croup,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+92532,Croup,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+51278,Croup,0.3,rank_only_w0.1,0,0,0.0,1,0,1
+78162,Chagas,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+39846,Ebola,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+2586,Ebola,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+28316,Ebola,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+5447,Ebola,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+57703,Epiglottitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+64748,Ebola,0.3,rank_only_w0.1,0,0,-0.00068204,1,0,1
+33471,GERD,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+33587,Croup,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+117692,Epiglottitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+54952,Epiglottitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+31351,Epiglottitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+22238,Epiglottitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+28829,GERD,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+1651,GERD,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+72012,HIV (initial infection),0.3,rank_only_w0.1,0,0,0.0,0,0,0
+101999,HIV (initial infection),0.3,rank_only_w0.1,0,0,0.0,0,0,0
+114028,GERD,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.3,rank_only_w0.1,0,0,0.0,0,0,0
+111892,GERD,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.3,rank_only_w0.1,0,0,-0.0011765,-2,-2,0
+9636,Guillain-Barré syndrome,0.3,rank_only_w0.1,0,0,-0.03643497,0,0,0
+40335,Influenza,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.3,rank_only_w0.1,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+48102,Influenza,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+102986,Influenza,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+81601,Inguinal hernia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+85736,Influenza,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+5803,Larygospasm,0.3,rank_only_w0.1,0,0,-0.00392936,0,-1,1
+54787,Influenza,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+12568,Larygospasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.3,rank_only_w0.1,0,0,0.0,0,0,0
+58290,Larygospasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+52811,Localized edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+71499,Larygospasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+107295,Larygospasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+37203,Localized edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+21018,Localized edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+92927,Localized edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+41820,PSVT,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+51886,Myocarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+72058,Myocarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+7861,Myocarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+33863,Myocarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+16418,Myocarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+4251,PSVT,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+41220,PSVT,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+74885,PSVT,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+14061,Pancreatic neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+92941,PSVT,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+61737,Panic attack,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+85911,Pancreatic neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+38083,Panic attack,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+97540,Panic attack,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+105358,Panic attack,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+123544,Pericarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+78225,Pericarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+84233,Panic attack,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+76630,Pneumonia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+36874,Localized edema,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+37266,Pneumonia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+103775,Pneumonia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+88032,Pericarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+86739,Pericarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+59747,Pneumonia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+52374,Pericarditis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+217,Possible NSTEMI / STEMI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+23837,SLE,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+67430,Pneumonia,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+35866,SLE,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+12,SLE,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+297,SLE,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+44332,SLE,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+51161,Stable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+119896,Tuberculosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+111718,Tuberculosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+123781,Tuberculosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+57298,URTI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+3040,Tuberculosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+4996,Stable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+61497,Tuberculosis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+53377,URTI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+54948,Stable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+99585,Stable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+114245,Unstable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+67646,URTI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+132277,URTI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+77692,Unstable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+131349,Stable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+34997,Unstable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+95569,URTI,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.3,rank_only_w0.1,1,0,-1.90573317,4,3,1
+28939,Whooping cough,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+104168,Whooping cough,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+26335,Unstable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+122570,Whooping cough,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+97191,Unstable angina,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+27936,Whooping cough,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+86202,Whooping cough,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+3287,Viral pharyngitis,0.3,rank_only_w0.1,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.2,rank_only_w0.5,0,0,0.0,1,0,1
+46753,Acute dystonic reactions,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.2,rank_only_w0.5,0,0,2.601e-05,-2,-2,0
+130883,Acute COPD exacerbation / infection,0.2,rank_only_w0.5,-1,0,0.71294603,0,-1,1
+41998,Acute laryngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+89256,Acute otitis media,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+120617,Acute otitis media,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+68624,Acute otitis media,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+27519,Acute otitis media,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+114042,Acute pulmonary edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+92863,Acute otitis media,0.2,rank_only_w0.5,-1,0,0.67900796,0,0,0
+12181,Acute pulmonary edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.2,rank_only_w0.5,0,0,0.00031229,-1,-1,0
+118143,Acute pulmonary edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+1195,Anemia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+55433,Anemia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+131225,Anemia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.2,rank_only_w0.5,0,0,0.0,1,0,1
+61848,Atrial fibrillation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+61232,Boerhaave,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+121307,Anemia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+21,Boerhaave,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+82888,Boerhaave,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+77351,Anemia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+681,Bronchiolitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+128863,Boerhaave,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.2,rank_only_w0.5,0,0,-0.60122548,4,3,1
+37733,Bronchiolitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+51712,Bronchitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+112339,Bronchitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+29740,Bronchitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+37629,Bronchitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+121385,Boerhaave,0.2,rank_only_w0.5,0,0,-1.371e-05,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w0.5,1,0,-1.89382638,-1,-1,0
+53395,Chagas,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+121089,Chagas,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+112884,Bronchitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+49933,Chagas,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+107435,Cluster headache,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+123939,Cluster headache,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+108535,Cluster headache,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+22391,Cluster headache,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+60326,Cluster headache,0.2,rank_only_w0.5,0,0,0.0,-1,-1,0
+52585,Croup,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+74916,Chagas,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+92532,Croup,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+33587,Croup,0.2,rank_only_w0.5,0,0,-0.39685703,0,0,0
+39846,Ebola,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+78162,Chagas,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+78369,Croup,0.2,rank_only_w0.5,0,0,-1.827e-05,-1,-1,0
+64748,Ebola,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+5447,Ebola,0.2,rank_only_w0.5,0,0,-0.0094682,-1,-1,0
+51278,Croup,0.2,rank_only_w0.5,0,0,0.00346555,-1,-1,0
+2586,Ebola,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+28316,Ebola,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+57703,Epiglottitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+33471,GERD,0.2,rank_only_w0.5,0,0,0.0,1,0,1
+28829,GERD,0.2,rank_only_w0.5,0,0,0.00075583,2,1,1
+54952,Epiglottitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+31351,Epiglottitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+22238,Epiglottitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.2,rank_only_w0.5,0,0,0.00074043,-1,-1,0
+72012,HIV (initial infection),0.2,rank_only_w0.5,0,0,0.0,0,0,0
+1651,GERD,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+101999,HIV (initial infection),0.2,rank_only_w0.5,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+114028,GERD,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+117692,Epiglottitis,0.2,rank_only_w0.5,0,0,-0.14125726,0,0,0
+70085,HIV (initial infection),0.2,rank_only_w0.5,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.2,rank_only_w0.5,0,0,0.03031714,4,3,1
+7571,HIV (initial infection),0.2,rank_only_w0.5,0,0,0.0,0,0,0
+40335,Influenza,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.2,rank_only_w0.5,0,0,0.0,1,0,1
+54787,Influenza,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+85736,Influenza,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+48102,Influenza,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.2,rank_only_w0.5,0,0,0.0,1,0,1
+81601,Inguinal hernia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+5803,Larygospasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+12568,Larygospasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+71499,Larygospasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+111892,GERD,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+52811,Localized edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+58290,Larygospasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+107295,Larygospasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+102986,Influenza,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+21018,Localized edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+37203,Localized edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+92927,Localized edema,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.2,rank_only_w0.5,0,0,0.04834547,0,0,0
+51886,Myocarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+41820,PSVT,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+72058,Myocarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+33863,Myocarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+74885,PSVT,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+7861,Myocarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+16418,Myocarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+4251,PSVT,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+41220,PSVT,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+14061,Pancreatic neoplasm,0.2,rank_only_w0.5,0,0,0.0,1,0,1
+36874,Localized edema,0.2,rank_only_w0.5,-1,-1,1.39718513,-7,-7,0
+85911,Pancreatic neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+92941,PSVT,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+61737,Panic attack,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+97540,Panic attack,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+38083,Panic attack,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+84233,Panic attack,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+88032,Pericarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+105358,Panic attack,0.2,rank_only_w0.5,0,0,-0.14112222,0,0,0
+90251,Pancreatic neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.2,rank_only_w0.5,0,0,0.00066817,-1,-1,0
+78225,Pericarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+76630,Pneumonia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+103775,Pneumonia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+37266,Pneumonia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+86739,Pericarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+123544,Pericarditis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+59747,Pneumonia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+52374,Pericarditis,0.2,rank_only_w0.5,0,0,-0.00975177,0,0,0
+217,Possible NSTEMI / STEMI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+67430,Pneumonia,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.2,rank_only_w0.5,0,0,-0.40500321,0,0,0
+49420,Pulmonary neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+23837,SLE,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+297,SLE,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+35866,SLE,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+12,SLE,0.2,rank_only_w0.5,0,0,-0.06309835,0,0,0
+85727,Sarcoidosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+44332,SLE,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+51161,Stable angina,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+119896,Tuberculosis,0.2,rank_only_w0.5,0,0,-0.00608514,-3,-3,0
+61497,Tuberculosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+111718,Tuberculosis,0.2,rank_only_w0.5,0,0,0.13607247,0,-1,1
+123781,Tuberculosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+3040,Tuberculosis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+99585,Stable angina,0.2,rank_only_w0.5,0,0,-0.00618235,3,2,1
+57298,URTI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+53377,URTI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+54948,Stable angina,0.2,rank_only_w0.5,0,0,-0.19317471,0,0,0
+4996,Stable angina,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+132277,URTI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+67646,URTI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+77692,Unstable angina,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+131349,Stable angina,0.2,rank_only_w0.5,0,0,-0.00224838,0,0,0
+109084,Viral pharyngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+34997,Unstable angina,0.2,rank_only_w0.5,0,-1,-0.65731216,1,1,0
+95569,URTI,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+114245,Unstable angina,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+28939,Whooping cough,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+27936,Whooping cough,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+104168,Whooping cough,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+26335,Unstable angina,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+122570,Whooping cough,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+3287,Viral pharyngitis,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+97191,Unstable angina,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+86202,Whooping cough,0.2,rank_only_w0.5,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+130883,Acute COPD exacerbation / infection,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+41998,Acute laryngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+120617,Acute otitis media,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+68624,Acute otitis media,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+27519,Acute otitis media,0.3,rank_only_w0.5,0,0,0.00781029,1,0,1
+114042,Acute pulmonary edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+92863,Acute otitis media,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+89256,Acute otitis media,0.3,rank_only_w0.5,0,0,-0.00053609,2,1,1
+20791,Allergic sinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.3,rank_only_w0.5,1,1,-1.01181415,-3,-3,0
+25573,Anaphylaxis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+1195,Anemia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+131225,Anemia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.3,rank_only_w0.5,0,0,-0.00028598,0,0,0
+13229,Allergic sinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+55433,Anemia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+61232,Boerhaave,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+121307,Anemia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+61848,Atrial fibrillation,0.3,rank_only_w0.5,0,0,-0.95937706,3,3,0
+43637,Acute rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+82888,Boerhaave,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+21,Boerhaave,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.3,rank_only_w0.5,0,-1,0.43455464,0,0,0
+128863,Boerhaave,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+681,Bronchiolitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.3,rank_only_w0.5,0,0,1.239e-05,-1,-1,0
+77351,Anemia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+121385,Boerhaave,0.3,rank_only_w0.5,0,0,0.0215629,0,0,0
+37733,Bronchiolitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+37629,Bronchitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+51712,Bronchitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+112339,Bronchitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+29740,Bronchitis,0.3,rank_only_w0.5,0,0,0.34289315,0,-1,1
+112884,Bronchitis,0.3,rank_only_w0.5,0,0,0.13721941,0,-1,1
+125795,Chronic rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+121089,Chagas,0.3,rank_only_w0.5,0,0,0.00203891,0,0,0
+89009,Chronic rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+53395,Chagas,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+74916,Chagas,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+49933,Chagas,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+107435,Cluster headache,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+123939,Cluster headache,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+60326,Cluster headache,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+22391,Cluster headache,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+108535,Cluster headache,0.3,rank_only_w0.5,0,0,0.00428836,3,2,1
+52585,Croup,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+78369,Croup,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+92532,Croup,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+51278,Croup,0.3,rank_only_w0.5,0,0,0.0,1,0,1
+78162,Chagas,0.3,rank_only_w0.5,0,0,0.35384997,0,-1,1
+39846,Ebola,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+2586,Ebola,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+28316,Ebola,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+5447,Ebola,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+57703,Epiglottitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+64748,Ebola,0.3,rank_only_w0.5,0,0,-0.00068204,0,-1,1
+33471,GERD,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+33587,Croup,0.3,rank_only_w0.5,0,0,0.01203691,-3,-3,0
+117692,Epiglottitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+54952,Epiglottitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+31351,Epiglottitis,0.3,rank_only_w0.5,-1,-1,0.69570304,0,0,0
+109937,Guillain-Barré syndrome,0.3,rank_only_w0.5,0,0,0.0,1,0,1
+22238,Epiglottitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+28829,GERD,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+1651,GERD,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+72012,HIV (initial infection),0.3,rank_only_w0.5,0,0,0.0,0,0,0
+101999,HIV (initial infection),0.3,rank_only_w0.5,0,0,0.0,0,0,0
+114028,GERD,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.3,rank_only_w0.5,0,0,0.0,0,0,0
+111892,GERD,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.3,rank_only_w0.5,0,0,-0.0011765,-2,-2,0
+9636,Guillain-Barré syndrome,0.3,rank_only_w0.5,0,0,-0.6226161,0,0,0
+40335,Influenza,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.3,rank_only_w0.5,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+48102,Influenza,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+102986,Influenza,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+81601,Inguinal hernia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+85736,Influenza,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+5803,Larygospasm,0.3,rank_only_w0.5,0,0,-0.00256836,-1,-2,1
+54787,Influenza,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+12568,Larygospasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.3,rank_only_w0.5,0,0,0.0,0,0,0
+58290,Larygospasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+52811,Localized edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+71499,Larygospasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+107295,Larygospasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+37203,Localized edema,0.3,rank_only_w0.5,-1,0,1.85758362,-4,-4,0
+21018,Localized edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+92927,Localized edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+41820,PSVT,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+51886,Myocarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+72058,Myocarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+7861,Myocarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+33863,Myocarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+16418,Myocarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+4251,PSVT,0.3,rank_only_w0.5,0,0,0.0,1,0,1
+41220,PSVT,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+74885,PSVT,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+14061,Pancreatic neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+92941,PSVT,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+61737,Panic attack,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+85911,Pancreatic neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+38083,Panic attack,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+97540,Panic attack,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+105358,Panic attack,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+123544,Pericarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+78225,Pericarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+84233,Panic attack,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+76630,Pneumonia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+36874,Localized edema,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+37266,Pneumonia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+103775,Pneumonia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+88032,Pericarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+86739,Pericarditis,0.3,rank_only_w0.5,0,0,0.0,1,0,1
+59747,Pneumonia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+52374,Pericarditis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+217,Possible NSTEMI / STEMI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.3,rank_only_w0.5,0,0,-3.816e-05,1,0,1
+116452,Possible NSTEMI / STEMI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+23837,SLE,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+67430,Pneumonia,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+35866,SLE,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.3,rank_only_w0.5,0,0,0.0,1,0,1
+12,SLE,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+297,SLE,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+44332,SLE,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+51161,Stable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+119896,Tuberculosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+111718,Tuberculosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+123781,Tuberculosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+57298,URTI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+3040,Tuberculosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+4996,Stable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+61497,Tuberculosis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+53377,URTI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+54948,Stable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+99585,Stable angina,0.3,rank_only_w0.5,0,1,-0.11707335,0,-1,1
+114245,Unstable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+67646,URTI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+132277,URTI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+77692,Unstable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+131349,Stable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+34997,Unstable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+95569,URTI,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.3,rank_only_w0.5,1,0,-1.90573317,4,3,1
+28939,Whooping cough,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+104168,Whooping cough,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+26335,Unstable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+122570,Whooping cough,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+97191,Unstable angina,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+27936,Whooping cough,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+86202,Whooping cough,0.3,rank_only_w0.5,0,0,0.0,0,0,0
+3287,Viral pharyngitis,0.3,rank_only_w0.5,0,0,-0.12472777,0,0,0
+83138,Acute COPD exacerbation / infection,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+46753,Acute dystonic reactions,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.2,rank_only_w1.0,0,0,0.00011899,-2,-2,0
+100333,Acute dystonic reactions,0.2,rank_only_w1.0,0,0,2.601e-05,-2,-2,0
+130883,Acute COPD exacerbation / infection,0.2,rank_only_w1.0,-1,0,0.71294603,0,-1,1
+41998,Acute laryngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+89256,Acute otitis media,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+120617,Acute otitis media,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+68624,Acute otitis media,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+27519,Acute otitis media,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+114042,Acute pulmonary edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+92863,Acute otitis media,0.2,rank_only_w1.0,-1,0,0.67900796,0,0,0
+12181,Acute pulmonary edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.2,rank_only_w1.0,0,0,0.4136803,1,1,0
+118143,Acute pulmonary edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.2,rank_only_w1.0,0,0,-0.57217012,-1,-1,0
+1195,Anemia,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+55433,Anemia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+131225,Anemia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+61848,Atrial fibrillation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+61232,Boerhaave,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+121307,Anemia,0.2,rank_only_w1.0,0,0,2.69e-06,-1,-1,0
+43637,Acute rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+21,Boerhaave,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+82888,Boerhaave,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+77351,Anemia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+681,Bronchiolitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+128863,Boerhaave,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+37733,Bronchiolitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+51712,Bronchitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+112339,Bronchitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+29740,Bronchitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+37629,Bronchitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+121385,Boerhaave,0.2,rank_only_w1.0,0,0,-4.69e-06,-1,-1,0
+69402,Bronchospasm / acute asthma exacerbation,0.2,rank_only_w1.0,1,0,-1.89382638,-1,-1,0
+53395,Chagas,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+121089,Chagas,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+112884,Bronchitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+49933,Chagas,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+107435,Cluster headache,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+123939,Cluster headache,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+108535,Cluster headache,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+22391,Cluster headache,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+60326,Cluster headache,0.2,rank_only_w1.0,0,0,0.0,-2,-2,0
+52585,Croup,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+74916,Chagas,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+92532,Croup,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+33587,Croup,0.2,rank_only_w1.0,0,0,-0.39685703,0,0,0
+39846,Ebola,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+78162,Chagas,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+78369,Croup,0.2,rank_only_w1.0,0,0,-1.827e-05,-1,-1,0
+64748,Ebola,0.2,rank_only_w1.0,0,0,-0.01054735,0,0,0
+5447,Ebola,0.2,rank_only_w1.0,0,0,-0.0094682,-1,-1,0
+51278,Croup,0.2,rank_only_w1.0,0,0,0.00346555,-1,-1,0
+2586,Ebola,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+28316,Ebola,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+57703,Epiglottitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+33471,GERD,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+28829,GERD,0.2,rank_only_w1.0,0,0,0.00075583,2,1,1
+54952,Epiglottitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+31351,Epiglottitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+22238,Epiglottitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.2,rank_only_w1.0,0,0,0.00074043,-1,-1,0
+72012,HIV (initial infection),0.2,rank_only_w1.0,0,0,0.0,0,0,0
+1651,GERD,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+101999,HIV (initial infection),0.2,rank_only_w1.0,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+114028,GERD,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+117692,Epiglottitis,0.2,rank_only_w1.0,0,0,-0.14125726,0,0,0
+70085,HIV (initial infection),0.2,rank_only_w1.0,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.2,rank_only_w1.0,0,0,0.03196305,4,3,1
+7571,HIV (initial infection),0.2,rank_only_w1.0,0,0,0.0,0,0,0
+40335,Influenza,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+54787,Influenza,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+85736,Influenza,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+48102,Influenza,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.2,rank_only_w1.0,0,0,0.0,1,0,1
+81601,Inguinal hernia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+5803,Larygospasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+12568,Larygospasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+71499,Larygospasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+111892,GERD,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+52811,Localized edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+58290,Larygospasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+107295,Larygospasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+102986,Influenza,0.2,rank_only_w1.0,0,0,-0.00118617,-2,-2,0
+83868,Myasthenia gravis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+21018,Localized edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+37203,Localized edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+92927,Localized edema,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.2,rank_only_w1.0,0,0,0.04834547,0,0,0
+51886,Myocarditis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+41820,PSVT,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+72058,Myocarditis,0.2,rank_only_w1.0,-1,-1,0.40191565,0,0,0
+33863,Myocarditis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+74885,PSVT,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+7861,Myocarditis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+16418,Myocarditis,0.2,rank_only_w1.0,0,0,0.01032036,0,-1,1
+4251,PSVT,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+41220,PSVT,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+14061,Pancreatic neoplasm,0.2,rank_only_w1.0,0,0,0.0,1,0,1
+36874,Localized edema,0.2,rank_only_w1.0,-1,-1,1.39718513,-7,-7,0
+85911,Pancreatic neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+92941,PSVT,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+61737,Panic attack,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+97540,Panic attack,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+38083,Panic attack,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+84233,Panic attack,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+88032,Pericarditis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+105358,Panic attack,0.2,rank_only_w1.0,0,0,-0.14112222,0,0,0
+90251,Pancreatic neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.2,rank_only_w1.0,0,0,0.00066817,-1,-1,0
+78225,Pericarditis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+76630,Pneumonia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+103775,Pneumonia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+37266,Pneumonia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+86739,Pericarditis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+123544,Pericarditis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+59747,Pneumonia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+52374,Pericarditis,0.2,rank_only_w1.0,0,0,-0.00975177,0,0,0
+217,Possible NSTEMI / STEMI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+67430,Pneumonia,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.2,rank_only_w1.0,0,0,-0.00648661,5,4,1
+100786,Pulmonary embolism,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.2,rank_only_w1.0,0,0,-0.40500321,0,0,0
+49420,Pulmonary neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+23837,SLE,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+297,SLE,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+35866,SLE,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+12,SLE,0.2,rank_only_w1.0,0,0,-0.06309835,0,0,0
+85727,Sarcoidosis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+44332,SLE,0.2,rank_only_w1.0,0,0,0.23046537,0,0,0
+109136,Sarcoidosis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.2,rank_only_w1.0,1,0,-0.74788473,-2,-2,0
+27432,Spontaneous pneumothorax,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+51161,Stable angina,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+119896,Tuberculosis,0.2,rank_only_w1.0,0,0,-0.00608514,-3,-3,0
+61497,Tuberculosis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+111718,Tuberculosis,0.2,rank_only_w1.0,0,0,0.13607247,0,-1,1
+123781,Tuberculosis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+3040,Tuberculosis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+99585,Stable angina,0.2,rank_only_w1.0,0,0,-0.00618235,3,2,1
+57298,URTI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+53377,URTI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+54948,Stable angina,0.2,rank_only_w1.0,0,0,-0.19317471,0,0,0
+4996,Stable angina,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+132277,URTI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+67646,URTI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+77692,Unstable angina,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+131349,Stable angina,0.2,rank_only_w1.0,0,0,-0.00224838,0,0,0
+109084,Viral pharyngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+34997,Unstable angina,0.2,rank_only_w1.0,0,-1,-0.65731216,1,1,0
+95569,URTI,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+114245,Unstable angina,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+28939,Whooping cough,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+27936,Whooping cough,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+104168,Whooping cough,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+26335,Unstable angina,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+122570,Whooping cough,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+3287,Viral pharyngitis,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+97191,Unstable angina,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+86202,Whooping cough,0.2,rank_only_w1.0,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+102209,Acute COPD exacerbation / infection,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+130883,Acute COPD exacerbation / infection,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+41998,Acute laryngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+120617,Acute otitis media,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+68624,Acute otitis media,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+27519,Acute otitis media,0.3,rank_only_w1.0,0,0,0.00781029,1,0,1
+114042,Acute pulmonary edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+92863,Acute otitis media,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+89256,Acute otitis media,0.3,rank_only_w1.0,0,0,8.7e-05,-1,-2,1
+20791,Allergic sinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.3,rank_only_w1.0,1,1,-1.01181415,-3,-3,0
+25573,Anaphylaxis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+131225,Anemia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+1195,Anemia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.3,rank_only_w1.0,0,0,-0.00028598,0,0,0
+13229,Allergic sinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+55433,Anemia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+97951,Anaphylaxis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+61232,Boerhaave,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+121307,Anemia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+61848,Atrial fibrillation,0.3,rank_only_w1.0,0,0,-0.95937706,3,3,0
+44571,Bronchiectasis,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+90954,Bronchiectasis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+82888,Boerhaave,0.3,rank_only_w1.0,1,0,-0.791709,0,0,0
+59603,Bronchiectasis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+21,Boerhaave,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.3,rank_only_w1.0,0,0,0.05650249,0,0,0
+681,Bronchiolitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.3,rank_only_w1.0,0,0,1.239e-05,-1,-1,0
+77351,Anemia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+121385,Boerhaave,0.3,rank_only_w1.0,0,0,0.0215629,0,0,0
+37733,Bronchiolitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+37629,Bronchitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+112339,Bronchitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+29740,Bronchitis,0.3,rank_only_w1.0,0,0,0.34289315,0,-1,1
+51712,Bronchitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+128863,Boerhaave,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+112884,Bronchitis,0.3,rank_only_w1.0,0,0,-0.01691554,0,-1,1
+125795,Chronic rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+121089,Chagas,0.3,rank_only_w1.0,0,0,0.00203891,0,0,0
+105717,Chronic rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+53395,Chagas,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+74916,Chagas,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+49933,Chagas,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+108419,Chronic rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+123939,Cluster headache,0.3,rank_only_w1.0,0,0,0.01153637,3,2,1
+107435,Cluster headache,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+60326,Cluster headache,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+22391,Cluster headache,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+78162,Chagas,0.3,rank_only_w1.0,0,0,0.35384997,0,-1,1
+108535,Cluster headache,0.3,rank_only_w1.0,0,0,0.00428836,3,2,1
+52585,Croup,0.3,rank_only_w1.0,1,0,-1.16299917,0,0,0
+78369,Croup,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+92532,Croup,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+51278,Croup,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+39846,Ebola,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+5447,Ebola,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+2586,Ebola,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+28316,Ebola,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+64748,Ebola,0.3,rank_only_w1.0,0,0,-0.00069511,-1,-2,1
+33587,Croup,0.3,rank_only_w1.0,0,0,0.01203691,-3,-3,0
+33471,GERD,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+117692,Epiglottitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+54952,Epiglottitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+57703,Epiglottitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+31351,Epiglottitis,0.3,rank_only_w1.0,-1,-1,0.69570304,0,0,0
+109937,Guillain-Barré syndrome,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+22238,Epiglottitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+28829,GERD,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+1651,GERD,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+72012,HIV (initial infection),0.3,rank_only_w1.0,0,0,0.0,0,0,0
+114028,GERD,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.3,rank_only_w1.0,0,0,0.0,0,0,0
+111892,GERD,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.3,rank_only_w1.0,0,0,-0.00120003,0,0,0
+101999,HIV (initial infection),0.3,rank_only_w1.0,0,0,0.0,0,0,0
+48102,Influenza,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+40335,Influenza,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.3,rank_only_w1.0,0,0,-0.67991893,0,0,0
+7571,HIV (initial infection),0.3,rank_only_w1.0,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+102986,Influenza,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+85736,Influenza,0.3,rank_only_w1.0,0,0,-0.03080882,0,0,0
+81601,Inguinal hernia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+5803,Larygospasm,0.3,rank_only_w1.0,0,0,-0.00256836,-1,-2,1
+54787,Influenza,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+12568,Larygospasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.3,rank_only_w1.0,0,0,0.0,0,0,0
+58290,Larygospasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+52811,Localized edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+107295,Larygospasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+71499,Larygospasm,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+83868,Myasthenia gravis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+21018,Localized edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+92927,Localized edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.3,rank_only_w1.0,0,1,-1.09561831,6,6,0
+41820,PSVT,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+51886,Myocarditis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+7861,Myocarditis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+33863,Myocarditis,0.3,rank_only_w1.0,0,0,-0.00262552,-1,-1,0
+72058,Myocarditis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+16418,Myocarditis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+4251,PSVT,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+74885,PSVT,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+37203,Localized edema,0.3,rank_only_w1.0,-1,0,1.85758362,-4,-4,0
+14061,Pancreatic neoplasm,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+92941,PSVT,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+41220,PSVT,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+97540,Panic attack,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+61737,Panic attack,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+85911,Pancreatic neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+38083,Panic attack,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+78225,Pericarditis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+105358,Panic attack,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+123544,Pericarditis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+84233,Panic attack,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+76630,Pneumonia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+36874,Localized edema,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+37266,Pneumonia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+103775,Pneumonia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+88032,Pericarditis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+86739,Pericarditis,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+87604,Possible NSTEMI / STEMI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+52374,Pericarditis,0.3,rank_only_w1.0,1,1,-0.9559917,0,0,0
+217,Possible NSTEMI / STEMI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+59747,Pneumonia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.3,rank_only_w1.0,0,0,-3.816e-05,1,0,1
+111597,Pulmonary embolism,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+56328,Pulmonary neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+23837,SLE,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+67430,Pneumonia,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+44332,SLE,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+35866,SLE,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+20855,Pulmonary neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+12,SLE,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+297,SLE,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.3,rank_only_w1.0,0,0,-0.5463825,3,2,1
+49420,Pulmonary neoplasm,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.3,rank_only_w1.0,0,0,0.0,1,0,1
+84903,Scombroid food poisoning,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+51161,Stable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+119896,Tuberculosis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+111718,Tuberculosis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+123781,Tuberculosis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+57298,URTI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+3040,Tuberculosis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+4996,Stable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+61497,Tuberculosis,0.3,rank_only_w1.0,0,0,-0.00808533,-1,-1,0
+53377,URTI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+99585,Stable angina,0.3,rank_only_w1.0,0,1,-0.11707335,0,-1,1
+114245,Unstable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+67646,URTI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+132277,URTI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+54948,Stable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+77692,Unstable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+131349,Stable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+34997,Unstable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+95569,URTI,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.3,rank_only_w1.0,1,0,-1.90573317,4,3,1
+104168,Whooping cough,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+122570,Whooping cough,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+97191,Unstable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+27936,Whooping cough,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+86202,Whooping cough,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+26335,Unstable angina,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+28939,Whooping cough,0.3,rank_only_w1.0,0,0,0.0,0,0,0
+3287,Viral pharyngitis,0.3,rank_only_w1.0,0,0,-0.12472777,0,0,0
+83138,Acute COPD exacerbation / infection,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.2,joint_gate_w0.1,0,0,2.601e-05,-1,-1,0
+115235,Acute dystonic reactions,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+130883,Acute COPD exacerbation / infection,0.2,joint_gate_w0.1,-1,0,0.71294603,0,-1,1
+80212,Acute COPD exacerbation / infection,0.2,joint_gate_w0.1,0,0,-3.255e-05,0,-1,1
+41998,Acute laryngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+89256,Acute otitis media,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+120617,Acute otitis media,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+68624,Acute otitis media,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+27519,Acute otitis media,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+114042,Acute pulmonary edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+92863,Acute otitis media,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.2,joint_gate_w0.1,0,0,0.4136803,1,1,0
+118143,Acute pulmonary edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+1195,Anemia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+55433,Anemia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+131225,Anemia,0.2,joint_gate_w0.1,0,0,0.00248143,-2,-3,1
+97951,Anaphylaxis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.2,joint_gate_w0.1,0,0,0.0,1,0,1
+105944,Atrial fibrillation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+61848,Atrial fibrillation,0.2,joint_gate_w0.1,-1,-1,1.23244196,0,-1,1
+61232,Boerhaave,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+121307,Anemia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.2,joint_gate_w0.1,0,0,-0.36569665,0,0,0
+90954,Bronchiectasis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+21,Boerhaave,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+82888,Boerhaave,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+77351,Anemia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+681,Bronchiolitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+128863,Boerhaave,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.2,joint_gate_w0.1,0,0,-0.60122548,4,3,1
+19706,Bronchiectasis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+37733,Bronchiolitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+121385,Boerhaave,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+51712,Bronchitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+112339,Bronchitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+29740,Bronchitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+37629,Bronchitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.1,1,0,-1.89197216,2,2,0
+53395,Chagas,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+121089,Chagas,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+112884,Bronchitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+74916,Chagas,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+49933,Chagas,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+107435,Cluster headache,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+123939,Cluster headache,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+108535,Cluster headache,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+22391,Cluster headache,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+60326,Cluster headache,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+52585,Croup,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+92532,Croup,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+39846,Ebola,0.2,joint_gate_w0.1,0,0,-0.00388304,0,-1,1
+78162,Chagas,0.2,joint_gate_w0.1,1,1,-0.19062221,0,0,0
+127360,Chronic rhinosinusitis,0.2,joint_gate_w0.1,1,0,-0.61724427,0,-1,1
+78369,Croup,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+5447,Ebola,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+51278,Croup,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+2586,Ebola,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+28316,Ebola,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+57703,Epiglottitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+64748,Ebola,0.2,joint_gate_w0.1,0,0,0.02767849,0,0,0
+33471,GERD,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+33587,Croup,0.2,joint_gate_w0.1,0,0,-0.39685703,0,0,0
+54952,Epiglottitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+31351,Epiglottitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+22238,Epiglottitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+28829,GERD,0.2,joint_gate_w0.1,0,0,0.00075583,2,1,1
+107753,Guillain-Barré syndrome,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+72012,HIV (initial infection),0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+1651,GERD,0.2,joint_gate_w0.1,0,0,9.731e-05,-3,-4,1
+101999,HIV (initial infection),0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+114028,GERD,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+117692,Epiglottitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+40335,Influenza,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+54787,Influenza,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+85736,Influenza,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+48102,Influenza,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+81601,Inguinal hernia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+5803,Larygospasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+12568,Larygospasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+71499,Larygospasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+111892,GERD,0.2,joint_gate_w0.1,0,0,0.00852232,0,-1,1
+58290,Larygospasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+52811,Localized edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+107295,Larygospasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+102986,Influenza,0.2,joint_gate_w0.1,0,0,-0.00118617,-3,-3,0
+83868,Myasthenia gravis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+21018,Localized edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+37203,Localized edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+92927,Localized edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+41820,PSVT,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+51886,Myocarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+72058,Myocarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+33863,Myocarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+74885,PSVT,0.2,joint_gate_w0.1,0,0,0.364664,0,-1,1
+7861,Myocarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+16418,Myocarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+4251,PSVT,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+41220,PSVT,0.2,joint_gate_w0.1,0,0,0.0,1,0,1
+14061,Pancreatic neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+85911,Pancreatic neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+92941,PSVT,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+61737,Panic attack,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+97540,Panic attack,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+38083,Panic attack,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+84233,Panic attack,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+105358,Panic attack,0.2,joint_gate_w0.1,0,0,-0.14112222,0,0,0
+102711,Pancreatic neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+78225,Pericarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+76630,Pneumonia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+103775,Pneumonia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+36874,Localized edema,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+37266,Pneumonia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+88032,Pericarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+86739,Pericarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+123544,Pericarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+59747,Pneumonia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+52374,Pericarditis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+217,Possible NSTEMI / STEMI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.2,joint_gate_w0.1,0,0,0.0,1,0,1
+111597,Pulmonary embolism,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+67430,Pneumonia,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+23837,SLE,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+297,SLE,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+35866,SLE,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+12,SLE,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.2,joint_gate_w0.1,0,0,-6.241e-05,-1,-2,1
+12377,Scombroid food poisoning,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+44332,SLE,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.2,joint_gate_w0.1,0,0,2.309e-05,0,-1,1
+101434,Sarcoidosis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+51161,Stable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+119896,Tuberculosis,0.2,joint_gate_w0.1,0,0,-0.00608514,-3,-3,0
+61497,Tuberculosis,0.2,joint_gate_w0.1,0,0,3.256e-05,-1,-1,0
+111718,Tuberculosis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+123781,Tuberculosis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+3040,Tuberculosis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+57298,URTI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+99585,Stable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+53377,URTI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+54948,Stable angina,0.2,joint_gate_w0.1,0,0,-0.14324777,0,0,0
+4996,Stable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+132277,URTI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+67646,URTI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+114245,Unstable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+77692,Unstable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+131349,Stable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+34997,Unstable angina,0.2,joint_gate_w0.1,0,-1,-0.65731216,1,1,0
+95569,URTI,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+28939,Whooping cough,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+27936,Whooping cough,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+104168,Whooping cough,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+26335,Unstable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+122570,Whooping cough,0.2,joint_gate_w0.1,0,0,0.0161611,0,0,0
+3287,Viral pharyngitis,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+97191,Unstable angina,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+86202,Whooping cough,0.2,joint_gate_w0.1,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+130883,Acute COPD exacerbation / infection,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+41998,Acute laryngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+120617,Acute otitis media,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+68624,Acute otitis media,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+27519,Acute otitis media,0.3,joint_gate_w0.1,0,0,0.00781029,1,0,1
+114042,Acute pulmonary edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+92863,Acute otitis media,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+89256,Acute otitis media,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.3,joint_gate_w0.1,0,0,0.0,1,0,1
+97228,Acute rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+131225,Anemia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+1195,Anemia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.3,joint_gate_w0.1,-1,0,1.57402748,-4,-4,0
+13229,Allergic sinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,1,0,1
+55433,Anemia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+61232,Boerhaave,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+121307,Anemia,0.3,joint_gate_w0.1,0,0,-0.77875332,2,2,0
+61848,Atrial fibrillation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+82888,Boerhaave,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+21,Boerhaave,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+681,Bronchiolitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+77351,Anemia,0.3,joint_gate_w0.1,-1,-1,0.14219226,0,-1,1
+121385,Boerhaave,0.3,joint_gate_w0.1,0,0,0.0215629,0,0,0
+37733,Bronchiolitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+37629,Bronchitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+112339,Bronchitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+29740,Bronchitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+51712,Bronchitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.1,0,0,0.00038572,3,2,1
+119507,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+128863,Boerhaave,0.3,joint_gate_w0.1,0,0,-0.00043765,0,0,0
+112884,Bronchitis,0.3,joint_gate_w0.1,0,0,0.13721941,0,-1,1
+125795,Chronic rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+121089,Chagas,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+53395,Chagas,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+74916,Chagas,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+49933,Chagas,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+123939,Cluster headache,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+107435,Cluster headache,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+60326,Cluster headache,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+22391,Cluster headache,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+78162,Chagas,0.3,joint_gate_w0.1,0,0,0.14593891,0,-1,1
+108535,Cluster headache,0.3,joint_gate_w0.1,0,0,0.0,1,0,1
+52585,Croup,0.3,joint_gate_w0.1,0,0,-0.03421061,0,0,0
+78369,Croup,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+92532,Croup,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+51278,Croup,0.3,joint_gate_w0.1,0,0,0.0,1,0,1
+39846,Ebola,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+5447,Ebola,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+2586,Ebola,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+28316,Ebola,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+64748,Ebola,0.3,joint_gate_w0.1,0,0,-0.00068204,1,0,1
+33587,Croup,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+33471,GERD,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+117692,Epiglottitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+54952,Epiglottitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+57703,Epiglottitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+31351,Epiglottitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+22238,Epiglottitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+28829,GERD,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+100894,Guillain-Barré syndrome,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+1651,GERD,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+72012,HIV (initial infection),0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+114028,GERD,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+111892,GERD,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.3,joint_gate_w0.1,0,0,-0.0011765,-2,-2,0
+101999,HIV (initial infection),0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+48102,Influenza,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+40335,Influenza,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.3,joint_gate_w0.1,0,0,-0.03643497,0,0,0
+7571,HIV (initial infection),0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+102986,Influenza,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+85736,Influenza,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+81601,Inguinal hernia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+5803,Larygospasm,0.3,joint_gate_w0.1,0,0,-0.00392936,0,-1,1
+54787,Influenza,0.3,joint_gate_w0.1,0,0,-0.00066325,0,-1,1
+12568,Larygospasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+58290,Larygospasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+52811,Localized edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+107295,Larygospasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+71499,Larygospasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+21018,Localized edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+92927,Localized edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+41820,PSVT,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+51886,Myocarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+7861,Myocarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+33863,Myocarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+72058,Myocarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+16418,Myocarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+4251,PSVT,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+74885,PSVT,0.3,joint_gate_w0.1,-1,0,0.35141845,0,0,0
+37203,Localized edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+14061,Pancreatic neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+92941,PSVT,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+41220,PSVT,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+97540,Panic attack,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.3,joint_gate_w0.1,0,0,0.0,1,0,1
+61737,Panic attack,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+85911,Pancreatic neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+38083,Panic attack,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+78225,Pericarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+105358,Panic attack,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+123544,Pericarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+84233,Panic attack,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+76630,Pneumonia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+36874,Localized edema,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+37266,Pneumonia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+103775,Pneumonia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+88032,Pericarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+86739,Pericarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.3,joint_gate_w0.1,0,0,1.159e-05,-1,-1,0
+118067,Possible NSTEMI / STEMI,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+52374,Pericarditis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+217,Possible NSTEMI / STEMI,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+59747,Pneumonia,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.3,joint_gate_w0.1,0,0,0.67795013,0,0,0
+50606,Pulmonary embolism,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+23837,SLE,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+67430,Pneumonia,0.3,joint_gate_w0.1,0,0,0.0,1,0,1
+44332,SLE,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+35866,SLE,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+12,SLE,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+297,SLE,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+51161,Stable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+119896,Tuberculosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+111718,Tuberculosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+123781,Tuberculosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+57298,URTI,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+3040,Tuberculosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+4996,Stable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+61497,Tuberculosis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+53377,URTI,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+99585,Stable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+114245,Unstable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+67646,URTI,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+132277,URTI,0.3,joint_gate_w0.1,0,0,0.0174643,0,0,0
+54948,Stable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+77692,Unstable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+131349,Stable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+34997,Unstable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+95569,URTI,0.3,joint_gate_w0.1,0,0,-0.0012187,-1,-1,0
+60118,Viral pharyngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.3,joint_gate_w0.1,1,0,-1.90573317,4,3,1
+104168,Whooping cough,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+122570,Whooping cough,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+97191,Unstable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+27936,Whooping cough,0.3,joint_gate_w0.1,0,0,0.65246206,0,0,0
+86202,Whooping cough,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+26335,Unstable angina,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+28939,Whooping cough,0.3,joint_gate_w0.1,0,1,-0.73990963,6,5,1
+3287,Viral pharyngitis,0.3,joint_gate_w0.1,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+46753,Acute dystonic reactions,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.2,joint_gate_w0.5,0,0,2.601e-05,-2,-2,0
+115235,Acute dystonic reactions,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+130883,Acute COPD exacerbation / infection,0.2,joint_gate_w0.5,-1,0,0.71294603,0,-1,1
+80212,Acute COPD exacerbation / infection,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+41998,Acute laryngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+89256,Acute otitis media,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+120617,Acute otitis media,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+68624,Acute otitis media,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+27519,Acute otitis media,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+114042,Acute pulmonary edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+92863,Acute otitis media,0.2,joint_gate_w0.5,-1,0,0.67900796,0,0,0
+77455,Acute pulmonary edema,0.2,joint_gate_w0.5,0,0,0.4136803,1,1,0
+118143,Acute pulmonary edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+1195,Anemia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+55433,Anemia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+131225,Anemia,0.2,joint_gate_w0.5,0,0,0.00248143,-2,-3,1
+97951,Anaphylaxis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+105944,Atrial fibrillation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+61848,Atrial fibrillation,0.2,joint_gate_w0.5,-1,-1,1.23244196,0,-1,1
+61232,Boerhaave,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+121307,Anemia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.2,joint_gate_w0.5,0,0,-0.36569665,0,0,0
+90954,Bronchiectasis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+21,Boerhaave,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+82888,Boerhaave,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+77351,Anemia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+681,Bronchiolitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+128863,Boerhaave,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.2,joint_gate_w0.5,0,0,-0.60122548,4,3,1
+19706,Bronchiectasis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+37733,Bronchiolitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+121385,Boerhaave,0.2,joint_gate_w0.5,0,0,-1.371e-05,0,0,0
+51712,Bronchitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+112339,Bronchitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+29740,Bronchitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+37629,Bronchitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w0.5,1,0,-1.88869484,-3,-3,0
+53395,Chagas,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+121089,Chagas,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+112884,Bronchitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+89009,Chronic rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+74916,Chagas,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+49933,Chagas,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+107435,Cluster headache,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+123939,Cluster headache,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+108535,Cluster headache,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+22391,Cluster headache,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+60326,Cluster headache,0.2,joint_gate_w0.5,0,0,0.0,-1,-1,0
+52585,Croup,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+92532,Croup,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+39846,Ebola,0.2,joint_gate_w0.5,0,0,-0.00388304,0,-1,1
+78162,Chagas,0.2,joint_gate_w0.5,1,1,-0.19062221,0,0,0
+127360,Chronic rhinosinusitis,0.2,joint_gate_w0.5,1,0,-0.61724427,0,-1,1
+78369,Croup,0.2,joint_gate_w0.5,0,0,-1.827e-05,-1,-1,0
+5447,Ebola,0.2,joint_gate_w0.5,0,0,-0.0094682,-1,-1,0
+51278,Croup,0.2,joint_gate_w0.5,0,0,0.00346555,-1,-1,0
+2586,Ebola,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+28316,Ebola,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+57703,Epiglottitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+64748,Ebola,0.2,joint_gate_w0.5,0,0,0.02767849,0,0,0
+33471,GERD,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+33587,Croup,0.2,joint_gate_w0.5,0,0,-0.39685703,0,0,0
+54952,Epiglottitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+31351,Epiglottitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+22238,Epiglottitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+28829,GERD,0.2,joint_gate_w0.5,0,0,0.00075583,2,1,1
+107753,Guillain-Barré syndrome,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+100894,Guillain-Barré syndrome,0.2,joint_gate_w0.5,0,0,0.00074043,-1,-1,0
+72012,HIV (initial infection),0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+1651,GERD,0.2,joint_gate_w0.5,0,0,9.731e-05,-3,-4,1
+101999,HIV (initial infection),0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+114028,GERD,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+117692,Epiglottitis,0.2,joint_gate_w0.5,0,0,-0.14125726,0,0,0
+70085,HIV (initial infection),0.2,joint_gate_w0.5,0,0,-9.6e-07,1,0,1
+9636,Guillain-Barré syndrome,0.2,joint_gate_w0.5,0,0,0.03031714,4,3,1
+40335,Influenza,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+54787,Influenza,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+85736,Influenza,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+48102,Influenza,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+81601,Inguinal hernia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+5803,Larygospasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+12568,Larygospasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+71499,Larygospasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+111892,GERD,0.2,joint_gate_w0.5,0,0,0.00852232,0,-1,1
+58290,Larygospasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+52811,Localized edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+107295,Larygospasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+102986,Influenza,0.2,joint_gate_w0.5,0,0,-0.00118617,-3,-3,0
+83868,Myasthenia gravis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.2,joint_gate_w0.5,0,0,0.04834547,0,0,0
+21018,Localized edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+37203,Localized edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+92927,Localized edema,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+41820,PSVT,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+51886,Myocarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+72058,Myocarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+33863,Myocarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+74885,PSVT,0.2,joint_gate_w0.5,0,0,0.364664,0,-1,1
+7861,Myocarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+16418,Myocarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+4251,PSVT,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+41220,PSVT,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+14061,Pancreatic neoplasm,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+85911,Pancreatic neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+92941,PSVT,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+61737,Panic attack,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+97540,Panic attack,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+38083,Panic attack,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+84233,Panic attack,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+105358,Panic attack,0.2,joint_gate_w0.5,0,0,-0.14112222,0,0,0
+102711,Pancreatic neoplasm,0.2,joint_gate_w0.5,0,0,0.00066817,-1,-1,0
+78225,Pericarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+76630,Pneumonia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+103775,Pneumonia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+36874,Localized edema,0.2,joint_gate_w0.5,-1,-1,1.39718513,-7,-7,0
+37266,Pneumonia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+88032,Pericarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+86739,Pericarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+123544,Pericarditis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+59747,Pneumonia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+52374,Pericarditis,0.2,joint_gate_w0.5,0,0,-0.00975177,0,0,0
+217,Possible NSTEMI / STEMI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+50606,Pulmonary embolism,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+111597,Pulmonary embolism,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+20855,Pulmonary neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.2,joint_gate_w0.5,0,0,-0.40500321,0,0,0
+56328,Pulmonary neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+67430,Pneumonia,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+23837,SLE,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+297,SLE,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+35866,SLE,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+12,SLE,0.2,joint_gate_w0.5,0,0,-0.06309835,0,0,0
+85727,Sarcoidosis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.2,joint_gate_w0.5,0,0,-6.241e-05,-1,-2,1
+12377,Scombroid food poisoning,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+44332,SLE,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.2,joint_gate_w0.5,0,0,2.309e-05,0,-1,1
+101434,Sarcoidosis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+27432,Spontaneous pneumothorax,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+51161,Stable angina,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+119896,Tuberculosis,0.2,joint_gate_w0.5,0,0,-0.00608514,-3,-3,0
+61497,Tuberculosis,0.2,joint_gate_w0.5,0,0,3.256e-05,-1,-1,0
+111718,Tuberculosis,0.2,joint_gate_w0.5,0,0,0.13607247,0,-1,1
+39136,Spontaneous rib fracture,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+123781,Tuberculosis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+3040,Tuberculosis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+57298,URTI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+99585,Stable angina,0.2,joint_gate_w0.5,0,0,-0.00618235,3,2,1
+53377,URTI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+54948,Stable angina,0.2,joint_gate_w0.5,0,0,-0.14324777,0,0,0
+4996,Stable angina,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+132277,URTI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+67646,URTI,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+114245,Unstable angina,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+77692,Unstable angina,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+131349,Stable angina,0.2,joint_gate_w0.5,0,0,-0.00224838,0,0,0
+109084,Viral pharyngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+60118,Viral pharyngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+34997,Unstable angina,0.2,joint_gate_w0.5,0,-1,-0.65731216,1,1,0
+95569,URTI,0.2,joint_gate_w0.5,0,0,0.0,1,0,1
+17404,Viral pharyngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+28939,Whooping cough,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+27936,Whooping cough,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+104168,Whooping cough,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+26335,Unstable angina,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+122570,Whooping cough,0.2,joint_gate_w0.5,0,0,0.0161611,0,0,0
+3287,Viral pharyngitis,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+97191,Unstable angina,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+86202,Whooping cough,0.2,joint_gate_w0.5,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+130883,Acute COPD exacerbation / infection,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+41998,Acute laryngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+68624,Acute otitis media,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+27519,Acute otitis media,0.3,joint_gate_w0.5,0,0,0.00781029,1,0,1
+114042,Acute pulmonary edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+92863,Acute otitis media,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.3,joint_gate_w0.5,-1,0,1.57402748,-4,-4,0
+120617,Acute otitis media,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+89256,Acute otitis media,0.3,joint_gate_w0.5,0,0,-0.00053609,2,1,1
+97228,Acute rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.3,joint_gate_w0.5,0,0,-0.0007872,1,0,1
+37924,Acute rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.3,joint_gate_w0.5,1,1,-1.01181415,-3,-3,0
+25573,Anaphylaxis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+131225,Anemia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+1195,Anemia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,1,0,1
+80277,Anaphylaxis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+121307,Anemia,0.3,joint_gate_w0.5,0,0,-0.77875332,2,2,0
+55433,Anemia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+61848,Atrial fibrillation,0.3,joint_gate_w0.5,0,0,-0.95937706,3,3,0
+44571,Bronchiectasis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+61232,Boerhaave,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+121385,Boerhaave,0.3,joint_gate_w0.5,0,0,0.0215629,0,0,0
+82888,Boerhaave,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+21,Boerhaave,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.3,joint_gate_w0.5,0,-1,0.43455464,0,0,0
+681,Bronchiolitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.3,joint_gate_w0.5,0,0,1.239e-05,-1,-1,0
+30073,Bronchiolitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+77351,Anemia,0.3,joint_gate_w0.5,-1,-1,0.14219226,0,-1,1
+37733,Bronchiolitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+37629,Bronchitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+112339,Bronchitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+29740,Bronchitis,0.3,joint_gate_w0.5,0,0,0.34289315,0,-1,1
+51400,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.5,0,0,-2.3e-06,1,0,1
+69402,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+51712,Bronchitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+128863,Boerhaave,0.3,joint_gate_w0.5,0,0,-0.00043765,0,0,0
+112884,Bronchitis,0.3,joint_gate_w0.5,0,0,0.13721941,0,-1,1
+119507,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+121089,Chagas,0.3,joint_gate_w0.5,0,0,0.00203891,0,0,0
+89009,Chronic rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+53395,Chagas,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+74916,Chagas,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+49933,Chagas,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+107435,Cluster headache,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+123939,Cluster headache,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+60326,Cluster headache,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+22391,Cluster headache,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+78162,Chagas,0.3,joint_gate_w0.5,0,0,0.14593891,0,-1,1
+108535,Cluster headache,0.3,joint_gate_w0.5,0,0,0.00428836,3,2,1
+78369,Croup,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+92532,Croup,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+51278,Croup,0.3,joint_gate_w0.5,0,0,0.0,1,0,1
+39846,Ebola,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+5447,Ebola,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+2586,Ebola,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+28316,Ebola,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+52585,Croup,0.3,joint_gate_w0.5,0,0,-0.03421061,0,0,0
+33587,Croup,0.3,joint_gate_w0.5,0,0,0.01203691,-3,-3,0
+64748,Ebola,0.3,joint_gate_w0.5,0,0,-0.00068204,0,-1,1
+33471,GERD,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+117692,Epiglottitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+54952,Epiglottitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+57703,Epiglottitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+31351,Epiglottitis,0.3,joint_gate_w0.5,-1,-1,0.69570304,0,0,0
+22238,Epiglottitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.3,joint_gate_w0.5,0,0,0.0,1,0,1
+100894,Guillain-Barré syndrome,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+1651,GERD,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+28829,GERD,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+72012,HIV (initial infection),0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+114028,GERD,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+111892,GERD,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.3,joint_gate_w0.5,0,0,-0.0011765,-2,-2,0
+101999,HIV (initial infection),0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+48102,Influenza,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.3,joint_gate_w0.5,0,0,-0.6226161,0,0,0
+11918,Inguinal hernia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+102986,Influenza,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+85736,Influenza,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+81601,Inguinal hernia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+5803,Larygospasm,0.3,joint_gate_w0.5,0,0,-0.00256836,-1,-2,1
+54787,Influenza,0.3,joint_gate_w0.5,0,0,-0.00066325,0,-1,1
+12568,Larygospasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+58290,Larygospasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+52811,Localized edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+107295,Larygospasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+71499,Larygospasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+40335,Influenza,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+21018,Localized edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+92927,Localized edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+36874,Localized edema,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+51886,Myocarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+7861,Myocarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+16418,Myocarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+41820,PSVT,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+33863,Myocarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+72058,Myocarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+4251,PSVT,0.3,joint_gate_w0.5,0,0,0.0,1,0,1
+74885,PSVT,0.3,joint_gate_w0.5,-1,0,0.35141845,0,0,0
+37203,Localized edema,0.3,joint_gate_w0.5,-1,0,1.85758362,-4,-4,0
+14061,Pancreatic neoplasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+92941,PSVT,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+41220,PSVT,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+97540,Panic attack,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.3,joint_gate_w0.5,0,0,-0.00073148,-1,-2,1
+85911,Pancreatic neoplasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+38083,Panic attack,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+61737,Panic attack,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+78225,Pericarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+105358,Panic attack,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+123544,Pericarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+84233,Panic attack,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+76630,Pneumonia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+37266,Pneumonia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+103775,Pneumonia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+86739,Pericarditis,0.3,joint_gate_w0.5,0,0,0.0,1,0,1
+88032,Pericarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.3,joint_gate_w0.5,0,0,1.159e-05,-1,-1,0
+52374,Pericarditis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+217,Possible NSTEMI / STEMI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+59747,Pneumonia,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.3,joint_gate_w0.5,0,0,0.67795013,0,0,0
+50606,Pulmonary embolism,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.3,joint_gate_w0.5,0,0,-3.816e-05,1,0,1
+67430,Pneumonia,0.3,joint_gate_w0.5,0,0,0.0,1,0,1
+68974,Pulmonary embolism,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+23837,SLE,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+12,SLE,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+44332,SLE,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.3,joint_gate_w0.5,0,0,0.0,1,0,1
+20855,Pulmonary neoplasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+35866,SLE,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+297,SLE,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+75733,Sarcoidosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.3,joint_gate_w0.5,0,0,-1.538e-05,1,0,1
+27432,Spontaneous pneumothorax,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+51161,Stable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+119896,Tuberculosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+111718,Tuberculosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+123781,Tuberculosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+3040,Tuberculosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+4996,Stable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+61497,Tuberculosis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+53377,URTI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+131349,Stable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+99585,Stable angina,0.3,joint_gate_w0.5,0,1,-0.11707335,0,-1,1
+57298,URTI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+67646,URTI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+114245,Unstable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+132277,URTI,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+54948,Stable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+77692,Unstable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+97191,Unstable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+34997,Unstable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+95569,URTI,0.3,joint_gate_w0.5,0,0,-0.0012187,-1,-1,0
+60118,Viral pharyngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+104168,Whooping cough,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+86202,Whooping cough,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.3,joint_gate_w0.5,1,0,-1.90573317,4,3,1
+122570,Whooping cough,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+27936,Whooping cough,0.3,joint_gate_w0.5,0,0,0.65246206,0,0,0
+26335,Unstable angina,0.3,joint_gate_w0.5,0,0,0.0,0,0,0
+28939,Whooping cough,0.3,joint_gate_w0.5,0,1,-0.95333704,6,5,1
+3287,Viral pharyngitis,0.3,joint_gate_w0.5,0,0,-0.12472777,0,0,0
+83138,Acute COPD exacerbation / infection,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+46753,Acute dystonic reactions,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.2,joint_gate_w1.0,0,0,2.601e-05,-2,-2,0
+53079,Acute dystonic reactions,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.2,joint_gate_w1.0,0,0,0.00011899,-2,-2,0
+130883,Acute COPD exacerbation / infection,0.2,joint_gate_w1.0,-1,0,0.71294603,0,-1,1
+80212,Acute COPD exacerbation / infection,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+41998,Acute laryngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+120617,Acute otitis media,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+68624,Acute otitis media,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+114042,Acute pulmonary edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+27519,Acute otitis media,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+92863,Acute otitis media,0.2,joint_gate_w1.0,-1,0,0.67900796,0,0,0
+77455,Acute pulmonary edema,0.2,joint_gate_w1.0,0,0,0.4136803,1,1,0
+89256,Acute otitis media,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+37924,Acute rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+97228,Acute rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+25573,Anaphylaxis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+1195,Anemia,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+12181,Acute pulmonary edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.2,joint_gate_w1.0,0,0,-0.57217012,-1,-1,0
+55433,Anemia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+131225,Anemia,0.2,joint_gate_w1.0,0,0,0.00248143,-2,-3,1
+97951,Anaphylaxis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+80277,Anaphylaxis,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+105944,Atrial fibrillation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+87344,Atrial fibrillation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+61232,Boerhaave,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+121307,Anemia,0.2,joint_gate_w1.0,0,0,2.69e-06,-1,-1,0
+61848,Atrial fibrillation,0.2,joint_gate_w1.0,-1,-1,1.23244196,0,-1,1
+43637,Acute rhinosinusitis,0.2,joint_gate_w1.0,0,0,-0.36569665,0,0,0
+90954,Bronchiectasis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+44571,Bronchiectasis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+82888,Boerhaave,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+59603,Bronchiectasis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+77351,Anemia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+21,Boerhaave,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+681,Bronchiolitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+128863,Boerhaave,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+30073,Bronchiolitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+19706,Bronchiectasis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+37733,Bronchiolitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+121385,Boerhaave,0.2,joint_gate_w1.0,0,0,-4.69e-06,-1,-1,0
+37629,Bronchitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+51712,Bronchitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+51400,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+112339,Bronchitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+119507,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+29740,Bronchitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+69402,Bronchospasm / acute asthma exacerbation,0.2,joint_gate_w1.0,1,0,-1.88869484,-3,-3,0
+121089,Chagas,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+112884,Bronchitis,0.2,joint_gate_w1.0,0,0,-0.15325191,0,0,0
+89009,Chronic rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+53395,Chagas,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+74916,Chagas,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+49933,Chagas,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+107435,Cluster headache,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+108419,Chronic rhinosinusitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+123939,Cluster headache,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+22391,Cluster headache,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+60326,Cluster headache,0.2,joint_gate_w1.0,0,0,0.0,-2,-2,0
+108535,Cluster headache,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+52585,Croup,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+92532,Croup,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+51278,Croup,0.2,joint_gate_w1.0,0,0,0.00346555,-1,-1,0
+39846,Ebola,0.2,joint_gate_w1.0,0,0,-0.00388304,0,-1,1
+78162,Chagas,0.2,joint_gate_w1.0,1,1,-0.19062221,0,0,0
+127360,Chronic rhinosinusitis,0.2,joint_gate_w1.0,1,0,-0.61724427,0,-1,1
+78369,Croup,0.2,joint_gate_w1.0,0,0,-1.827e-05,-1,-1,0
+2586,Ebola,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+28316,Ebola,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+5447,Ebola,0.2,joint_gate_w1.0,0,0,-0.0094682,-1,-1,0
+57703,Epiglottitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+64748,Ebola,0.2,joint_gate_w1.0,0,0,0.02767849,0,0,0
+33471,GERD,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+33587,Croup,0.2,joint_gate_w1.0,0,0,-0.39685703,0,0,0
+54952,Epiglottitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+31351,Epiglottitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+22238,Epiglottitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+28829,GERD,0.2,joint_gate_w1.0,0,0,0.00075583,2,1,1
+1651,GERD,0.2,joint_gate_w1.0,0,0,9.731e-05,-3,-4,1
+116991,Guillain-Barré syndrome,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+100894,Guillain-Barré syndrome,0.2,joint_gate_w1.0,0,0,0.00116505,-1,-1,0
+72012,HIV (initial infection),0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+101999,HIV (initial infection),0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+114028,GERD,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+117692,Epiglottitis,0.2,joint_gate_w1.0,0,0,-0.14125726,0,0,0
+70085,HIV (initial infection),0.2,joint_gate_w1.0,0,0,-9.6e-07,1,0,1
+107753,Guillain-Barré syndrome,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.2,joint_gate_w1.0,0,0,0.03196305,4,3,1
+40335,Influenza,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+54787,Influenza,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+85736,Influenza,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+48102,Influenza,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+102986,Influenza,0.2,joint_gate_w1.0,0,0,-0.00118617,-3,-3,0
+81601,Inguinal hernia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+5803,Larygospasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+71499,Larygospasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+12568,Larygospasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+111892,GERD,0.2,joint_gate_w1.0,0,0,0.00852232,0,-1,1
+130463,HIV (initial infection),0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+58290,Larygospasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+52811,Localized edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+107295,Larygospasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+11918,Inguinal hernia,0.2,joint_gate_w1.0,0,0,0.04834547,0,0,0
+84221,Myasthenia gravis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+21018,Localized edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+37203,Localized edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+92927,Localized edema,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+41820,PSVT,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+51886,Myocarditis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+72058,Myocarditis,0.2,joint_gate_w1.0,-1,-1,0.40191565,0,0,0
+7861,Myocarditis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+33863,Myocarditis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+16418,Myocarditis,0.2,joint_gate_w1.0,0,0,0.01032036,0,-1,1
+4251,PSVT,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+41220,PSVT,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+14061,Pancreatic neoplasm,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+74885,PSVT,0.2,joint_gate_w1.0,0,0,0.364664,0,-1,1
+92941,PSVT,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+61737,Panic attack,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+85911,Pancreatic neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+38083,Panic attack,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+97540,Panic attack,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+84233,Panic attack,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+105358,Panic attack,0.2,joint_gate_w1.0,0,0,-0.14112222,0,0,0
+102711,Pancreatic neoplasm,0.2,joint_gate_w1.0,0,0,0.00066817,-1,-1,0
+123544,Pericarditis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+78225,Pericarditis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+76630,Pneumonia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+103775,Pneumonia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+36874,Localized edema,0.2,joint_gate_w1.0,0,0,-0.4131913,-1,-1,0
+37266,Pneumonia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+88032,Pericarditis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+86739,Pericarditis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+59747,Pneumonia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+118067,Possible NSTEMI / STEMI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+52374,Pericarditis,0.2,joint_gate_w1.0,0,0,-0.00975177,0,0,0
+50606,Pulmonary embolism,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+217,Possible NSTEMI / STEMI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+111597,Pulmonary embolism,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.2,joint_gate_w1.0,0,0,-0.00648661,5,4,1
+116452,Possible NSTEMI / STEMI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+20855,Pulmonary neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+68974,Pulmonary embolism,0.2,joint_gate_w1.0,0,0,-0.40500321,0,0,0
+23837,SLE,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+67430,Pneumonia,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+297,SLE,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+35866,SLE,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+12,SLE,0.2,joint_gate_w1.0,0,0,-0.06309835,0,0,0
+75733,Sarcoidosis,0.2,joint_gate_w1.0,0,0,-6.241e-05,-1,-2,1
+12377,Scombroid food poisoning,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+44332,SLE,0.2,joint_gate_w1.0,0,0,0.23046537,0,0,0
+49420,Pulmonary neoplasm,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+84903,Scombroid food poisoning,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.2,joint_gate_w1.0,0,0,2.309e-05,0,-1,1
+101434,Sarcoidosis,0.2,joint_gate_w1.0,1,0,-0.74788473,-2,-2,0
+27432,Spontaneous pneumothorax,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+51161,Stable angina,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+119896,Tuberculosis,0.2,joint_gate_w1.0,0,0,-0.00608514,-3,-3,0
+61497,Tuberculosis,0.2,joint_gate_w1.0,0,0,3.256e-05,-1,-1,0
+111718,Tuberculosis,0.2,joint_gate_w1.0,0,0,0.13607247,0,-1,1
+39136,Spontaneous rib fracture,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+123781,Tuberculosis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+3040,Tuberculosis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+57298,URTI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+99585,Stable angina,0.2,joint_gate_w1.0,0,0,-0.00618235,3,2,1
+4996,Stable angina,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+53377,URTI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+54948,Stable angina,0.2,joint_gate_w1.0,0,0,-0.14324777,0,0,0
+67646,URTI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+114245,Unstable angina,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+132277,URTI,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+77692,Unstable angina,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+131349,Stable angina,0.2,joint_gate_w1.0,0,0,-0.00224838,0,0,0
+60118,Viral pharyngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+34997,Unstable angina,0.2,joint_gate_w1.0,0,-1,-0.65731216,1,1,0
+95569,URTI,0.2,joint_gate_w1.0,0,0,0.0,1,0,1
+17404,Viral pharyngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+28939,Whooping cough,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+27936,Whooping cough,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+104168,Whooping cough,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+26335,Unstable angina,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+122570,Whooping cough,0.2,joint_gate_w1.0,0,0,0.0161611,0,0,0
+97191,Unstable angina,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+86202,Whooping cough,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+3287,Viral pharyngitis,0.2,joint_gate_w1.0,0,0,0.0,0,0,0
+34898,Acute COPD exacerbation / infection,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+102209,Acute COPD exacerbation / infection,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+83138,Acute COPD exacerbation / infection,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+130883,Acute COPD exacerbation / infection,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+100333,Acute dystonic reactions,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+80212,Acute COPD exacerbation / infection,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+72546,Acute dystonic reactions,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+46753,Acute dystonic reactions,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+115235,Acute dystonic reactions,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+53079,Acute dystonic reactions,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+31111,Acute laryngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+41998,Acute laryngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+122931,Acute laryngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+41077,Acute laryngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+68624,Acute otitis media,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+27519,Acute otitis media,0.3,joint_gate_w1.0,0,0,0.00781029,1,0,1
+114042,Acute pulmonary edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+8310,Acute laryngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+13849,Acute pulmonary edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+92863,Acute otitis media,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+12181,Acute pulmonary edema,0.3,joint_gate_w1.0,-1,0,1.57402748,-4,-4,0
+120617,Acute otitis media,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+77455,Acute pulmonary edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+89256,Acute otitis media,0.3,joint_gate_w1.0,0,0,8.7e-05,-1,-2,1
+97228,Acute rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+73295,Allergic sinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+20791,Allergic sinusitis,0.3,joint_gate_w1.0,0,0,0.00496703,0,-1,1
+37924,Acute rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+43637,Acute rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+40802,Acute rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+121262,Allergic sinusitis,0.3,joint_gate_w1.0,1,1,-1.01181415,-3,-3,0
+25573,Anaphylaxis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+13229,Allergic sinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+4070,Anaphylaxis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+89859,Anaphylaxis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+57078,Allergic sinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+118143,Acute pulmonary edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+131225,Anemia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+1195,Anemia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+20761,Acute rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+80277,Anaphylaxis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+75760,Atrial fibrillation,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+105944,Atrial fibrillation,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+97951,Anaphylaxis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+83767,Atrial fibrillation,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+87344,Atrial fibrillation,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+121307,Anemia,0.3,joint_gate_w1.0,0,0,-0.77875332,2,2,0
+55433,Anemia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+61848,Atrial fibrillation,0.3,joint_gate_w1.0,0,0,-0.95937706,3,3,0
+44571,Bronchiectasis,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+61232,Boerhaave,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+90954,Bronchiectasis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+121385,Boerhaave,0.3,joint_gate_w1.0,0,0,0.0215629,0,0,0
+82888,Boerhaave,0.3,joint_gate_w1.0,1,0,-0.791709,0,0,0
+59603,Bronchiectasis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+21,Boerhaave,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+46098,Bronchiectasis,0.3,joint_gate_w1.0,0,0,0.05650249,0,0,0
+681,Bronchiolitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+19706,Bronchiectasis,0.3,joint_gate_w1.0,0,0,1.239e-05,-1,-1,0
+30073,Bronchiolitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+11076,Bronchiolitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+7013,Bronchiolitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+77351,Anemia,0.3,joint_gate_w1.0,-1,-1,0.14219226,0,-1,1
+37733,Bronchiolitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+37629,Bronchitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+78207,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+112339,Bronchitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+29740,Bronchitis,0.3,joint_gate_w1.0,0,0,0.34289315,0,-1,1
+51400,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w1.0,0,0,-2.3e-06,1,0,1
+69402,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+5640,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+51712,Bronchitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+128863,Boerhaave,0.3,joint_gate_w1.0,0,0,-0.00043765,0,0,0
+112884,Bronchitis,0.3,joint_gate_w1.0,0,0,-0.01691554,0,-1,1
+119507,Bronchospasm / acute asthma exacerbation,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+125795,Chronic rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+121089,Chagas,0.3,joint_gate_w1.0,0,0,0.00203891,0,0,0
+89009,Chronic rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+53395,Chagas,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+74916,Chagas,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+49933,Chagas,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+108419,Chronic rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+107435,Cluster headache,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+123939,Cluster headache,0.3,joint_gate_w1.0,0,0,0.01153637,3,2,1
+60326,Cluster headache,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+22391,Cluster headache,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+78162,Chagas,0.3,joint_gate_w1.0,0,0,0.14593891,0,-1,1
+108535,Cluster headache,0.3,joint_gate_w1.0,0,0,0.00428836,3,2,1
+78369,Croup,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+92532,Croup,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+51278,Croup,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+39846,Ebola,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+127360,Chronic rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+105717,Chronic rhinosinusitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+5447,Ebola,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+2586,Ebola,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+28316,Ebola,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+52585,Croup,0.3,joint_gate_w1.0,0,0,-0.03421061,0,0,0
+33587,Croup,0.3,joint_gate_w1.0,0,0,0.01203691,-3,-3,0
+64748,Ebola,0.3,joint_gate_w1.0,0,0,-0.00069511,-1,-2,1
+33471,GERD,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+117692,Epiglottitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+54952,Epiglottitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+57703,Epiglottitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+31351,Epiglottitis,0.3,joint_gate_w1.0,-1,-1,0.69570304,0,0,0
+22238,Epiglottitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+109937,Guillain-Barré syndrome,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+100894,Guillain-Barré syndrome,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+1651,GERD,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+28829,GERD,0.3,joint_gate_w1.0,1,1,-1.74113811,-3,-4,1
+72012,HIV (initial infection),0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+114028,GERD,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+116991,Guillain-Barré syndrome,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+70085,HIV (initial infection),0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+111892,GERD,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+107753,Guillain-Barré syndrome,0.3,joint_gate_w1.0,0,0,-0.00120003,0,0,0
+101999,HIV (initial infection),0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+48102,Influenza,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+9636,Guillain-Barré syndrome,0.3,joint_gate_w1.0,0,0,-0.67991893,0,0,0
+11918,Inguinal hernia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+7169,Inguinal hernia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+7571,HIV (initial infection),0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+102986,Influenza,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+85736,Influenza,0.3,joint_gate_w1.0,0,0,-0.03080882,0,0,0
+81601,Inguinal hernia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+5803,Larygospasm,0.3,joint_gate_w1.0,0,0,-0.00256836,-1,-2,1
+54787,Influenza,0.3,joint_gate_w1.0,0,0,-0.00066325,0,-1,1
+12568,Larygospasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+130463,HIV (initial infection),0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+58290,Larygospasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+52811,Localized edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+107295,Larygospasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+71499,Larygospasm,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+40335,Influenza,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+83868,Myasthenia gravis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+30065,Inguinal hernia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+15856,Myasthenia gravis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+26303,Myasthenia gravis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+84221,Myasthenia gravis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+21018,Localized edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+92927,Localized edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+93872,Myasthenia gravis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+36874,Localized edema,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+29925,Inguinal hernia,0.3,joint_gate_w1.0,0,1,-1.09561831,6,6,0
+51886,Myocarditis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+7861,Myocarditis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+16418,Myocarditis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+41820,PSVT,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+33863,Myocarditis,0.3,joint_gate_w1.0,0,0,-0.00262552,-1,-1,0
+72058,Myocarditis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+4251,PSVT,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+74885,PSVT,0.3,joint_gate_w1.0,-1,0,0.35141845,0,0,0
+37203,Localized edema,0.3,joint_gate_w1.0,-1,0,1.85758362,-4,-4,0
+14061,Pancreatic neoplasm,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+92941,PSVT,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+41220,PSVT,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+97540,Panic attack,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+90251,Pancreatic neoplasm,0.3,joint_gate_w1.0,0,0,-0.00073148,-1,-2,1
+85911,Pancreatic neoplasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+38083,Panic attack,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+61737,Panic attack,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+78225,Pericarditis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+105358,Panic attack,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+102711,Pancreatic neoplasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+123544,Pericarditis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+84233,Panic attack,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+76630,Pneumonia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+37266,Pneumonia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+103775,Pneumonia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+86739,Pericarditis,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+88032,Pericarditis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+87604,Possible NSTEMI / STEMI,0.3,joint_gate_w1.0,0,0,1.159e-05,-1,-1,0
+52374,Pericarditis,0.3,joint_gate_w1.0,1,1,-0.9559917,0,0,0
+118067,Possible NSTEMI / STEMI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+217,Possible NSTEMI / STEMI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+71249,Possible NSTEMI / STEMI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+59747,Pneumonia,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+116452,Possible NSTEMI / STEMI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+4830,Pancreatic neoplasm,0.3,joint_gate_w1.0,0,0,0.67795013,0,0,0
+50606,Pulmonary embolism,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+20624,Pulmonary embolism,0.3,joint_gate_w1.0,0,0,-3.816e-05,1,0,1
+67430,Pneumonia,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+68974,Pulmonary embolism,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+111597,Pulmonary embolism,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+100786,Pulmonary embolism,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+97571,Pulmonary neoplasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+56328,Pulmonary neoplasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+23837,SLE,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+12,SLE,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+44332,SLE,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+94518,Pulmonary neoplasm,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+20855,Pulmonary neoplasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+35866,SLE,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+297,SLE,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+85727,Sarcoidosis,0.3,joint_gate_w1.0,0,0,-0.5463825,3,2,1
+75733,Sarcoidosis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+49420,Pulmonary neoplasm,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+12377,Scombroid food poisoning,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+101434,Sarcoidosis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+20485,Sarcoidosis,0.3,joint_gate_w1.0,0,0,0.0,1,0,1
+84903,Scombroid food poisoning,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+60577,Scombroid food poisoning,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+69372,Scombroid food poisoning,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+109136,Sarcoidosis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+78017,Spontaneous pneumothorax,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+32891,Spontaneous pneumothorax,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+92888,Spontaneous rib fracture,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+6756,Spontaneous pneumothorax,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+102872,Scombroid food poisoning,0.3,joint_gate_w1.0,0,0,0.00023463,0,-1,1
+27432,Spontaneous pneumothorax,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+127331,Spontaneous rib fracture,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+67557,Spontaneous pneumothorax,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+51161,Stable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+125147,Spontaneous rib fracture,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+298,Spontaneous rib fracture,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+39136,Spontaneous rib fracture,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+119896,Tuberculosis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+111718,Tuberculosis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+123781,Tuberculosis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+3040,Tuberculosis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+4996,Stable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+61497,Tuberculosis,0.3,joint_gate_w1.0,0,0,-0.00808533,-1,-1,0
+53377,URTI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+131349,Stable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+99585,Stable angina,0.3,joint_gate_w1.0,0,1,-0.11707335,0,-1,1
+57298,URTI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+67646,URTI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+114245,Unstable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+132277,URTI,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+54948,Stable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+109084,Viral pharyngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+77692,Unstable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+97191,Unstable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+34997,Unstable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+95569,URTI,0.3,joint_gate_w1.0,0,0,-0.0012187,-1,-1,0
+60118,Viral pharyngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+117339,Viral pharyngitis,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+104168,Whooping cough,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+86202,Whooping cough,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+17404,Viral pharyngitis,0.3,joint_gate_w1.0,1,0,-1.90573317,4,3,1
+122570,Whooping cough,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+27936,Whooping cough,0.3,joint_gate_w1.0,0,0,0.65246206,0,0,0
+26335,Unstable angina,0.3,joint_gate_w1.0,0,0,0.0,0,0,0
+28939,Whooping cough,0.3,joint_gate_w1.0,0,1,-0.95333704,6,5,1
+3287,Viral pharyngitis,0.3,joint_gate_w1.0,0,0,-0.12472777,0,0,0

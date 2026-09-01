@@ -1,0 +1,162 @@
+{
+  "case": {
+    "case_id": "0",
+    "diagnosis": "Anemia",
+    "n_initial_observations": 1,
+    "n_states": 889
+  },
+  "data_scale": {
+    "corpus_snippets": 125847,
+    "corpus_bytes": 211559353,
+    "index_build_seconds": 3.79,
+    "retrieve_ms": 17.9
+  },
+  "dialogue_by_mode": {
+    "no_rag": {
+      "wall_seconds": 0.234,
+      "predicted": "Anemia",
+      "correct": true,
+      "top3": [
+        "Anemia",
+        "URTI",
+        "Viral pharyngitis"
+      ],
+      "top1_probability": 0.9967,
+      "new_questions": 2,
+      "verification_questions": 0,
+      "verified_report_indices": [],
+      "verified_report_names": [],
+      "stop_reason": "confidence, marginal utility, and report-risk checks passed",
+      "n_retrieval_entries": 0,
+      "queries": []
+    },
+    "static_rag": {
+      "wall_seconds": 2.74,
+      "predicted": "Anemia",
+      "correct": true,
+      "top3": [
+        "Anemia",
+        "URTI",
+        "Viral pharyngitis"
+      ],
+      "top1_probability": 0.9967,
+      "new_questions": 2,
+      "verification_questions": 0,
+      "verified_report_indices": [],
+      "verified_report_names": [],
+      "stop_reason": "no positive-utility acquisition action or a reliability/safety check remains; return uncertainty",
+      "n_retrieval_entries": 1,
+      "queries": [
+        "Is your skin much paler than usual?"
+      ]
+    },
+    "dynamic_rag": {
+      "wall_seconds": 0.053,
+      "predicted": "Anemia",
+      "correct": true,
+      "top3": [
+        "Anemia",
+        "URTI",
+        "Viral pharyngitis"
+      ],
+      "top1_probability": 0.9967,
+      "new_questions": 2,
+      "verification_questions": 0,
+      "verified_report_indices": [],
+      "verified_report_names": [],
+      "stop_reason": "no positive-utility acquisition action or a reliability/safety check remains; return uncertainty",
+      "n_retrieval_entries": 3,
+      "queries": [
+        "Anemia URTI Viral pharyngitis HIV (initial infection) Localized edema",
+        "Anemia URTI Viral pharyngitis HIV (initial infection) Localized edema Are you taking any new oral anticoagulants ((NOACs)?",
+        "Anemia URTI Viral pharyngitis HIV (initial infection) Localized edema Are you taking any new oral anticoagulants ((NOACs)? Have you ever had a diagnosis of anemia?"
+      ]
+    }
+  },
+  "verifyold_ranking": {
+    "top_disease": "Anemia",
+    "base_order": [
+      1,
+      0,
+      2,
+      3
+    ],
+    "rag_order": [
+      1,
+      2,
+      0,
+      3
+    ],
+    "ranking_changed": true,
+    "rows": [
+      {
+        "report_index": 1,
+        "feature": "E_24",
+        "value": "present",
+        "retrieval_impact": 0.5714,
+        "base_score": 1e-06,
+        "rag_score": 0.285716
+      },
+      {
+        "report_index": 2,
+        "feature": "E_208",
+        "value": "present",
+        "retrieval_impact": 0.4615,
+        "base_score": 1e-06,
+        "rag_score": 0.23077
+      },
+      {
+        "report_index": 0,
+        "feature": "E_146",
+        "value": "present",
+        "retrieval_impact": 0.3333,
+        "base_score": 1e-06,
+        "rag_score": 0.166668
+      },
+      {
+        "report_index": 3,
+        "feature": "E_201",
+        "value": "absent",
+        "retrieval_impact": 0.0,
+        "base_score": 0.0,
+        "rag_score": 0.0
+      }
+    ]
+  },
+  "counterfactual_on_top_report": {
+    "report_index": 1,
+    "feature": "E_24",
+    "ops": {
+      "delete": {
+        "before_query": "Anemia Pneumonia HIV (initial infection) Localized edema Anaphylaxis Are you taking any new oral anticoagulants ((NOACs)? Have you ever had a diagnosis of anemia? Is your BMI less than 18.5, or are you underweight?",
+        "after_query": "Anemia Pneumonia HIV (initial infection) Localized edema Anaphylaxis Are you taking any new oral anticoagulants ((NOACs)? Is your BMI less than 18.5, or are you underweight?",
+        "topk_jaccard": 0.4286,
+        "rbo": 0.5536,
+        "ndcg_change": 0.0,
+        "disease_evidence_score_before": 0.1429,
+        "disease_evidence_score_after": 0.0952,
+        "posterior_delta_top1_disease": 0.000112
+      },
+      "weaken": {
+        "before_query": "Anemia Pneumonia HIV (initial infection) Localized edema Anaphylaxis Are you taking any new oral anticoagulants ((NOACs)? Have you ever had a diagnosis of anemia? Is your BMI less than 18.5, or are you underweight?",
+        "after_query": "Anemia Pneumonia HIV (initial infection) Localized edema Anaphylaxis Are you taking any new oral anticoagulants ((NOACs)? Is your BMI less than 18.5, or are you underweight?",
+        "topk_jaccard": 0.4286,
+        "rbo": 0.5536,
+        "ndcg_change": 0.0,
+        "disease_evidence_score_before": 0.1429,
+        "disease_evidence_score_after": 0.0952,
+        "posterior_delta_top1_disease": 0.000682
+      },
+      "flip": {
+        "before_query": "Anemia Pneumonia HIV (initial infection) Localized edema Anaphylaxis Are you taking any new oral anticoagulants ((NOACs)? Have you ever had a diagnosis of anemia? Is your BMI less than 18.5, or are you underweight?",
+        "after_query": "Anemia Pneumonia HIV (initial infection) Localized edema Anaphylaxis Are you taking any new oral anticoagulants ((NOACs)? Is your BMI less than 18.5, or are you underweight?",
+        "topk_jaccard": 0.4286,
+        "rbo": 0.5536,
+        "ndcg_change": 0.0,
+        "disease_evidence_score_before": 0.1429,
+        "disease_evidence_score_after": 0.0952,
+        "posterior_delta_top1_disease": 0.000485
+      }
+    }
+  }
+}

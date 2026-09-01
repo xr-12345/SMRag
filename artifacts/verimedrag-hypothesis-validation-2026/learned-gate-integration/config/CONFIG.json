@@ -1,0 +1,68 @@
+{
+  "protocol_version": "1.0",
+  "phase": "prompt-8 learned-gate integration into joint policy (end-to-end validation)",
+  "frozen_on": "2026-08-31",
+  "git": {
+    "HEAD": "e661311f91510df39018d04d9c966a110b836018",
+    "branch": "main",
+    "uncommitted_changes": [
+      "src/powerful_medrag/cli.py",
+      "src/powerful_medrag/decision.py",
+      "src/powerful_medrag/reliability_experiment.py",
+      "tests/test_decision.py",
+      "tests/test_reliability_experiment.py (untracked)"
+    ],
+    "diff_snapshot": "config/git_diff.txt"
+  },
+  "gate_model": {
+    "path": "gate-evaluation/model/learned_gate.json",
+    "label": "harmful_misreport",
+    "activation_threshold": 0.01,
+    "frozen": true,
+    "retrained_or_recalibrated_this_phase": false
+  },
+  "frozen_parameters": {
+    "cases_per_disease": 20,
+    "sample_seed": 2026,
+    "seeds": [2026, 2027, 2028],
+    "noise_rates": [0.0, 0.1, 0.2, 0.3],
+    "max_total_turns": 15,
+    "posterior_thresholds": [0.60, 0.70, 0.80, 0.85, 0.90, 0.95],
+    "margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "verification_cost": 0.03,
+    "minimum_history_cues": 1,
+    "maximum_verifications": 1
+  },
+  "learned_gate_sweep": {
+    "command": "benchmark-reliability-ddxplus",
+    "strategies": ["joint_new_verify_stop", "joint_learned_gate"],
+    "learned_verification_gate": "gate-evaluation/model/learned_gate.json",
+    "parallelization": "18 processes = 6 thresholds x 3 seeds; single seed per process",
+    "expected_case_records_per_threshold": 23520,
+    "expected_case_records_total": 141120,
+    "output": "reliability-sweep/t0XX/seed-YYYY/ddxplus_reliability_outcomes.csv"
+  },
+  "integration_semantics": {
+    "joint_learned_gate": "identical to joint_new_verify_stop in disease model, answer channel, BeliefTracker misreport gate (HistoryReliabilityMisreportGate), AskNew strategy, stop condition, re-ask channel, and cost/budget; the ONLY change is VerifyOld reliability scoring, which uses saved learned gate probability x leave-one-out diagnostic influence instead of the retrospective error probability.",
+    "learned_risk_i": "learned gate probability saved at answer arrival, computed BEFORE the answer enters the tracker using then-visible history and belief",
+    "diagnostic_influence_i": "current leave-one-out diagnostic influence (unchanged)",
+    "no_future_leakage": "gate score never reads noise_rate, latent state, true report mode, true disease, actual wrongness, or future answers",
+    "belief_tracker_gate_unchanged": "HistoryReliabilityMisreportGate is NOT replaced (so disease posterior is unaffected)"
+  },
+  "fixes_this_phase": [
+    "ReliabilityAwareActionPolicy accepts optional verification_risk_gate (LearnedMisreportGate)",
+    "rank_actions/choose_action accept report_risks and substitute saved learned risk for retrospective error_probability in VerifyOld scoring and the stop reliability check",
+    "run_reliability_aware_dialogue saves learned risk at answer arrival, before tracker.update",
+    "run_reliability_experiment accepts learned_verification_gate and a joint_learned_gate strategy",
+    "CLI adds --learned-verification-gate <json> and the joint_learned_gate strategy choice"
+  ],
+  "preregistered_success_criteria": "configs/preregistered_success_criteria.json (frozen, unmodified)",
+  "test_split_policy": "NOT accessed in this phase (inputs are release_validate_patients.zip only)",
+  "baseline_reference": {
+    "source": "matched-budget/reliability-sweep/ (frozen)",
+    "baseline_unnecessary_verification_rate": 0.688073,
+    "baseline_reference_noise": 0.2,
+    "baseline_reference_threshold": 0.85
+  }
+}

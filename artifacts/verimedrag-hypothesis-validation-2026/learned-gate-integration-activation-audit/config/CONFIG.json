@@ -1,0 +1,24 @@
+{
+  "protocol_version": "1.0",
+  "phase": "activation-threshold audit of learned-gate integration",
+  "git_head": "e661311f91510df39018d04d9c966a110b836018",
+  "reason": "Prompt #8 did not use learned_gate.activation_threshold to open VerifyOld; this audit fixes only that protocol deviation.",
+  "screening_rule": "Run the frozen primary threshold 0.85 first. Expand to all six thresholds only if the primary result reverses the prior No-Go conclusion.",
+  "frozen_parameters": {
+    "cases_per_disease": 20,
+    "sample_seed": 2026,
+    "seeds": [2026, 2027, 2028],
+    "noise_rates": [0.0, 0.1, 0.2, 0.3],
+    "max_total_turns": 15,
+    "posterior_threshold": 0.85,
+    "margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "verification_cost": 0.03,
+    "minimum_history_cues": 1,
+    "maximum_verifications": 1
+  },
+  "strategies": ["joint_new_verify_stop", "joint_learned_gate"],
+  "learned_gate": "artifacts/verimedrag-hypothesis-validation-2026/gate-evaluation/model/learned_gate.json",
+  "test_split_policy": "NOT accessed",
+  "expected_records": 23520
+}
