@@ -1,0 +1,5 @@
+category,case_id,S,v_real,h_hat
+high_S_negative_value,11947,0.8008,-0.0468,0.0991
+low_S_high_value,67745,-0.5015,0.6442,0.991
+harm_fn_low_h_hat_but_harm,92394,-0.0329,-0.0764,0.0
+harm_fp_high_h_hat_but_beneficial,67745,-0.5015,0.6442,0.991

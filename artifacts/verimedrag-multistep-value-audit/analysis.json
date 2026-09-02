@@ -1,0 +1,92 @@
+{
+  "label_stability": {
+    "n_actions": 611,
+    "j_se_mean": 0.11046201516530277,
+    "j_se_median": 0.1056122602,
+    "j_se_p90": 0.233587408,
+    "v_multi_abs_mean": 0.14758660746163266,
+    "v_multi_se_mean": 0.15879666463812608,
+    "frac_significant": 0.17346938775510204,
+    "n_candidates": 490,
+    "paired_sign_flip_rate": 0.18494897959183673,
+    "paired_n": 3920
+  },
+  "one_vs_multi": {
+    "pearson": 0.033129668478312134,
+    "sign_agreement": 0.5857142857142857,
+    "top1_agreement": 0.4793388429752066,
+    "top1_states": 121
+  },
+  "heuristic": {
+    "pearson_util_v_multi": 0.16371139259538828,
+    "pearson_errp_v_multi": 0.10855751446833396,
+    "top1_agreement": 0.3305785123966942,
+    "top1_states": 121
+  },
+  "oracle": {
+    "n_states_with_wrong": 55,
+    "oracle_v_mean": 0.12847883301636365,
+    "heuristic_v_mean": 0.010324131867272721,
+    "onestep_v_mean": -0.07746980143818182,
+    "oracle_minus_heuristic_mean": 0.11815470114909092,
+    "wrong_candidate_v_multi_mean": 0.1394120899671875,
+    "correct_candidate_v_multi_mean": -0.0675834154246479
+  },
+  "decomposition": {
+    "all_brier_delta": -0.03562634941428572,
+    "all_future_delta_cost": -0.004920918367346938,
+    "wrong_brier_delta": 0.1447441212171875,
+    "wrong_future_delta_cost": -0.00533203125,
+    "correct_brier_delta": -0.06272426049507042,
+    "correct_future_delta_cost": -0.0048591549295774646,
+    "n_wrong": 64,
+    "n_correct": 426
+  },
+  "rag_signal": {
+    "pearson_rip_v_multi": -0.03447028239923763,
+    "pearson_errp_v_multi": 0.10855751446833396,
+    "r2_errp_only": 0.011784733947542758,
+    "r2_errp_plus_rag": 0.015344689409888979,
+    "r2_delta": 0.0035599554623462204,
+    "n": 490
+  },
+  "leakage": {
+    "statement": "True disease D* and sampled answers enter ONLY the evaluation-side terminal metrics (terminal_brier / nll / top1 / wrong_to_correct). The continuation policy is the exact frozen ReliabilityAwareActionPolicy; no oracle_states, no learned gate, no true-state read.  Unit tests test_10 (deployable policy reads no true state) and test_11 (oracle labels do not feed policy) enforce this.",
+    "unit_tests": [
+      "test_10_deployable_policy_reads_no_true_state",
+      "test_11_oracle_labels_do_not_feed_policy",
+      "test_04_continuation_uses_heuristic_not_oracle"
+    ]
+  },
+  "go_nogo": {
+    "precision_at1_v_multi": 0.3305785123966942,
+    "precision_at1_one_step": 0.17355371900826447,
+    "precision_at1_heuristic": 0.2809917355371901,
+    "v_multi_minus_onestep": 0.15702479338842976,
+    "v_multi_minus_heuristic": 0.049586776859504134,
+    "v_multi_wrong_mean": 0.1394120899671875,
+    "v_multi_correct_mean": -0.0675834154246479,
+    "frac_v_multi_positive": 0.4
+  },
+  "worth_training": {
+    "r2_full_features": 0.03419390798196187,
+    "r2_heuristic_only": 0.026801420065521442,
+    "n": 490,
+    "features": [
+      "error_probability",
+      "retrieval_impact",
+      "heuristic_verify_utility"
+    ]
+  },
+  "counts": {
+    "n_states": 121,
+    "n_actions": 611,
+    "n_verify_candidates": 490,
+    "n_wrong_candidates": 64,
+    "n_cases": 45,
+    "noise_rates": [
+      "0.2",
+      "0.3"
+    ]
+  }
+}

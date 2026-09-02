@@ -1,0 +1,13 @@
+metric,label,heuristic_baseline,learned_full_rerank,delta,ci_lo,ci_hi,p_value,n
+brier_score,Brier,0.309804,0.319064,0.009259,-0.002307,0.020825,0.117,1470
+nll_score,NLL,0.910666,0.953096,0.042429,0.007277,0.077581,0.0181,1470
+correct_top1,Top-1 acc,0.772109,0.765986,-0.006122,-0.016009,0.003764,0.225,1470
+correct_top3,Top-3 acc,0.865986,0.857823,-0.008163,-0.016797,0.000471,0.0641,1470
+total_atomic_questions,total atomic questions,9.552381,9.520408,-0.031973,-0.082083,0.018137,0.211,1470
+new_questions,AskNew count,8.941497,8.909524,-0.031973,-0.082083,0.018137,0.211,1470
+verification_questions,VerifyOld count,0.610884,0.610884,0.0,0.0,0.0,1,1470
+correct_to_wrong_flips,correct->wrong flips,0.023129,0.018367,-0.004762,-0.010256,0.000732,0.0896,1470
+wrong_to_correct_flips,wrong->correct flips,0.063946,0.053741,-0.010204,-0.017612,-0.002796,0.00702,1470
+unnecessary_verifications,unnecessary verifications,0.356463,0.414966,0.058503,0.043239,0.073767,1e-13,1470
+resolved_wrong_reports,resolved wrong reports,0.232653,0.176871,-0.055782,-0.07048,-0.041085,1.72e-13,1470
+premature_stop,premature stop,0.041497,0.045578,0.004082,-0.001573,0.009737,0.157,1470

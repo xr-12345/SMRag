@@ -1,0 +1,23 @@
+# Phase 4 — Test Log
+
+Date: 2026-09-01 16:30:29
+Command: PYTHONPATH=src python3 -m unittest discover -s tests -v
+
+## Result
+Ran 107 tests in 0.821s
+OK
+
+## Phase 4 tests (tests/test_verification_worthiness.py) — 13/13
+  test_01_schema_has_no_forbidden_fields ... ok
+  test_02_case_grouped_split_no_overlap ... ok
+  test_03_gain_label_sign_and_cost_deducted_once ... ok
+  test_04_harm_label_binary_from_correct_to_wrong ... ok
+  test_05_benefit_label_sign ... ok
+  test_06_features_invariant_to_latent_true_disease_noise ... ok
+  test_07_validation_not_used_in_hyperparam_selection ... ok
+  test_08_shuffled_rag_preserves_marginals ... ok
+  test_08b_build_feature_matrix_shuffled_matches_shuffle ... ok
+  test_09_matched_budget_gives_equal_triggers ... ok
+  test_10_default_policy_unchanged ... ok
+  test_11_asknew_keeps_eig ... ok
+  test_12_serialize_load_predict_same ... ok

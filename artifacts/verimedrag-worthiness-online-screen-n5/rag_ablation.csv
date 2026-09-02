@@ -1,0 +1,11 @@
+metric,learned_full_rag_mean,learned_no_rag_mean,mean_delta,n_pairs
+correct_top1,0.544898,0.543537,0.001361,1470
+correct_top3,0.637415,0.637415,0.0,1470
+brier_score,0.598215,0.597382,0.000833,1470
+new_questions,3.017687,3.001361,0.016327,1470
+verification_questions,0.269388,0.307483,-0.038095,1470
+total_atomic_questions,3.287075,3.308844,-0.021769,1470
+correct_to_wrong_flips,0.011565,0.013605,-0.002041,1470
+wrong_to_correct_flips,0.022449,0.022449,0.0,1470
+unnecessary_verifications,0.182313,0.211565,-0.029252,1470
+resolved_wrong_reports,0.07551,0.084354,-0.008844,1470

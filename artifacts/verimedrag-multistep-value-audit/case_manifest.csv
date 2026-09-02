@@ -1,0 +1,50 @@
+case_id,diagnosis,split,sample_seed,patient_noise_seed,cases_per_disease
+809857,Acute COPD exacerbation / infection,train,4041,4041,1
+460261,Acute dystonic reactions,train,4041,4041,1
+986919,Acute laryngitis,train,4041,4041,1
+64897,Acute otitis media,train,4041,4041,1
+316112,Acute pulmonary edema,train,4041,4041,1
+23437,Acute rhinosinusitis,train,4041,4041,1
+81941,Allergic sinusitis,train,4041,4041,1
+482076,Anaphylaxis,train,4041,4041,1
+265102,Anemia,train,4041,4041,1
+427857,Atrial fibrillation,train,4041,4041,1
+530527,Boerhaave,train,4041,4041,1
+637476,Bronchiectasis,train,4041,4041,1
+787935,Bronchiolitis,train,4041,4041,1
+615312,Bronchitis,train,4041,4041,1
+310428,Bronchospasm / acute asthma exacerbation,train,4041,4041,1
+69283,Chagas,train,4041,4041,1
+864109,Chronic rhinosinusitis,train,4041,4041,1
+521159,Cluster headache,train,4041,4041,1
+903619,Croup,train,4041,4041,1
+975176,Ebola,train,4041,4041,1
+435252,Epiglottitis,train,4041,4041,1
+660147,GERD,train,4041,4041,1
+734377,Guillain-Barré syndrome,train,4041,4041,1
+573142,HIV (initial infection),train,4041,4041,1
+347634,Influenza,train,4041,4041,1
+565413,Inguinal hernia,train,4041,4041,1
+5581,Larygospasm,train,4041,4041,1
+803794,Localized edema,train,4041,4041,1
+323988,Myasthenia gravis,train,4041,4041,1
+64927,Myocarditis,train,4041,4041,1
+226747,PSVT,train,4041,4041,1
+808899,Pancreatic neoplasm,train,4041,4041,1
+968611,Panic attack,train,4041,4041,1
+68792,Pericarditis,train,4041,4041,1
+337856,Pneumonia,train,4041,4041,1
+459816,Possible NSTEMI / STEMI,train,4041,4041,1
+19667,Pulmonary embolism,train,4041,4041,1
+174566,Pulmonary neoplasm,train,4041,4041,1
+59796,SLE,train,4041,4041,1
+299534,Sarcoidosis,train,4041,4041,1
+335777,Scombroid food poisoning,train,4041,4041,1
+47877,Spontaneous pneumothorax,train,4041,4041,1
+615532,Spontaneous rib fracture,train,4041,4041,1
+377407,Stable angina,train,4041,4041,1
+77130,Tuberculosis,train,4041,4041,1
+708977,URTI,train,4041,4041,1
+110568,Unstable angina,train,4041,4041,1
+646940,Viral pharyngitis,train,4041,4041,1
+605294,Whooping cough,train,4041,4041,1

@@ -1,0 +1,4 @@
+policy,n_states,accuracy,asknew_to_verifyold_miscount,verifyold_to_asknew_miscount
+v_bayes,1367,0.750549,287,54
+heuristic,1367,0.739576,266,90
+retrieval_joint_gate,1367,0.727871,332,40

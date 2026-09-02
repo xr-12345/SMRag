@@ -1,0 +1,5 @@
+policy,n_states,mean_gross_brier_reduction,mean_gross_nll_reduction,mean_net_realized_return,mean_wrong_to_correct,mean_correct_to_wrong
+eig,1422,0.064473,0.186439,0.034473,0.079466,0.02224
+heuristic,1422,0.065847,0.1907,0.035847,0.08852,0.025932
+retrieval_joint_gate,1422,0.062587,0.18338,0.032587,0.078586,0.022679
+v_bayes,1422,0.068736,0.163956,0.038736,0.08852,0.030503

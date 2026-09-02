@@ -1,0 +1,10 @@
+Phase 6 -- 49-case smoke checks
+
+[PASS] heuristic_regression: 0 mismatches, 0 missing of 49 cases
+[PASS] question_budget_preserved: base_q=8.82; deltas={'learned_full_rerank': 0.02, 'learned_full_filter': 0.041, 'learned_norag_filter': -0.143}
+[PASS] no_extra_stop: extra_stop total=0
+[PASS] rerank_changes_report: mean rerank_changed=0.224
+[PASS] filter_replaces_verify: mean filter_rejected=0.204
+[PASS] premature_stop_rate_info: base=0.041; learned={'learned_full_rerank': 0.061, 'learned_full_filter': 0.061, 'learned_norag_filter': 0.082}
+
+GATE question_budget_preserved PASS

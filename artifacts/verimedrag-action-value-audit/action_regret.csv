@@ -1,0 +1,5 @@
+policy,n_states,mean_regret,median_regret,frac_zero_regret,max_regret
+eig,1422,0.116189,0.026178,0.216596,1.441567
+heuristic,1422,0.114815,0.029915,0.229255,1.441567
+retrieval_joint_gate,1422,0.118075,0.025311,0.216596,1.441567
+v_bayes,1422,0.111926,0.019053,0.2609,1.441567

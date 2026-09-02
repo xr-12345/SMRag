@@ -1,0 +1,174 @@
+{
+  "phase": "verification-worthiness-offline",
+  "scope": "learn VerifyOld clinical value only; AskNew EIG unchanged",
+  "train_source": "/Users/xr-12345/Desktop/SafeMedRAG/artifacts/verimedrag-action-value-audit/action_value_samples.csv",
+  "train_cases": 245,
+  "train_cases_per_disease": 5,
+  "train_seed": 3031,
+  "train_noise_rates": [
+    0.2,
+    0.3
+  ],
+  "validation_cases": 735,
+  "validation_cases_per_disease": 20,
+  "validation_case_sample_seed": 2026,
+  "validation_seeds": [
+    2027,
+    2028
+  ],
+  "validation_noise_rates": [
+    0.2,
+    0.3
+  ],
+  "n_states": 3,
+  "n_rollouts": 8,
+  "top_k_asknew": 5,
+  "max_verify": 5,
+  "c_new": 0.03,
+  "c_verify": 0.03,
+  "policy": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.7,
+    "minimum_action_utility": 0.08,
+    "suspicious_report_threshold": 0.05,
+    "verification_cost": 0.03,
+    "max_total_turns": 15,
+    "retrieval_mode": "dynamic_rag",
+    "retrieval_gate_mode": "joint_gate",
+    "retrieval_impact_weight": 1.0
+  },
+  "features": {
+    "base": [
+      "retrospective_error_prob",
+      "diagnostic_influence",
+      "error_prob_times_influence",
+      "current_risk",
+      "n_reports",
+      "turn_index",
+      "state_index"
+    ],
+    "rag": [
+      "retrieval_impact",
+      "error_prob_times_impact"
+    ]
+  },
+  "forbidden_fields": [
+    "correct_to_wrong",
+    "current_brier",
+    "current_true_prob",
+    "diagnosis",
+    "eig",
+    "gross_brier_reduction",
+    "gross_nll_reduction",
+    "is_report_wrong",
+    "noise_rate",
+    "reported_value",
+    "top1_before_correct",
+    "true_state",
+    "v_bayes",
+    "v_real",
+    "v_real_se",
+    "wrong_to_correct"
+  ],
+  "labels": {
+    "gain": "gross_brier_reduction",
+    "value": "v_real",
+    "harm": "1[correct_to_wrong > 0]",
+    "benefit": "1[v_real > 0]"
+  },
+  "baselines": [
+    "heuristic_verify_utility",
+    "retrospective_error_probability",
+    "retrieval_impact",
+    "error_prob_times_impact",
+    "v_bayes"
+  ],
+  "models": {
+    "gain_kinds": [
+      "ridge",
+      "hgb"
+    ],
+    "harm_kinds": [
+      "logistic",
+      "hgb"
+    ],
+    "gain_grid": {
+      "ridge": [
+        {
+          "alpha": 0.1
+        },
+        {
+          "alpha": 1.0
+        },
+        {
+          "alpha": 10.0
+        },
+        {
+          "alpha": 100.0
+        }
+      ],
+      "hgb": [
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 15
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 31
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 15
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        }
+      ]
+    },
+    "harm_grid": {
+      "logistic": [
+        {
+          "C": 0.1
+        },
+        {
+          "C": 1.0
+        },
+        {
+          "C": 10.0
+        }
+      ],
+      "hgb": [
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 15
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 31
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 15
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31
+        }
+      ]
+    }
+  },
+  "red_lines": [
+    "no test split",
+    "no online policy integration",
+    "no AskNew redesign",
+    "no EIG change",
+    "no latent/true-disease/noise as features",
+    "no oracle correction",
+    "no validation-driven retuning",
+    "no LLM/dense-retriever/SFT/RL",
+    "no preregistered-criteria change",
+    "no git commit",
+    "validation is not a clinical result"
+  ]
+}

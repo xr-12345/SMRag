@@ -1,0 +1,9 @@
+method,n_states,mean_regret,median_regret,frac_zero_regret
+heuristic_verify_utility,4068,0.09046,0.0185,0.31244
+retrospective_error_probability,4068,0.08805,0.00462,0.37537
+retrieval_impact,4068,0.10054,0.00989,0.29425
+error_prob_times_impact,4068,0.09473,0.01196,0.29843
+v_bayes,4068,0.10023,0.00048,0.4501
+learned_norag,4068,0.09207,0.00865,0.32645
+learned_real,4068,0.08522,0.00747,0.33899
+learned_shuffled,4068,0.08928,0.00766,0.33727

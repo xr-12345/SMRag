@@ -1,0 +1,4 @@
+method,spearman,spearman_ci_lo,spearman_ci_hi,mean_net_brier_at_k,mean_correct_to_wrong_at_k
+learned_norag,0.1169,0.095,0.1362,0.00746,0.03462
+learned_real,0.1297,0.108,0.1491,0.01582,0.0357
+learned_shuffled,0.1234,0.1043,0.1425,0.00626,0.03745

@@ -1,0 +1,8 @@
+metric,value
+cases,245
+dialogues,490
+sample_rows,11253
+mean_wall_seconds_per_dialogue,8.756
+total_wall_seconds,478.5
+mean_snapshots_per_dialogue,10.06
+peak_rss_mb,1923.8

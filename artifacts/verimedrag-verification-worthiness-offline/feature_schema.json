@@ -1,0 +1,65 @@
+[
+  {
+    "feature": "retrospective_error_prob",
+    "family": "reliability",
+    "deployable": true,
+    "label_free": true,
+    "rag": false
+  },
+  {
+    "feature": "diagnostic_influence",
+    "family": "posterior",
+    "deployable": true,
+    "label_free": true,
+    "rag": false
+  },
+  {
+    "feature": "error_prob_times_influence",
+    "family": "posterior",
+    "deployable": true,
+    "label_free": true,
+    "rag": false
+  },
+  {
+    "feature": "current_risk",
+    "family": "posterior",
+    "deployable": true,
+    "label_free": true,
+    "rag": false
+  },
+  {
+    "feature": "n_reports",
+    "family": "context",
+    "deployable": true,
+    "label_free": true,
+    "rag": false
+  },
+  {
+    "feature": "turn_index",
+    "family": "context",
+    "deployable": true,
+    "label_free": true,
+    "rag": false
+  },
+  {
+    "feature": "state_index",
+    "family": "context",
+    "deployable": true,
+    "label_free": true,
+    "rag": false
+  },
+  {
+    "feature": "retrieval_impact",
+    "family": "rag",
+    "deployable": true,
+    "label_free": true,
+    "rag": true
+  },
+  {
+    "feature": "error_prob_times_impact",
+    "family": "rag",
+    "deployable": true,
+    "label_free": true,
+    "rag": true
+  }
+]

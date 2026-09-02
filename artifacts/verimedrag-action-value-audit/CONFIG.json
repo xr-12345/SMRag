@@ -1,0 +1,154 @@
+{
+  "phase": "3A",
+  "task": "Unified action value (V(a) = R(b_t) - E[R(b_{t+1})] - C(a)) rationality audit — small scale, leak-free",
+  "purpose": [
+    "verify whether the deployable V_Bayes predicts realized risk reduction better than the existing heuristic scores",
+    "verify AskNew-vs-VerifyOld selection quality",
+    "verify top-action regret vs the current policy",
+    "decide Go / Conditional Go / No-Go for entering a learned verification-worthiness phase"
+  ],
+  "blocker_status": "NO BLOCKER — a deployable VerifyOld answer distribution exists",
+  "blocker_resolution": "VerifyOld re-ask distribution P(y'|b_t,VerifyOld(i)) = sum_state P(state|b_t,key_i) * P(y'|state, channel). P(state|b_t,key_i) is BeliefTracker.predictive_state_distribution(key_i) (deployable: state_beliefs updated by the original report, retaining the fixed latent state). P(y'|state, channel) is the full AnswerChannel with the frozen NONE-cue mode prior. Resolution uses SurprisalClarificationProtocol.resolve. No latent state / true disease / oracle correction is read.",
+
+  "data": {
+    "split": "train",
+    "model": "data/ddxplus/model-full.json",
+    "patients": "data/ddxplus/release_train_patients.zip",
+    "evidences": "data/ddxplus/release_evidences.json",
+    "corpus": "data/medrag-textbooks",
+    "diseases": 49,
+    "cases_per_disease": 5,
+    "total_cases": 245,
+    "sample_seed": 3031,
+    "patient_noise_seed": 3031,
+    "manifest": "train_action_value_audit_manifest.csv",
+    "train_optimism_note": "train cases are in-distribution for model-full.json (fitted on train); any optimism is reported, not treated as formal performance"
+  },
+  "noise_rates": [0.2, 0.3],
+  "max_total_turns": 15,
+
+  "channels": {
+    "belief_channel": "full AnswerChannel() (default cue_priors, includes MISREPORTED at base rate)",
+    "answer_prediction_channel": "full AnswerChannel() — matches NumpyQuestionSelector's marginal_probability(..., CertaintyCue.NONE)",
+    "answer_mode_prior": "cue_priors[CertaintyCue.NONE] = {certain:0.82, uncertain:0.10, unknown:0.05, misreported:0.03}",
+    "rationale": "matches run_reliability_aware_dialogue default tracker (full channel); includes misreport so AskNew answer space covers yes/no/unknown/uncertain/misreport"
+  },
+
+  "belief_state": {
+    "definition": "b_t(d) = P(D=d | H_t) — NOTE: the current BeliefTracker does NOT condition on K (retrieval); retrieval is a separate label-free signal, not part of the disease posterior",
+    "tracker": "BeliefTracker(model, full AnswerChannel()), no misreport_gate (matches run_reliability_aware_dialogue default)",
+    "finding_to_report": "docs/DECISION_SENSITIVE_ACTION_VALUE.md writes b_t = P(D|H_t,K), but the code implements P(D|H_t) only; K enters only retrieval-impact / joint-gate heuristics, not the posterior"
+  },
+
+  "risk": {
+    "primary_deployable": "R_Bayes(b_t) = 1 - sum_d b_t(d)^2",
+    "eval_realized_loss": "L_Brier(b_t,D*) = sum_d (b_t(d) - 1[d==D*])^2",
+    "secondary_eval": ["NLL = -log b_t(D*)", "Top-1 error = 1[argmax b_t != D*]", "posterior margin", "premature-stop proxy"],
+    "realized_value": "V_real(a) = L_Brier(b_t,D*) - E_o[L_Brier(b_{t+1},D*)|a] - C(a); D* (true disease) used ONLY as eval label, never in deployable V_Bayes or action ranking"
+  },
+
+  "action_value": {
+    "asknew": "V_new(j) = R_Bayes(b_t) - sum_y P(y|b_t,AskNew(j)) R_Bayes(b_{t+1}^{j,y}) - C_new(j)",
+    "asknew_answer_space": "(*spec.values, UNKNOWN); probabilities = NumpyQuestionSelector.score(tracker, j).predicted_answers",
+    "asknew_posterior": "tracker.posterior_for(Observation(j, y, certainty=NONE))",
+    "verifyold": "V_verify(i) = R_Bayes(b_t) - sum_y' P(y'|b_t,VerifyOld(i)) R_Bayes(b_{t+1}^{i,y'}) - C_verify(i)",
+    "verifyold_answer_space": "full observable (value, certainty): for each v in spec.values -> (v,CERTAIN),(v,UNCERTAIN); plus (UNKNOWN,NONE). Joint P((value,certainty)|state) via full channel rates + NONE-cue mode prior",
+    "verifyold_resolution": "SurprisalClarificationProtocol.resolve(original, y'); resolved report replaces reports[i]; belief replay (BeliefTracker over initial_observations + reports)",
+    "verifyold_no_perfect_correction": "re-ask may return the SAME wrong value (resolve keeps it); may return a different value (resolve -> UNKNOWN abstain); no oracle correction"
+  },
+
+  "costs": {
+    "primary": {"C_new": 0.03, "C_verify": 0.03},
+    "sensitivity": [0.0, 0.03, 0.06],
+    "note": "costs recomputed offline only; model not re-fitted per cost"
+  },
+
+  "state_sampling": {
+    "states_per_case": 3,
+    "early": "first turn where both AskNew and VerifyOld candidates exist",
+    "middle": "approximately turn 5-7",
+    "late": "last turn before stop, or approximately turn 9-12",
+    "actions_per_state": {
+      "asknew": "top-5 by ordinary EIG",
+      "verifyold": "up to 5 available (all if fewer)",
+      "note": "do NOT keep only the policy's final chosen action; AskNew and VerifyOld in the same state are directly comparable"
+    }
+  },
+
+  "expectation": {
+    "deployable_V_Bayes": "model explicit enumeration over the answer space (no sampling, no simulator)",
+    "realized_V_real": "Monte Carlo rollout, n=8 per state-action, common random numbers (rollout seed independent of action key), fixed deterministic rollout seeds; report MC standard error",
+    "rollout_seed": "blake2b(base_seed | case_id | noise | state_index | rollout_index), base_seed=3031",
+    "one_step_only": "each rollout executes the candidate action once; no multi-step RL"
+  },
+
+  "comparison_scores_per_state_action": [
+    "ordinary EIG (AskNew only)",
+    "retrospective error probability (VerifyOld only)",
+    "retrieval impact = 1 - jaccard (VerifyOld only)",
+    "current heuristic verification utility = existing_verification_utility (VerifyOld only)",
+    "error_probability * retrieval_impact (VerifyOld only)",
+    "proposed V_Bayes (both)",
+    "evaluation-only V_real (both)"
+  ],
+  "label_free_scores": "scores 1-6 are label-free; V_real is the eval target only, never used to pick a deployable action",
+
+  "rationality_checks": {
+    "rank_correlation": "Spearman + Kendall tau + 95% cluster-bootstrap CI of each score vs V_real, reported separately for AskNew / VerifyOld / combined",
+    "calibration": "bin V_Bayes and check E[V_real | V_Bayes in bin] increases monotonically; V_Bayes>0 actions should have mean V_real>0; V_Bayes<0 usually not worth executing",
+    "pairwise_selection": "compare argmax(V_Bayes_new, V_Bayes_verify) vs argmax(V_real_new, V_real_verify); report accuracy, AskNew->VerifyOld miscount, VerifyOld->AskNew miscount, delta vs heuristic",
+    "top_action_regret": "Regret = max_a V_real(a) - V_real(argmax_a score(a)); for EIG / current heuristic / retrieval joint-gate / V_Bayes policies",
+    "actual_risk_reduction": "per-policy chosen action realized Brier reduction, NLL reduction, wrong->correct, correct->wrong, action cost, net realized return; case-level paired bootstrap",
+    "counterexamples": "high error-prob but V_real~0; high retrieval-impact but V_real~0; medium error-prob but high V_real; V_Bayes and V_real sign disagree; EIG picks AskNew but V_real favors VerifyOld; heuristic picks VerifyOld but V_real favors AskNew"
+  },
+
+  "go_no_go": {
+    "go_requires": [
+      "1. V_Bayes vs V_real Spearman significantly > 0",
+      "2. V_Bayes correlation higher than current heuristic utility correlation",
+      "3. V_Bayes top-action regret lower than current policy",
+      "4. V_Bayes selected-action mean realized Brier return not lower than current policy",
+      "5. V_Bayes positive-value group realized return clearly higher than negative group",
+      "6. no latent-state leakage into deployable V_Bayes",
+      "7. direction stable across cost in {0.00, 0.03, 0.06}"
+    ],
+    "conditional_go": "correlation improves but action regret does not",
+    "no_go": "V_Bayes correlates weakly with realized return, OR realized loss after chosen action is worse; then analyze: posterior miscalibration, channel miscalibration, one-step value insufficiency, RAG contamination of posterior, need for learned verification-worthiness"
+  },
+
+  "tests": [
+    "1. value positive when risk drops",
+    "2. value negative when risk unchanged but cost present",
+    "3. VerifyOld does NOT assume perfect correction",
+    "4. expectation is a probability-weighted sum over answers",
+    "5. dynamic_rag re-retrieves after hypothetical answer",
+    "6. deployable value does not read true disease",
+    "7. rollout evaluation truth is isolated from the prediction path",
+    "8. AskNew / VerifyOld share the same risk unit",
+    "9. increasing cost monotonically lowers value",
+    "10. old policy default behavior unchanged"
+  ],
+
+  "products": [
+    "ACTION_VALUE_AUDIT_REPORT.md", "GO_NO_GO.md", "CONFIG.json",
+    "train_action_value_audit_manifest.csv", "action_value_samples.csv",
+    "value_correlations.csv", "value_calibration.csv", "pairwise_action_accuracy.csv",
+    "action_regret.csv", "selected_action_returns.csv", "counterexamples.csv",
+    "cost_sensitivity.csv", "runtime_profile.csv", "TEST_LOG.txt",
+    "FAILURE_LOG.md", "ENVIRONMENT.txt", "git_diff.txt"
+  ],
+
+  "red_lines": [
+    "no DDXPlus test access",
+    "no training of a final value model this phase",
+    "no modification of existing formal policy default behavior",
+    "no overwriting of existing artifacts",
+    "no true disease / latent state used to compute deployable value",
+    "no oracle correction",
+    "no LLM / dense retriever / SFT / RL",
+    "no repeatedly switching the risk formula based on results",
+    "train audit not treated as formal generalization result",
+    "no modification of preregistered success criteria",
+    "no git commit"
+  ]
+}

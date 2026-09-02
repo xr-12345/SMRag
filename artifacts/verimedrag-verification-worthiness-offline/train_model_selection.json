@@ -1,0 +1,104 @@
+{
+  "chosen_family": {
+    "gain_kind": "hgb",
+    "harm_kind": "hgb"
+  },
+  "frozen_rag_mode": "real",
+  "family_comparison": [
+    {
+      "rag_mode": "real",
+      "gain_kind": "ridge",
+      "harm_kind": "logistic",
+      "n_features": 9,
+      "n_samples": 4143,
+      "n_cases": 245,
+      "gain_oof_spearman": 0.0502,
+      "harm_oof_auc": 0.8555,
+      "tau_harm": 0.225,
+      "gain_params": {
+        "alpha": 0.1
+      },
+      "harm_params": {
+        "C": 1.0
+      }
+    },
+    {
+      "rag_mode": "real",
+      "gain_kind": "hgb",
+      "harm_kind": "hgb",
+      "n_features": 9,
+      "n_samples": 4143,
+      "n_cases": 245,
+      "gain_oof_spearman": 0.1923,
+      "harm_oof_auc": 0.8661,
+      "tau_harm": 0.4129,
+      "gain_params": {
+        "learning_rate": 0.1,
+        "max_leaf_nodes": 15
+      },
+      "harm_params": {
+        "learning_rate": 0.1,
+        "max_leaf_nodes": 31
+      }
+    }
+  ],
+  "rag_ablation_train": [
+    {
+      "rag_mode": "real",
+      "gain_kind": "hgb",
+      "harm_kind": "hgb",
+      "n_features": 9,
+      "n_samples": 4143,
+      "n_cases": 245,
+      "gain_oof_spearman": 0.1923,
+      "harm_oof_auc": 0.8661,
+      "tau_harm": 0.4129,
+      "gain_params": {
+        "learning_rate": 0.1,
+        "max_leaf_nodes": 15
+      },
+      "harm_params": {
+        "learning_rate": 0.1,
+        "max_leaf_nodes": 31
+      }
+    },
+    {
+      "rag_mode": "none",
+      "gain_kind": "hgb",
+      "harm_kind": "hgb",
+      "n_features": 7,
+      "n_samples": 4143,
+      "n_cases": 245,
+      "gain_oof_spearman": 0.2055,
+      "harm_oof_auc": 0.8661,
+      "tau_harm": 0.7935,
+      "gain_params": {
+        "learning_rate": 0.1,
+        "max_leaf_nodes": 15
+      },
+      "harm_params": {
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31
+      }
+    },
+    {
+      "rag_mode": "shuffled",
+      "gain_kind": "hgb",
+      "harm_kind": "hgb",
+      "n_features": 9,
+      "n_samples": 4143,
+      "n_cases": 245,
+      "gain_oof_spearman": 0.1901,
+      "harm_oof_auc": 0.8649,
+      "tau_harm": 0.1697,
+      "gain_params": {
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31
+      },
+      "harm_params": {
+        "learning_rate": 0.05,
+        "max_leaf_nodes": 31
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+strategy,verify_opportunities,executed_verifies,replaced_with_asknew,unnecessary_rate,resolved_rate,correct_to_wrong_rate,wrong_to_correct_rate,heuristic_report_wrong_rate,learned_report_wrong_rate,harm_gate_pass_rate,harm_blocked_wrong_rate,harm_passed_wrong_rate,gain_gate_pass_rate,selected_wrong_rate
+heuristic_baseline,898,898,0,0.583519,0.380846,0.037862,0.104677,0.416481,0.416481,,,,,
+learned_full_rerank,898,898,0,0.679287,0.289532,0.030067,0.087973,0.416481,0.320713,0.951378,0.220833,0.122871,0.249595,0.320713
+learned_full_filter,1133,828,305,0.626812,0.341787,0.031401,0.108696,0.434245,0.373188,0.947377,0.240964,0.124812,0.243145,0.373188
+learned_norag_filter,845,641,204,0.650546,0.326053,0.039002,0.090484,0.395266,0.349454,0.994261,0.21875,0.128788,0.211083,0.349454

@@ -1,0 +1,12 @@
+Phase 7 -- multi-step value audit smoke checks
+
+[PASS] cases_run: 10 unique cases (need >= 10)
+[PASS] states_found: 27 qualifying states
+[PASS] one_new_per_state: 0 states missing an AskNew row
+[PASS] verify_candidates_present: 0 states with zero verify rows
+[PASS] rollout_row_count: 1104 rollout rows vs 1104 expected
+[PASS] j_value_finite: 0 rows with non-finite j_value
+[PASS] q_multi_negation: 0 rows where q_multi != -j_value
+[PASS] future_questions_range: 0 rows with future_questions outside [1, 15]
+[PASS] terminal_brier_range: 0 rows with terminal_brier outside [0, 2]
+[PASS] verify_report_index_present: 0 verify rows with missing report_index

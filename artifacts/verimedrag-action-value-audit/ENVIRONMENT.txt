@@ -1,0 +1,9 @@
+== SafeMedRAG Phase 3A environment ==
+date: 2026-09-01 13:25:30 +0800
+git commit: 91268d7bbfd742c590f2567aa741ed4543fbea35
+git branch: main
+python: Python 3.13.13
+platform: Darwin 25.4.0 arm64
+python executable: /Users/xr-12345/miniforge3/bin/python3
+numpy: 2.4.6
+scipy: 1.18.0

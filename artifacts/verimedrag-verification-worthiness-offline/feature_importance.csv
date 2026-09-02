@@ -1,0 +1,10 @@
+feature,gain_importance
+retrospective_error_prob,-0.022437
+diagnostic_influence,0.090766
+error_prob_times_influence,0.165584
+current_risk,0.1805
+n_reports,0.085707
+turn_index,0.028941
+state_index,0.004711
+retrieval_impact,0.034162
+error_prob_times_impact,0.034718

@@ -1,0 +1,26 @@
+=== git status --short ===
+?? artifacts/verimedrag-action-value-audit/
+?? artifacts/verimedrag-multistep-value-audit/
+?? artifacts/verimedrag-verification-worthiness-offline/
+?? artifacts/verimedrag-worthiness-dropin-screen-n5/
+?? artifacts/verimedrag-worthiness-online-screen-n5/
+?? src/powerful_medrag/action_value.py
+?? src/powerful_medrag/multistep_value.py
+?? src/powerful_medrag/verification_worthiness.py
+?? src/powerful_medrag/worthiness_dropin.py
+?? src/powerful_medrag/worthiness_policy.py
+?? tests/test_action_value_audit.py
+?? tests/test_multistep_value.py
+?? tests/test_verification_worthiness.py
+?? tests/test_worthiness_dropin.py
+?? tests/test_worthiness_policy.py
+
+=== tracked diff (should be empty) ===
+
+=== new source file (multistep_value.py) ===
+ .../null => src/powerful_medrag/multistep_value.py | 482 +++++++++++++++++++++
+ 1 file changed, 482 insertions(+)
+
+=== new test file (test_multistep_value.py) ===
+ /dev/null => tests/test_multistep_value.py | 492 +++++++++++++++++++++++++++++
+ 1 file changed, 492 insertions(+)

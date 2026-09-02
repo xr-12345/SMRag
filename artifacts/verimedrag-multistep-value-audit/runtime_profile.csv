@@ -1,0 +1,12 @@
+metric,value
+mode,full
+cases,49
+dialogues,98
+action_rows,611
+rollout_rows,4888
+n_states,121
+n_rollouts,4888
+single_rollout_seconds,2.9682
+total_wall_seconds,1598.0
+mean_wall_per_dialogue,169.027
+peak_rss_mb,1907.6

@@ -1,0 +1,70 @@
+{
+  "phase": "worthiness-dropin-screen-n5",
+  "scope": "strictly-isolated VerifyOld drop-in (rerank / filter); N=5 screen",
+  "strategies": [
+    "heuristic_baseline",
+    "learned_full_rerank",
+    "learned_full_filter",
+    "learned_norag_filter"
+  ],
+  "retrieval_mode_by_strategy": {
+    "heuristic_baseline": "dynamic_rag",
+    "learned_full_rerank": "dynamic_rag",
+    "learned_full_filter": "dynamic_rag",
+    "learned_norag_filter": "no_rag"
+  },
+  "cases": 245,
+  "cases_per_disease": 5,
+  "smoke_cases": 49,
+  "noise_rates": [
+    0.2,
+    0.3
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "max_total_turns": 15,
+  "trajectories": 5880,
+  "policy": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.7,
+    "minimum_action_utility": 0.08,
+    "suspicious_report_threshold": 0.05,
+    "verification_cost": 0.03,
+    "max_total_turns": 15,
+    "retrieval_top_k": 10,
+    "query_disease_top_k": 5,
+    "retrieval_gate_mode": "joint_gate",
+    "retrieval_impact_weight": 1.0
+  },
+  "frozen": {
+    "gain_model": "hgb",
+    "harm_model": "hgb",
+    "tau_harm_full_rag": 0.41292830528839586,
+    "tau_harm_no_rag": 0.7935174855595156,
+    "verification_cost": 0.03,
+    "model_dir": "artifacts/verimedrag-verification-worthiness-offline/models"
+  },
+  "isolation": [
+    "controller = old heuristic decides action TYPE (AskNew/VerifyOld/Stop)",
+    "learned acts only when controller == VerifyOld",
+    "rerank: same candidates, harm gate + max net_value, always 1 VerifyOld",
+    "filter: verify if net_value>0 AND harm gate, else replace with AskNew",
+    "learned never opens a VerifyOld, never changes AskNew/Stop",
+    "no unified-Brier AskNew pricing (AskNew EIG + thresholds unchanged)"
+  ],
+  "red_lines": [
+    "no test split",
+    "no retraining",
+    "no feature/model change",
+    "no tau_harm change",
+    "no AskNew EIG reorder",
+    "no Stop change",
+    "no true state in prediction",
+    "no oracle correction",
+    "no learned default",
+    "no git commit"
+  ]
+}

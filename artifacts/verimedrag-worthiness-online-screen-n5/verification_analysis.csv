@@ -1,0 +1,5 @@
+strategy,strategy_short,n_trajectories,total_verifications,mean_verifications,mean_unnecessary_verifications,mean_resolved_wrong_reports,verification_hit_rate,correct_to_wrong_per_verification,wrong_to_correct_per_verification,total_correct_to_wrong_flips,total_wrong_to_correct_flips
+heuristic_verify,heuristic,1470,898,0.610884,0.356463,0.232653,0.380846,0.037862,0.104677,34,94
+model_based_vbayes_verify,v_bayes,1470,192,0.130612,0.097279,0.029932,0.229167,0.005208,0.026042,1,5
+learned_worthiness_full_rag,learned_full,1470,396,0.269388,0.182313,0.07551,0.280303,0.042929,0.083333,17,33
+learned_worthiness_no_rag,learned_norag,1470,452,0.307483,0.211565,0.084354,0.274336,0.044248,0.073009,20,33

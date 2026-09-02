@@ -1,0 +1,9 @@
+strategy,strategy_short,noise_rate,n_trajectories,top1_accuracy,top3_accuracy,brier_score,new_questions_mean,verification_questions_mean,total_atomic_questions_mean,unnecessary_verifications_mean,resolved_wrong_reports_mean,correct_to_wrong_flips_mean,wrong_to_correct_flips_mean,premature_stop_rate,uncertain_output_rate,verification_hit_rate,wall_clock_mean
+heuristic_verify,heuristic,0.2,735,0.793197,0.881633,0.282488,8.6027,0.5592,9.1619,0.3401,0.1986,0.0177,0.0639,0.040816,0.009524,0.355231,9.2753
+heuristic_verify,heuristic,0.3,735,0.75102,0.85034,0.337121,9.2803,0.6626,9.9429,0.3728,0.2667,0.0286,0.0639,0.042177,0.008163,0.402464,8.9663
+model_based_vbayes_verify,v_bayes,0.2,735,0.559184,0.642177,0.578458,2.9524,0.1333,3.0857,0.102,0.0272,0.0014,0.0027,0.036735,0.57415,0.204082,0.6772
+model_based_vbayes_verify,v_bayes,0.3,735,0.497959,0.598639,0.65616,3.0286,0.1279,3.1565,0.0925,0.0327,0.0,0.0041,0.054422,0.606803,0.255319,0.7185
+learned_worthiness_full_rag,learned_full,0.2,735,0.559184,0.651701,0.572784,2.9769,0.2517,3.2286,0.181,0.0626,0.0136,0.019,0.02585,0.586395,0.248649,0.9134
+learned_worthiness_full_rag,learned_full,0.3,735,0.530612,0.623129,0.623646,3.0585,0.2871,3.3456,0.1837,0.0884,0.0095,0.0259,0.042177,0.610884,0.308057,0.9222
+learned_worthiness_no_rag,learned_norag,0.2,735,0.563265,0.65034,0.573092,2.9605,0.2871,3.2476,0.215,0.0639,0.0122,0.015,0.028571,0.583673,0.222749,0.5558
+learned_worthiness_no_rag,learned_norag,0.3,735,0.52381,0.62449,0.621671,3.0422,0.3279,3.3701,0.2082,0.1048,0.015,0.0299,0.042177,0.608163,0.319502,0.5505

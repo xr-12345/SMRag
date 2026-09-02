@@ -1,0 +1,17 @@
+score,scope,metric,point,bootstrap_mean,ci_low,ci_high,n,n_boot
+eig,AskNew,spearman,0.240829,0.241124,0.198599,0.285424,7110,1000
+eig,AskNew,kendall,0.164578,0.164754,0.13756,0.194999,7110,1000
+v_bayes,AskNew,spearman,0.23356,0.23467,0.18544,0.285827,7110,1000
+v_bayes,AskNew,kendall,0.159155,0.159783,0.125239,0.195549,7110,1000
+retrospective_error_prob,VerifyOld,spearman,-0.035123,-0.035949,-0.073689,-0.00118,4143,1000
+retrospective_error_prob,VerifyOld,kendall,-0.037129,-0.037773,-0.06346,-0.014083,4143,1000
+retrieval_impact,VerifyOld,spearman,-0.03354,-0.033285,-0.072838,0.007853,4143,1000
+retrieval_impact,VerifyOld,kendall,-0.025163,-0.024967,-0.05445,0.005777,4143,1000
+heuristic_verify_utility,VerifyOld,spearman,-0.222641,-0.223696,-0.265419,-0.182889,4143,1000
+heuristic_verify_utility,VerifyOld,kendall,-0.169624,-0.170592,-0.199877,-0.14189,4143,1000
+error_prob_times_impact,VerifyOld,spearman,-0.050276,-0.05014,-0.0924,-0.00188,4143,1000
+error_prob_times_impact,VerifyOld,kendall,-0.040437,-0.040335,-0.073521,-0.002992,4143,1000
+v_bayes,VerifyOld,spearman,0.209613,0.209886,0.146024,0.272238,4143,1000
+v_bayes,VerifyOld,kendall,0.152881,0.153182,0.105218,0.20108,4143,1000
+v_bayes,both,spearman,0.247067,0.247894,0.202298,0.297812,11253,1000
+v_bayes,both,kendall,0.184399,0.184934,0.150513,0.22334,11253,1000

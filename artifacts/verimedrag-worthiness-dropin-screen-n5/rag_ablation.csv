@@ -1,0 +1,13 @@
+metric,label,learned_norag_filter,learned_full_filter,delta,ci_lo,ci_hi,p_value,n
+brier_score,Brier,0.310444,0.315826,0.005381,-0.008773,0.019535,0.456,1470
+nll_score,NLL,0.954699,0.945971,-0.008727,-0.05068,0.033225,0.684,1470
+correct_top1,Top-1 acc,0.772789,0.769388,-0.003401,-0.015104,0.008301,0.569,1470
+correct_top3,Top-3 acc,0.853741,0.856463,0.002721,-0.006896,0.012338,0.579,1470
+total_atomic_questions,total atomic questions,9.468027,9.485034,0.017007,-0.035548,0.069562,0.526,1470
+new_questions,AskNew count,9.031973,8.921769,-0.110204,-0.160538,-0.05987,1.89e-05,1470
+verification_questions,VerifyOld count,0.436054,0.563265,0.127211,0.108864,0.145558,1.04e-39,1470
+correct_to_wrong_flips,correct->wrong flips,0.017007,0.017687,0.00068,-0.005716,0.007077,0.835,1470
+wrong_to_correct_flips,wrong->correct flips,0.039456,0.061224,0.021769,0.011326,0.032212,4.63e-05,1470
+unnecessary_verifications,unnecessary verifications,0.283673,0.353061,0.069388,0.048858,0.089918,4.88e-11,1470
+resolved_wrong_reports,resolved wrong reports,0.142177,0.192517,0.05034,0.033038,0.067642,1.42e-08,1470
+premature_stop,premature stop,0.044218,0.046259,0.002041,-0.004355,0.008437,0.532,1470

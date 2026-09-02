@@ -1,0 +1,42 @@
+{
+  "phase": "multistep-value-audit",
+  "prompt": "Prompt #16 (Phase 7) -- Multi-Step Verification Value feasibility audit",
+  "scope": "audit whether multi-step rollout value is more reasonable than one-step Brier value",
+  "split": "train",
+  "cases": 49,
+  "cases_per_disease": 1,
+  "sample_seed": 4041,
+  "patient_seed": 4041,
+  "noise_rates": [0.2, 0.3],
+  "max_total_turns": 15,
+  "n_rollouts_per_action": 8,
+  "max_verify_candidates_per_state": 6,
+  "c_q": 0.03,
+  "objective": "J(a|H_t) = E[Brier(b_T, D*) + c_q * N_future | H_t, a, pi_heuristic]",
+  "value": "Q_multi(a) = -J(a); V_multi(i) = J(AskNew_best) - J(VerifyOld(i))",
+  "states_per_case": "up to 2 (early = first >=1 AskNew + >=2 VerifyOld; late = last such before Stop)",
+  "common_random_numbers": true,
+  "policy": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.70,
+    "minimum_action_utility": 0.08,
+    "suspicious_report_threshold": 0.05,
+    "verification_cost": 0.03,
+    "minimum_unreliable_history_cues_for_verification": 1,
+    "max_total_turns": 15,
+    "retrieval_mode": "dynamic_rag",
+    "retrieval_top_k": 10,
+    "query_disease_top_k": 5,
+    "retrieval_gate_mode": "joint_gate",
+    "retrieval_impact_weight": 1.0
+  },
+  "continuation_policy": "frozen ReliabilityAwareActionPolicy (heuristic, dynamic RAG + joint gate)",
+  "red_lines": [
+    "no retraining", "no online integration", "no validation/test split", "no N=20",
+    "no overwrite of prior artifacts", "no modification of Prompt #13/#14/#15 conclusions",
+    "no oracle correction", "no true state in the prediction path",
+    "no change to AskNew/Stop", "no LLM / dense retriever / SFT / RL",
+    "no change to pre-registered criteria", "no git commit",
+    "train audit not presented as a generalization result"
+  ]
+}

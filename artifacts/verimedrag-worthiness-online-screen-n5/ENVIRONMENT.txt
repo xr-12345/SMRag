@@ -1,0 +1,12 @@
+date: 2026-09-01 20:01:26 CST
+host: xr-12345deMacBook-Pro.local (Darwin 25.4.0 arm64)
+python: Python 3.13.13 at /Users/xr-12345/miniforge3/bin/python3
+git HEAD: 91268d7 (Add retrieval joint gate and Phase 2A/2B/2C artifacts)
+
+=== key packages ===
+numpy: 2.4.6
+scikit-learn: 1.9.0
+joblib: 1.6.0
+pandas: 3.0.3
+python executable: /Users/xr-12345/miniforge3/bin/python3
+platform: darwin

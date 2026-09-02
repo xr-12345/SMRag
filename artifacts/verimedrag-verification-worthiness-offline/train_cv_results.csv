@@ -1,0 +1,6 @@
+rag_mode,gain_kind,harm_kind,n_features,n_samples,n_cases,gain_oof_spearman,harm_oof_auc,tau_harm,gain_params,harm_params
+real,ridge,logistic,9,4143,245,0.0502,0.8555,0.225,{'alpha': 0.1},{'C': 1.0}
+real,hgb,hgb,9,4143,245,0.1923,0.8661,0.4129,"{'learning_rate': 0.1, 'max_leaf_nodes': 15}","{'learning_rate': 0.1, 'max_leaf_nodes': 31}"
+real,hgb,hgb,9,4143,245,0.1923,0.8661,0.4129,"{'learning_rate': 0.1, 'max_leaf_nodes': 15}","{'learning_rate': 0.1, 'max_leaf_nodes': 31}"
+none,hgb,hgb,7,4143,245,0.2055,0.8661,0.7935,"{'learning_rate': 0.1, 'max_leaf_nodes': 15}","{'learning_rate': 0.05, 'max_leaf_nodes': 31}"
+shuffled,hgb,hgb,9,4143,245,0.1901,0.8649,0.1697,"{'learning_rate': 0.05, 'max_leaf_nodes': 31}","{'learning_rate': 0.05, 'max_leaf_nodes': 31}"

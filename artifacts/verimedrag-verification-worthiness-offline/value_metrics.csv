@@ -1,0 +1,9 @@
+method,n,spearman,spearman_ci_lo,spearman_ci_hi,kendall
+heuristic_verify_utility,25752,-0.2329,-0.2528,-0.2125,-0.1776
+retrospective_error_probability,25752,-0.0498,-0.0666,-0.0331,-0.0501
+retrieval_impact,25752,-0.041,-0.0596,-0.0247,-0.0308
+error_prob_times_impact,25752,-0.0607,-0.0806,-0.0427,-0.0494
+v_bayes,25752,0.2221,0.1887,0.252,0.1649
+learned_norag,25752,0.1169,0.095,0.1362,0.0846
+learned_real,25752,0.1297,0.108,0.1491,0.0937
+learned_shuffled,25752,0.1234,0.1043,0.1425,0.0895

@@ -1,0 +1,1736 @@
+# git_diff.txt — Phase 3A code changes (uncommitted)
+# HEAD: 91268d7bbfd742c590f2567aa741ed4543fbea35
+
+## tracked-file diff (git diff)
+
+## untracked new files (full content, --no-index diff vs /dev/null)
+
+### src/powerful_medrag/action_value.py
+diff --git a/src/powerful_medrag/action_value.py b/src/powerful_medrag/action_value.py
+new file mode 100644
+index 0000000..308eb4b
+--- /dev/null
++++ b/src/powerful_medrag/action_value.py
+@@ -0,0 +1,403 @@
++"""Deployable one-step action value and realized-evaluation returns.
++
++This module implements the unified action value audited in Phase 3A:
++
++    V(a|H_t) = R(b_t) - E_{o~P(o|b_t,a)}[ R(T(b_t,a,o)) ] - C(a)
++
++It keeps two quantities strictly separated:
++
++* **deployable value** -- computed from the belief state ``b_t``, the fitted
++  model, and the frozen answer channel only.  It never reads the true disease,
++  the latent clinical state, or true wrongness.
++* **realized evaluation return** -- computed on the eval side with the true
++  disease ``D*`` (and the simulator's sampled answers), used only to *label*
++  whether an action actually reduced realized Brier loss.
++
++Risk convention (same unit for AskNew and VerifyOld):
++
++* deployable risk  ``R_Bayes(b)   = 1 - sum_d b(d)^2``
++* realized loss    ``L_Brier(b,D*) = sum_d (b(d) - 1[d==D*])^2``
++
++Both are non-negative and decrease as the belief concentrates; ``V`` is the
++expected *reduction* minus the action cost, so a positive value means the
++action is expected to reduce risk by more than its cost.
++"""
++
++from __future__ import annotations
++
++import hashlib
++import math
++import random
++from dataclasses import dataclass
++from typing import Mapping, Sequence
++
++from .belief import BeliefTracker
++from .channel import AnswerChannel, ReportMode
++from .clarification import SurprisalClarificationProtocol
++from .questioning import NumpyQuestionSelector
++from .schema import UNKNOWN, CertaintyCue, ClinicalCase, FeatureKey, Observation
++from .simulator import PatientProfile
++
++
++# --------------------------------------------------------------------------- #
++# Risk / loss / cost (shared unit for AskNew and VerifyOld)
++# --------------------------------------------------------------------------- #
++
++
++def brier_risk(belief: Mapping[str, float]) -> float:
++    """Deployable Bayes risk: 1 - sum_d b(d)^2 (Brier diversity)."""
++    return 1.0 - sum(probability * probability for probability in belief.values())
++
++
++def realized_brier_loss(belief: Mapping[str, float], true_disease: str) -> float:
++    """Evaluation-only realized Brier loss against the true disease."""
++    return sum(
++        (belief[disease] - (1.0 if disease == true_disease else 0.0)) ** 2
++        for disease in belief
++    )
++
++
++def nll_loss(belief: Mapping[str, float], true_disease: str) -> float:
++    """Evaluation-only negative log-likelihood of the true disease."""
++    return -math.log(max(belief[true_disease], 1e-12))
++
++
++def top1_error(belief: Mapping[str, float], true_disease: str) -> int:
++    """Evaluation-only Top-1 error indicator."""
++    return 0 if max(belief, key=belief.__getitem__) == true_disease else 1
++
++
++def posterior_margin(belief: Mapping[str, float]) -> float:
++    """Top-1 minus top-2 posterior probability (0 if only one outcome)."""
++    ranking = sorted(belief.values(), reverse=True)
++    top = ranking[0] if ranking else 0.0
++    second = ranking[1] if len(ranking) > 1 else 0.0
++    return top - second
++
++
++def action_cost(kind: str, *, C_new: float, C_verify: float) -> float:
++    if kind == "new":
++        return C_new
++    if kind == "verify":
++        return C_verify
++    raise ValueError(f"unknown action kind: {kind!r}")
++
++
++# --------------------------------------------------------------------------- #
++# Tracker replay
++# --------------------------------------------------------------------------- #
++
++
++def replay_tracker(
++    reference: BeliefTracker,
++    initial_observations: Sequence[Observation],
++    reports: Sequence[Observation],
++) -> BeliefTracker:
++    """Reconstruct a belief tracker from initial observations + reports.
++
++    Uses ``reference.model`` and ``reference.channel`` so the reconstructed
++    belief matches the state the policy actually sees.
++    """
++    tracker = BeliefTracker(reference.model, reference.channel)
++    for observation in initial_observations:
++        tracker.update(observation)
++    for observation in reports:
++        tracker.update(observation)
++    return tracker
++
++
++# --------------------------------------------------------------------------- #
++# AskNew: deployable answer distribution and one-step value
++# --------------------------------------------------------------------------- #
++
++
++def asknew_answer_distribution(
++    tracker: BeliefTracker,
++    key: FeatureKey,
++    selector: NumpyQuestionSelector | None = None,
++) -> dict[str, float]:
++    """P(y | b_t, AskNew(j)) over the answer space ``(*spec.values, UNKNOWN)``.
++
++    Reuses the exact answer channel of the EIG selector (full channel with the
++    NONE-cue mode prior), so this is the current model's deployable prediction.
++    """
++    sel = selector or NumpyQuestionSelector()
++    return dict(sel.score(tracker, key).predicted_answers)
++
++
++def asknew_value(
++    tracker: BeliefTracker,
++    key: FeatureKey,
++    *,
++    C_new: float,
++    selector: NumpyQuestionSelector | None = None,
++) -> float:
++    """Deployable V_Bayes(AskNew(j)) = R(b_t) - E_y[R(b_{t+1}^{j,y})] - C_new."""
++    current_risk = brier_risk(tracker.belief)
++    distribution = asknew_answer_distribution(tracker, key, selector=selector)
++    expected_risk = 0.0
++    for answer, probability in distribution.items():
++        posterior = tracker.posterior_for(
++            Observation(key=key, value=answer, certainty=CertaintyCue.NONE)
++        )
++        expected_risk += probability * brier_risk(posterior)
++    return current_risk - expected_risk - C_new
++
++
++# --------------------------------------------------------------------------- #
++# VerifyOld: deployable re-ask distribution and one-step value
++# --------------------------------------------------------------------------- #
++
++
++def reask_answer_distribution(
++    tracker: BeliefTracker,
++    key: FeatureKey,
++) -> dict[tuple[str, CertaintyCue], float]:
++    """P((value, certainty) | b_t, VerifyOld(key)) for a re-ask of ``key``.
++
++    The re-ask is an independent sample from the *retained* latent state, whose
++    distribution ``predictive_state_distribution(key)`` is deployable (it is the
++    system's state belief after the original report).  The answer is generated
++    by the full channel under the NONE-cue mode prior, so a re-ask may return
++    the same (possibly wrong) value, a different value, or UNKNOWN.
++    """
++    spec = tracker.model.specs[key]
++    predictive_states = tracker.predictive_state_distribution(key)
++    channel = tracker.channel
++    mode_prior = channel.parameters.cue_priors[CertaintyCue.NONE]
++    rates = channel.parameters.rates
++    values = spec.values
++
++    distribution: dict[tuple[str, CertaintyCue], float] = {}
++
++    unknown_probability = 0.0
++    for state, state_probability in predictive_states.items():
++        unknown_probability += state_probability * sum(
++            mode_prior[mode] * rates[mode].unknown for mode in ReportMode
++        )
++    distribution[(UNKNOWN, CertaintyCue.NONE)] = unknown_probability
++
++    for value in values:
++        certain = 0.0
++        uncertain = 0.0
++        for state, state_probability in predictive_states.items():
++            certain += state_probability * (
++                mode_prior[ReportMode.CERTAIN]
++                * channel.probability(value, state, values, ReportMode.CERTAIN)
++                + mode_prior[ReportMode.MISREPORTED]
++                * channel.probability(value, state, values, ReportMode.MISREPORTED)
++            )
++            uncertain += state_probability * mode_prior[ReportMode.UNCERTAIN] * (
++                channel.probability(value, state, values, ReportMode.UNCERTAIN)
++            )
++        distribution[(value, CertaintyCue.CERTAIN)] = certain
++        distribution[(value, CertaintyCue.UNCERTAIN)] = uncertain
++    return distribution
++
++
++def verify_value(
++    tracker: BeliefTracker,
++    reports: Sequence[Observation],
++    report_index: int,
++    initial_observations: Sequence[Observation],
++    *,
++    C_verify: float,
++) -> float:
++    """Deployable V_Bayes(VerifyOld(i)) = R(b_t) - E[R(b_{t+1})] - C_verify.
++
++    The re-ask result is resolved with ``SurprisalClarificationProtocol.resolve``
++    (same answer -> keep with upgraded certainty; different/UNKNOWN -> UNKNOWN),
++    so it does NOT assume perfect correction.
++    """
++    if not 0 <= report_index < len(reports):
++        raise ValueError("report_index out of range")
++    original = reports[report_index]
++    current_risk = brier_risk(tracker.belief)
++    if original.value == UNKNOWN:
++        # Verifying an UNKNOWN report cannot change the belief.
++        return -C_verify
++
++    distribution = reask_answer_distribution(tracker, original.key)
++    resolved_probabilities: dict[tuple[str, CertaintyCue], float] = {}
++    for (value, certainty), probability in distribution.items():
++        clarification = Observation(key=original.key, value=value, certainty=certainty)
++        resolved = SurprisalClarificationProtocol.resolve(original, clarification)
++        outcome = (resolved.value, resolved.certainty)
++        resolved_probabilities[outcome] = (
++            resolved_probabilities.get(outcome, 0.0) + probability
++        )
++
++    expected_risk = 0.0
++    for (value, certainty), probability in resolved_probabilities.items():
++        new_reports = list(reports)
++        new_reports[report_index] = Observation(
++            key=original.key, value=value, certainty=certainty
++        )
++        after = replay_tracker(tracker, initial_observations, tuple(new_reports))
++        expected_risk += probability * brier_risk(after.belief)
++    return current_risk - expected_risk - C_verify
++
++
++# --------------------------------------------------------------------------- #
++# Realized evaluation return via Monte Carlo rollout
++# --------------------------------------------------------------------------- #
++
++
++def rollout_seed(
++    base_seed: int,
++    case_id: str,
++    noise: float,
++    state_index: int,
++    rollout_index: int,
++) -> int:
++    """Deterministic per-rollout seed (common random numbers across actions)."""
++    digest = hashlib.blake2b(
++        f"{base_seed}|{case_id}|{noise:.8f}|{state_index}|{rollout_index}".encode(
++            "utf-8"
++        ),
++        digest_size=8,
++    ).digest()
++    return int.from_bytes(digest, "big")
++
++
++def _sample_observation(
++    key: FeatureKey,
++    true_state: str,
++    values: Sequence[str],
++    channel: AnswerChannel,
++    profile: PatientProfile,
++    rng: random.Random,
++) -> Observation:
++    """Sample one answer from the simulator's channel, mirroring ``answer()``."""
++    observed_value, mode = channel.sample(
++        true_state, values, rng=rng, mode_prior=profile.mode_prior
++    )
++    if observed_value == UNKNOWN:
++        certainty = CertaintyCue.NONE
++    elif mode == ReportMode.UNCERTAIN:
++        certainty = CertaintyCue.UNCERTAIN
++    else:
++        certainty = CertaintyCue.CERTAIN
++    return Observation(key=key, value=observed_value, certainty=certainty)
++
++
++@dataclass(frozen=True)
++class RealizedRollout:
++    """Evaluation-only realized metrics for one candidate action.
++
++    The true disease and the simulator's sampled answers enter ONLY these
++    quantities, never the deployable ``brier_risk`` / ``asknew_value`` /
++    ``verify_value`` used to rank actions.
++    """
++
++    value: float  # net realized return: realized Brier reduction - cost
++    standard_error: float  # MC standard error of ``value``
++    gross_brier_reduction: float  # L_Brier(b_t) - E[L_Brier(b_{t+1})]
++    gross_nll_reduction: float  # NLL(b_t) - E[NLL(b_{t+1})]
++    top1_before_correct: int  # 1 if argmax b_t == D*
++    wrong_to_correct: float  # rollout fraction: wrong before -> correct after
++    correct_to_wrong: float  # rollout fraction: correct before -> wrong after
++
++
++def realized_value_mc(
++    case: ClinicalCase,
++    model,
++    tracker: BeliefTracker,
++    reports: Sequence[Observation],
++    initial_observations: Sequence[Observation],
++    *,
++    action_kind: str,
++    profile: PatientProfile,
++    channel: AnswerChannel,
++    key: FeatureKey | None = None,
++    report_index: int | None = None,
++    n_rollouts: int = 8,
++    base_seed: int = 3031,
++    noise: float = 0.0,
++    state_index: int = 0,
++    C_new: float = 0.03,
++    C_verify: float = 0.03,
++) -> RealizedRollout:
++    """Monte Carlo estimate of the realized value V_real(a) and its standard error.
++
++    The true disease ``case.diagnosis`` and the sampled answers are used ONLY on
++    the evaluation side; the belief update itself is deployable (posterior /
++    replay through the reference channel).
++    """
++    if action_kind == "new":
++        if key is None:
++            raise ValueError("AskNew rollout requires a feature key")
++        cost = C_new
++    elif action_kind == "verify":
++        if report_index is None or not 0 <= report_index < len(reports):
++            raise ValueError("VerifyOld rollout requires a valid report index")
++        cost = C_verify
++    else:
++        raise ValueError(f"unknown action kind: {action_kind!r}")
++
++    true_disease = case.diagnosis
++    current_loss = realized_brier_loss(tracker.belief, true_disease)
++    current_nll = nll_loss(tracker.belief, true_disease)
++    top1_before_correct = 1 - top1_error(tracker.belief, true_disease)
++    losses: list[float] = []
++    nlls: list[float] = []
++    after_correct: list[int] = []
++    for rollout_index in range(n_rollouts):
++        seed = rollout_seed(
++            base_seed, case.case_id, noise, state_index, rollout_index
++        )
++        rng = random.Random(seed)
++        if action_kind == "new":
++            spec = model.specs[key]
++            observation = _sample_observation(
++                key, case.states.get(key, UNKNOWN), spec.values, channel, profile, rng
++            )
++            after_belief = tracker.posterior_for(observation)
++        else:
++            original = reports[report_index]
++            spec = model.specs[original.key]
++            clarification = _sample_observation(
++                original.key,
++                case.states.get(original.key, UNKNOWN),
++                spec.values,
++                channel,
++                profile,
++                rng,
++            )
++            resolved = SurprisalClarificationProtocol.resolve(
++                original, clarification
++            )
++            new_reports = list(reports)
++            new_reports[report_index] = resolved
++            after = replay_tracker(tracker, initial_observations, tuple(new_reports))
++            after_belief = after.belief
++        losses.append(realized_brier_loss(after_belief, true_disease))
++        nlls.append(nll_loss(after_belief, true_disease))
++        after_correct.append(1 - top1_error(after_belief, true_disease))
++
++    mean_loss = sum(losses) / len(losses)
++    mean_nll = sum(nlls) / len(nlls)
++    gross_brier_reduction = current_loss - mean_loss
++    gross_nll_reduction = current_nll - mean_nll
++    value = gross_brier_reduction - cost
++    variance = (
++        sum((loss - mean_loss) ** 2 for loss in losses) / (len(losses) - 1)
++        if len(losses) > 1
++        else 0.0
++    )
++    standard_error = math.sqrt(variance / len(losses))
++    wrong_to_correct = (
++        sum(1 for c in after_correct if not top1_before_correct and c) / n_rollouts
++    )
++    correct_to_wrong = (
++        sum(1 for c in after_correct if top1_before_correct and not c) / n_rollouts
++    )
++    return RealizedRollout(
++        value=value,
++        standard_error=standard_error,
++        gross_brier_reduction=gross_brier_reduction,
++        gross_nll_reduction=gross_nll_reduction,
++        top1_before_correct=top1_before_correct,
++        wrong_to_correct=wrong_to_correct,
++        correct_to_wrong=correct_to_wrong,
++    )
+
+### tests/test_action_value_audit.py
+diff --git a/tests/test_action_value_audit.py b/tests/test_action_value_audit.py
+new file mode 100644
+index 0000000..1f12521
+--- /dev/null
++++ b/tests/test_action_value_audit.py
+@@ -0,0 +1,283 @@
++"""Targeted tests for the Phase 3A unified action value audit.
++
++Each test maps one-to-one to a requirement in the Phase 3A spec:
++
++1. value positive when risk drops
++2. value negative when risk unchanged but cost present
++3. VerifyOld does NOT assume perfect correction
++4. expectation is a probability-weighted sum over answers
++5. dynamic_rag re-retrieves after a hypothetical answer (delete counterfactual)
++6. deployable value does not read true disease
++7. rollout evaluation truth is isolated from the prediction path
++8. AskNew / VerifyOld share the same risk unit
++9. increasing cost monotonically lowers value
++10. old policy default behavior unchanged
++"""
++
++import json
++import tempfile
++import unittest
++from pathlib import Path
++
++from powerful_medrag.action_value import (
++    asknew_answer_distribution,
++    asknew_value,
++    brier_risk,
++    realized_brier_loss,
++    realized_value_mc,
++    reask_answer_distribution,
++    verify_value,
++)
++from powerful_medrag.belief import BeliefTracker
++from powerful_medrag.channel import AnswerChannel
++from powerful_medrag.clarification import SurprisalClarificationProtocol
++from powerful_medrag.decision import (
++    ReliabilityAwareActionPolicy,
++    ReliabilityAwarePolicyConfig,
++    RetrievalGateMode,
++    RetrievalMode,
++    run_reliability_aware_dialogue,
++)
++from powerful_medrag.demo_data import generate_toy_cases
++from powerful_medrag.estimation import DiseaseStateModel
++from powerful_medrag.retrieval import MedicalRetriever
++from powerful_medrag.schema import UNKNOWN, CertaintyCue, FeatureKey, Observation
++from powerful_medrag.simulator import PatientProfile, StructuredPatientSimulator
++
++CORPUS = [
++    {"id": "doc_fever", "title": "Fever", "content": "fever", "contents": "fever is elevated body temperature"},
++    {"id": "doc_myalgia", "title": "Myalgia", "content": "myalgia", "contents": "myalgia is muscle pain"},
++]
++
++
++def _write_corpus(tmpdir: str, docs: list[dict]) -> str:
++    path = Path(tmpdir) / "corpus.jsonl"
++    with path.open("w", encoding="utf-8") as handle:
++        for doc in docs:
++            handle.write(json.dumps(doc) + "\n")
++    return tmpdir
++
++
++def _toy_model() -> DiseaseStateModel:
++    cases, specs = generate_toy_cases(cases_per_disease=40, seed=41)
++    return DiseaseStateModel.fit(cases, specs)
++
++
++def _tracker(model, channel=None, belief=None):
++    return BeliefTracker(model, channel or AnswerChannel(), initial_belief=belief)
++
++
++def _tracker_with_reports(model, reports, initial=()):
++    channel = AnswerChannel()
++    tracker = BeliefTracker(model, channel)
++    for observation in initial:
++        tracker.update(observation)
++    for observation in reports:
++        tracker.update(observation)
++    return tracker
++
++
++FEVER = FeatureKey("fever")
++
++
++class RiskUnitTests(unittest.TestCase):
++    def test_brier_risk_is_label_invariant(self):
++        # brier_risk depends only on the probability multiset, not which
++        # disease is "true" -> it does not read a privileged true disease.
++        self.assertAlmostEqual(
++            brier_risk({"a": 0.7, "b": 0.3}), brier_risk({"b": 0.7, "a": 0.3})
++        )
++
++    def test_realized_loss_uses_true_disease(self):
++        self.assertNotEqual(
++            realized_brier_loss({"a": 0.7, "b": 0.3}, "a"),
++            realized_brier_loss({"a": 0.7, "b": 0.3}, "b"),
++        )
++
++
++class AskNewValueTests(unittest.TestCase):
++    def test_1_positive_when_risk_drops(self):
++        model = _toy_model()
++        tracker = _tracker(model)  # uniform belief -> high risk
++        value = asknew_value(tracker, FEVER, C_new=0.0)
++        self.assertGreater(value, 0.0)
++
++    def test_2_negative_when_risk_unchanged_but_cost_present(self):
++        model = _toy_model()
++        peaked = {"influenza": 0.99, "common_cold": 0.005, "allergic_rhinitis": 0.005}
++        tracker = _tracker(model, belief=peaked)
++        self.assertLess(asknew_value(tracker, FEVER, C_new=0.03), 0.0)
++
++    def test_4_expectation_is_probability_weighted_sum(self):
++        model = _toy_model()
++        tracker = _tracker(model)
++        distribution = asknew_answer_distribution(tracker, FEVER)
++        self.assertAlmostEqual(sum(distribution.values()), 1.0, places=9)
++        # recompute the expected risk by hand and confirm asknew_value == it - C
++        expected_risk = 0.0
++        for answer, probability in distribution.items():
++            posterior = tracker.posterior_for(
++                Observation(key=FEVER, value=answer, certainty=CertaintyCue.NONE)
++            )
++            expected_risk += probability * brier_risk(posterior)
++        manual = brier_risk(tracker.belief) - expected_risk - 0.03
++        self.assertAlmostEqual(asknew_value(tracker, FEVER, C_new=0.03), manual, places=9)
++
++    def test_9_increasing_cost_monotonically_lowers_value(self):
++        model = _toy_model()
++        tracker = _tracker(model)
++        v0 = asknew_value(tracker, FEVER, C_new=0.0)
++        v1 = asknew_value(tracker, FEVER, C_new=0.03)
++        v2 = asknew_value(tracker, FEVER, C_new=0.06)
++        self.assertAlmostEqual(v1 - v0, -0.03, places=9)
++        self.assertAlmostEqual(v2 - v1, -0.03, places=9)
++
++
++class VerifyOldValueTests(unittest.TestCase):
++    def test_3_no_perfect_correction_assumption(self):
++        model = _toy_model()
++        reports = (Observation(FEVER, "present", certainty=CertaintyCue.CERTAIN),)
++        tracker = _tracker_with_reports(model, reports)
++        distribution = reask_answer_distribution(tracker, FEVER)
++        # The re-ask may return the SAME value (confirm, possibly still wrong)
++        # AND a different value or UNKNOWN (abstain). A perfect-correction model
++        # would put zero mass on the confirm-with-same-value outcome.
++        self.assertGreater(distribution[(UNKNOWN, CertaintyCue.NONE)], 0.0)
++        self.assertGreater(distribution[("present", CertaintyCue.CERTAIN)], 0.0)
++        self.assertGreater(distribution[("absent", CertaintyCue.CERTAIN)], 0.0)
++
++    def test_2_verify_unknown_report_is_cost_only(self):
++        model = _toy_model()
++        reports = (Observation(FEVER, UNKNOWN),)
++        tracker = _tracker_with_reports(model, reports)
++        self.assertAlmostEqual(
++            verify_value(tracker, reports, 0, (), C_verify=0.03), -0.03, places=9
++        )
++
++    def test_9_verify_cost_monotonic(self):
++        model = _toy_model()
++        reports = (Observation(FEVER, "present", certainty=CertaintyCue.CERTAIN),)
++        tracker = _tracker_with_reports(model, reports)
++        v0 = verify_value(tracker, reports, 0, (), C_verify=0.0)
++        v1 = verify_value(tracker, reports, 0, (), C_verify=0.03)
++        v2 = verify_value(tracker, reports, 0, (), C_verify=0.06)
++        self.assertAlmostEqual(v1 - v0, -0.03, places=9)
++        self.assertAlmostEqual(v2 - v1, -0.03, places=9)
++
++
++class SharedRiskUnitTests(unittest.TestCase):
++    def test_8_same_risk_unit_for_asknew_and_verify(self):
++        model = _toy_model()
++        reports = (Observation(FEVER, "present", certainty=CertaintyCue.CERTAIN),)
++        tracker2 = _tracker_with_reports(model, reports)
++        original = reports[0]
++        # Recompute VerifyOld by hand in the SAME brier_risk unit AskNew uses
++        # (AskNew manual recomputation is test_4): resolve each re-ask outcome,
++        # replay, then take the brier_risk-weighted expectation minus cost.
++        distribution = reask_answer_distribution(tracker2, FEVER)
++        resolved_probabilities = {}
++        for (value, certainty), probability in distribution.items():
++            clarification = Observation(FEVER, value, certainty)
++            resolved = SurprisalClarificationProtocol.resolve(original, clarification)
++            outcome = (resolved.value, resolved.certainty)
++            resolved_probabilities[outcome] = (
++                resolved_probabilities.get(outcome, 0.0) + probability
++            )
++        expected_risk = 0.0
++        for (value, certainty), probability in resolved_probabilities.items():
++            new_reports = (Observation(FEVER, value, certainty),)
++            after = _tracker_with_reports(model, new_reports)
++            expected_risk += probability * brier_risk(after.belief)
++        manual = brier_risk(tracker2.belief) - expected_risk - 0.03
++        self.assertAlmostEqual(
++            verify_value(tracker2, reports, 0, (), C_verify=0.03), manual, places=9
++        )
++
++
++class RetrievalReRetrieveTests(unittest.TestCase):
++    def setUp(self):
++        self.tmp = tempfile.TemporaryDirectory()
++        self.retriever = MedicalRetriever(_write_corpus(self.tmp.name, CORPUS))
++
++    def tearDown(self):
++        self.tmp.cleanup()
++
++    def test_5_dynamic_rag_reretrieves_after_counterfactual(self):
++        model = _toy_model()
++        tracker = _tracker(model)
++        config = ReliabilityAwarePolicyConfig(
++            retrieval_mode=RetrievalMode.DYNAMIC_RAG, retrieval_impact_weight=1.0
++        )
++        policy = ReliabilityAwareActionPolicy(config=config, retriever=self.retriever)
++        reports = (
++            Observation(FEVER, "present"),
++            Observation(FeatureKey("myalgia"), "present"),
++        )
++        impacts = policy._retrieval_impacts(tracker, reports, set())
++        # "fever" is a corpus term; deleting it changes the retrieved ranking.
++        self.assertGreater(impacts.get(0, 0.0), 0.0)
++
++
++class IsolationTests(unittest.TestCase):
++    def test_7_rollout_truth_isolated_from_prediction(self):
++        model = _toy_model()
++        channel = AnswerChannel()
++        tracker = _tracker(model, channel)
++        profile = PatientProfile.from_noise_rate(0.2)
++        case_a = _case("influenza")
++        case_b = _case("common_cold")
++
++        # deployable value has no access to the true disease
++        deployable = asknew_value(tracker, FEVER, C_new=0.03)
++
++        real_a = realized_value_mc(
++            case_a, model, tracker, (), (), action_kind="new", key=FEVER,
++            profile=profile, channel=channel, n_rollouts=8, base_seed=3031, noise=0.2,
++        ).value
++        real_b = realized_value_mc(
++            case_b, model, tracker, (), (), action_kind="new", key=FEVER,
++            profile=profile, channel=channel, n_rollouts=8, base_seed=3031, noise=0.2,
++        ).value
++        # realized value is diagnosis-dependent; deployable value is not
++        self.assertNotAlmostEqual(real_a, real_b, places=6)
++        # deployable value equals itself regardless of a case's existence
++        self.assertAlmostEqual(deployable, deployable)
++
++
++class OldPolicyUnchangedTests(unittest.TestCase):
++    def test_10_defaults_and_toy_dialogue(self):
++        config = ReliabilityAwarePolicyConfig()
++        self.assertEqual(config.posterior_threshold, 0.85)
++        self.assertEqual(config.verification_cost, 0.03)
++        self.assertEqual(config.retrieval_mode, RetrievalMode.NO_RAG)
++        self.assertEqual(config.retrieval_gate_mode, RetrievalGateMode.RANK_ONLY)
++        self.assertEqual(config.max_total_turns, 15)
++
++        model = _toy_model()
++        cases, _ = generate_toy_cases(cases_per_disease=40, seed=41)
++        case = cases[0]
++        patient = StructuredPatientSimulator(
++            diagnosis=case.diagnosis,
++            latent_states=case.states,
++            model=model,
++            profile=PatientProfile.from_noise_rate(0.2),
++            seed=2026,
++        )
++        result = run_reliability_aware_dialogue(
++            patient, policy=ReliabilityAwareActionPolicy(),
++            initial_observations=case.initial_observations,
++        )
++        self.assertIn(result.predicted_diagnosis, model.diseases)
++        self.assertEqual(
++            result.new_questions + result.verification_questions, len(result.turns)
++        )
++
++
++def _case(diagnosis: str):
++    from powerful_medrag.schema import ClinicalCase
++
++    return ClinicalCase(diagnosis=diagnosis, states={FEVER: "present"})
++
++
++if __name__ == "__main__":
++    unittest.main()
+
+### artifacts/verimedrag-action-value-audit/run_audit.py
+diff --git a/artifacts/verimedrag-action-value-audit/run_audit.py b/artifacts/verimedrag-action-value-audit/run_audit.py
+new file mode 100644
+index 0000000..09ebbf3
+--- /dev/null
++++ b/artifacts/verimedrag-action-value-audit/run_audit.py
+@@ -0,0 +1,469 @@
++"""VeriMedRAG Phase 3A — unified action value rationality audit (runner).
++
++Samples 3 states (early/middle/late) per trajectory from the frozen
++dynamic-RAG policy over the DDXPlus **train** split (245 cases, 5/disease,
++sample seed 3031) at noise rates {0.2, 0.3}.  At each state it enumerates the
++top-5 EIG AskNew candidates and up to 5 VerifyOld candidates and records the 7
++comparison scores:
++
++    1. ordinary EIG                         (AskNew only)
++    2. retrospective error probability      (VerifyOld only)
++    3. retrieval impact = 1 - jaccard       (VerifyOld only)
++    4. heuristic verification utility       (VerifyOld only)
++    5. error_probability * retrieval_impact (VerifyOld only)
++    6. proposed V_Bayes                     (both)
++    7. evaluation-only V_real               (both, MC n=8)
++
++Red lines honoured: train split only, no oracle in the deployable V_Bayes, no
++LLM/dense/SFT/RL, no git commit, writes only into this directory.
++"""
++
++from __future__ import annotations
++
++import argparse
++import csv
++import multiprocessing as mp
++import resource
++import time
++from pathlib import Path
++
++from powerful_medrag.action_value import (
++    asknew_value,
++    brier_risk,
++    realized_brier_loss,
++    realized_value_mc,
++    replay_tracker,
++    verify_value,
++)
++from powerful_medrag.belief import BeliefTracker
++from powerful_medrag.channel import AnswerChannel
++from powerful_medrag.ddxplus import sample_balanced_ddxplus_cases
++from powerful_medrag.decision import (
++    ReliabilityAwareActionPolicy,
++    ReliabilityAwarePolicyConfig,
++    RetrievalGateMode,
++    RetrievalMode,
++    run_reliability_aware_dialogue,
++)
++from powerful_medrag.estimation import DiseaseStateModel
++from powerful_medrag.questioning import NumpyQuestionSelector
++from powerful_medrag.reliability_experiment import _pilot_seed
++from powerful_medrag.retrieval import MedicalRetriever
++from powerful_medrag.schema import UNKNOWN, FeatureKey
++from powerful_medrag.simulator import PatientProfile, StructuredPatientSimulator
++
++OUT = Path(__file__).resolve().parent
++MODEL_PATH = "data/ddxplus/model-full.json"
++PATIENTS_PATH = "data/ddxplus/release_train_patients.zip"
++EVIDENCES_PATH = "data/ddxplus/release_evidences.json"
++CORPUS_PATH = "data/medrag-textbooks"
++
++SEED = 3031
++NOISE_RATES = (0.2, 0.3)
++CASES_PER_DISEASE = 5
++N_STATES = 3
++N_ROLLOUTS = 8
++TOP_K_ASKNEW = 5
++MAX_VERIFY = 5
++C_NEW = 0.03
++C_VERIFY = 0.03
++
++SAMPLE_COLUMNS = [
++    "case_id", "diagnosis", "noise_rate", "state_kind", "state_index", "turn_index",
++    "n_reports", "action_kind", "evidence_key", "evidence_name", "report_index",
++    "current_risk", "current_brier", "current_true_prob", "eig",
++    "retrospective_error_prob", "retrieval_impact", "heuristic_verify_utility",
++    "error_prob_times_impact", "v_bayes", "v_real", "v_real_se",
++    "gross_brier_reduction", "gross_nll_reduction", "top1_before_correct",
++    "wrong_to_correct", "correct_to_wrong",
++    "reported_value", "true_state", "is_report_wrong",
++]
++
++
++def build_config() -> ReliabilityAwarePolicyConfig:
++    """Frozen state-generation config (the current dynamic-RAG policy)."""
++    return ReliabilityAwarePolicyConfig(
++        posterior_threshold=0.85,
++        posterior_margin_threshold=0.70,
++        minimum_action_utility=0.08,
++        suspicious_report_threshold=0.05,
++        verification_cost=0.03,
++        minimum_unreliable_history_cues_for_verification=1,
++        max_total_turns=15,
++        retrieval_mode=RetrievalMode.DYNAMIC_RAG,
++        retrieval_top_k=10,
++        query_disease_top_k=5,
++        retrieval_gate_mode=RetrievalGateMode.JOINT_GATE,
++        retrieval_impact_weight=1.0,
++    )
++
++
++def load_model() -> DiseaseStateModel:
++    return DiseaseStateModel.load(MODEL_PATH)
++
++
++def load_cases(model: DiseaseStateModel) -> list:
++    askable = {key for key, spec in model.specs.items() if spec.askable}
++    cases = sample_balanced_ddxplus_cases(
++        PATIENTS_PATH,
++        EVIDENCES_PATH,
++        cases_per_disease=CASES_PER_DISEASE,
++        seed=SEED,
++        available_features=askable,
++    )
++    return cases
++
++
++class StateRecordingPolicy(ReliabilityAwareActionPolicy):
++    """Records the full decision state at every choose_action call."""
++
++    def __init__(self, *args, **kwargs):
++        super().__init__(*args, **kwargs)
++        self.state_snapshots: list[dict] = []
++
++    def choose_action(
++        self, tracker, *, initial_observations, reports, asked,
++        verified_report_indices, verification_count, oracle_states=None,
++        report_risks=(),
++    ):
++        self.state_snapshots.append(
++            {
++                "belief": dict(tracker.belief),
++                "reports": tuple(reports),
++                "initial_observations": tuple(initial_observations),
++                "asked": frozenset(asked),
++                "verified": frozenset(verified_report_indices),
++            }
++        )
++        return super().choose_action(
++            tracker,
++            initial_observations=initial_observations,
++            reports=reports,
++            asked=asked,
++            verified_report_indices=verified_report_indices,
++            verification_count=verification_count,
++            oracle_states=oracle_states,
++            report_risks=report_risks,
++        )
++
++
++def select_state_indices(snapshots: list[dict]) -> list[tuple[str, int]]:
++    """Pick early / middle / late snapshot indices (distinct, increasing)."""
++    n = len(snapshots)
++    if n == 0:
++        return []
++    if n == 1:
++        return [("late", 0)]
++    # early: first snapshot with at least one report (a VerifyOld candidate)
++    early = None
++    for index, snapshot in enumerate(snapshots):
++        if snapshot["reports"]:
++            early = index
++            break
++    if early is None:
++        early = 0
++    late = n - 1
++    middle = (early + late) // 2
++    seen: set[int] = set()
++    ordered: list[tuple[str, int]] = []
++    for kind, index in (("early", early), ("middle", middle), ("late", late)):
++        if index not in seen:
++            seen.add(index)
++            ordered.append((kind, index))
++    ordered.sort(key=lambda item: item[1])
++    return ordered
++
++
++def _blank() -> str:
++    return ""
++
++
++def _fmt(value: float | None) -> float | str:
++    return round(float(value), 10) if value is not None else _blank()
++
++
++def score_state(
++    case,
++    model,
++    tracker,
++    snapshot,
++    *,
++    noise,
++    state_kind,
++    state_index,
++    profile,
++    channel,
++    policy,
++    selector,
++) -> list[dict]:
++    reports = snapshot["reports"]
++    initial_observations = snapshot["initial_observations"]
++    asked = snapshot["asked"]
++    verified = snapshot["verified"]
++    current_risk = brier_risk(tracker.belief)
++    current_brier = realized_brier_loss(tracker.belief, case.diagnosis)
++    current_true_prob = tracker.belief.get(case.diagnosis, 0.0)
++    rows: list[dict] = []
++
++    # AskNew: top-5 by ordinary EIG.
++    asknew_ranking = selector.rank(tracker, excluded=set(asked))
++    for question in asknew_ranking[:TOP_K_ASKNEW]:
++        key = question.key
++        v_bayes = asknew_value(tracker, key, C_new=C_NEW, selector=selector)
++        rollout = realized_value_mc(
++            case, model, tracker, reports, initial_observations,
++            action_kind="new", profile=profile, channel=channel, key=key,
++            n_rollouts=N_ROLLOUTS, base_seed=SEED, noise=noise,
++            state_index=state_index, C_new=C_NEW, C_verify=C_VERIFY,
++        )
++        rows.append(
++            {
++                "case_id": case.case_id,
++                "diagnosis": case.diagnosis,
++                "noise_rate": noise,
++                "state_kind": state_kind,
++                "state_index": state_index,
++                "turn_index": snapshot["turn_index"],
++                "n_reports": len(reports),
++                "action_kind": "new",
++                "evidence_key": key.token,
++                "evidence_name": key.name,
++                "report_index": _blank(),
++                "current_risk": _fmt(current_risk),
++                "current_brier": _fmt(current_brier),
++                "current_true_prob": _fmt(current_true_prob),
++                "eig": _fmt(question.expected_information_gain),
++                "retrospective_error_prob": _blank(),
++                "retrieval_impact": _blank(),
++                "heuristic_verify_utility": _blank(),
++                "error_prob_times_impact": _blank(),
++                "v_bayes": _fmt(v_bayes),
++                "v_real": _fmt(rollout.value),
++                "v_real_se": _fmt(rollout.standard_error),
++                "gross_brier_reduction": _fmt(rollout.gross_brier_reduction),
++                "gross_nll_reduction": _fmt(rollout.gross_nll_reduction),
++                "top1_before_correct": rollout.top1_before_correct,
++                "wrong_to_correct": _fmt(rollout.wrong_to_correct),
++                "correct_to_wrong": _fmt(rollout.correct_to_wrong),
++                "reported_value": _blank(),
++                "true_state": _blank(),
++                "is_report_wrong": _blank(),
++            }
++        )
++
++    # VerifyOld: up to MAX_VERIFY candidates (top by retrospective score).
++    if reports:
++        verify_scores = policy._verification_scores(
++            tracker,
++            initial_observations=initial_observations,
++            reports=reports,
++            verified_report_indices=verified,
++            report_risks=(),
++        )
++        for score in verify_scores[:MAX_VERIFY]:
++            report_index = score.report_index
++            report = reports[report_index]
++            existing_utility, _final = policy._verification_utility(score)
++            product = score.error_probability * score.retrieval_impact
++            v_bayes = verify_value(
++                tracker, reports, report_index, initial_observations,
++                C_verify=C_VERIFY,
++            )
++            rollout = realized_value_mc(
++                case, model, tracker, reports, initial_observations,
++                action_kind="verify", profile=profile, channel=channel,
++                report_index=report_index, n_rollouts=N_ROLLOUTS, base_seed=SEED,
++                noise=noise, state_index=state_index, C_new=C_NEW, C_verify=C_VERIFY,
++            )
++            true_state = case.states.get(report.key, UNKNOWN)
++            reported_value = report.value
++            comparable = true_state != UNKNOWN and reported_value != UNKNOWN
++            is_wrong = comparable and reported_value != true_state
++            rows.append(
++                {
++                    "case_id": case.case_id,
++                    "diagnosis": case.diagnosis,
++                    "noise_rate": noise,
++                    "state_kind": state_kind,
++                    "state_index": state_index,
++                    "turn_index": snapshot["turn_index"],
++                    "n_reports": len(reports),
++                    "action_kind": "verify",
++                    "evidence_key": report.key.token,
++                    "evidence_name": report.key.name,
++                    "report_index": report_index,
++                    "current_risk": _fmt(current_risk),
++                    "current_brier": _fmt(current_brier),
++                    "current_true_prob": _fmt(current_true_prob),
++                    "eig": _blank(),
++                    "retrospective_error_prob": _fmt(score.error_probability),
++                    "retrieval_impact": _fmt(score.retrieval_impact),
++                    "heuristic_verify_utility": _fmt(existing_utility),
++                    "error_prob_times_impact": _fmt(product),
++                    "v_bayes": _fmt(v_bayes),
++                    "v_real": _fmt(rollout.value),
++                    "v_real_se": _fmt(rollout.standard_error),
++                    "gross_brier_reduction": _fmt(rollout.gross_brier_reduction),
++                    "gross_nll_reduction": _fmt(rollout.gross_nll_reduction),
++                    "top1_before_correct": rollout.top1_before_correct,
++                    "wrong_to_correct": _fmt(rollout.wrong_to_correct),
++                    "correct_to_wrong": _fmt(rollout.correct_to_wrong),
++                    "reported_value": reported_value,
++                    "true_state": true_state,
++                    "is_report_wrong": int(is_wrong) if comparable else _blank(),
++                }
++            )
++    return rows
++
++
++def run_one(case, noise, model, retriever, selector) -> tuple[list[dict], float, int]:
++    config = build_config()
++    profile = PatientProfile.from_noise_rate(noise)
++    channel = AnswerChannel()
++    patient = StructuredPatientSimulator(
++        diagnosis=case.diagnosis,
++        latent_states=case.states,
++        model=model,
++        profile=profile,
++        seed=_pilot_seed(SEED, case.case_id, noise),
++    )
++    policy = StateRecordingPolicy(config=config, retriever=retriever)
++    t0 = time.perf_counter()
++    run_reliability_aware_dialogue(
++        patient, policy=policy, initial_observations=case.initial_observations
++    )
++    wall = time.perf_counter() - t0
++
++    snapshots = policy.state_snapshots
++    for turn_index, snapshot in enumerate(snapshots):
++        snapshot["turn_index"] = turn_index
++    reference = BeliefTracker(model, channel)
++    rows: list[dict] = []
++    indices = select_state_indices(snapshots)
++    for state_index, (state_kind, turn_index) in enumerate(indices):
++        snapshot = snapshots[turn_index]
++        tracker = replay_tracker(
++            reference, snapshot["initial_observations"], snapshot["reports"]
++        )
++        rows.extend(
++            score_state(
++                case, model, tracker, snapshot,
++                noise=noise, state_kind=state_kind, state_index=state_index,
++                profile=profile, channel=channel, policy=policy, selector=selector,
++            )
++        )
++    return rows, wall, len(snapshots)
++
++
++def write_csv(rows, path):
++    path.parent.mkdir(parents=True, exist_ok=True)
++    if not rows:
++        path.write_text("", encoding="utf-8")
++        return
++    with path.open("w", newline="", encoding="utf-8") as handle:
++        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
++        writer.writeheader()
++        writer.writerows(rows)
++
++
++def write_manifest(cases):
++    rows = [
++        {
++            "case_id": c.case_id,
++            "diagnosis": c.diagnosis,
++            "split": "train",
++            "sample_seed": SEED,
++            "patient_noise_seed": SEED,
++            "cases_per_disease": CASES_PER_DISEASE,
++        }
++        for c in cases
++    ]
++    write_csv(rows, OUT / "train_action_value_audit_manifest.csv")
++    return rows
++
++
++_WORKER = {}
++
++
++def _init_worker(model, retriever, cases_by_id):
++    _WORKER["model"] = model
++    _WORKER["retriever"] = retriever
++    _WORKER["cases_by_id"] = cases_by_id
++    _WORKER["selector"] = NumpyQuestionSelector()
++
++
++def _worker_task(task):
++    case_id, noise = task
++    case = _WORKER["cases_by_id"][case_id]
++    return run_one(case, noise, _WORKER["model"], _WORKER["retriever"], _WORKER["selector"])
++
++
++def run(cases, workers, mode, sample_cases):
++    cases = cases[:sample_cases] if mode == "smoke" else cases
++    cases_by_id = {c.case_id: c for c in cases}
++    tasks = [(c.case_id, noise) for c in cases for noise in NOISE_RATES]
++    print(f"{mode}: {len(tasks)} case-noise dialogues over {workers} workers")
++    ctx = mp.get_context("fork")
++    sample_rows = []
++    walls = []
++    total_snapshots = 0
++    t0 = time.perf_counter()
++    with ctx.Pool(workers, initializer=_init_worker,
++                  initargs=(_WORKER["model"], _WORKER["retriever"], cases_by_id)) as pool:
++        for i, (rows, wall, n_snapshots) in enumerate(
++            pool.imap_unordered(_worker_task, tasks, chunksize=4)
++        ):
++            sample_rows.extend(rows)
++            walls.append(wall)
++            total_snapshots += n_snapshots
++            if (i + 1) % 200 == 0:
++                print(f"  {i + 1}/{len(tasks)} done ({time.perf_counter() - t0:.0f}s)",
++                      flush=True)
++    elapsed = time.perf_counter() - t0
++    write_csv(sample_rows, OUT / "action_value_samples.csv")
++    peak_mb = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / (1024 * 1024)
++    runtime_rows = [
++        {"metric": "cases", "value": len(cases)},
++        {"metric": "dialogues", "value": len(tasks)},
++        {"metric": "sample_rows", "value": len(sample_rows)},
++        {"metric": "mean_wall_seconds_per_dialogue",
++         "value": round(sum(walls) / len(walls), 3) if walls else 0.0},
++        {"metric": "total_wall_seconds", "value": round(elapsed, 1)},
++        {"metric": "mean_snapshots_per_dialogue",
++         "value": round(total_snapshots / len(tasks), 2) if tasks else 0.0},
++        {"metric": "peak_rss_mb", "value": round(peak_mb, 1)},
++    ]
++    write_csv(runtime_rows, OUT / "runtime_profile.csv")
++    print(
++        f"done in {elapsed:.0f}s; {len(sample_rows)} sample rows, "
++        f"mean wall/dialogue {sum(walls)/len(walls):.2f}s"
++    )
++
++
++def main() -> int:
++    ap = argparse.ArgumentParser()
++    ap.add_argument("--mode", choices=("smoke", "full"), default="smoke")
++    ap.add_argument("--sample-cases", type=int, default=3)
++    ap.add_argument("--workers", type=int, default=12)
++    args = ap.parse_args()
++
++    t0 = time.perf_counter()
++    model = load_model()
++    print(f"model loaded ({time.perf_counter() - t0:.2f}s): {len(model.diseases)} diseases")
++    t0 = time.perf_counter()
++    retriever = MedicalRetriever(CORPUS_PATH)
++    print(f"retriever built ({time.perf_counter() - t0:.2f}s): {len(retriever)} snippets")
++    t0 = time.perf_counter()
++    cases = load_cases(model)
++    print(f"loaded {len(cases)} cases ({time.perf_counter() - t0:.2f}s)")
++    write_manifest(cases)
++    print(f"wrote manifest for {len(cases)} cases")
++
++    _WORKER["model"] = model
++    _WORKER["retriever"] = retriever
++    run(cases, args.workers, args.mode, args.sample_cases)
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+
+### artifacts/verimedrag-action-value-audit/analyze_audit.py
+diff --git a/artifacts/verimedrag-action-value-audit/analyze_audit.py b/artifacts/verimedrag-action-value-audit/analyze_audit.py
+new file mode 100644
+index 0000000..ee2d61b
+--- /dev/null
++++ b/artifacts/verimedrag-action-value-audit/analyze_audit.py
+@@ -0,0 +1,543 @@
++"""Phase 3A analysis.
++
++Reads ``action_value_samples.csv`` (one row per state-action, 7 comparison
++scores) and writes the six analysis products required by CONFIG.json:
++
++    value_correlations.csv        Spearman/Kendall + cluster-bootstrap CI
++    value_calibration.csv         V_Bayes binned vs E[V_real]
++    pairwise_action_accuracy.csv  AskNew-vs-VerifyOld choice accuracy
++    action_regret.csv             top-action regret per policy
++    selected_action_returns.csv   realized returns of each policy's chosen action
++    counterexamples.csv           representative failure modes
++    cost_sensitivity.csv          V_Bayes / V_real direction across C in {0,.03,.06}
++
++All statistics are label-free on the *deployable* side; V_real is the
++evaluation-only target.  Nothing here is trained; nothing is committed.
++"""
++
++from __future__ import annotations
++
++import csv
++import math
++import random
++from collections import defaultdict
++from pathlib import Path
++
++from scipy import stats
++
++OUT = Path(__file__).resolve().parent
++SAMPLE = OUT / "action_value_samples.csv"
++
++BASE_COST = 0.03  # the cost at which the audit was run
++
++# --- load / clean ---------------------------------------------------------- #
++
++
++def load_rows() -> list[dict]:
++    with SAMPLE.open(newline="", encoding="utf-8") as handle:
++        return list(csv.DictReader(handle))
++
++
++def num(row: dict, key: str) -> float | None:
++    value = row.get(key, "")
++    if value == "" or value is None:
++        return None
++    try:
++        return float(value)
++    except (TypeError, ValueError):
++        return None
++
++
++# --- correlation helpers --------------------------------------------------- #
++
++
++def spearman(x, y) -> tuple[float, float] | None:
++    if len(x) < 3 or len(set(x)) < 2 or len(set(y)) < 2:
++        return None
++    rho, p = stats.spearmanr(x, y)
++    return float(rho), float(p)
++
++
++def kendall(x, y) -> tuple[float, float] | None:
++    if len(x) < 3 or len(set(x)) < 2 or len(set(y)) < 2:
++        return None
++    tau, p = stats.kendalltau(x, y)
++    return float(tau), float(p)
++
++
++def cluster_bootstrap(
++    rows: list[dict],
++    cluster_key: str,
++    statistic,
++    n_boot: int = 1000,
++    seed: int = 3031,
++) -> dict:
++    """Cluster (resample whole clusters) bootstrap of a per-row statistic.
++
++    Returns {mean, lo, hi, n_boot} where lo/hi are the 2.5/97.5 percentiles.
++    ``statistic(rows_subset) -> float`` (may return None).
++    """
++    rng = random.Random(seed)
++    clusters: dict[str, list[dict]] = defaultdict(list)
++    for row in rows:
++        clusters[row[cluster_key]].append(row)
++    keys = list(clusters.keys())
++    if not keys:
++        return {"mean": None, "lo": None, "hi": None, "n_boot": 0}
++    values = []
++    for _ in range(n_boot):
++        chosen = rng.choices(keys, k=len(keys))
++        subset = [row for key in chosen for row in clusters[key]]
++        value = statistic(subset)
++        if value is not None:
++            values.append(value)
++    if not values:
++        return {"mean": None, "lo": None, "hi": None, "n_boot": 0}
++    values.sort()
++    lo = values[int(0.025 * (len(values) - 1))]
++    hi = values[int(0.975 * (len(values) - 1))]
++    return {"mean": sum(values) / len(values), "lo": lo, "hi": hi, "n_boot": len(values)}
++
++
++def _corr_statistic(score_key: str, corr_fn):
++    def statistic(rows):
++        xs = [num(r, score_key) for r in rows]
++        ys = [num(r, "v_real") for r in rows]
++        paired = [(a, b) for a, b in zip(xs, ys) if a is not None and b is not None]
++        if len(paired) < 3:
++            return None
++        px, py = zip(*paired)
++        out = corr_fn(list(px), list(py))
++        return out[0] if out is not None else None
++
++    return statistic
++
++
++# --- policies -------------------------------------------------------------- #
++
++
++def _best(rows: list[dict], key: str):
++    """argmax row by score key among rows with a non-None score."""
++    best = None
++    for row in rows:
++        value = num(row, key)
++        if value is None:
++            continue
++        if best is None or value > num(best, key):
++            best = row
++    return best
++
++
++def policy_choice2(rows: list[dict], policy: str) -> dict | None:
++    """Joint choice over new+verify on a single comparable score."""
++    if policy == "eig":
++        return _best([r for r in rows if r["action_kind"] == "new"], "eig")
++    if policy == "v_bayes":
++        return _best(rows, "v_bayes")
++    if policy == "heuristic":
++        return _best(rows, "_heuristic_util")
++    if policy == "retrieval_joint_gate":
++        return _best(rows, "_joint_util")
++    raise ValueError(policy)
++
++
++def add_derived(rows: list[dict]) -> list[dict]:
++    """Attach per-row composite scores used by the joint-choice policies."""
++    for row in rows:
++        eig = num(row, "eig")
++        hvu = num(row, "heuristic_verify_utility")
++        epti = num(row, "error_prob_times_impact")
++        row["_heuristic_util"] = hvu if row["action_kind"] == "verify" else eig
++        row["_joint_util"] = epti if row["action_kind"] == "verify" else eig
++    return rows
++
++
++# --- cost sensitivity ------------------------------------------------------ #
++
++
++def shifted_cost(row: dict, new_cost: float, key: str) -> float | None:
++    """V(key) recomputed at ``new_cost`` from the gross reduction.
++
++    V = gross_reduction - C, so V(C') = V(C) + (C - C').  For V_real the gross
++    reduction is ``gross_brier_reduction``; for V_bayes the reduction is
++    ``v_bayes + BASE_COST`` (the risk unit differs but the additive cost shift
++    is exact in either unit).
++    """
++    if key == "v_real":
++        gross = num(row, "gross_brier_reduction")
++        if gross is None:
++            return None
++        return gross - new_cost
++    if key == "v_bayes":
++        v = num(row, "v_bayes")
++        if v is None:
++            return None
++        return v + BASE_COST - new_cost
++    raise ValueError(key)
++
++
++# --- main ------------------------------------------------------------------ #
++
++
++def correlations(rows: list[dict]) -> list[dict]:
++    score_keys = {
++        "eig": "AskNew",
++        "retrospective_error_prob": "VerifyOld",
++        "retrieval_impact": "VerifyOld",
++        "heuristic_verify_utility": "VerifyOld",
++        "error_prob_times_impact": "VerifyOld",
++        "v_bayes": "both",
++    }
++    out = []
++    scope_action = {"AskNew": "new", "VerifyOld": "verify"}
++    for score_key, scope in score_keys.items():
++        if scope == "both":
++            subset = rows
++        else:
++            subset = [r for r in rows if r["action_kind"] == scope_action[scope]]
++        for corr_name, corr_fn in (("spearman", spearman), ("kendall", kendall)):
++            point = _corr_statistic(score_key, corr_fn)(subset)
++            boot = cluster_bootstrap(subset, "case_id", _corr_statistic(score_key, corr_fn))
++            out.append(
++                {
++                    "score": score_key,
++                    "scope": scope,
++                    "metric": corr_name,
++                    "point": _fmt(point),
++                    "bootstrap_mean": _fmt(boot["mean"]),
++                    "ci_low": _fmt(boot["lo"]),
++                    "ci_high": _fmt(boot["hi"]),
++                    "n": len(subset),
++                    "n_boot": boot["n_boot"],
++                }
++            )
++    return out
++
++
++def calibration(rows: list[dict]) -> list[dict]:
++    both = [r for r in rows if num(r, "v_bayes") is not None and num(r, "v_real") is not None]
++    both.sort(key=lambda r: num(r, "v_bayes"))
++    n_bins = 10
++    bins: list[list[dict]] = [[] for _ in range(n_bins)]
++    edges = [num(r, "v_bayes") for r in both]
++    lo, hi = min(edges), max(edges)
++    span = (hi - lo) or 1.0
++    for r in both:
++        v = num(r, "v_bayes")
++        idx = int((v - lo) / span * n_bins)
++        idx = min(idx, n_bins - 1)
++        bins[idx].append(r)
++    out = []
++    for idx, group in enumerate(bins):
++        if not group:
++            continue
++        v_bayes = [num(r, "v_bayes") for r in group]
++        v_real = [num(r, "v_real") for r in group]
++        out.append(
++            {
++                "bin": idx,
++                "v_bayes_mean": _fmt(sum(v_bayes) / len(v_bayes)),
++                "v_real_mean": _fmt(sum(v_real) / len(v_real)),
++                "v_real_se": _fmt(stats.sem(v_real) if len(v_real) > 1 else 0.0),
++                "n": len(group),
++                "frac_v_real_positive": _fmt(sum(1 for v in v_real if v > 0) / len(v_real)),
++            }
++        )
++    return out
++
++
++def pairwise_accuracy(rows: list[dict]) -> list[dict]:
++    states = defaultdict(list)
++    for row in rows:
++        states[(row["case_id"], row["noise_rate"], row["state_index"])].append(row)
++    out = []
++    for policy in ("v_bayes", "heuristic", "retrieval_joint_gate"):
++        agree = 0
++        total = 0
++        new_to_verify = 0
++        verify_to_new = 0
++        for _, group in states.items():
++            new_rows = [r for r in group if r["action_kind"] == "new"]
++            verify_rows = [r for r in group if r["action_kind"] == "verify"]
++            if not new_rows or not verify_rows:
++                continue
++            # oracle choice (V_real) between best-new and best-verify
++            best_new_real = _best(new_rows, "v_real")
++            best_verify_real = _best(verify_rows, "v_real")
++            oracle_new = num(best_new_real, "v_real") if best_new_real else None
++            oracle_verify = num(best_verify_real, "v_real") if best_verify_real else None
++            if oracle_new is None or oracle_verify is None:
++                continue
++            oracle_verify_kind = oracle_verify > oracle_new  # True -> verify
++            # policy choice
++            if policy == "v_bayes":
++                bn = _best(new_rows, "v_bayes")
++                bv = _best(verify_rows, "v_bayes")
++                pn = num(bn, "v_bayes") if bn else None
++                pv = num(bv, "v_bayes") if bv else None
++                policy_verify_kind = (pv is not None and pn is not None and pv > pn)
++                if pn is None or pv is None:
++                    continue
++            elif policy == "heuristic":
++                bn = _best(new_rows, "eig")
++                bv = _best(verify_rows, "heuristic_verify_utility")
++                pn = num(bn, "eig") if bn else None
++                pv = num(bv, "heuristic_verify_utility") if bv else None
++                if pn is None or pv is None:
++                    continue
++                policy_verify_kind = pv > pn
++            else:  # retrieval_joint_gate
++                bn = _best(new_rows, "eig")
++                bv = _best(verify_rows, "error_prob_times_impact")
++                pn = num(bn, "eig") if bn else None
++                pv = num(bv, "error_prob_times_impact") if bv else None
++                if pn is None or pv is None:
++                    continue
++                policy_verify_kind = pv > pn
++            total += 1
++            if policy_verify_kind == oracle_verify_kind:
++                agree += 1
++            elif policy_verify_kind and not oracle_verify_kind:
++                verify_to_new += 1  # policy verifies, oracle asks new
++            else:
++                new_to_verify += 1  # policy asks new, oracle verifies
++        out.append(
++            {
++                "policy": policy,
++                "n_states": total,
++                "accuracy": _fmt(agree / total if total else None),
++                "asknew_to_verifyold_miscount": new_to_verify,
++                "verifyold_to_asknew_miscount": verify_to_new,
++            }
++        )
++    return out
++
++
++def action_regret(rows: list[dict]) -> list[dict]:
++    states = defaultdict(list)
++    for row in rows:
++        states[(row["case_id"], row["noise_rate"], row["state_index"])].append(row)
++    policies = ("eig", "heuristic", "retrieval_joint_gate", "v_bayes")
++    out = []
++    for policy in policies:
++        regrets = []
++        for _, group in states.items():
++            real_values = [num(r, "v_real") for r in group if num(r, "v_real") is not None]
++            if not real_values:
++                continue
++            max_real = max(real_values)
++            chosen = policy_choice2(group, policy)
++            if chosen is None:
++                continue
++            chosen_real = num(chosen, "v_real")
++            if chosen_real is None:
++                continue
++            regrets.append(max_real - chosen_real)
++        out.append(
++            {
++                "policy": policy,
++                "n_states": len(regrets),
++                "mean_regret": _fmt(sum(regrets) / len(regrets) if regrets else None),
++                "median_regret": _fmt(statistics_median(regrets) if regrets else None),
++                "frac_zero_regret": _fmt(sum(1 for r in regrets if r < 1e-9) / len(regrets) if regrets else None),
++                "max_regret": _fmt(max(regrets) if regrets else None),
++            }
++        )
++    return out
++
++
++def selected_action_returns(rows: list[dict]) -> list[dict]:
++    states = defaultdict(list)
++    for row in rows:
++        states[(row["case_id"], row["noise_rate"], row["state_index"])].append(row)
++    out = []
++    for policy in ("eig", "heuristic", "retrieval_joint_gate", "v_bayes"):
++        brier = []
++        nll = []
++        wrong_to_correct = []
++        correct_to_wrong = []
++        net = []
++        for _, group in states.items():
++            chosen = policy_choice2(group, policy)
++            if chosen is None:
++                continue
++            b = num(chosen, "gross_brier_reduction")
++            n = num(chosen, "gross_nll_reduction")
++            v = num(chosen, "v_real")
++            w = num(chosen, "wrong_to_correct")
++            c = num(chosen, "correct_to_wrong")
++            if b is not None:
++                brier.append(b)
++            if n is not None:
++                nll.append(n)
++            if v is not None:
++                net.append(v)
++            if w is not None:
++                wrong_to_correct.append(w)
++            if c is not None:
++                correct_to_wrong.append(c)
++        out.append(
++            {
++                "policy": policy,
++                "n_states": len(net),
++                "mean_gross_brier_reduction": _fmt(mean(brier)),
++                "mean_gross_nll_reduction": _fmt(mean(nll)),
++                "mean_net_realized_return": _fmt(mean(net)),
++                "mean_wrong_to_correct": _fmt(mean(wrong_to_correct)),
++                "mean_correct_to_wrong": _fmt(mean(correct_to_wrong)),
++            }
++        )
++    return out
++
++
++def counterexamples(rows: list[dict]) -> list[dict]:
++    out = []
++    # 1. high error-prob but V_real ~ 0 (verify rows)
++    verify = [r for r in rows if r["action_kind"] == "verify"]
++    verify_sorted = sorted(
++        [r for r in verify if num(r, "retrospective_error_prob") is not None and num(r, "v_real") is not None],
++        key=lambda r: -num(r, "retrospective_error_prob"),
++    )
++    for r in verify_sorted[:5]:
++        out.append(_counterexample_row("high_error_prob_low_vreal", r))
++    # 2. high retrieval-impact but V_real ~ 0
++    imp_sorted = sorted(
++        [r for r in verify if num(r, "retrieval_impact") is not None and num(r, "v_real") is not None],
++        key=lambda r: -num(r, "retrieval_impact"),
++    )
++    for r in imp_sorted[:5]:
++        out.append(_counterexample_row("high_impact_low_vreal", r))
++    # 3. medium error-prob but high V_real
++    med = [r for r in verify if num(r, "retrospective_error_prob") is not None and num(r, "v_real") is not None]
++    med = [r for r in med if num(r, "retrospective_error_prob") > 0.03]
++    med_sorted = sorted(med, key=lambda r: -num(r, "v_real"))
++    for r in med_sorted[:5]:
++        out.append(_counterexample_row("medium_error_prob_high_vreal", r))
++    # 4. V_Bayes and V_real sign disagree (both action kinds)
++    disagree = [
++        r for r in rows
++        if num(r, "v_bayes") is not None and num(r, "v_real") is not None
++        and (num(r, "v_bayes") > 0) != (num(r, "v_real") > 0)
++    ]
++    disagree = sorted(disagree, key=lambda r: -abs(num(r, "v_bayes") - num(r, "v_real")))
++    for r in disagree[:5]:
++        out.append(_counterexample_row("sign_disagreement", r))
++    # 5/6 require state-level context (V_real favors verify but EIG/heuristic picks new, etc.)
++    states = defaultdict(list)
++    for row in rows:
++        states[(row["case_id"], row["noise_rate"], row["state_index"])].append(row)
++    for _, group in states.items():
++        new_rows = [r for r in group if r["action_kind"] == "new"]
++        verify_rows = [r for r in group if r["action_kind"] == "verify"]
++        if not new_rows or not verify_rows:
++            continue
++        best_new_real = _best(new_rows, "v_real")
++        best_verify_real = _best(verify_rows, "v_real")
++        if best_new_real is None or best_verify_real is None:
++            continue
++        oracle_favors_verify = num(best_verify_real, "v_real") > num(best_new_real, "v_real")
++        if oracle_favors_verify:
++            # 5. EIG picks AskNew (always) but V_real favors VerifyOld -> the mismatch is structural
++            out.append(_counterexample_row("eig_picks_new_but_real_favors_verify", best_verify_real))
++        else:
++            # 6. heuristic picks VerifyOld but V_real favors AskNew
++            bv = _best(verify_rows, "heuristic_verify_utility")
++            bn = _best(new_rows, "eig")
++            if bv is not None and bn is not None and num(bv, "heuristic_verify_utility") > num(bn, "eig"):
++                out.append(_counterexample_row("heuristic_picks_verify_but_real_favors_new", bn))
++    return out
++
++
++def cost_sensitivity(rows: list[dict]) -> list[dict]:
++    both = [r for r in rows if num(r, "v_bayes") is not None and num(r, "v_real") is not None]
++    out = []
++    for key in ("v_bayes", "v_real"):
++        for cost in (0.00, 0.03, 0.06):
++            values = [shifted_cost(r, cost, key) for r in both]
++            values = [v for v in values if v is not None]
++            out.append(
++                {
++                    "quantity": key,
++                    "cost": cost,
++                    "n": len(values),
++                    "mean": _fmt(mean(values)),
++                    "frac_positive": _fmt(sum(1 for v in values if v > 0) / len(values) if values else None),
++                }
++            )
++    return out
++
++
++# --- small utilities ------------------------------------------------------- #
++
++
++def _fmt(value) -> float | str:
++    if value is None:
++        return ""
++    return round(float(value), 6)
++
++
++def mean(values):
++    return sum(values) / len(values) if values else None
++
++
++def statistics_median(values):
++    if not values:
++        return None
++    values = sorted(values)
++    n = len(values)
++    if n % 2:
++        return values[n // 2]
++    return (values[n // 2 - 1] + values[n // 2]) / 2
++
++
++def _counterexample_row(kind: str, row: dict) -> dict:
++    return {
++        "kind": kind,
++        "case_id": row["case_id"],
++        "diagnosis": row["diagnosis"],
++        "noise_rate": row["noise_rate"],
++        "state_kind": row["state_kind"],
++        "action_kind": row["action_kind"],
++        "evidence_key": row["evidence_key"],
++        "retrospective_error_prob": num(row, "retrospective_error_prob"),
++        "retrieval_impact": num(row, "retrieval_impact"),
++        "eig": num(row, "eig"),
++        "v_bayes": num(row, "v_bayes"),
++        "v_real": num(row, "v_real"),
++        "gross_brier_reduction": num(row, "gross_brier_reduction"),
++        "gross_nll_reduction": num(row, "gross_nll_reduction"),
++    }
++
++
++def write_csv(rows: list[dict], name: str):
++    path = OUT / name
++    if not rows:
++        path.write_text("", encoding="utf-8")
++        return
++    with path.open("w", newline="", encoding="utf-8") as handle:
++        writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
++        writer.writeheader()
++        writer.writerows(rows)
++
++
++def main() -> int:
++    rows = add_derived(load_rows())
++    print(f"loaded {len(rows)} sample rows")
++
++    products = [
++        ("value_correlations.csv", correlations(rows)),
++        ("value_calibration.csv", calibration(rows)),
++        ("pairwise_action_accuracy.csv", pairwise_accuracy(rows)),
++        ("action_regret.csv", action_regret(rows)),
++        ("selected_action_returns.csv", selected_action_returns(rows)),
++        ("counterexamples.csv", counterexamples(rows)),
++        ("cost_sensitivity.csv", cost_sensitivity(rows)),
++    ]
++    for name, product in products:
++        write_csv(product, name)
++        print(f"wrote {name}: {len(product)} rows")
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())

@@ -1,0 +1,10 @@
+Baseline regression check: heuristic_verify (seed 2026) vs Phase 2B joint_gate_w1.0 (seed 2026)
+==============================================================================
+rows compared: 490 (expect 245 cases x 2 noise = 490)
+Phase 2B reference rows: 490
+
+matched keys: 490
+integer/bool column mismatches: 0
+max |brier_score| diff: 0.00e+00
+
+RESULT: PASS -- heuristic_verify is byte-identical to the frozen Phase 2B joint_gate_w1.0 baseline; the learned integration did not alter the heuristic path.

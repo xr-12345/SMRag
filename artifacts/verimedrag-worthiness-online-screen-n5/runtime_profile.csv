@@ -1,0 +1,6 @@
+metric,value
+trajectories,5880
+workers,12
+elapsed_seconds,1388.2
+mean_wall_seconds_per_dialogue,2.822
+peak_rss_mb,2124.7

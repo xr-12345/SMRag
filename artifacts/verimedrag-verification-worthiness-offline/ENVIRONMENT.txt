@@ -1,0 +1,23 @@
+Phase 4 -- verification-worthiness offline (environment)
+
+platform   : darwin (Darwin 25.4.0)
+python     : /Users/xr-12345/miniforge3/bin/python3
+scipy      : 1.18.0
+numpy      : 2.4.6
+scikit-learn: 1.9.0   (installed into base env for Ridge/Logistic/HGB; see note)
+joblib     : 1.6.0
+matplotlib : (used for calibration_curves.png; Agg backend)
+
+NOTE: scikit-learn was not present in the base env at the start of this phase
+(the project declares `dependencies = []`).  It was installed via
+`pip install scikit-learn` (a standard, reversible ML dependency) because the
+spec requires Ridge + Logistic + HistGradientBoosting.  No other environment
+changes were made.
+
+data lineage:
+  model        data/ddxplus/model-full.json
+  train cases  data/ddxplus/release_train_patients.zip  (245, 5/disease, seed 3031)
+  valid cases  data/ddxplus/release_validate_patients.zip (980, 20/disease, seed 2026)
+               -> primary 735 = 980 minus screen (screen_case_manifest.csv, 245)
+  evidences    data/ddxplus/release_evidences.json
+  corpus       data/medrag-textbooks  (125847 snippets)

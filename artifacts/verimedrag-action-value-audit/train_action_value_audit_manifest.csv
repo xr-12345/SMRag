@@ -1,0 +1,246 @@
+case_id,diagnosis,split,sample_seed,patient_noise_seed,cases_per_disease
+383405,Acute COPD exacerbation / infection,train,3031,3031,5
+369030,Acute COPD exacerbation / infection,train,3031,3031,5
+547179,Acute COPD exacerbation / infection,train,3031,3031,5
+135332,Acute COPD exacerbation / infection,train,3031,3031,5
+341864,Acute COPD exacerbation / infection,train,3031,3031,5
+781357,Acute dystonic reactions,train,3031,3031,5
+349730,Acute dystonic reactions,train,3031,3031,5
+801989,Acute dystonic reactions,train,3031,3031,5
+29039,Acute dystonic reactions,train,3031,3031,5
+795900,Acute dystonic reactions,train,3031,3031,5
+429541,Acute laryngitis,train,3031,3031,5
+668764,Acute laryngitis,train,3031,3031,5
+386427,Acute laryngitis,train,3031,3031,5
+572704,Acute laryngitis,train,3031,3031,5
+343765,Acute laryngitis,train,3031,3031,5
+413720,Acute otitis media,train,3031,3031,5
+433989,Acute otitis media,train,3031,3031,5
+26257,Acute otitis media,train,3031,3031,5
+994756,Acute otitis media,train,3031,3031,5
+627154,Acute otitis media,train,3031,3031,5
+612527,Acute pulmonary edema,train,3031,3031,5
+666325,Acute pulmonary edema,train,3031,3031,5
+328280,Acute pulmonary edema,train,3031,3031,5
+488723,Acute pulmonary edema,train,3031,3031,5
+992120,Acute pulmonary edema,train,3031,3031,5
+631707,Acute rhinosinusitis,train,3031,3031,5
+336184,Acute rhinosinusitis,train,3031,3031,5
+161753,Acute rhinosinusitis,train,3031,3031,5
+119500,Acute rhinosinusitis,train,3031,3031,5
+401626,Acute rhinosinusitis,train,3031,3031,5
+313414,Allergic sinusitis,train,3031,3031,5
+953371,Allergic sinusitis,train,3031,3031,5
+59876,Allergic sinusitis,train,3031,3031,5
+491995,Allergic sinusitis,train,3031,3031,5
+865339,Allergic sinusitis,train,3031,3031,5
+337191,Anaphylaxis,train,3031,3031,5
+361051,Anaphylaxis,train,3031,3031,5
+795473,Anaphylaxis,train,3031,3031,5
+26589,Anaphylaxis,train,3031,3031,5
+947112,Anaphylaxis,train,3031,3031,5
+715819,Anemia,train,3031,3031,5
+955398,Anemia,train,3031,3031,5
+965062,Anemia,train,3031,3031,5
+113777,Anemia,train,3031,3031,5
+806638,Anemia,train,3031,3031,5
+607751,Atrial fibrillation,train,3031,3031,5
+394219,Atrial fibrillation,train,3031,3031,5
+147916,Atrial fibrillation,train,3031,3031,5
+584101,Atrial fibrillation,train,3031,3031,5
+23698,Atrial fibrillation,train,3031,3031,5
+824519,Boerhaave,train,3031,3031,5
+16294,Boerhaave,train,3031,3031,5
+801827,Boerhaave,train,3031,3031,5
+883296,Boerhaave,train,3031,3031,5
+955358,Boerhaave,train,3031,3031,5
+280149,Bronchiectasis,train,3031,3031,5
+740927,Bronchiectasis,train,3031,3031,5
+924678,Bronchiectasis,train,3031,3031,5
+890947,Bronchiectasis,train,3031,3031,5
+899876,Bronchiectasis,train,3031,3031,5
+657988,Bronchiolitis,train,3031,3031,5
+642133,Bronchiolitis,train,3031,3031,5
+395554,Bronchiolitis,train,3031,3031,5
+678712,Bronchiolitis,train,3031,3031,5
+448230,Bronchiolitis,train,3031,3031,5
+745374,Bronchitis,train,3031,3031,5
+874466,Bronchitis,train,3031,3031,5
+579711,Bronchitis,train,3031,3031,5
+507867,Bronchitis,train,3031,3031,5
+290632,Bronchitis,train,3031,3031,5
+861175,Bronchospasm / acute asthma exacerbation,train,3031,3031,5
+12306,Bronchospasm / acute asthma exacerbation,train,3031,3031,5
+209263,Bronchospasm / acute asthma exacerbation,train,3031,3031,5
+93969,Bronchospasm / acute asthma exacerbation,train,3031,3031,5
+526986,Bronchospasm / acute asthma exacerbation,train,3031,3031,5
+698844,Chagas,train,3031,3031,5
+511834,Chagas,train,3031,3031,5
+503183,Chagas,train,3031,3031,5
+624412,Chagas,train,3031,3031,5
+29131,Chagas,train,3031,3031,5
+357514,Chronic rhinosinusitis,train,3031,3031,5
+853360,Chronic rhinosinusitis,train,3031,3031,5
+74608,Chronic rhinosinusitis,train,3031,3031,5
+70390,Chronic rhinosinusitis,train,3031,3031,5
+456735,Chronic rhinosinusitis,train,3031,3031,5
+845052,Cluster headache,train,3031,3031,5
+313630,Cluster headache,train,3031,3031,5
+30756,Cluster headache,train,3031,3031,5
+915156,Cluster headache,train,3031,3031,5
+473193,Cluster headache,train,3031,3031,5
+584898,Croup,train,3031,3031,5
+308194,Croup,train,3031,3031,5
+770077,Croup,train,3031,3031,5
+22464,Croup,train,3031,3031,5
+450606,Croup,train,3031,3031,5
+31721,Ebola,train,3031,3031,5
+442389,Ebola,train,3031,3031,5
+975157,Ebola,train,3031,3031,5
+310056,Ebola,train,3031,3031,5
+435114,Ebola,train,3031,3031,5
+566571,Epiglottitis,train,3031,3031,5
+112229,Epiglottitis,train,3031,3031,5
+47015,Epiglottitis,train,3031,3031,5
+290316,Epiglottitis,train,3031,3031,5
+125635,Epiglottitis,train,3031,3031,5
+115836,GERD,train,3031,3031,5
+747319,GERD,train,3031,3031,5
+771123,GERD,train,3031,3031,5
+914178,GERD,train,3031,3031,5
+502275,GERD,train,3031,3031,5
+321387,Guillain-Barré syndrome,train,3031,3031,5
+1018625,Guillain-Barré syndrome,train,3031,3031,5
+540463,Guillain-Barré syndrome,train,3031,3031,5
+916115,Guillain-Barré syndrome,train,3031,3031,5
+653212,Guillain-Barré syndrome,train,3031,3031,5
+150869,HIV (initial infection),train,3031,3031,5
+345579,HIV (initial infection),train,3031,3031,5
+225089,HIV (initial infection),train,3031,3031,5
+97519,HIV (initial infection),train,3031,3031,5
+688862,HIV (initial infection),train,3031,3031,5
+217970,Influenza,train,3031,3031,5
+209113,Influenza,train,3031,3031,5
+152540,Influenza,train,3031,3031,5
+227017,Influenza,train,3031,3031,5
+442801,Influenza,train,3031,3031,5
+599966,Inguinal hernia,train,3031,3031,5
+191756,Inguinal hernia,train,3031,3031,5
+359733,Inguinal hernia,train,3031,3031,5
+822592,Inguinal hernia,train,3031,3031,5
+731221,Inguinal hernia,train,3031,3031,5
+756126,Larygospasm,train,3031,3031,5
+568439,Larygospasm,train,3031,3031,5
+27947,Larygospasm,train,3031,3031,5
+802100,Larygospasm,train,3031,3031,5
+176875,Larygospasm,train,3031,3031,5
+782219,Localized edema,train,3031,3031,5
+909514,Localized edema,train,3031,3031,5
+227922,Localized edema,train,3031,3031,5
+80387,Localized edema,train,3031,3031,5
+59118,Localized edema,train,3031,3031,5
+45706,Myasthenia gravis,train,3031,3031,5
+387250,Myasthenia gravis,train,3031,3031,5
+989147,Myasthenia gravis,train,3031,3031,5
+513483,Myasthenia gravis,train,3031,3031,5
+778098,Myasthenia gravis,train,3031,3031,5
+659458,Myocarditis,train,3031,3031,5
+901619,Myocarditis,train,3031,3031,5
+486291,Myocarditis,train,3031,3031,5
+443415,Myocarditis,train,3031,3031,5
+591871,Myocarditis,train,3031,3031,5
+540736,PSVT,train,3031,3031,5
+372260,PSVT,train,3031,3031,5
+786114,PSVT,train,3031,3031,5
+88155,PSVT,train,3031,3031,5
+125782,PSVT,train,3031,3031,5
+346809,Pancreatic neoplasm,train,3031,3031,5
+538396,Pancreatic neoplasm,train,3031,3031,5
+352600,Pancreatic neoplasm,train,3031,3031,5
+860527,Pancreatic neoplasm,train,3031,3031,5
+222921,Pancreatic neoplasm,train,3031,3031,5
+513113,Panic attack,train,3031,3031,5
+79953,Panic attack,train,3031,3031,5
+80460,Panic attack,train,3031,3031,5
+756693,Panic attack,train,3031,3031,5
+430536,Panic attack,train,3031,3031,5
+23471,Pericarditis,train,3031,3031,5
+851001,Pericarditis,train,3031,3031,5
+604520,Pericarditis,train,3031,3031,5
+730556,Pericarditis,train,3031,3031,5
+87775,Pericarditis,train,3031,3031,5
+337405,Pneumonia,train,3031,3031,5
+269354,Pneumonia,train,3031,3031,5
+369564,Pneumonia,train,3031,3031,5
+880684,Pneumonia,train,3031,3031,5
+183908,Pneumonia,train,3031,3031,5
+929794,Possible NSTEMI / STEMI,train,3031,3031,5
+530329,Possible NSTEMI / STEMI,train,3031,3031,5
+240987,Possible NSTEMI / STEMI,train,3031,3031,5
+272451,Possible NSTEMI / STEMI,train,3031,3031,5
+1003970,Possible NSTEMI / STEMI,train,3031,3031,5
+287974,Pulmonary embolism,train,3031,3031,5
+560283,Pulmonary embolism,train,3031,3031,5
+664465,Pulmonary embolism,train,3031,3031,5
+832549,Pulmonary embolism,train,3031,3031,5
+670884,Pulmonary embolism,train,3031,3031,5
+402514,Pulmonary neoplasm,train,3031,3031,5
+290159,Pulmonary neoplasm,train,3031,3031,5
+513126,Pulmonary neoplasm,train,3031,3031,5
+449787,Pulmonary neoplasm,train,3031,3031,5
+516937,Pulmonary neoplasm,train,3031,3031,5
+487362,SLE,train,3031,3031,5
+228636,SLE,train,3031,3031,5
+154604,SLE,train,3031,3031,5
+547304,SLE,train,3031,3031,5
+987850,SLE,train,3031,3031,5
+628622,Sarcoidosis,train,3031,3031,5
+728461,Sarcoidosis,train,3031,3031,5
+658932,Sarcoidosis,train,3031,3031,5
+391737,Sarcoidosis,train,3031,3031,5
+619411,Sarcoidosis,train,3031,3031,5
+306281,Scombroid food poisoning,train,3031,3031,5
+269932,Scombroid food poisoning,train,3031,3031,5
+195275,Scombroid food poisoning,train,3031,3031,5
+622946,Scombroid food poisoning,train,3031,3031,5
+625519,Scombroid food poisoning,train,3031,3031,5
+591205,Spontaneous pneumothorax,train,3031,3031,5
+838804,Spontaneous pneumothorax,train,3031,3031,5
+480861,Spontaneous pneumothorax,train,3031,3031,5
+833676,Spontaneous pneumothorax,train,3031,3031,5
+393428,Spontaneous pneumothorax,train,3031,3031,5
+370211,Spontaneous rib fracture,train,3031,3031,5
+395431,Spontaneous rib fracture,train,3031,3031,5
+96967,Spontaneous rib fracture,train,3031,3031,5
+423335,Spontaneous rib fracture,train,3031,3031,5
+826249,Spontaneous rib fracture,train,3031,3031,5
+69384,Stable angina,train,3031,3031,5
+717259,Stable angina,train,3031,3031,5
+568975,Stable angina,train,3031,3031,5
+212589,Stable angina,train,3031,3031,5
+834228,Stable angina,train,3031,3031,5
+1020726,Tuberculosis,train,3031,3031,5
+882038,Tuberculosis,train,3031,3031,5
+178169,Tuberculosis,train,3031,3031,5
+768177,Tuberculosis,train,3031,3031,5
+86505,Tuberculosis,train,3031,3031,5
+405033,URTI,train,3031,3031,5
+523032,URTI,train,3031,3031,5
+751023,URTI,train,3031,3031,5
+339940,URTI,train,3031,3031,5
+145925,URTI,train,3031,3031,5
+744519,Unstable angina,train,3031,3031,5
+411892,Unstable angina,train,3031,3031,5
+616381,Unstable angina,train,3031,3031,5
+27832,Unstable angina,train,3031,3031,5
+736531,Unstable angina,train,3031,3031,5
+251315,Viral pharyngitis,train,3031,3031,5
+622494,Viral pharyngitis,train,3031,3031,5
+778719,Viral pharyngitis,train,3031,3031,5
+669629,Viral pharyngitis,train,3031,3031,5
+813257,Viral pharyngitis,train,3031,3031,5
+444915,Whooping cough,train,3031,3031,5
+902404,Whooping cough,train,3031,3031,5
+167306,Whooping cough,train,3031,3031,5
+496352,Whooping cough,train,3031,3031,5
+141401,Whooping cough,train,3031,3031,5

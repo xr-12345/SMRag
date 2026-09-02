@@ -1,0 +1,957 @@
+=== git log --oneline -4 ===
+91268d7 Add retrieval joint gate and Phase 2A/2B/2C artifacts
+e661311 Add reliability-aware gating, joint decision policy, and gate learning
+e7b49bd change the style of equations
+4cf0672 first commit
+
+=== git status --short ===
+?? artifacts/verimedrag-action-value-audit/
+?? artifacts/verimedrag-verification-worthiness-offline/
+?? artifacts/verimedrag-worthiness-online-screen-n5/
+?? src/powerful_medrag/action_value.py
+?? src/powerful_medrag/verification_worthiness.py
+?? src/powerful_medrag/worthiness_policy.py
+?? tests/test_action_value_audit.py
+?? tests/test_verification_worthiness.py
+?? tests/test_worthiness_policy.py
+
+=== tracked diff (git diff --stat) ===
+
+=== NEW FILE (untracked): src/powerful_medrag/worthiness_policy.py ===
+diff --git a/src/powerful_medrag/worthiness_policy.py b/src/powerful_medrag/worthiness_policy.py
+new file mode 100644
+index 0000000..c95ed49
+--- /dev/null
++++ b/src/powerful_medrag/worthiness_policy.py
+@@ -0,0 +1,503 @@
++"""Phase 5 -- online integration of the frozen learned verification-worthiness.
++
++This module wires the frozen two-head ``LearnedWorthinessModel`` (Phase 4) into
++the complete AskNew / VerifyOld / Stop policy under four strategies, and provides
++the unified cross-type comparison the spec requires: EIG (nats) and Brier value
++are **different units** and must never be compared directly.
++
++Strategy semantics
++------------------
++
++* ``heuristic_verify`` -- the existing ``ReliabilityAwareActionPolicy`` exactly
++  as-is (baseline).  AskNew uses EIG; VerifyOld uses the label-free heuristic
++  utility; the history / learned / retrieval joint gate still applies.  This is
++  the repository default and is left byte-identical.
++
++* ``model_based_vbayes_verify`` -- AskNew selected by EIG, VerifyOld scored by
++  the deployable one-step ``verify_value`` (V_Bayes), and both sides compared in
++  the **same** Brier risk-reduction unit.  V_Bayes is deployable (it reads only
++  the belief, the fitted model and the frozen answer channel, never the true
++  disease / latent state / noise label) but does a full model rollout per
++  candidate, so it is the expensive reference point.
++
++* ``learned_worthiness_full_rag`` -- the frozen full-RAG model (9 features)
++  fed real retrieval features, gated by ``net_value = g_hat - C_verify > 0`` AND
++  ``h_hat <= tau_harm``, sorted by ``net_value``.
++
++* ``learned_worthiness_no_rag`` -- the frozen no-RAG model (7 features, no
++  retrieval columns), same learned gate.
++
++Unified cross-type comparison (strategies 2/3/4)
++------------------------------------------------
++
++1. Use EIG to select the single best AskNew question.
++2. Compute its deployable ``V_Bayes_new = R(b_t) - E_y[R(b_{t+1})] - C_new``.
++3. Score VerifyOld in Brier units (V_Bayes_verify or learned ``net_value``).
++4. Compare V_Bayes_new vs the VerifyOld value in the same Brier unit, then hand
++   the ranked list to the existing Stop condition in ``choose_action``.
++
++Red lines honoured: no retraining, no feature/model change, no tau_harm change,
++no AskNew EIG reordering, no true state in the prediction path, no oracle
++correction, and the learned model is never the repository default.
++"""
++
++from __future__ import annotations
++
++from enum import Enum
++from pathlib import Path
++from typing import Mapping
++
++import numpy as np
++
++from .action_value import asknew_value, brier_risk, verify_value
++from .belief import BeliefTracker
++from .decision import (
++    ActionKind,
++    ActionScore,
++    ReliabilityAwareActionPolicy,
++    ReliabilityAwarePolicyConfig,
++)
++from .questioning import QuestionScore
++from .schema import FeatureKey, Observation, VariableSpec
++from .verification_worthiness import (
++    BASE_FEATURES,
++    C_VERIFY,
++    LearnedWorthinessModel,
++    binary_entropy,
++)
++
++C_NEW = 0.03
++
++FROZEN_MODEL_DIR = Path(
++    "artifacts/verimedrag-verification-worthiness-offline/models"
++)
++
++
++class WorthinessStrategy(str, Enum):
++    HEURISTIC_VERIFY = "heuristic_verify"
++    MODEL_BASED_VBAYES_VERIFY = "model_based_vbayes_verify"
++    LEARNED_WORTHINESS_FULL_RAG = "learned_worthiness_full_rag"
++    LEARNED_WORTHINESS_NO_RAG = "learned_worthiness_no_rag"
++
++
++# --------------------------------------------------------------------------- #
++# Frozen model loading
++# --------------------------------------------------------------------------- #
++
++
++def load_frozen_worthiness_model(rag_mode: str) -> LearnedWorthinessModel:
++    """Load a frozen Phase-4 worthiness model (``real`` / ``none`` / ``shuffled``).
++
++    Fails loudly (``FileNotFoundError``) if the frozen artifact is missing, so a
++    broken deploy can never silently fall back to the heuristic.
++    """
++    if rag_mode not in ("real", "none", "shuffled"):
++        raise ValueError(f"unknown worthiness rag_mode {rag_mode!r}")
++    path = FROZEN_MODEL_DIR / f"worthiness_{rag_mode}.pkl"
++    if not path.exists():
++        raise FileNotFoundError(f"frozen worthiness model not found: {path}")
++    import joblib
++
++    model = joblib.load(path)
++    if not isinstance(model, LearnedWorthinessModel):
++        raise TypeError(
++            f"frozen model at {path} is {type(model).__name__}, "
++            "expected LearnedWorthinessModel"
++        )
++    return model
++
++
++# --------------------------------------------------------------------------- #
++# Online feature derivation (label-free, causal)
++# --------------------------------------------------------------------------- #
++
++
++def state_index_feature(turn_index: int) -> float:
++    """Causal early/middle/late bin (0/1/2) matching the offline ``state_index``.
++
++    Offline ``state_index`` was 0 for the first report-bearing state, 1 for the
++    middle state, 2 for the last.  Online we cannot see the future, so we bin the
++    current turn index against the observed training mapping: turn 1 -> early,
++    turns 2-7 -> middle, turns 8+ -> late.  (``state_index`` has negligible model
++    importance -- ~0.005 -- so this causal approximation is immaterial.)
++    """
++    if turn_index <= 1:
++        return 0.0
++    if turn_index >= 8:
++        return 2.0
++    return 1.0
++
++
++def build_online_features(
++    score,
++    *,
++    current_risk: float,
++    n_reports: int,
++    turn_index: int,
++    use_rag: bool,
++) -> np.ndarray:
++    """Build the label-free feature vector for one VerifyOld candidate online.
++
++    Mirrors ``extract_feature_vector`` (Phase 4) but reads the live
++    ``RetrospectiveScore`` directly instead of a CSV row: ``diagnostic_influence``
++    is ``score.diagnostic_influence`` (exactly what ``back_out_influence``
++    recovered offline), and the RAG columns are included only when ``use_rag``.
++
++    No true disease, latent state, true wrongness, or noise label enters here.
++    """
++    error_prob = float(score.error_probability)
++    influence = float(score.diagnostic_influence)
++    retrieval_impact = (
++        float(getattr(score, "retrieval_impact", 0.0)) if use_rag else 0.0
++    )
++    base = [
++        error_prob,
++        influence,
++        error_prob * influence,
++        float(current_risk),
++        float(n_reports),
++        float(turn_index),
++        state_index_feature(turn_index),
++    ]
++    if use_rag:
++        base.extend([retrieval_impact, error_prob * retrieval_impact])
++    return np.asarray(base, dtype=float)
++
++
++def _validate_n_features(model: LearnedWorthinessModel, use_rag: bool) -> None:
++    expected = len(BASE_FEATURES) + (2 if use_rag else 0)
++    if model.n_features != expected:
++        raise ValueError(
++            f"worthiness model expects {model.n_features} features but the "
++            f"online path builds {expected} (use_rag={use_rag}); wrong model / "
++            "feature-schema mismatch"
++        )
++
++
++# --------------------------------------------------------------------------- #
++# Unified-Brier policies (strategies 2/3/4)
++# --------------------------------------------------------------------------- #
++
++
++class _UnifiedBrierPolicy(ReliabilityAwareActionPolicy):
++    """Base for strategies that compare actions in a single Brier-risk unit.
++
++    Overrides ``rank_actions`` to (a) pick the single best AskNew by EIG and
++    value it by deployable ``V_Bayes_new``, and (b) add VerifyOld candidates
++    valued by a subclass-supplied Brier quantity, so ``choose_action``'s unified
++    ``sorted(actions, key=utility)`` comparison is never EIG-vs-Brier.
++    """
++
++    def _best_asknew(self, tracker: BeliefTracker, asked: set[FeatureKey]):
++        ranked = self.selector.rank(tracker, excluded=asked)
++        return ranked[0] if ranked else None
++
++    def _unified_new_action(
++        self, question: QuestionScore, spec: VariableSpec, v_bayes_new: float
++    ) -> ActionScore:
++        return ActionScore(
++            kind=ActionKind.NEW,
++            utility=v_bayes_new,
++            disease_information_gain=question.expected_information_gain,
++            decision_impact=question.expected_information_gain,
++            burden=self.config.new_question_cost_weight * spec.cost,
++            key=question.key,
++            explanation=(
++                "best AskNew by EIG, valued by deployable V_Bayes_new "
++                "(Brier risk-reduction unit)"
++            ),
++        )
++
++    def _verifyold_brier_candidates(
++        self,
++        tracker,
++        *,
++        initial_observations,
++        reports,
++        verified_report_indices,
++        verification_count,
++        report_risks,
++        best_asknew_eig,
++        best_asknew_vbayes,
++    ):
++        """Return ``(action_scores, log_entries)`` for VerifyOld candidates."""
++        raise NotImplementedError
++
++    def rank_actions(
++        self,
++        tracker: BeliefTracker,
++        *,
++        initial_observations: tuple[Observation, ...],
++        reports: tuple[Observation, ...],
++        asked: set[FeatureKey],
++        verified_report_indices: set[int],
++        verification_count: int,
++        oracle_states: Mapping[FeatureKey, str] | None = None,
++        report_risks: tuple[float, ...] = (),
++    ) -> list[ActionScore]:
++        del oracle_states  # prediction path never reads oracle/true state
++        actions: list[ActionScore] = []
++
++        best_asknew = self._best_asknew(tracker, asked)
++        best_asknew_eig = None
++        best_asknew_vbayes = None
++        if best_asknew is not None:
++            best_asknew_eig = float(best_asknew.expected_information_gain)
++            best_asknew_vbayes = float(
++                asknew_value(
++                    tracker, best_asknew.key, C_new=C_NEW, selector=self.selector
++                )
++            )
++            spec = tracker.model.specs[best_asknew.key]
++            actions.append(
++                self._unified_new_action(best_asknew, spec, best_asknew_vbayes)
++            )
++
++        logs: list[dict] = []
++        verify_actions: list[ActionScore] = []
++        if verification_count < self.config.maximum_verifications and reports:
++            verify_actions, logs = self._verifyold_brier_candidates(
++                tracker,
++                initial_observations=initial_observations,
++                reports=reports,
++                verified_report_indices=verified_report_indices,
++                verification_count=verification_count,
++                report_risks=report_risks,
++                best_asknew_eig=best_asknew_eig,
++                best_asknew_vbayes=best_asknew_vbayes,
++            )
++        actions.extend(verify_actions)
++
++        ranked = sorted(actions, key=lambda action: action.utility, reverse=True)
++        chosen_kind = ranked[0].kind.value if ranked else None
++        chosen_report = (
++            ranked[0].report_index
++            if ranked and ranked[0].kind is ActionKind.VERIFY
++            else None
++        )
++        for entry in logs:
++            entry["chosen_action"] = chosen_kind
++            entry["selected"] = (
++                entry["report_index"] == chosen_report
++                if chosen_report is not None
++                else False
++            )
++        self.last_verification_log = logs
++        return ranked
++
++
++class ModelBasedVBayesPolicy(_UnifiedBrierPolicy):
++    """Strategy 2: AskNew by EIG, VerifyOld by deployable V_Bayes."""
++
++    def _verifyold_brier_candidates(
++        self,
++        tracker,
++        *,
++        initial_observations,
++        reports,
++        verified_report_indices,
++        verification_count,
++        report_risks,
++        best_asknew_eig,
++        best_asknew_vbayes,
++    ):
++        del verification_count
++        scores = self._verification_scores(
++            tracker,
++            initial_observations=initial_observations,
++            reports=reports,
++            verified_report_indices=verified_report_indices,
++            report_risks=report_risks,
++        )
++        actions: list[ActionScore] = []
++        logs: list[dict] = []
++        for score in scores:
++            v_bayes = float(
++                verify_value(
++                    tracker, reports, score.report_index,
++                    initial_observations, C_verify=C_VERIFY,
++                )
++            )
++            heuristic_utility, _ = self._verification_utility(score)
++            logs.append(
++                {
++                    "report_index": score.report_index,
++                    "evidence_code": reports[score.report_index].key.name,
++                    "error_probability": round(score.error_probability, 6),
++                    "diagnostic_influence": round(score.diagnostic_influence, 6),
++                    "v_bayes_verify": round(v_bayes, 6),
++                    "heuristic_verify_utility": round(heuristic_utility, 6),
++                    "selected": False,
++                    "best_asknew_eig": (
++                        round(best_asknew_eig, 6)
++                        if best_asknew_eig is not None
++                        else None
++                    ),
++                    "best_asknew_v_bayes": (
++                        round(best_asknew_vbayes, 6)
++                        if best_asknew_vbayes is not None
++                        else None
++                    ),
++                    "chosen_action": None,
++                }
++            )
++            if v_bayes > 0.0:
++                actions.append(
++                    ActionScore(
++                        kind=ActionKind.VERIFY,
++                        utility=v_bayes,
++                        disease_information_gain=score.error_probability,
++                        reliability_information_gain=binary_entropy(
++                            score.error_probability
++                        ),
++                        decision_impact=score.diagnostic_influence,
++                        burden=C_VERIFY,
++                        report_index=score.report_index,
++                        explanation="deployable V_Bayes(VerifyOld) in Brier units",
++                    )
++                )
++        return actions, logs
++
++
++class LearnedWorthinessPolicy(_UnifiedBrierPolicy):
++    """Strategies 3/4: frozen learned worthiness (full-RAG or no-RAG)."""
++
++    def __init__(self, worthiness_model: LearnedWorthinessModel, **kwargs) -> None:
++        super().__init__(**kwargs)
++        self.worthiness_model = worthiness_model
++        self._use_rag = worthiness_model.n_features > len(BASE_FEATURES)
++        _validate_n_features(worthiness_model, self._use_rag)
++
++    def _verifyold_brier_candidates(
++        self,
++        tracker,
++        *,
++        initial_observations,
++        reports,
++        verified_report_indices,
++        verification_count,
++        report_risks,
++        best_asknew_eig,
++        best_asknew_vbayes,
++    ):
++        scores = self._verification_scores(
++            tracker,
++            initial_observations=initial_observations,
++            reports=reports,
++            verified_report_indices=verified_report_indices,
++            report_risks=report_risks,
++        )
++        current_risk = brier_risk(tracker.belief)
++        n_reports = len(reports)
++        turn_index = n_reports + verification_count
++        actions: list[ActionScore] = []
++        logs: list[dict] = []
++        for score in scores:
++            X = build_online_features(
++                score,
++                current_risk=current_risk,
++                n_reports=n_reports,
++                turn_index=turn_index,
++                use_rag=self._use_rag,
++            )
++            g_hat, h_hat = self.worthiness_model.predict(X.reshape(1, -1))
++            g_hat, h_hat = float(g_hat[0]), float(h_hat[0])
++            net_value = g_hat - C_VERIFY
++            passed_gain = net_value > 0.0
++            passed_harm = h_hat <= self.worthiness_model.tau_harm
++            allowed = passed_gain and passed_harm
++            v_bayes = float(
++                verify_value(
++                    tracker, reports, score.report_index,
++                    initial_observations, C_verify=C_VERIFY,
++                )
++            )
++            heuristic_utility, _ = self._verification_utility(score)
++            logs.append(
++                {
++                    "report_index": score.report_index,
++                    "evidence_code": reports[score.report_index].key.name,
++                    "gain_hat": round(g_hat, 6),
++                    "harm_hat": round(h_hat, 6),
++                    "verification_cost": C_VERIFY,
++                    "net_value": round(net_value, 6),
++                    "passed_gain_gate": passed_gain,
++                    "passed_harm_gate": passed_harm,
++                    "v_bayes_verify": round(v_bayes, 6),
++                    "heuristic_verify_utility": round(heuristic_utility, 6),
++                    "retrieval_impact": round(
++                        getattr(score, "retrieval_impact", 0.0), 6
++                    ),
++                    "error_prob_times_impact": round(
++                        score.error_probability
++                        * getattr(score, "retrieval_impact", 0.0),
++                        6,
++                    ),
++                    "error_probability": round(score.error_probability, 6),
++                    "diagnostic_influence": round(score.diagnostic_influence, 6),
++                    "selected": False,
++                    "best_asknew_eig": (
++                        round(best_asknew_eig, 6)
++                        if best_asknew_eig is not None
++                        else None
++                    ),
++                    "best_asknew_v_bayes": (
++                        round(best_asknew_vbayes, 6)
++                        if best_asknew_vbayes is not None
++                        else None
++                    ),
++                    "chosen_action": None,
++                }
++            )
++            if allowed:
++                actions.append(
++                    ActionScore(
++                        kind=ActionKind.VERIFY,
++                        utility=net_value,
++                        disease_information_gain=score.error_probability,
++                        reliability_information_gain=binary_entropy(
++                            score.error_probability
++                        ),
++                        decision_impact=score.diagnostic_influence,
++                        burden=C_VERIFY,
++                        report_index=score.report_index,
++                        explanation=(
++                            "learned worthiness net_value = g_hat - C_verify "
++                            "(harm gate passed)"
++                        ),
++                    )
++                )
++        return actions, logs
++
++
++# --------------------------------------------------------------------------- #
++# Strategy factory
++# --------------------------------------------------------------------------- #
++
++
++def build_policy(
++    strategy: WorthinessStrategy | str,
++    *,
++    config: ReliabilityAwarePolicyConfig | None = None,
++    retriever=None,
++    worthiness_model: LearnedWorthinessModel | None = None,
++) -> ReliabilityAwareActionPolicy:
++    """Build the policy for a strategy (default stays ``heuristic_verify``)."""
++    strategy = WorthinessStrategy(strategy)
++    if strategy is WorthinessStrategy.HEURISTIC_VERIFY:
++        return ReliabilityAwareActionPolicy(config=config, retriever=retriever)
++    if strategy is WorthinessStrategy.MODEL_BASED_VBAYES_VERIFY:
++        return ModelBasedVBayesPolicy(config=config, retriever=retriever)
++    if strategy is WorthinessStrategy.LEARNED_WORTHINESS_FULL_RAG:
++        if worthiness_model is None:
++            worthiness_model = load_frozen_worthiness_model("real")
++        return LearnedWorthinessPolicy(
++            worthiness_model, config=config, retriever=retriever
++        )
++    if strategy is WorthinessStrategy.LEARNED_WORTHINESS_NO_RAG:
++        if worthiness_model is None:
++            worthiness_model = load_frozen_worthiness_model("none")
++        return LearnedWorthinessPolicy(
++            worthiness_model, config=config, retriever=retriever
++        )
++    raise ValueError(f"unknown strategy {strategy!r}")
+
+=== NEW FILE (untracked): tests/test_worthiness_policy.py ===
+diff --git a/tests/test_worthiness_policy.py b/tests/test_worthiness_policy.py
+new file mode 100644
+index 0000000..9f48f37
+--- /dev/null
++++ b/tests/test_worthiness_policy.py
+@@ -0,0 +1,420 @@
++"""Phase 5 -- online learned-worthiness integration tests (13 spec tests).
++
++Covers the frozen-model load / feature-schema contract, the learned gain + harm
++gates, the unified Brier-unit cross-type comparison, the AskNew EIG selection,
++the no-true-state prediction path, the RAG / no-RAG feature split, the
++heuristic-baseline regression, and the "default stays heuristic" red line.
++"""
++
++from __future__ import annotations
++
++import json
++import tempfile
++import unittest
++from pathlib import Path
++from unittest import mock
++
++import numpy as np
++
++from powerful_medrag.action_value import asknew_value, verify_value
++from powerful_medrag.belief import BeliefTracker
++from powerful_medrag.decision import (
++    ActionKind,
++    ReliabilityAwareActionPolicy,
++    ReliabilityAwarePolicyConfig,
++    RetrievalMode,
++    run_reliability_aware_dialogue,
++)
++from powerful_medrag.demo_data import generate_toy_cases
++from powerful_medrag.estimation import DiseaseStateModel
++from powerful_medrag.questioning import NumpyQuestionSelector
++from powerful_medrag.retrieval import MedicalRetriever
++from powerful_medrag.schema import UNKNOWN, CertaintyCue, FeatureKey, Observation
++from powerful_medrag.simulator import PatientProfile, StructuredPatientSimulator
++from powerful_medrag.verification_worthiness import (
++    BASE_FEATURES,
++    C_VERIFY,
++    LearnedWorthinessModel,
++)
++from powerful_medrag.worthiness_policy import (
++    WorthinessStrategy,
++    _validate_n_features,
++    build_online_features,
++    build_policy,
++    load_frozen_worthiness_model,
++)
++
++SRC = Path("src/powerful_medrag")
++ARTIFACT = Path("artifacts/verimedrag-verification-worthiness-offline")
++
++# Corpus supports "fever"/"myalgia" only, so other toy features leave retrieval
++# unchanged (impact 0).
++INTEG_CORPUS = [
++    {"id": "doc_fever", "title": "Fever", "content": "fever",
++     "contents": "fever is elevated body temperature"},
++    {"id": "doc_myalgia", "title": "Myalgia", "content": "myalgia",
++     "contents": "myalgia is muscle pain"},
++]
++
++
++def _write_corpus(tmpdir: str, docs: list[dict]) -> str:
++    path = Path(tmpdir) / "corpus.jsonl"
++    with path.open("w", encoding="utf-8") as handle:
++        for doc in docs:
++            handle.write(json.dumps(doc) + "\n")
++    return tmpdir
++
++
++class _StubGain:
++    def __init__(self, value: float):
++        self.value = float(value)
++
++    def predict(self, X):
++        return np.full(len(X), self.value)
++
++
++class _StubHarm:
++    def __init__(self, value: float):
++        self.value = float(value)
++
++    def predict_proba(self, X):
++        p = np.zeros((len(X), 2))
++        p[:, 1] = self.value
++        return p
++
++
++def _stub_model(gain: float, harm: float, *, tau_harm=0.4129, n_features=7):
++    return LearnedWorthinessModel(
++        gain_model=_StubGain(gain),
++        harm_model=_StubHarm(harm),
++        tau_harm=tau_harm,
++        gain_kind="stub",
++        harm_kind="stub",
++        n_features=n_features,
++        rag_mode="none" if n_features == 7 else "real",
++    )
++
++
++class ToyEnv:
++    """A small toy model + tracker + reports for policy-level tests."""
++
++    def __init__(self):
++        cases, specs = generate_toy_cases(cases_per_disease=30, seed=41)
++        self.model = DiseaseStateModel.fit(cases, specs)
++        self.cases = cases
++
++    def tracker_with(self, reports, *, initial=()):
++        tracker = BeliefTracker(self.model)
++        for obs in initial:
++            tracker.update(obs)
++        for obs in reports:
++            tracker.update(obs)
++        return tracker
++
++    @staticmethod
++    def obs(name, value="present", certainty=CertaintyCue.CERTAIN):
++        return Observation(FeatureKey(name), value, certainty=certainty)
++
++
++class TestFrozenModels(unittest.TestCase):
++    def test_01_frozen_models_load_with_expected_metadata(self):
++        real = load_frozen_worthiness_model("real")
++        none = load_frozen_worthiness_model("none")
++        self.assertIsInstance(real, LearnedWorthinessModel)
++        self.assertEqual(real.gain_kind, "hgb")
++        self.assertEqual(real.harm_kind, "hgb")
++        self.assertEqual(real.n_features, 9)
++        self.assertEqual(real.rag_mode, "real")
++        self.assertAlmostEqual(real.tau_harm, 0.4129, places=3)
++        self.assertEqual(none.n_features, 7)
++        self.assertEqual(none.rag_mode, "none")
++        g, h = real.predict(np.zeros((5, 9)))
++        self.assertEqual(g.shape, (5,))
++        self.assertEqual(h.shape, (5,))
++        g2, h2 = none.predict(np.zeros((5, 7)))
++        self.assertEqual(g2.shape, (5,))
++        self.assertEqual(h2.shape, (5,))
++
++
++class TestFeatureSchema(unittest.TestCase):
++    def test_02_feature_schema_order_matches_json(self):
++        schema = json.loads((ARTIFACT / "feature_schema.json").read_text())
++        names = [f["feature"] for f in schema]
++        self.assertEqual(names, list(BASE_FEATURES) + ["retrieval_impact",
++                                                       "error_prob_times_impact"])
++        # build_online_features emits the same order
++        class _S:
++            error_probability = 0.3
++            diagnostic_influence = 0.4
++            retrieval_impact = 0.5
++        full = build_online_features(_S(), current_risk=0.6, n_reports=2,
++                                     turn_index=3, use_rag=True)
++        self.assertEqual(full.shape, (9,))
++        base = build_online_features(_S(), current_risk=0.6, n_reports=2,
++                                     turn_index=3, use_rag=False)
++        self.assertEqual(base.shape, (7,))
++        self.assertEqual(list(full[:7]), list(base))
++
++
++class TestGates(unittest.TestCase):
++    def setUp(self):
++        self.env = ToyEnv()
++        self.cfg = ReliabilityAwarePolicyConfig(retrieval_mode=RetrievalMode.NO_RAG)
++
++    def _learned_rank(self, model, reports):
++        policy = build_policy(
++            WorthinessStrategy.LEARNED_WORTHINESS_NO_RAG,
++            config=self.cfg,
++            worthiness_model=model,
++        )
++        tracker = self.env.tracker_with(reports)
++        actions = policy.rank_actions(
++            tracker,
++            initial_observations=(),
++            reports=tuple(reports),
++            asked={r.key for r in reports},
++            verified_report_indices=set(),
++            verification_count=0,
++        )
++        return actions
++
++    def test_03_gain_gate_blocks_nonpositive_net_value(self):
++        # net_value = 0.02 - 0.03 = -0.01 <= 0 -> blocked regardless of harm
++        model = _stub_model(gain=0.02, harm=0.1)
++        reports = [self.env.obs("fever"), self.env.obs("myalgia")]
++        actions = self._learned_rank(model, reports)
++        verify = [a for a in actions if a.kind is ActionKind.VERIFY]
++        self.assertFalse(verify)
++
++    def test_04_harm_gate_blocks_high_harm(self):
++        # net_value = 0.50 - 0.03 = 0.47 > 0 but harm 0.9 > tau_harm 0.4129
++        model = _stub_model(gain=0.50, harm=0.9)
++        reports = [self.env.obs("fever"), self.env.obs("myalgia")]
++        actions = self._learned_rank(model, reports)
++        verify = [a for a in actions if a.kind is ActionKind.VERIFY]
++        self.assertFalse(verify)
++
++    def test_05_both_gates_required(self):
++        reports = [self.env.obs("fever"), self.env.obs("myalgia")]
++        both_ok = _stub_model(gain=0.50, harm=0.3)
++        gain_fail = _stub_model(gain=0.02, harm=0.3)
++        harm_fail = _stub_model(gain=0.50, harm=0.9)
++        ok = [a for a in self._learned_rank(both_ok, reports)
++              if a.kind is ActionKind.VERIFY]
++        self.assertTrue(ok)
++        self.assertAlmostEqual(ok[0].utility, 0.50 - C_VERIFY)
++        self.assertFalse([a for a in self._learned_rank(gain_fail, reports)
++                          if a.kind is ActionKind.VERIFY])
++        self.assertFalse([a for a in self._learned_rank(harm_fail, reports)
++                          if a.kind is ActionKind.VERIFY])
++
++
++class TestUnifiedComparison(unittest.TestCase):
++    def setUp(self):
++        self.env = ToyEnv()
++        self.cfg = ReliabilityAwarePolicyConfig(retrieval_mode=RetrievalMode.NO_RAG)
++
++    def test_06_asknew_selected_by_eig_not_vbayes(self):
++        reports = [self.env.obs("fever"), self.env.obs("myalgia")]
++        policy = build_policy(
++            WorthinessStrategy.LEARNED_WORTHINESS_NO_RAG,
++            config=self.cfg,
++            worthiness_model=_stub_model(gain=0.5, harm=0.3),
++        )
++        tracker = self.env.tracker_with(reports)
++        actions = policy.rank_actions(
++            tracker, initial_observations=(), reports=tuple(reports),
++            asked={r.key for r in reports}, verified_report_indices=set(),
++            verification_count=0,
++        )
++        news = [a for a in actions if a.kind is ActionKind.NEW]
++        self.assertEqual(len(news), 1, "only the single EIG-best AskNew is kept")
++        eig_best = NumpyQuestionSelector().rank(
++            tracker, excluded={r.key for r in reports}
++        )[0]
++        self.assertEqual(news[0].key, eig_best.key,
++                         "AskNew key must be the EIG-best question")
++        # its value is V_Bayes_new (Brier), while the EIG is kept for reference
++        self.assertAlmostEqual(
++            news[0].utility,
++            asknew_value(tracker, eig_best.key, C_new=0.03),
++        )
++        self.assertAlmostEqual(news[0].disease_information_gain,
++                               eig_best.expected_information_gain)
++
++    def test_07_cross_type_comparison_uses_brier_units(self):
++        reports = [self.env.obs("fever"), self.env.obs("myalgia")]
++        policy = build_policy(
++            WorthinessStrategy.LEARNED_WORTHINESS_NO_RAG,
++            config=self.cfg,
++            worthiness_model=_stub_model(gain=0.5, harm=0.3),
++        )
++        tracker = self.env.tracker_with(reports)
++        actions = policy.rank_actions(
++            tracker, initial_observations=(), reports=tuple(reports),
++            asked={r.key for r in reports}, verified_report_indices=set(),
++            verification_count=0,
++        )
++        for a in actions:
++            if a.kind is ActionKind.NEW:
++                # Brier unit, not EIG
++                self.assertNotAlmostEqual(
++                    a.utility, a.disease_information_gain, places=6,
++                )
++                self.assertAlmostEqual(
++                    a.utility,
++                    asknew_value(tracker, a.key, C_new=0.03),
++                )
++            elif a.kind is ActionKind.VERIFY:
++                # learned net_value in Brier units (g_hat - C_verify)
++                self.assertAlmostEqual(a.utility, 0.5 - C_VERIFY)
++
++
++class TestNoTrueState(unittest.TestCase):
++    def test_08_prediction_path_reads_no_true_state(self):
++        env = ToyEnv()
++        cfg = ReliabilityAwarePolicyConfig(retrieval_mode=RetrievalMode.NO_RAG)
++        reports = [env.obs("fever"), env.obs("myalgia")]
++        policy = build_policy(
++            WorthinessStrategy.LEARNED_WORTHINESS_NO_RAG,
++            config=cfg, worthiness_model=_stub_model(gain=0.5, harm=0.3),
++        )
++        tracker = env.tracker_with(reports)
++        fake_oracle = {FeatureKey("fever"): "absent"}
++        args = dict(
++            initial_observations=(), reports=tuple(reports),
++            asked={r.key for r in reports}, verified_report_indices=set(),
++            verification_count=0,
++        )
++        a_none = policy.rank_actions(tracker, oracle_states=None, **args)
++        a_fake = policy.rank_actions(tracker, oracle_states=fake_oracle, **args)
++        self.assertEqual(
++            [(a.kind.value, a.utility, a.report_index) for a in a_none],
++            [(a.kind.value, a.utility, a.report_index) for a in a_fake],
++            "oracle state must not change the learned prediction path",
++        )
++        # the module never touches latent state / true disease / noise
++        src = (SRC / "worthiness_policy.py").read_text()
++        self.assertNotIn("latent_states", src)
++        self.assertNotIn("true_diagnosis", src)
++        self.assertNotIn("oracle_correction", src)
++
++
++class TestRagSplit(unittest.TestCase):
++    def setUp(self):
++        self.env = ToyEnv()
++        self.tmp = tempfile.TemporaryDirectory()
++        self.retriever = MedicalRetriever(
++            _write_corpus(self.tmp.name, INTEG_CORPUS)
++        )
++
++    def tearDown(self):
++        self.tmp.cleanup()
++
++    def test_09_no_rag_uses_no_retrieval_features(self):
++        model = load_frozen_worthiness_model("none")
++        self.assertEqual(model.n_features, len(BASE_FEATURES))
++        self.assertEqual(model.n_features, 7)
++        policy = build_policy(
++            WorthinessStrategy.LEARNED_WORTHINESS_NO_RAG,
++            config=ReliabilityAwarePolicyConfig(retrieval_mode=RetrievalMode.NO_RAG),
++            worthiness_model=model,
++        )
++        self.assertFalse(policy._use_rag)
++        # the online feature vector for no_rag is base-only (7 columns), and a
++        # non-zero retrieval impact is ignored (not fed to the model).
++        class _S:
++            error_probability = 0.3
++            diagnostic_influence = 0.4
++            retrieval_impact = 0.9
++        x = build_online_features(_S(), current_risk=0.6, n_reports=2,
++                                  turn_index=3, use_rag=False)
++        self.assertEqual(x.shape, (7,))
++        self.assertEqual(x[3], 0.6)  # current_risk lands in the base block
++
++    def test_10_full_rag_uses_real_retrieval(self):
++        model = load_frozen_worthiness_model("real")
++        self.assertEqual(model.n_features, len(BASE_FEATURES) + 2)
++        reports = [self.env.obs("fever"), self.env.obs("myalgia")]
++        policy = build_policy(
++            WorthinessStrategy.LEARNED_WORTHINESS_FULL_RAG,
++            config=ReliabilityAwarePolicyConfig(
++                retrieval_mode=RetrievalMode.DYNAMIC_RAG,
++                retrieval_impact_weight=1.0,
++            ),
++            worthiness_model=model,
++            retriever=self.retriever,
++        )
++        self.assertTrue(policy._use_rag)
++        tracker = self.env.tracker_with(reports)
++        policy.rank_actions(
++            tracker, initial_observations=(), reports=tuple(reports),
++            asked={r.key for r in reports}, verified_report_indices=set(),
++            verification_count=0,
++        )
++        self.assertTrue(policy.last_verification_log)
++        impacts = [e["retrieval_impact"] for e in policy.last_verification_log]
++        # fever/myalgia are corpus-backed, so some impact is non-zero
++        self.assertTrue(any(i > 0.0 for i in impacts))
++
++
++class TestBaseline(unittest.TestCase):
++    def test_11_heuristic_baseline_regression_identical(self):
++        env = ToyEnv()
++        cfg = ReliabilityAwarePolicyConfig(
++            retrieval_mode=RetrievalMode.NO_RAG, max_total_turns=6,
++        )
++        case = next(c for c in env.cases if c.diagnosis == "influenza")
++
++        def run(policy):
++            patient = StructuredPatientSimulator(
++                diagnosis=case.diagnosis, latent_states=case.states,
++                model=env.model, profile=PatientProfile.from_noise_rate(0.3),
++                seed=9,
++            )
++            return run_reliability_aware_dialogue(
++                patient, policy=policy, initial_observations=case.initial_observations
++            )
++
++        base = run(ReliabilityAwareActionPolicy(config=cfg))
++        built = run(build_policy(WorthinessStrategy.HEURISTIC_VERIFY, config=cfg))
++        self.assertEqual(
++            [t.action.kind.value for t in base.turns],
++            [t.action.kind.value for t in built.turns],
++        )
++        self.assertEqual(base.stop_reason, built.stop_reason)
++        self.assertEqual(base.predicted_diagnosis, built.predicted_diagnosis)
++        self.assertIs(
++            type(build_policy(WorthinessStrategy.HEURISTIC_VERIFY, config=cfg)),
++            ReliabilityAwareActionPolicy,
++        )
++
++
++class TestFailLoudly(unittest.TestCase):
++    def test_12_missing_model_fails_loudly(self):
++        from powerful_medrag import worthiness_policy as wp
++        with mock.patch.object(wp, "FROZEN_MODEL_DIR", Path("/nonexistent-dir")):
++            with self.assertRaises(FileNotFoundError):
++                load_frozen_worthiness_model("real")
++        # wrong feature count raises
++        with self.assertRaises(ValueError):
++            _validate_n_features(_stub_model(0.5, 0.3, n_features=7), use_rag=True)
++        with self.assertRaises(ValueError):
++            _validate_n_features(_stub_model(0.5, 0.3, n_features=9), use_rag=False)
++
++
++class TestDefaultStaysHeuristic(unittest.TestCase):
++    def test_13_default_strategy_stays_heuristic(self):
++        policy = build_policy(WorthinessStrategy.HEURISTIC_VERIFY)
++        self.assertIs(type(policy), ReliabilityAwareActionPolicy)
++        # decision.py must not import the learned/online module (default intact)
++        decision_src = (SRC / "decision.py").read_text()
++        self.assertNotIn("worthiness_policy", decision_src)
++        self.assertNotIn("verification_worthiness", decision_src)
++        # the default config is unchanged
++        cfg = ReliabilityAwarePolicyConfig()
++        self.assertAlmostEqual(cfg.verification_cost, 0.03)
++
++
++if __name__ == "__main__":
++    unittest.main()

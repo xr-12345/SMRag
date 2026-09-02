@@ -1,0 +1,62 @@
+{
+  "phase": "worthiness-online-screen-n5",
+  "scope": "wire frozen learned worthiness into AskNew/VerifyOld/Stop; N=5 screen",
+  "strategies": [
+    "heuristic_verify",
+    "model_based_vbayes_verify",
+    "learned_worthiness_full_rag",
+    "learned_worthiness_no_rag"
+  ],
+  "retrieval_mode_by_strategy": {
+    "heuristic_verify": "dynamic_rag",
+    "model_based_vbayes_verify": "no_rag",
+    "learned_worthiness_full_rag": "dynamic_rag",
+    "learned_worthiness_no_rag": "no_rag"
+  },
+  "cases": 245,
+  "cases_per_disease": 5,
+  "noise_rates": [
+    0.2,
+    0.3
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "max_total_turns": 15,
+  "trajectories": 5880,
+  "policy": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.7,
+    "minimum_action_utility": 0.08,
+    "suspicious_report_threshold": 0.05,
+    "verification_cost": 0.03,
+    "maximum_verifications": 1,
+    "max_total_turns": 15,
+    "retrieval_top_k": 10,
+    "query_disease_top_k": 5,
+    "retrieval_gate_mode": "joint_gate",
+    "retrieval_impact_weight": 1.0
+  },
+  "frozen": {
+    "gain_model": "hgb",
+    "harm_model": "hgb",
+    "tau_harm_full_rag": 0.41292830528839586,
+    "tau_harm_no_rag": 0.7935174855595156,
+    "verification_cost": 0.03,
+    "c_new": 0.03,
+    "model_dir": "artifacts/verimedrag-verification-worthiness-offline/models"
+  },
+  "red_lines": [
+    "no test split",
+    "no retraining",
+    "no feature/model change",
+    "no tau_harm change",
+    "no AskNew EIG reorder",
+    "no true state in prediction",
+    "no oracle correction",
+    "no learned default",
+    "no git commit"
+  ]
+}

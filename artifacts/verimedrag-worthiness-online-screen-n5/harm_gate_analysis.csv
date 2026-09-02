@@ -1,0 +1,3 @@
+strategy,strategy_short,n_candidates,n_gain_pass,n_harm_pass,n_allowed,n_harm_blocked,n_selected,mean_harm_hat_all,mean_harm_hat_selected,mean_harm_hat_harm_blocked,mean_net_value_all,mean_net_value_selected,realized_correct_to_wrong_selected,realized_correct_to_wrong_rate_selected,realized_wrong_to_correct_selected
+learned_worthiness_full_rag,learned_full,8340,935,7627,845,90,396,0.089879,0.051275,0.65636,-0.030881,0.175286,17,0.042929,33
+learned_worthiness_no_rag,learned_norag,8448,1015,8322,1001,14,452,0.09376,0.124341,0.841582,-0.029883,0.157087,20,0.044248,33

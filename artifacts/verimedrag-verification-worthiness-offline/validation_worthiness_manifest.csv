@@ -1,0 +1,736 @@
+case_id,diagnosis,split,sample_seed,cases_per_disease,primary_confirmation
+6058,Acute COPD exacerbation / infection,validate,2026,20,1
+2848,Acute COPD exacerbation / infection,validate,2026,20,1
+8387,Acute COPD exacerbation / infection,validate,2026,20,1
+39019,Acute COPD exacerbation / infection,validate,2026,20,1
+62664,Acute COPD exacerbation / infection,validate,2026,20,1
+6085,Acute COPD exacerbation / infection,validate,2026,20,1
+108809,Acute COPD exacerbation / infection,validate,2026,20,1
+28919,Acute COPD exacerbation / infection,validate,2026,20,1
+116890,Acute COPD exacerbation / infection,validate,2026,20,1
+49507,Acute COPD exacerbation / infection,validate,2026,20,1
+71371,Acute COPD exacerbation / infection,validate,2026,20,1
+126311,Acute COPD exacerbation / infection,validate,2026,20,1
+40279,Acute COPD exacerbation / infection,validate,2026,20,1
+16985,Acute COPD exacerbation / infection,validate,2026,20,1
+19353,Acute COPD exacerbation / infection,validate,2026,20,1
+85147,Acute dystonic reactions,validate,2026,20,1
+78064,Acute dystonic reactions,validate,2026,20,1
+60672,Acute dystonic reactions,validate,2026,20,1
+14840,Acute dystonic reactions,validate,2026,20,1
+66901,Acute dystonic reactions,validate,2026,20,1
+46059,Acute dystonic reactions,validate,2026,20,1
+52156,Acute dystonic reactions,validate,2026,20,1
+67745,Acute dystonic reactions,validate,2026,20,1
+118254,Acute dystonic reactions,validate,2026,20,1
+45199,Acute dystonic reactions,validate,2026,20,1
+95127,Acute dystonic reactions,validate,2026,20,1
+75866,Acute dystonic reactions,validate,2026,20,1
+60324,Acute dystonic reactions,validate,2026,20,1
+62947,Acute dystonic reactions,validate,2026,20,1
+1735,Acute dystonic reactions,validate,2026,20,1
+34210,Acute laryngitis,validate,2026,20,1
+92530,Acute laryngitis,validate,2026,20,1
+35664,Acute laryngitis,validate,2026,20,1
+45627,Acute laryngitis,validate,2026,20,1
+12718,Acute laryngitis,validate,2026,20,1
+11360,Acute laryngitis,validate,2026,20,1
+95110,Acute laryngitis,validate,2026,20,1
+35539,Acute laryngitis,validate,2026,20,1
+53143,Acute laryngitis,validate,2026,20,1
+78252,Acute laryngitis,validate,2026,20,1
+17045,Acute laryngitis,validate,2026,20,1
+20141,Acute laryngitis,validate,2026,20,1
+13550,Acute laryngitis,validate,2026,20,1
+54841,Acute laryngitis,validate,2026,20,1
+119480,Acute laryngitis,validate,2026,20,1
+27261,Acute otitis media,validate,2026,20,1
+39304,Acute otitis media,validate,2026,20,1
+32072,Acute otitis media,validate,2026,20,1
+93630,Acute otitis media,validate,2026,20,1
+10356,Acute otitis media,validate,2026,20,1
+52613,Acute otitis media,validate,2026,20,1
+16679,Acute otitis media,validate,2026,20,1
+19225,Acute otitis media,validate,2026,20,1
+79027,Acute otitis media,validate,2026,20,1
+81160,Acute otitis media,validate,2026,20,1
+113207,Acute otitis media,validate,2026,20,1
+105419,Acute otitis media,validate,2026,20,1
+85109,Acute otitis media,validate,2026,20,1
+27952,Acute otitis media,validate,2026,20,1
+51649,Acute otitis media,validate,2026,20,1
+75615,Acute pulmonary edema,validate,2026,20,1
+19241,Acute pulmonary edema,validate,2026,20,1
+102857,Acute pulmonary edema,validate,2026,20,1
+57622,Acute pulmonary edema,validate,2026,20,1
+26832,Acute pulmonary edema,validate,2026,20,1
+10379,Acute pulmonary edema,validate,2026,20,1
+93262,Acute pulmonary edema,validate,2026,20,1
+4223,Acute pulmonary edema,validate,2026,20,1
+14259,Acute pulmonary edema,validate,2026,20,1
+33727,Acute pulmonary edema,validate,2026,20,1
+86094,Acute pulmonary edema,validate,2026,20,1
+28685,Acute pulmonary edema,validate,2026,20,1
+61719,Acute pulmonary edema,validate,2026,20,1
+123808,Acute pulmonary edema,validate,2026,20,1
+93140,Acute pulmonary edema,validate,2026,20,1
+52708,Acute rhinosinusitis,validate,2026,20,1
+11405,Acute rhinosinusitis,validate,2026,20,1
+9804,Acute rhinosinusitis,validate,2026,20,1
+89843,Acute rhinosinusitis,validate,2026,20,1
+85741,Acute rhinosinusitis,validate,2026,20,1
+119214,Acute rhinosinusitis,validate,2026,20,1
+60685,Acute rhinosinusitis,validate,2026,20,1
+58764,Acute rhinosinusitis,validate,2026,20,1
+25345,Acute rhinosinusitis,validate,2026,20,1
+20940,Acute rhinosinusitis,validate,2026,20,1
+104384,Acute rhinosinusitis,validate,2026,20,1
+117572,Acute rhinosinusitis,validate,2026,20,1
+127796,Acute rhinosinusitis,validate,2026,20,1
+73923,Acute rhinosinusitis,validate,2026,20,1
+18564,Acute rhinosinusitis,validate,2026,20,1
+105350,Allergic sinusitis,validate,2026,20,1
+37283,Allergic sinusitis,validate,2026,20,1
+118957,Allergic sinusitis,validate,2026,20,1
+27681,Allergic sinusitis,validate,2026,20,1
+32062,Allergic sinusitis,validate,2026,20,1
+114954,Allergic sinusitis,validate,2026,20,1
+44371,Allergic sinusitis,validate,2026,20,1
+76224,Allergic sinusitis,validate,2026,20,1
+17491,Allergic sinusitis,validate,2026,20,1
+121953,Allergic sinusitis,validate,2026,20,1
+61045,Allergic sinusitis,validate,2026,20,1
+42391,Allergic sinusitis,validate,2026,20,1
+79955,Allergic sinusitis,validate,2026,20,1
+18478,Allergic sinusitis,validate,2026,20,1
+24431,Allergic sinusitis,validate,2026,20,1
+72487,Anaphylaxis,validate,2026,20,1
+94906,Anaphylaxis,validate,2026,20,1
+92571,Anaphylaxis,validate,2026,20,1
+78233,Anaphylaxis,validate,2026,20,1
+88808,Anaphylaxis,validate,2026,20,1
+83330,Anaphylaxis,validate,2026,20,1
+89558,Anaphylaxis,validate,2026,20,1
+111267,Anaphylaxis,validate,2026,20,1
+68881,Anaphylaxis,validate,2026,20,1
+46713,Anaphylaxis,validate,2026,20,1
+2979,Anaphylaxis,validate,2026,20,1
+22419,Anaphylaxis,validate,2026,20,1
+77191,Anaphylaxis,validate,2026,20,1
+89774,Anaphylaxis,validate,2026,20,1
+130345,Anaphylaxis,validate,2026,20,1
+128518,Anemia,validate,2026,20,1
+108581,Anemia,validate,2026,20,1
+18280,Anemia,validate,2026,20,1
+53371,Anemia,validate,2026,20,1
+85303,Anemia,validate,2026,20,1
+2642,Anemia,validate,2026,20,1
+45963,Anemia,validate,2026,20,1
+61450,Anemia,validate,2026,20,1
+90254,Anemia,validate,2026,20,1
+110750,Anemia,validate,2026,20,1
+37756,Anemia,validate,2026,20,1
+131323,Anemia,validate,2026,20,1
+18788,Anemia,validate,2026,20,1
+65715,Anemia,validate,2026,20,1
+21773,Anemia,validate,2026,20,1
+130083,Atrial fibrillation,validate,2026,20,1
+98458,Atrial fibrillation,validate,2026,20,1
+40029,Atrial fibrillation,validate,2026,20,1
+129829,Atrial fibrillation,validate,2026,20,1
+64043,Atrial fibrillation,validate,2026,20,1
+56140,Atrial fibrillation,validate,2026,20,1
+28516,Atrial fibrillation,validate,2026,20,1
+108908,Atrial fibrillation,validate,2026,20,1
+82845,Atrial fibrillation,validate,2026,20,1
+69204,Atrial fibrillation,validate,2026,20,1
+61605,Atrial fibrillation,validate,2026,20,1
+31004,Atrial fibrillation,validate,2026,20,1
+64675,Atrial fibrillation,validate,2026,20,1
+124733,Atrial fibrillation,validate,2026,20,1
+61762,Atrial fibrillation,validate,2026,20,1
+59873,Boerhaave,validate,2026,20,1
+110241,Boerhaave,validate,2026,20,1
+43030,Boerhaave,validate,2026,20,1
+6062,Boerhaave,validate,2026,20,1
+1200,Boerhaave,validate,2026,20,1
+67376,Boerhaave,validate,2026,20,1
+24192,Boerhaave,validate,2026,20,1
+93421,Boerhaave,validate,2026,20,1
+87026,Boerhaave,validate,2026,20,1
+25032,Boerhaave,validate,2026,20,1
+110729,Boerhaave,validate,2026,20,1
+109428,Boerhaave,validate,2026,20,1
+5033,Boerhaave,validate,2026,20,1
+92836,Boerhaave,validate,2026,20,1
+73406,Boerhaave,validate,2026,20,1
+62985,Bronchiectasis,validate,2026,20,1
+78988,Bronchiectasis,validate,2026,20,1
+24972,Bronchiectasis,validate,2026,20,1
+2928,Bronchiectasis,validate,2026,20,1
+17189,Bronchiectasis,validate,2026,20,1
+111968,Bronchiectasis,validate,2026,20,1
+83335,Bronchiectasis,validate,2026,20,1
+76510,Bronchiectasis,validate,2026,20,1
+67894,Bronchiectasis,validate,2026,20,1
+37764,Bronchiectasis,validate,2026,20,1
+69746,Bronchiectasis,validate,2026,20,1
+109624,Bronchiectasis,validate,2026,20,1
+56424,Bronchiectasis,validate,2026,20,1
+25792,Bronchiectasis,validate,2026,20,1
+71833,Bronchiectasis,validate,2026,20,1
+90908,Bronchiolitis,validate,2026,20,1
+43218,Bronchiolitis,validate,2026,20,1
+48249,Bronchiolitis,validate,2026,20,1
+48383,Bronchiolitis,validate,2026,20,1
+122287,Bronchiolitis,validate,2026,20,1
+59819,Bronchiolitis,validate,2026,20,1
+61308,Bronchiolitis,validate,2026,20,1
+63323,Bronchiolitis,validate,2026,20,1
+99937,Bronchiolitis,validate,2026,20,1
+67764,Bronchiolitis,validate,2026,20,1
+68099,Bronchiolitis,validate,2026,20,1
+69016,Bronchiolitis,validate,2026,20,1
+93069,Bronchiolitis,validate,2026,20,1
+77293,Bronchiolitis,validate,2026,20,1
+80565,Bronchiolitis,validate,2026,20,1
+49518,Bronchitis,validate,2026,20,1
+94616,Bronchitis,validate,2026,20,1
+72794,Bronchitis,validate,2026,20,1
+93235,Bronchitis,validate,2026,20,1
+98157,Bronchitis,validate,2026,20,1
+131198,Bronchitis,validate,2026,20,1
+131184,Bronchitis,validate,2026,20,1
+32735,Bronchitis,validate,2026,20,1
+13152,Bronchitis,validate,2026,20,1
+3106,Bronchitis,validate,2026,20,1
+82404,Bronchitis,validate,2026,20,1
+52052,Bronchitis,validate,2026,20,1
+5044,Bronchitis,validate,2026,20,1
+8294,Bronchitis,validate,2026,20,1
+73606,Bronchitis,validate,2026,20,1
+40645,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+34431,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+103901,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+51020,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+51150,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+85853,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+61350,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+39415,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+80008,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+110142,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+121769,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+40359,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+132228,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+16206,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+93616,Bronchospasm / acute asthma exacerbation,validate,2026,20,1
+83110,Chagas,validate,2026,20,1
+122031,Chagas,validate,2026,20,1
+126774,Chagas,validate,2026,20,1
+128345,Chagas,validate,2026,20,1
+81033,Chagas,validate,2026,20,1
+117373,Chagas,validate,2026,20,1
+81176,Chagas,validate,2026,20,1
+116953,Chagas,validate,2026,20,1
+1936,Chagas,validate,2026,20,1
+93681,Chagas,validate,2026,20,1
+64595,Chagas,validate,2026,20,1
+101597,Chagas,validate,2026,20,1
+36312,Chagas,validate,2026,20,1
+49966,Chagas,validate,2026,20,1
+47858,Chagas,validate,2026,20,1
+68612,Chronic rhinosinusitis,validate,2026,20,1
+124923,Chronic rhinosinusitis,validate,2026,20,1
+53398,Chronic rhinosinusitis,validate,2026,20,1
+45277,Chronic rhinosinusitis,validate,2026,20,1
+821,Chronic rhinosinusitis,validate,2026,20,1
+9600,Chronic rhinosinusitis,validate,2026,20,1
+87132,Chronic rhinosinusitis,validate,2026,20,1
+81780,Chronic rhinosinusitis,validate,2026,20,1
+104398,Chronic rhinosinusitis,validate,2026,20,1
+63085,Chronic rhinosinusitis,validate,2026,20,1
+72857,Chronic rhinosinusitis,validate,2026,20,1
+87784,Chronic rhinosinusitis,validate,2026,20,1
+94685,Chronic rhinosinusitis,validate,2026,20,1
+121428,Chronic rhinosinusitis,validate,2026,20,1
+31735,Chronic rhinosinusitis,validate,2026,20,1
+122185,Cluster headache,validate,2026,20,1
+98471,Cluster headache,validate,2026,20,1
+55252,Cluster headache,validate,2026,20,1
+68420,Cluster headache,validate,2026,20,1
+91441,Cluster headache,validate,2026,20,1
+23110,Cluster headache,validate,2026,20,1
+30126,Cluster headache,validate,2026,20,1
+23791,Cluster headache,validate,2026,20,1
+62694,Cluster headache,validate,2026,20,1
+78636,Cluster headache,validate,2026,20,1
+42139,Cluster headache,validate,2026,20,1
+126857,Cluster headache,validate,2026,20,1
+53857,Cluster headache,validate,2026,20,1
+94449,Cluster headache,validate,2026,20,1
+121714,Cluster headache,validate,2026,20,1
+73259,Croup,validate,2026,20,1
+122839,Croup,validate,2026,20,1
+1902,Croup,validate,2026,20,1
+32757,Croup,validate,2026,20,1
+28063,Croup,validate,2026,20,1
+74147,Croup,validate,2026,20,1
+95961,Croup,validate,2026,20,1
+125548,Croup,validate,2026,20,1
+64749,Croup,validate,2026,20,1
+95683,Croup,validate,2026,20,1
+5401,Croup,validate,2026,20,1
+16870,Croup,validate,2026,20,1
+13438,Croup,validate,2026,20,1
+116013,Croup,validate,2026,20,1
+111025,Croup,validate,2026,20,1
+32550,Ebola,validate,2026,20,1
+85792,Ebola,validate,2026,20,1
+11059,Ebola,validate,2026,20,1
+90344,Ebola,validate,2026,20,1
+97133,Ebola,validate,2026,20,1
+27442,Ebola,validate,2026,20,1
+55054,Ebola,validate,2026,20,1
+34753,Ebola,validate,2026,20,1
+128553,Ebola,validate,2026,20,1
+88124,Ebola,validate,2026,20,1
+124051,Ebola,validate,2026,20,1
+120843,Ebola,validate,2026,20,1
+125125,Ebola,validate,2026,20,1
+90807,Ebola,validate,2026,20,1
+68290,Ebola,validate,2026,20,1
+46381,Epiglottitis,validate,2026,20,1
+78177,Epiglottitis,validate,2026,20,1
+40639,Epiglottitis,validate,2026,20,1
+36900,Epiglottitis,validate,2026,20,1
+55169,Epiglottitis,validate,2026,20,1
+9605,Epiglottitis,validate,2026,20,1
+23620,Epiglottitis,validate,2026,20,1
+91255,Epiglottitis,validate,2026,20,1
+61387,Epiglottitis,validate,2026,20,1
+45562,Epiglottitis,validate,2026,20,1
+96582,Epiglottitis,validate,2026,20,1
+81139,Epiglottitis,validate,2026,20,1
+39868,Epiglottitis,validate,2026,20,1
+1138,Epiglottitis,validate,2026,20,1
+114740,Epiglottitis,validate,2026,20,1
+43024,GERD,validate,2026,20,1
+50261,GERD,validate,2026,20,1
+45803,GERD,validate,2026,20,1
+116262,GERD,validate,2026,20,1
+74200,GERD,validate,2026,20,1
+122424,GERD,validate,2026,20,1
+70369,GERD,validate,2026,20,1
+43911,GERD,validate,2026,20,1
+126930,GERD,validate,2026,20,1
+78040,GERD,validate,2026,20,1
+132231,GERD,validate,2026,20,1
+122624,GERD,validate,2026,20,1
+31164,GERD,validate,2026,20,1
+99712,GERD,validate,2026,20,1
+128605,GERD,validate,2026,20,1
+116857,Guillain-Barré syndrome,validate,2026,20,1
+37006,Guillain-Barré syndrome,validate,2026,20,1
+126503,Guillain-Barré syndrome,validate,2026,20,1
+72890,Guillain-Barré syndrome,validate,2026,20,1
+48815,Guillain-Barré syndrome,validate,2026,20,1
+71657,Guillain-Barré syndrome,validate,2026,20,1
+89068,Guillain-Barré syndrome,validate,2026,20,1
+88583,Guillain-Barré syndrome,validate,2026,20,1
+30481,Guillain-Barré syndrome,validate,2026,20,1
+92655,Guillain-Barré syndrome,validate,2026,20,1
+46414,Guillain-Barré syndrome,validate,2026,20,1
+55566,Guillain-Barré syndrome,validate,2026,20,1
+122460,Guillain-Barré syndrome,validate,2026,20,1
+105388,Guillain-Barré syndrome,validate,2026,20,1
+109819,Guillain-Barré syndrome,validate,2026,20,1
+118851,HIV (initial infection),validate,2026,20,1
+78940,HIV (initial infection),validate,2026,20,1
+55214,HIV (initial infection),validate,2026,20,1
+86788,HIV (initial infection),validate,2026,20,1
+100353,HIV (initial infection),validate,2026,20,1
+105439,HIV (initial infection),validate,2026,20,1
+126259,HIV (initial infection),validate,2026,20,1
+114409,HIV (initial infection),validate,2026,20,1
+107433,HIV (initial infection),validate,2026,20,1
+32618,HIV (initial infection),validate,2026,20,1
+130620,HIV (initial infection),validate,2026,20,1
+91141,HIV (initial infection),validate,2026,20,1
+28011,HIV (initial infection),validate,2026,20,1
+33348,HIV (initial infection),validate,2026,20,1
+114091,HIV (initial infection),validate,2026,20,1
+120728,Influenza,validate,2026,20,1
+88192,Influenza,validate,2026,20,1
+19300,Influenza,validate,2026,20,1
+65820,Influenza,validate,2026,20,1
+60790,Influenza,validate,2026,20,1
+32545,Influenza,validate,2026,20,1
+32180,Influenza,validate,2026,20,1
+70171,Influenza,validate,2026,20,1
+1774,Influenza,validate,2026,20,1
+93282,Influenza,validate,2026,20,1
+50530,Influenza,validate,2026,20,1
+120815,Influenza,validate,2026,20,1
+56203,Influenza,validate,2026,20,1
+16634,Influenza,validate,2026,20,1
+104324,Influenza,validate,2026,20,1
+9782,Inguinal hernia,validate,2026,20,1
+80809,Inguinal hernia,validate,2026,20,1
+62890,Inguinal hernia,validate,2026,20,1
+123607,Inguinal hernia,validate,2026,20,1
+4309,Inguinal hernia,validate,2026,20,1
+59669,Inguinal hernia,validate,2026,20,1
+351,Inguinal hernia,validate,2026,20,1
+57338,Inguinal hernia,validate,2026,20,1
+120534,Inguinal hernia,validate,2026,20,1
+68764,Inguinal hernia,validate,2026,20,1
+50275,Inguinal hernia,validate,2026,20,1
+109208,Inguinal hernia,validate,2026,20,1
+87120,Inguinal hernia,validate,2026,20,1
+55058,Inguinal hernia,validate,2026,20,1
+106590,Inguinal hernia,validate,2026,20,1
+37991,Larygospasm,validate,2026,20,1
+82932,Larygospasm,validate,2026,20,1
+117250,Larygospasm,validate,2026,20,1
+99764,Larygospasm,validate,2026,20,1
+2011,Larygospasm,validate,2026,20,1
+119432,Larygospasm,validate,2026,20,1
+77903,Larygospasm,validate,2026,20,1
+81738,Larygospasm,validate,2026,20,1
+22546,Larygospasm,validate,2026,20,1
+92213,Larygospasm,validate,2026,20,1
+58436,Larygospasm,validate,2026,20,1
+3055,Larygospasm,validate,2026,20,1
+57344,Larygospasm,validate,2026,20,1
+111880,Larygospasm,validate,2026,20,1
+95208,Larygospasm,validate,2026,20,1
+4097,Localized edema,validate,2026,20,1
+39529,Localized edema,validate,2026,20,1
+81705,Localized edema,validate,2026,20,1
+43494,Localized edema,validate,2026,20,1
+17855,Localized edema,validate,2026,20,1
+89402,Localized edema,validate,2026,20,1
+66020,Localized edema,validate,2026,20,1
+66048,Localized edema,validate,2026,20,1
+110890,Localized edema,validate,2026,20,1
+57543,Localized edema,validate,2026,20,1
+82058,Localized edema,validate,2026,20,1
+59255,Localized edema,validate,2026,20,1
+71927,Localized edema,validate,2026,20,1
+36368,Localized edema,validate,2026,20,1
+112680,Localized edema,validate,2026,20,1
+98264,Myasthenia gravis,validate,2026,20,1
+60177,Myasthenia gravis,validate,2026,20,1
+81549,Myasthenia gravis,validate,2026,20,1
+60282,Myasthenia gravis,validate,2026,20,1
+128106,Myasthenia gravis,validate,2026,20,1
+34553,Myasthenia gravis,validate,2026,20,1
+66079,Myasthenia gravis,validate,2026,20,1
+61393,Myasthenia gravis,validate,2026,20,1
+33907,Myasthenia gravis,validate,2026,20,1
+92394,Myasthenia gravis,validate,2026,20,1
+3061,Myasthenia gravis,validate,2026,20,1
+46980,Myasthenia gravis,validate,2026,20,1
+27962,Myasthenia gravis,validate,2026,20,1
+35659,Myasthenia gravis,validate,2026,20,1
+92992,Myasthenia gravis,validate,2026,20,1
+79458,Myocarditis,validate,2026,20,1
+113373,Myocarditis,validate,2026,20,1
+41372,Myocarditis,validate,2026,20,1
+84937,Myocarditis,validate,2026,20,1
+28609,Myocarditis,validate,2026,20,1
+58895,Myocarditis,validate,2026,20,1
+62284,Myocarditis,validate,2026,20,1
+70347,Myocarditis,validate,2026,20,1
+71128,Myocarditis,validate,2026,20,1
+50301,Myocarditis,validate,2026,20,1
+52153,Myocarditis,validate,2026,20,1
+26382,Myocarditis,validate,2026,20,1
+58145,Myocarditis,validate,2026,20,1
+86524,Myocarditis,validate,2026,20,1
+44363,Myocarditis,validate,2026,20,1
+87437,PSVT,validate,2026,20,1
+8156,PSVT,validate,2026,20,1
+47214,PSVT,validate,2026,20,1
+111132,PSVT,validate,2026,20,1
+64950,PSVT,validate,2026,20,1
+78298,PSVT,validate,2026,20,1
+55425,PSVT,validate,2026,20,1
+95246,PSVT,validate,2026,20,1
+60090,PSVT,validate,2026,20,1
+69297,PSVT,validate,2026,20,1
+95806,PSVT,validate,2026,20,1
+3022,PSVT,validate,2026,20,1
+82014,PSVT,validate,2026,20,1
+25933,PSVT,validate,2026,20,1
+22554,PSVT,validate,2026,20,1
+37369,Pancreatic neoplasm,validate,2026,20,1
+62468,Pancreatic neoplasm,validate,2026,20,1
+67584,Pancreatic neoplasm,validate,2026,20,1
+78748,Pancreatic neoplasm,validate,2026,20,1
+96032,Pancreatic neoplasm,validate,2026,20,1
+21329,Pancreatic neoplasm,validate,2026,20,1
+110509,Pancreatic neoplasm,validate,2026,20,1
+97161,Pancreatic neoplasm,validate,2026,20,1
+22875,Pancreatic neoplasm,validate,2026,20,1
+111263,Pancreatic neoplasm,validate,2026,20,1
+112432,Pancreatic neoplasm,validate,2026,20,1
+11947,Pancreatic neoplasm,validate,2026,20,1
+24672,Pancreatic neoplasm,validate,2026,20,1
+1076,Pancreatic neoplasm,validate,2026,20,1
+16788,Pancreatic neoplasm,validate,2026,20,1
+62978,Panic attack,validate,2026,20,1
+24906,Panic attack,validate,2026,20,1
+81180,Panic attack,validate,2026,20,1
+79553,Panic attack,validate,2026,20,1
+43953,Panic attack,validate,2026,20,1
+126357,Panic attack,validate,2026,20,1
+86143,Panic attack,validate,2026,20,1
+91449,Panic attack,validate,2026,20,1
+40937,Panic attack,validate,2026,20,1
+99511,Panic attack,validate,2026,20,1
+115479,Panic attack,validate,2026,20,1
+46585,Panic attack,validate,2026,20,1
+119830,Panic attack,validate,2026,20,1
+127217,Panic attack,validate,2026,20,1
+56471,Panic attack,validate,2026,20,1
+107627,Pericarditis,validate,2026,20,1
+23823,Pericarditis,validate,2026,20,1
+51577,Pericarditis,validate,2026,20,1
+53251,Pericarditis,validate,2026,20,1
+26447,Pericarditis,validate,2026,20,1
+116944,Pericarditis,validate,2026,20,1
+94540,Pericarditis,validate,2026,20,1
+52265,Pericarditis,validate,2026,20,1
+6987,Pericarditis,validate,2026,20,1
+31980,Pericarditis,validate,2026,20,1
+130429,Pericarditis,validate,2026,20,1
+4768,Pericarditis,validate,2026,20,1
+7969,Pericarditis,validate,2026,20,1
+119148,Pericarditis,validate,2026,20,1
+22668,Pericarditis,validate,2026,20,1
+125273,Pneumonia,validate,2026,20,1
+6038,Pneumonia,validate,2026,20,1
+3017,Pneumonia,validate,2026,20,1
+42058,Pneumonia,validate,2026,20,1
+61468,Pneumonia,validate,2026,20,1
+4863,Pneumonia,validate,2026,20,1
+115702,Pneumonia,validate,2026,20,1
+122682,Pneumonia,validate,2026,20,1
+20307,Pneumonia,validate,2026,20,1
+356,Pneumonia,validate,2026,20,1
+45622,Pneumonia,validate,2026,20,1
+71942,Pneumonia,validate,2026,20,1
+19837,Pneumonia,validate,2026,20,1
+108350,Pneumonia,validate,2026,20,1
+19338,Pneumonia,validate,2026,20,1
+64508,Possible NSTEMI / STEMI,validate,2026,20,1
+87638,Possible NSTEMI / STEMI,validate,2026,20,1
+481,Possible NSTEMI / STEMI,validate,2026,20,1
+120799,Possible NSTEMI / STEMI,validate,2026,20,1
+55604,Possible NSTEMI / STEMI,validate,2026,20,1
+124426,Possible NSTEMI / STEMI,validate,2026,20,1
+966,Possible NSTEMI / STEMI,validate,2026,20,1
+82832,Possible NSTEMI / STEMI,validate,2026,20,1
+119339,Possible NSTEMI / STEMI,validate,2026,20,1
+9657,Possible NSTEMI / STEMI,validate,2026,20,1
+15817,Possible NSTEMI / STEMI,validate,2026,20,1
+94044,Possible NSTEMI / STEMI,validate,2026,20,1
+49162,Possible NSTEMI / STEMI,validate,2026,20,1
+105181,Possible NSTEMI / STEMI,validate,2026,20,1
+6196,Possible NSTEMI / STEMI,validate,2026,20,1
+47490,Pulmonary embolism,validate,2026,20,1
+87415,Pulmonary embolism,validate,2026,20,1
+55926,Pulmonary embolism,validate,2026,20,1
+106918,Pulmonary embolism,validate,2026,20,1
+90129,Pulmonary embolism,validate,2026,20,1
+101749,Pulmonary embolism,validate,2026,20,1
+131279,Pulmonary embolism,validate,2026,20,1
+27150,Pulmonary embolism,validate,2026,20,1
+119449,Pulmonary embolism,validate,2026,20,1
+35064,Pulmonary embolism,validate,2026,20,1
+97611,Pulmonary embolism,validate,2026,20,1
+119524,Pulmonary embolism,validate,2026,20,1
+13274,Pulmonary embolism,validate,2026,20,1
+95445,Pulmonary embolism,validate,2026,20,1
+98857,Pulmonary embolism,validate,2026,20,1
+14314,Pulmonary neoplasm,validate,2026,20,1
+371,Pulmonary neoplasm,validate,2026,20,1
+85202,Pulmonary neoplasm,validate,2026,20,1
+124409,Pulmonary neoplasm,validate,2026,20,1
+49222,Pulmonary neoplasm,validate,2026,20,1
+84837,Pulmonary neoplasm,validate,2026,20,1
+89946,Pulmonary neoplasm,validate,2026,20,1
+890,Pulmonary neoplasm,validate,2026,20,1
+36483,Pulmonary neoplasm,validate,2026,20,1
+76398,Pulmonary neoplasm,validate,2026,20,1
+60037,Pulmonary neoplasm,validate,2026,20,1
+32839,Pulmonary neoplasm,validate,2026,20,1
+87552,Pulmonary neoplasm,validate,2026,20,1
+8815,Pulmonary neoplasm,validate,2026,20,1
+95794,Pulmonary neoplasm,validate,2026,20,1
+68379,SLE,validate,2026,20,1
+120973,SLE,validate,2026,20,1
+98366,SLE,validate,2026,20,1
+703,SLE,validate,2026,20,1
+82386,SLE,validate,2026,20,1
+69291,SLE,validate,2026,20,1
+21637,SLE,validate,2026,20,1
+44043,SLE,validate,2026,20,1
+88969,SLE,validate,2026,20,1
+85240,SLE,validate,2026,20,1
+105719,SLE,validate,2026,20,1
+21440,SLE,validate,2026,20,1
+72600,SLE,validate,2026,20,1
+19607,SLE,validate,2026,20,1
+106786,SLE,validate,2026,20,1
+87914,Sarcoidosis,validate,2026,20,1
+30928,Sarcoidosis,validate,2026,20,1
+2063,Sarcoidosis,validate,2026,20,1
+16203,Sarcoidosis,validate,2026,20,1
+19269,Sarcoidosis,validate,2026,20,1
+120755,Sarcoidosis,validate,2026,20,1
+51352,Sarcoidosis,validate,2026,20,1
+89824,Sarcoidosis,validate,2026,20,1
+75595,Sarcoidosis,validate,2026,20,1
+84824,Sarcoidosis,validate,2026,20,1
+985,Sarcoidosis,validate,2026,20,1
+66131,Sarcoidosis,validate,2026,20,1
+124231,Sarcoidosis,validate,2026,20,1
+35112,Sarcoidosis,validate,2026,20,1
+127159,Sarcoidosis,validate,2026,20,1
+105474,Scombroid food poisoning,validate,2026,20,1
+80998,Scombroid food poisoning,validate,2026,20,1
+52543,Scombroid food poisoning,validate,2026,20,1
+87156,Scombroid food poisoning,validate,2026,20,1
+76993,Scombroid food poisoning,validate,2026,20,1
+95147,Scombroid food poisoning,validate,2026,20,1
+46542,Scombroid food poisoning,validate,2026,20,1
+91091,Scombroid food poisoning,validate,2026,20,1
+96475,Scombroid food poisoning,validate,2026,20,1
+66483,Scombroid food poisoning,validate,2026,20,1
+43152,Scombroid food poisoning,validate,2026,20,1
+120602,Scombroid food poisoning,validate,2026,20,1
+69258,Scombroid food poisoning,validate,2026,20,1
+111979,Scombroid food poisoning,validate,2026,20,1
+90488,Scombroid food poisoning,validate,2026,20,1
+67932,Spontaneous pneumothorax,validate,2026,20,1
+72971,Spontaneous pneumothorax,validate,2026,20,1
+75728,Spontaneous pneumothorax,validate,2026,20,1
+122898,Spontaneous pneumothorax,validate,2026,20,1
+88438,Spontaneous pneumothorax,validate,2026,20,1
+38963,Spontaneous pneumothorax,validate,2026,20,1
+17530,Spontaneous pneumothorax,validate,2026,20,1
+114761,Spontaneous pneumothorax,validate,2026,20,1
+14915,Spontaneous pneumothorax,validate,2026,20,1
+121468,Spontaneous pneumothorax,validate,2026,20,1
+21276,Spontaneous pneumothorax,validate,2026,20,1
+49880,Spontaneous pneumothorax,validate,2026,20,1
+2027,Spontaneous pneumothorax,validate,2026,20,1
+119365,Spontaneous pneumothorax,validate,2026,20,1
+85810,Spontaneous pneumothorax,validate,2026,20,1
+34711,Spontaneous rib fracture,validate,2026,20,1
+64099,Spontaneous rib fracture,validate,2026,20,1
+57034,Spontaneous rib fracture,validate,2026,20,1
+102045,Spontaneous rib fracture,validate,2026,20,1
+132240,Spontaneous rib fracture,validate,2026,20,1
+57066,Spontaneous rib fracture,validate,2026,20,1
+120325,Spontaneous rib fracture,validate,2026,20,1
+70706,Spontaneous rib fracture,validate,2026,20,1
+119857,Spontaneous rib fracture,validate,2026,20,1
+117788,Spontaneous rib fracture,validate,2026,20,1
+110365,Spontaneous rib fracture,validate,2026,20,1
+92287,Spontaneous rib fracture,validate,2026,20,1
+126590,Spontaneous rib fracture,validate,2026,20,1
+88206,Spontaneous rib fracture,validate,2026,20,1
+3066,Spontaneous rib fracture,validate,2026,20,1
+26702,Stable angina,validate,2026,20,1
+84547,Stable angina,validate,2026,20,1
+87757,Stable angina,validate,2026,20,1
+106474,Stable angina,validate,2026,20,1
+10970,Stable angina,validate,2026,20,1
+18938,Stable angina,validate,2026,20,1
+15835,Stable angina,validate,2026,20,1
+41634,Stable angina,validate,2026,20,1
+70243,Stable angina,validate,2026,20,1
+76924,Stable angina,validate,2026,20,1
+10452,Stable angina,validate,2026,20,1
+75647,Stable angina,validate,2026,20,1
+117875,Stable angina,validate,2026,20,1
+58095,Stable angina,validate,2026,20,1
+26259,Stable angina,validate,2026,20,1
+66258,Tuberculosis,validate,2026,20,1
+53087,Tuberculosis,validate,2026,20,1
+32485,Tuberculosis,validate,2026,20,1
+130102,Tuberculosis,validate,2026,20,1
+102929,Tuberculosis,validate,2026,20,1
+110011,Tuberculosis,validate,2026,20,1
+47638,Tuberculosis,validate,2026,20,1
+1793,Tuberculosis,validate,2026,20,1
+130739,Tuberculosis,validate,2026,20,1
+48267,Tuberculosis,validate,2026,20,1
+88682,Tuberculosis,validate,2026,20,1
+18848,Tuberculosis,validate,2026,20,1
+18637,Tuberculosis,validate,2026,20,1
+130191,Tuberculosis,validate,2026,20,1
+25074,Tuberculosis,validate,2026,20,1
+101174,URTI,validate,2026,20,1
+19949,URTI,validate,2026,20,1
+118544,URTI,validate,2026,20,1
+109766,URTI,validate,2026,20,1
+49240,URTI,validate,2026,20,1
+128845,URTI,validate,2026,20,1
+73298,URTI,validate,2026,20,1
+46721,URTI,validate,2026,20,1
+32889,URTI,validate,2026,20,1
+91881,URTI,validate,2026,20,1
+121424,URTI,validate,2026,20,1
+130032,URTI,validate,2026,20,1
+131549,URTI,validate,2026,20,1
+105451,URTI,validate,2026,20,1
+56473,URTI,validate,2026,20,1
+70395,Unstable angina,validate,2026,20,1
+23076,Unstable angina,validate,2026,20,1
+86036,Unstable angina,validate,2026,20,1
+21206,Unstable angina,validate,2026,20,1
+126055,Unstable angina,validate,2026,20,1
+128734,Unstable angina,validate,2026,20,1
+81316,Unstable angina,validate,2026,20,1
+115073,Unstable angina,validate,2026,20,1
+39224,Unstable angina,validate,2026,20,1
+86118,Unstable angina,validate,2026,20,1
+24229,Unstable angina,validate,2026,20,1
+82821,Unstable angina,validate,2026,20,1
+25400,Unstable angina,validate,2026,20,1
+7829,Unstable angina,validate,2026,20,1
+47529,Unstable angina,validate,2026,20,1
+57729,Viral pharyngitis,validate,2026,20,1
+86649,Viral pharyngitis,validate,2026,20,1
+12055,Viral pharyngitis,validate,2026,20,1
+77547,Viral pharyngitis,validate,2026,20,1
+116238,Viral pharyngitis,validate,2026,20,1
+55946,Viral pharyngitis,validate,2026,20,1
+6793,Viral pharyngitis,validate,2026,20,1
+95531,Viral pharyngitis,validate,2026,20,1
+52350,Viral pharyngitis,validate,2026,20,1
+131443,Viral pharyngitis,validate,2026,20,1
+23715,Viral pharyngitis,validate,2026,20,1
+15281,Viral pharyngitis,validate,2026,20,1
+29492,Viral pharyngitis,validate,2026,20,1
+20714,Viral pharyngitis,validate,2026,20,1
+19016,Viral pharyngitis,validate,2026,20,1
+1232,Whooping cough,validate,2026,20,1
+79647,Whooping cough,validate,2026,20,1
+12667,Whooping cough,validate,2026,20,1
+71716,Whooping cough,validate,2026,20,1
+57859,Whooping cough,validate,2026,20,1
+102178,Whooping cough,validate,2026,20,1
+48195,Whooping cough,validate,2026,20,1
+118178,Whooping cough,validate,2026,20,1
+72476,Whooping cough,validate,2026,20,1
+130533,Whooping cough,validate,2026,20,1
+20180,Whooping cough,validate,2026,20,1
+32630,Whooping cough,validate,2026,20,1
+51990,Whooping cough,validate,2026,20,1
+23380,Whooping cough,validate,2026,20,1
+98197,Whooping cough,validate,2026,20,1

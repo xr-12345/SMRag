@@ -1,0 +1,4 @@
+Phase 6 -- heuristic_baseline vs Phase 5 heuristic_verify regression
+compared 1470 baseline trajectories against Phase 5
+mismatches: 0; missing in Phase5: 0
+verdict: PASS (byte-identical)

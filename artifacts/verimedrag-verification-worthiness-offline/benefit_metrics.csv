@@ -1,0 +1,7 @@
+method,triggers,mean_net_brier,frac_value_gt0
+heuristic_verify_utility,2917,0.00644,0.26226
+retrospective_error_probability,2917,0.00493,0.24786
+retrieval_impact,2917,-0.01708,0.1025
+error_prob_times_impact,2917,0.0074,0.22283
+v_bayes,2917,-0.00559,0.26568
+learned_real,2917,0.01288,0.2482

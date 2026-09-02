@@ -1,0 +1,27 @@
+# Phase 4 — git diff summary
+
+HEAD: 91268d7bbfd742c590f2567aa741ed4543fbea35 (Add retrieval joint gate and Phase 2A/2B/2C artifacts)
+
+## Tracked-file modifications (must be EMPTY — Phase 4 is VerifyOld-only, additive)
+
+## Untracked new files (Phase 3 action-value audit + Phase 4 verification-worthiness)
+  ?? artifacts/verimedrag-action-value-audit/
+  ?? artifacts/verimedrag-verification-worthiness-offline/
+  ?? src/powerful_medrag/action_value.py
+  ?? src/powerful_medrag/verification_worthiness.py
+  ?? tests/test_action_value_audit.py
+  ?? tests/test_verification_worthiness.py
+
+## New source files (line counts)
+       403 /Users/xr-12345/Desktop/SafeMedRAG/src/powerful_medrag/action_value.py
+       502 /Users/xr-12345/Desktop/SafeMedRAG/src/powerful_medrag/verification_worthiness.py
+       283 /Users/xr-12345/Desktop/SafeMedRAG/tests/test_action_value_audit.py
+       211 /Users/xr-12345/Desktop/SafeMedRAG/tests/test_verification_worthiness.py
+      1399 total
+
+## Red-line check: online policy files NOT modified
+  [unchanged] src/powerful_medrag/decision.py
+  [unchanged] src/powerful_medrag/clarification.py
+  [unchanged] src/powerful_medrag/action_value.py
+  [unchanged] src/powerful_medrag/cli.py
+  [unchanged] src/powerful_medrag/reliability_experiment.py

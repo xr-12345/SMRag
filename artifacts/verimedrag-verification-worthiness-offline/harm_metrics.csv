@@ -1,0 +1,13 @@
+metric,value
+harm_head_validation_auc,0.8702
+with_gate_triggers,2917
+without_gate_triggers,3109
+with_gate_mean_correct_to_wrong,0.0318
+without_gate_mean_correct_to_wrong,0.03534
+harm_gate_ctw_reduction,0.00354
+heuristic_verify_utility_mean_correct_to_wrong,0.06462
+retrospective_error_probability_mean_correct_to_wrong,0.04084
+retrieval_impact_mean_correct_to_wrong,0.01264
+error_prob_times_impact_mean_correct_to_wrong,0.03715
+v_bayes_mean_correct_to_wrong,0.02207
+learned_real_mean_correct_to_wrong,0.0318
