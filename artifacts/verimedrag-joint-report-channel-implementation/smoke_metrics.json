@@ -1,0 +1,43 @@
+{
+  "case_A_single_correct": {
+    "top_disease": "influenza",
+    "top_probability": 0.680674,
+    "p_mode_misreported_fever": 0.040337,
+    "mechanism_ok": true
+  },
+  "case_B_conflict_resolves": {
+    "answers_preserved": true,
+    "all_answers": [
+      "absent",
+      "present"
+    ],
+    "influenza_before": 0.089064,
+    "influenza_after": 0.306372,
+    "mechanism_ok": true
+  },
+  "case_C_consistent_confirms_mode": {
+    "p_mode_before": 0.020689,
+    "p_mode_after": 0.010351,
+    "all_answers": [
+      "absent",
+      "absent"
+    ],
+    "mechanism_ok": true
+  },
+  "case_D_independent_reask_is_product": {
+    "joint": 0.038576,
+    "product": 0.038576,
+    "mechanism_ok": true
+  },
+  "case_E_reliability_gate": {
+    "p_mode_misreported_itchy_eyes": 0.291292,
+    "max_mode_misreport": 0.291292,
+    "suspicious_report_threshold": 0.05,
+    "reliability_ready": false,
+    "base_stop_ready": false,
+    "mechanism_ok": true
+  },
+  "_summary": {
+    "all_mechanisms_ok": true
+  }
+}

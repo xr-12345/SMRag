@@ -1,0 +1,39 @@
+{
+  "phase": "8B",
+  "strategy": "joint_channel_brier_audit",
+  "repeat_mode_persistence_rho": 0.5,
+  "rho_notes": "simulation assumption only; DDXPlus has no repeated-answer records; not fitted from validation/test; not a claim of real patient behaviour",
+  "verification_type_implemented": "REPEAT",
+  "verification_type_extensible": ["REPHRASE", "DEFINITION", "TEMPORAL_ANCHOR", "CONTRASTIVE"],
+  "policy_config": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.70,
+    "minimum_action_utility": 0.03,
+    "suspicious_report_threshold": 0.05,
+    "new_question_cost_weight": 0.01,
+    "verification_cost": 0.03,
+    "maximum_verifications": 1,
+    "max_total_turns": 15,
+    "verification_audit_threshold_tau_V": 0.03,
+    "verification_advantage_margin_tau_A": 0.03
+  },
+  "answer_channel": {
+    "source": "frozen AnswerChannel default rates (not re-fitted)",
+    "cue_prior_NONE": {"CERTAIN": 0.82, "UNCERTAIN": 0.10, "UNKNOWN": 0.05, "MISREPORTED": 0.03},
+    "MISREPORTED_rates": {"correct": 0.08, "unknown": 0.07, "wrong": 0.85}
+  },
+  "smoke_scope": "toy model only (Cases A-E); no test split; no N=5/N=20",
+  "red_lines": [
+    "no test split access",
+    "no N=5/N=20 runs",
+    "no overwrite of old artifacts",
+    "no deletion of old strategies",
+    "no retraining the learned gate",
+    "no LLM / dense retrieval / SFT / RL",
+    "no fitting channel params from validation/test truth",
+    "no clinical-realism claim for rho",
+    "no change to pre-registered success criteria",
+    "no git commit",
+    "no fabricated results"
+  ]
+}

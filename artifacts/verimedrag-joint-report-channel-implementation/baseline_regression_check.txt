@@ -1,0 +1,19 @@
+Phase 8B baseline regression check
+============================================================
+
+Goal: confirm the joint-report-channel additions do NOT change any
+pre-existing strategy.  This session only ADDED four new modules
+(joint_report_channel / reliability_memory / joint_reliability_belief /
+joint_channel_policy), one new test file, and a two-line registration
+(JOINT_CHANNEL_BRIER_AUDIT enum member + a build_policy branch that
+raises NotImplementedError).  No pre-existing module was modified.
+
+heuristic_baseline (direct)  action seq: ['new', 'new', 'verify', 'new', 'new']
+heuristic_verify (build)     action seq: ['new', 'new', 'verify', 'new', 'new']
+byte-identical: True
+
+default build_policy(HEURISTIC_VERIFY) -> ReliabilityAwareActionPolicy
+joint strategy registered but standalone: raises NotImplementedError (expected)
+
+full unittest suite: 207 tests OK (see TEST_LOG.txt)
+RESULT: NO REGRESSION
