@@ -1,0 +1,19 @@
+=== Environment ===
+Python 3.13.13
+python 3.13.13 | packaged by conda-forge | (main, Apr  8 2026, 02:29:07) [Clang 19.1.7 ]
+platform macOS-26.4-arm64-arm-64bit-Mach-O
+machine arm64
+--- key packages ---
+numpy 2.4.6
+scipy 1.18.0
+sklearn 1.9.0
+joblib 1.6.0
+--- git ---
+0b9c26be268746f8ece461447d94d99a39003d26
+0b9c26b Add Phase 3A-7 verification-value and multi-step audits
+91268d7 Add retrieval joint gate and Phase 2A/2B/2C artifacts
+e661311 Add reliability-aware gating, joint decision policy, and gate learning
+e7b49bd change the style of equations
+4cf0672 first commit
+--- CPU ---
+18

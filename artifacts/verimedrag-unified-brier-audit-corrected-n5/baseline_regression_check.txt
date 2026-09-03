@@ -1,0 +1,4 @@
+Prompt #18 -- heuristic_baseline byte-identical regression
+reference: artifacts/verimedrag-worthiness-dropin-screen-n5/case_outcomes.csv
+compared trajectories: 1470; missing: 0; mismatches: 0
+RESULT: PASS

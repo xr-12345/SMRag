@@ -122,6 +122,8 @@ class ReliabilityAwarePolicyConfig:
     retrieval_top_k: int = 10
     query_disease_top_k: int = 5
     retrieval_gate_mode: RetrievalGateMode = RetrievalGateMode.RANK_ONLY
+    verification_audit_threshold: float = 0.03
+    verification_advantage_margin: float = 0.03
 
     def __post_init__(self) -> None:
         probabilities = (
@@ -138,6 +140,8 @@ class ReliabilityAwarePolicyConfig:
             self.reliability_information_weight,
             self.decision_impact_weight,
             self.retrieval_impact_weight,
+            self.verification_audit_threshold,
+            self.verification_advantage_margin,
         ) < 0:
             raise ValueError("policy costs and weights cannot be negative")
         if (

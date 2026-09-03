@@ -57,6 +57,8 @@ artifacts/**/*gate_predictions.csv
 artifacts/**/*_outcomes.csv
 artifacts/**/*_outcomes_normalized.csv
 artifacts/**/turn_observations.csv
+artifacts/**/turn_action_values.csv
+artifacts/**/reliability_predictions.csv
 artifacts/**/candidate_events.csv
 artifacts/**/paired_deltas_*.csv
 

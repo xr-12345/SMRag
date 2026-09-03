@@ -1,0 +1,325 @@
+diff --git a/src/powerful_medrag/decision.py b/src/powerful_medrag/decision.py
+index 8d43f56..d7ad716 100644
+--- a/src/powerful_medrag/decision.py
++++ b/src/powerful_medrag/decision.py
+@@ -122,6 +122,7 @@ class ReliabilityAwarePolicyConfig:
+     retrieval_top_k: int = 10
+     query_disease_top_k: int = 5
+     retrieval_gate_mode: RetrievalGateMode = RetrievalGateMode.RANK_ONLY
++    verification_audit_threshold: float = 0.03
+ 
+     def __post_init__(self) -> None:
+         probabilities = (
+@@ -138,6 +139,7 @@ class ReliabilityAwarePolicyConfig:
+             self.reliability_information_weight,
+             self.decision_impact_weight,
+             self.retrieval_impact_weight,
++            self.verification_audit_threshold,
+         ) < 0:
+             raise ValueError("policy costs and weights cannot be negative")
+         if (
+diff --git a/src/powerful_medrag/worthiness_policy.py b/src/powerful_medrag/worthiness_policy.py
+index c95ed49..e0c0d33 100644
+--- a/src/powerful_medrag/worthiness_policy.py
++++ b/src/powerful_medrag/worthiness_policy.py
+@@ -58,7 +58,7 @@ from .decision import (
+     ReliabilityAwarePolicyConfig,
+ )
+ from .questioning import QuestionScore
+-from .schema import FeatureKey, Observation, VariableSpec
++from .schema import UNKNOWN, FeatureKey, Observation, VariableSpec
+ from .verification_worthiness import (
+     BASE_FEATURES,
+     C_VERIFY,
+@@ -78,6 +78,7 @@ class WorthinessStrategy(str, Enum):
+     MODEL_BASED_VBAYES_VERIFY = "model_based_vbayes_verify"
+     LEARNED_WORTHINESS_FULL_RAG = "learned_worthiness_full_rag"
+     LEARNED_WORTHINESS_NO_RAG = "learned_worthiness_no_rag"
++    UNIFIED_BRIER_RELIABILITY_AUDIT = "unified_brier_reliability_audit"
+ 
+ 
+ # --------------------------------------------------------------------------- #
+@@ -470,6 +471,270 @@ class LearnedWorthinessPolicy(_UnifiedBrierPolicy):
+         return actions, logs
+ 
+ 
++# --------------------------------------------------------------------------- #
++# Unified-Brier reliability-audit policy (Phase 8A)
++# --------------------------------------------------------------------------- #
++
++
++class UnifiedBrierReliabilityAuditPolicy(ReliabilityAwareActionPolicy):
++    """Independent unified-Brier action value with an explicit pre-stop audit.
++
++    Sits alongside ``_UnifiedBrierPolicy`` but fixes its two theoretical gaps:
++
++    1. **AskNew on one Brier scale.**  Every still-unasked question is valued
++       by ``V_new(j) = R_B(b_t) - E_y[R_B(b_{t+1}^{j,y})] - C_new,j`` with the
++       per-question cost ``C_new,j = new_question_cost_weight * spec.cost_j``.
++       The chosen question is ``argmax_j V_new(j)`` (Brier-best), *not* the
++       EIG-best question valued in Brier units.  The EIG-best and Brier-best
++       keys are both recorded so their agreement is observable.
++
++    2. **Explicit VerifyOld audit before Stop.**  Every unverified, non-UNKNOWN
++       report is valued by ``verify_value`` (net ``V_verify``) and its gross
++       risk reduction ``G_verify = V_verify + C_verify``.  If
++       ``G_t^verify = max_i G_verify(i) >= verification_audit_threshold`` the
++       policy verifies ``argmax_i G_verify`` instead of stopping.
++
++    The action value reads only the belief, the fitted model, and the frozen
++    answer channel.  Retrieval still runs (``retriever`` / ``retrieval_mode``)
++    but its Jaccard reordering never enters the Brier value, so it is a pure
++    logging side effect here, not a clinical benefit.
++    """
++
++    def __init__(self, *args, **kwargs) -> None:
++        super().__init__(*args, **kwargs)
++        self.last_asknew_log: list[dict] = []
++        self.last_eig_best_key: FeatureKey | None = None
++        self.last_brier_best_key: FeatureKey | None = None
++        self._last_audit_g_verify: float | None = None
++        self._last_audit_argmax: int | None = None
++
++    # -- AskNew: enumerate every unasked question ---------------------------- #
++
++    def _asknew_brier_values(
++        self, tracker: BeliefTracker, asked: set[FeatureKey]
++    ) -> list[tuple[QuestionScore, VariableSpec, float]]:
++        values: list[tuple[QuestionScore, VariableSpec, float]] = []
++        for question in self.selector.rank(tracker, excluded=asked):
++            spec = tracker.model.specs[question.key]
++            c_new = self.config.new_question_cost_weight * spec.cost
++            v_new = asknew_value(
++                tracker, question.key, C_new=c_new, selector=self.selector
++            )
++            values.append((question, spec, v_new))
++        return values
++
++    # -- VerifyOld: every unverified, non-UNKNOWN report --------------------- #
++
++    def _verifyold_brier_values(
++        self,
++        tracker: BeliefTracker,
++        initial_observations: tuple[Observation, ...],
++        reports: tuple[Observation, ...],
++        verified_report_indices: set[int],
++    ) -> list[tuple[int, float, float]]:
++        values: list[tuple[int, float, float]] = []
++        for index, report in enumerate(reports):
++            if index in verified_report_indices or report.value == UNKNOWN:
++                continue
++            v_verify = verify_value(
++                tracker, reports, index, initial_observations,
++                C_verify=self.config.verification_cost,
++            )
++            g_verify = v_verify + self.config.verification_cost
++            values.append((index, v_verify, g_verify))
++        return values
++
++    # -- unified ranking ---------------------------------------------------- #
++
++    def rank_actions(
++        self,
++        tracker: BeliefTracker,
++        *,
++        initial_observations: tuple[Observation, ...],
++        reports: tuple[Observation, ...],
++        asked: set[FeatureKey],
++        verified_report_indices: set[int],
++        verification_count: int,
++        oracle_states: Mapping[FeatureKey, str] | None = None,
++        report_risks: tuple[float, ...] = (),
++    ) -> list[ActionScore]:
++        del oracle_states, report_risks  # prediction path never reads oracle/true state
++        actions: list[ActionScore] = []
++
++        asknew_values = self._asknew_brier_values(tracker, asked)
++        eig_best_key = asknew_values[0][0].key if asknew_values else None
++        brier_best_key = (
++            max(asknew_values, key=lambda entry: entry[2])[0].key
++            if asknew_values
++            else None
++        )
++        self.last_eig_best_key = eig_best_key
++        self.last_brier_best_key = brier_best_key
++
++        asknew_log: list[dict] = []
++        for question, spec, v_new in asknew_values:
++            actions.append(
++                ActionScore(
++                    kind=ActionKind.NEW,
++                    utility=v_new,
++                    disease_information_gain=question.expected_information_gain,
++                    decision_impact=question.expected_information_gain,
++                    burden=self.config.new_question_cost_weight * spec.cost,
++                    key=question.key,
++                    explanation=(
++                        "AskNew V_new = R_B(b_t) - E R_B(b_{t+1}) - C_new,j "
++                        "(Brier risk-reduction unit)"
++                    ),
++                )
++            )
++            asknew_log.append(
++                {
++                    "key": question.key.name,
++                    "expected_information_gain": round(
++                        float(question.expected_information_gain), 6
++                    ),
++                    "question_cost": round(float(spec.cost), 6),
++                    "v_new": round(v_new, 6),
++                    "is_eig_best": question.key == eig_best_key,
++                    "is_brier_best": question.key == brier_best_key,
++                }
++            )
++        self.last_asknew_log = asknew_log
++
++        verify_values: list[tuple[int, float, float]] = []
++        if verification_count < self.config.maximum_verifications:
++            verify_values = self._verifyold_brier_values(
++                tracker, initial_observations, reports, verified_report_indices
++            )
++        verification_log: list[dict] = []
++        for index, v_verify, g_verify in verify_values:
++            actions.append(
++                ActionScore(
++                    kind=ActionKind.VERIFY,
++                    utility=v_verify,
++                    burden=self.config.verification_cost,
++                    report_index=index,
++                    explanation=(
++                        "VerifyOld V_verify = R_B(b_t) - E R_B(b_{t+1}) - C_verify "
++                        "(Brier risk-reduction unit)"
++                    ),
++                )
++            )
++            verification_log.append(
++                {
++                    "report_index": index,
++                    "evidence_code": reports[index].key.name,
++                    "v_verify": round(v_verify, 6),
++                    "g_verify": round(g_verify, 6),
++                }
++            )
++        self.last_verification_log = verification_log
++
++        if verify_values:
++            self._last_audit_argmax = max(verify_values, key=lambda entry: entry[2])[0]
++            self._last_audit_g_verify = max(entry[2] for entry in verify_values)
++        else:
++            self._last_audit_argmax = None
++            self._last_audit_g_verify = None
++
++        return sorted(actions, key=lambda action: action.utility, reverse=True)
++
++    # -- pre-stop audit + stop decision ------------------------------------- #
++
++    def _audit_verify_old(self, verification_count: int) -> ActionScore | None:
++        if verification_count >= self.config.maximum_verifications:
++            return None
++        if self._last_audit_g_verify is None or self._last_audit_argmax is None:
++            return None
++        if self._last_audit_g_verify < self.config.verification_audit_threshold:
++            return None
++        return ActionScore(
++            kind=ActionKind.VERIFY,
++            utility=self._last_audit_g_verify - self.config.verification_cost,
++            burden=self.config.verification_cost,
++            report_index=self._last_audit_argmax,
++            explanation=(
++                "pre-stop VerifyOld audit: gross Brier risk reduction "
++                "G_t^verify exceeds verification_audit_threshold"
++            ),
++        )
++
++    def choose_action(
++        self,
++        tracker: BeliefTracker,
++        *,
++        initial_observations: tuple[Observation, ...],
++        reports: tuple[Observation, ...],
++        asked: set[FeatureKey],
++        verified_report_indices: set[int],
++        verification_count: int,
++        oracle_states: Mapping[FeatureKey, str] | None = None,
++        report_risks: tuple[float, ...] = (),
++    ) -> ActionScore:
++        del oracle_states  # deployable policy never reads oracle/true state
++        actions = self.rank_actions(
++            tracker,
++            initial_observations=initial_observations,
++            reports=reports,
++            asked=asked,
++            verified_report_indices=verified_report_indices,
++            verification_count=verification_count,
++            oracle_states=None,
++            report_risks=report_risks,
++        )
++        best = actions[0] if actions else None
++
++        all_report_scores = (
++            self._verification_scores(
++                tracker,
++                initial_observations=initial_observations,
++                reports=reports,
++                verified_report_indices=verified_report_indices,
++                report_risks=report_risks,
++            )
++            if reports
++            else []
++        )
++        suspicious = max((score.score for score in all_report_scores), default=0.0)
++
++        ranked = tracker.ranked_diseases()
++        top_probability = ranked[0][1]
++        margin = top_probability - (ranked[1][1] if len(ranked) > 1 else 0.0)
++        confidence_ready = (
++            top_probability >= self.config.posterior_threshold
++            or margin >= self.config.posterior_margin_threshold
++        )
++        utility_low = best is None or best.utility <= self.config.minimum_action_utility
++        reliability_ready = suspicious <= self.config.suspicious_report_threshold
++        safety_ready = (
++            self.safety_constraint is None
++            or self.safety_constraint.is_clear(tracker, asked)
++        )
++
++        if confidence_ready and utility_low and reliability_ready and safety_ready:
++            audited = self._audit_verify_old(verification_count)
++            if audited is not None:
++                return audited
++            return ActionScore(
++                kind=ActionKind.STOP,
++                utility=0.0,
++                explanation="confidence, marginal utility, and report-risk checks passed",
++            )
++        if best is not None and best.utility > 0:
++            return best
++        audited = self._audit_verify_old(verification_count)
++        if audited is not None:
++            return audited
++        return ActionScore(
++            kind=ActionKind.STOP,
++            utility=0.0,
++            explanation=(
++                "no positive-utility acquisition action or a reliability/safety "
++                "check remains; return uncertainty"
++            ),
++        )
++
++
+ # --------------------------------------------------------------------------- #
+ # Strategy factory
+ # --------------------------------------------------------------------------- #
+@@ -488,6 +753,8 @@ def build_policy(
+         return ReliabilityAwareActionPolicy(config=config, retriever=retriever)
+     if strategy is WorthinessStrategy.MODEL_BASED_VBAYES_VERIFY:
+         return ModelBasedVBayesPolicy(config=config, retriever=retriever)
++    if strategy is WorthinessStrategy.UNIFIED_BRIER_RELIABILITY_AUDIT:
++        return UnifiedBrierReliabilityAuditPolicy(config=config, retriever=retriever)
+     if strategy is WorthinessStrategy.LEARNED_WORTHINESS_FULL_RAG:
+         if worthiness_model is None:
+             worthiness_model = load_frozen_worthiness_model("real")
+ M src/powerful_medrag/decision.py
+ M src/powerful_medrag/worthiness_policy.py
+?? artifacts/verimedrag-unified-brier-audit/
+?? tests/test_unified_brier_audit.py

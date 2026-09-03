@@ -1,0 +1,51 @@
+{
+  "phase": "unified-brier-audit-corrected-n5",
+  "scope": "corrected unified-Brier audit (gross gain blocks Stop, not force VerifyOld) + global tau_A margin; N=5 validation screen",
+  "strategies": [
+    "heuristic_baseline",
+    "model_based_v_bayes",
+    "unified_brier_audit_forced_verify",
+    "unified_brier_audit_corrected",
+    "unified_brier_audit_corrected_dynamic_rag"
+  ],
+  "cases": 245,
+  "cases_per_disease": 5,
+  "noise_rates": [
+    0.2,
+    0.3
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "max_total_turns": 15,
+  "trajectories": 7350,
+  "manifest": "frozen N=20 manifest (first 5 per disease)",
+  "manifest_source": "artifacts/verimedrag-rag-joint-gate-confirmation-n20/validation_case_manifest.csv",
+  "frozen_params": {
+    "verification_audit_threshold": 0.03,
+    "verification_advantage_margin": 0.03,
+    "verification_cost": 0.03,
+    "new_question_cost_weight": 0.01,
+    "maximum_verifications": 1,
+    "max_total_turns": 15
+  },
+  "policy_by_strategy": {
+    "heuristic_baseline": "ReliabilityAwareActionPolicy (DYNAMIC_RAG, JOINT_GATE, minimum_action_utility=0.08)",
+    "model_based_v_bayes": "ModelBasedVBayesPolicy (NO_RAG, minimum_action_utility=0.03)",
+    "unified_brier_audit_forced_verify": "UnifiedBrierReliabilityAuditPolicy forced-verify ablation (NO_RAG, minimum_action_utility=0.03)",
+    "unified_brier_audit_corrected": "CorrectedUnifiedBrierAuditPolicy (NO_RAG, minimum_action_utility=0.03)",
+    "unified_brier_audit_corrected_dynamic_rag": "CorrectedUnifiedBrierAuditPolicy (DYNAMIC_RAG, minimum_action_utility=0.03)"
+  },
+  "red_lines": [
+    "no test split",
+    "no retraining",
+    "no feature/model change",
+    "no threshold sweep",
+    "no true state in prediction",
+    "no oracle",
+    "RAG never enters Brier value",
+    "no git commit"
+  ]
+}
