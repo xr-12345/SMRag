@@ -1,0 +1,8 @@
+test_19_old_simulator_unchanged_byte_identical (tests.test_joint_patient_simulator.TestLeakageAndRegression.test_19_old_simulator_unchanged_byte_identical) ... ok
+test_20_heuristic_baseline_byte_identical (tests.test_joint_patient_simulator.TestLeakageAndRegression.test_20_heuristic_baseline_byte_identical) ... ok
+test_16_heuristic_baseline_byte_identical (tests.test_unified_brier_audit_corrected.TestRedLines.test_16_heuristic_baseline_byte_identical) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.004s
+
+OK

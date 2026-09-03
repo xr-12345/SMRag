@@ -1,0 +1,243 @@
+{
+  "phase": "8C",
+  "description": "mechanism smoke: correlated re-ask simulator vs joint channel",
+  "n_seeds_for_probability_tables": 20000,
+  "max_absolute_probability_error": 0.005191,
+  "max_error_cell": {
+    "true_state": "present",
+    "rho": 0.5,
+    "first_answer": "present",
+    "second_answer": "present"
+  },
+  "simulator_mode_chain_demo": {
+    "rho_env_0_chain": [
+      "certain",
+      "certain",
+      "uncertain",
+      "certain",
+      "certain",
+      "uncertain"
+    ],
+    "rho_env_1_chain": [
+      "certain",
+      "certain",
+      "certain",
+      "certain",
+      "certain",
+      "certain"
+    ],
+    "note": "rho_env=1 -> every subsequent mode equals the first; rho_env=0 -> independent draws from the mode prior."
+  },
+  "cases": [
+    {
+      "case": "A",
+      "rho_env": 0.0,
+      "rho_model": 0.0,
+      "true_state": "present",
+      "first_answer": "present",
+      "second_answer": "present",
+      "simulator_sampled_answers": [
+        "present",
+        "present"
+      ],
+      "true_mode_chain": [
+        "certain",
+        "certain"
+      ],
+      "disease_belief_before_verification": {
+        "allergic_rhinitis": 0.098038,
+        "common_cold": 0.190149,
+        "influenza": 0.711812
+      },
+      "disease_belief_after_verification": {
+        "allergic_rhinitis": 0.072022,
+        "common_cold": 0.174318,
+        "influenza": 0.75366
+      },
+      "p_mode_before_verification": 0.047145,
+      "p_mode_after_verification": 0.005043,
+      "p_wrong_before_verification": 0.066669,
+      "p_wrong_after_verification": 0.003686,
+      "reask_predictive": {
+        "absent": 0.099255,
+        "present": 0.808445,
+        "__unknown__": 0.0923
+      },
+      "brier_risk_before": 0.447555,
+      "brier_risk_after": 0.396423,
+      "posterior_entropy_before": 0.785295,
+      "posterior_entropy_after": 0.707132,
+      "joint_likelihood": 0.66293239,
+      "independent_product_likelihood": 0.5998154,
+      "joint_over_independent_ratio": 1.105227
+    },
+    {
+      "case": "B",
+      "rho_env": 0.9,
+      "rho_model": 0.9,
+      "true_state": "present",
+      "first_answer": "present",
+      "second_answer": "present",
+      "simulator_sampled_answers": [
+        "present",
+        "present"
+      ],
+      "true_mode_chain": [
+        "certain",
+        "certain"
+      ],
+      "disease_belief_before_verification": {
+        "allergic_rhinitis": 0.098038,
+        "common_cold": 0.190149,
+        "influenza": 0.711812
+      },
+      "disease_belief_after_verification": {
+        "allergic_rhinitis": 0.086108,
+        "common_cold": 0.182889,
+        "influenza": 0.731002
+      },
+      "p_mode_before_verification": 0.047145,
+      "p_mode_after_verification": 0.037417,
+      "p_wrong_before_verification": 0.066669,
+      "p_wrong_after_verification": 0.037787,
+      "reask_predictive": {
+        "absent": 0.041719,
+        "present": 0.930202,
+        "__unknown__": 0.028079
+      },
+      "brier_risk_before": 0.447555,
+      "brier_risk_after": 0.424772,
+      "posterior_entropy_before": 0.785295,
+      "posterior_entropy_after": 0.750908,
+      "joint_likelihood": 0.73984242,
+      "independent_product_likelihood": 0.5998154,
+      "joint_over_independent_ratio": 1.23345
+    },
+    {
+      "case": "C",
+      "rho_env": 0.9,
+      "rho_model": 0.0,
+      "true_state": "present",
+      "first_answer": "present",
+      "second_answer": "present",
+      "simulator_sampled_answers": [
+        "present",
+        "present"
+      ],
+      "true_mode_chain": [
+        "certain",
+        "certain"
+      ],
+      "disease_belief_before_verification": {
+        "allergic_rhinitis": 0.098038,
+        "common_cold": 0.190149,
+        "influenza": 0.711812
+      },
+      "disease_belief_after_verification": {
+        "allergic_rhinitis": 0.072022,
+        "common_cold": 0.174318,
+        "influenza": 0.75366
+      },
+      "p_mode_before_verification": 0.047145,
+      "p_mode_after_verification": 0.005043,
+      "p_wrong_before_verification": 0.066669,
+      "p_wrong_after_verification": 0.003686,
+      "reask_predictive": {
+        "absent": 0.099255,
+        "present": 0.808445,
+        "__unknown__": 0.0923
+      },
+      "brier_risk_before": 0.447555,
+      "brier_risk_after": 0.396423,
+      "posterior_entropy_before": 0.785295,
+      "posterior_entropy_after": 0.707132,
+      "joint_likelihood": 0.66293239,
+      "independent_product_likelihood": 0.5998154,
+      "joint_over_independent_ratio": 1.105227
+    },
+    {
+      "case": "D",
+      "rho_env": 0.0,
+      "rho_model": 0.5,
+      "true_state": "present",
+      "first_answer": "present",
+      "second_answer": "present",
+      "simulator_sampled_answers": [
+        "present",
+        "present"
+      ],
+      "true_mode_chain": [
+        "certain",
+        "certain"
+      ],
+      "disease_belief_before_verification": {
+        "allergic_rhinitis": 0.098038,
+        "common_cold": 0.190149,
+        "influenza": 0.711812
+      },
+      "disease_belief_after_verification": {
+        "allergic_rhinitis": 0.080331,
+        "common_cold": 0.179374,
+        "influenza": 0.740295
+      },
+      "p_mode_before_verification": 0.047145,
+      "p_mode_after_verification": 0.02414,
+      "p_wrong_before_verification": 0.066669,
+      "p_wrong_after_verification": 0.023801,
+      "reask_predictive": {
+        "absent": 0.06729,
+        "present": 0.876088,
+        "__unknown__": 0.056622
+      },
+      "brier_risk_before": 0.447555,
+      "brier_risk_after": 0.413335,
+      "posterior_entropy_before": 0.785295,
+      "posterior_entropy_after": 0.73339,
+      "joint_likelihood": 0.70566018,
+      "independent_product_likelihood": 0.5998154,
+      "joint_over_independent_ratio": 1.176462
+    },
+    {
+      "case": "E",
+      "rho_env": 0.9,
+      "rho_model": 0.9,
+      "true_state": "present",
+      "first_answer": "absent",
+      "second_answer": "present",
+      "simulator_sampled_answers": [
+        "present",
+        "present"
+      ],
+      "true_mode_chain": [
+        "certain",
+        "certain"
+      ],
+      "disease_belief_before_verification": {
+        "allergic_rhinitis": 0.474148,
+        "common_cold": 0.419023,
+        "influenza": 0.106829
+      },
+      "disease_belief_after_verification": {
+        "allergic_rhinitis": 0.338811,
+        "common_cold": 0.336667,
+        "influenza": 0.324522
+      },
+      "p_mode_before_verification": 0.017824,
+      "p_mode_after_verification": 0.171965,
+      "p_wrong_before_verification": 0.022806,
+      "p_wrong_after_verification": 0.350442,
+      "reask_predictive": {
+        "absent": 0.94914,
+        "present": 0.025363,
+        "__unknown__": 0.025497
+      },
+      "brier_risk_before": 0.588191,
+      "brier_risk_after": 0.666548,
+      "posterior_entropy_before": 0.957231,
+      "posterior_entropy_after": 1.098433,
+      "joint_likelihood": 0.01496435,
+      "independent_product_likelihood": 0.15042096,
+      "joint_over_independent_ratio": 0.099483
+    }
+  ]
+}

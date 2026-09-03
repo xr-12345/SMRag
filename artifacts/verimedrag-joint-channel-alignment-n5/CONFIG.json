@@ -1,0 +1,75 @@
+{
+  "phase": "joint-channel-alignment-n5",
+  "scope": "correlated re-ask simulator (rho_env) vs joint inference (rho_model) alignment; N=5 validation screen",
+  "strategies": [
+    "heuristic_baseline",
+    "unified_brier_audit_corrected",
+    "joint_channel_brier_audit"
+  ],
+  "rho_scenarios": [
+    {
+      "rho_env": 0.0,
+      "rho_model": 0.0,
+      "label": "matched_0_0"
+    },
+    {
+      "rho_env": 0.5,
+      "rho_model": 0.5,
+      "label": "matched_0.5_0.5"
+    },
+    {
+      "rho_env": 0.9,
+      "rho_model": 0.9,
+      "label": "matched_0.9_0.9"
+    },
+    {
+      "rho_env": 0.0,
+      "rho_model": 0.5,
+      "label": "mismatched_0_0.5"
+    },
+    {
+      "rho_env": 0.9,
+      "rho_model": 0.5,
+      "label": "mismatched_0.9_0.5"
+    }
+  ],
+  "cases": 245,
+  "cases_per_disease": 5,
+  "noise_rates": [
+    0.2,
+    0.3
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "max_total_turns": 15,
+  "manifest": "frozen N=20 manifest (first 5 per disease)",
+  "manifest_source": "artifacts/verimedrag-rag-joint-gate-confirmation-n20/validation_case_manifest.csv",
+  "frozen_params": {
+    "verification_audit_threshold": 0.03,
+    "verification_advantage_margin": 0.03,
+    "verification_cost": 0.03,
+    "new_question_cost_weight": 0.01,
+    "maximum_verifications": 1,
+    "max_total_turns": 15
+  },
+  "policy_by_strategy": {
+    "heuristic_baseline": "ReliabilityAwareActionPolicy (DYNAMIC_RAG, JOINT_GATE, minimum_action_utility=0.08)",
+    "unified_brier_audit_corrected": "CorrectedUnifiedBrierAuditPolicy (NO_RAG, minimum_action_utility=0.03)",
+    "joint_channel_brier_audit": "JointChannelBrierAuditPolicy (standalone, no RAG, minimum_action_utility=0.03; rho_model per scenario)"
+  },
+  "red_lines": [
+    "no test split",
+    "no rho fitted from data",
+    "no retraining",
+    "no feature/model change",
+    "no threshold sweep",
+    "no true state in prediction",
+    "no oracle",
+    "no N=20",
+    "RAG never enters the joint Brier value",
+    "no git commit"
+  ]
+}

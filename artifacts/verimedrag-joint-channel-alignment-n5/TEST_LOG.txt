@@ -1,0 +1,40 @@
+test_05_benefit_label_sign (test_verification_worthiness.TestLabels.test_05_benefit_label_sign) ... ok
+test_09_matched_budget_gives_equal_triggers (test_verification_worthiness.TestMatchedBudget.test_09_matched_budget_gives_equal_triggers) ... ok
+test_06_features_invariant_to_latent_true_disease_noise (test_verification_worthiness.TestNoOracle.test_06_features_invariant_to_latent_true_disease_noise) ... ok
+test_10_default_policy_unchanged (test_verification_worthiness.TestPolicyScope.test_10_default_policy_unchanged) ... ok
+test_11_asknew_keeps_eig (test_verification_worthiness.TestPolicyScope.test_11_asknew_keeps_eig) ... ok
+test_12_serialize_load_predict_same (test_verification_worthiness.TestSerialize.test_12_serialize_load_predict_same) ... ok
+test_08_shuffled_rag_preserves_marginals (test_verification_worthiness.TestShuffle.test_08_shuffled_rag_preserves_marginals) ... ok
+test_08b_build_feature_matrix_shuffled_matches_shuffle (test_verification_worthiness.TestShuffle.test_08b_build_feature_matrix_shuffled_matches_shuffle) ... ok
+test_02_case_grouped_split_no_overlap (test_verification_worthiness.TestSplit.test_02_case_grouped_split_no_overlap) ... ok
+test_02_learned_cannot_change_asknew (test_worthiness_dropin.TestControllerIsolation.test_02_learned_cannot_change_asknew) ... ok
+test_03_learned_cannot_change_stop (test_worthiness_dropin.TestControllerIsolation.test_03_learned_cannot_change_stop) ... ok
+test_04_learned_never_opens_a_new_verify (test_worthiness_dropin.TestControllerIsolation.test_04_learned_never_opens_a_new_verify) ... ok
+test_13_default_strategy_stays_heuristic (test_worthiness_dropin.TestDefaultStaysHeuristic.test_13_default_strategy_stays_heuristic) ... ok
+test_01_heuristic_baseline_regression_identical (test_worthiness_dropin.TestDropinBaseline.test_01_heuristic_baseline_regression_identical) ... ok
+test_07_filter_replaces_verify_with_asknew_not_stop (test_worthiness_dropin.TestFilter.test_07_filter_replaces_verify_with_asknew_not_stop) ... ok
+test_08_filter_still_consumes_one_atomic_question (test_worthiness_dropin.TestFilter.test_08_filter_still_consumes_one_atomic_question) ... ok
+test_12_frozen_model_load_predict_consistent (test_worthiness_dropin.TestFrozenModels.test_12_frozen_model_load_predict_consistent) ... ok
+test_11_prediction_path_reads_no_true_state (test_worthiness_dropin.TestNoTrueState.test_11_prediction_path_reads_no_true_state) ... ok
+test_09_full_model_uses_rag_features (test_worthiness_dropin.TestRagSplit.test_09_full_model_uses_rag_features) ... ok
+test_10_norag_model_ignores_rag_features (test_worthiness_dropin.TestRagSplit.test_10_norag_model_ignores_rag_features) ... ok
+test_05_rerank_only_changes_report_index (test_worthiness_dropin.TestRerank.test_05_rerank_only_changes_report_index) ... ok
+test_06_rerank_falls_back_when_no_safe_candidate (test_worthiness_dropin.TestRerank.test_06_rerank_falls_back_when_no_safe_candidate) ... ok
+test_11_heuristic_baseline_regression_identical (test_worthiness_policy.TestBaseline.test_11_heuristic_baseline_regression_identical) ... ok
+test_13_default_strategy_stays_heuristic (test_worthiness_policy.TestDefaultStaysHeuristic.test_13_default_strategy_stays_heuristic) ... ok
+test_12_missing_model_fails_loudly (test_worthiness_policy.TestFailLoudly.test_12_missing_model_fails_loudly) ... ok
+test_02_feature_schema_order_matches_json (test_worthiness_policy.TestFeatureSchema.test_02_feature_schema_order_matches_json) ... ok
+test_01_frozen_models_load_with_expected_metadata (test_worthiness_policy.TestFrozenModels.test_01_frozen_models_load_with_expected_metadata) ... ok
+test_03_gain_gate_blocks_nonpositive_net_value (test_worthiness_policy.TestGates.test_03_gain_gate_blocks_nonpositive_net_value) ... ok
+test_04_harm_gate_blocks_high_harm (test_worthiness_policy.TestGates.test_04_harm_gate_blocks_high_harm) ... ok
+test_05_both_gates_required (test_worthiness_policy.TestGates.test_05_both_gates_required) ... ok
+test_08_prediction_path_reads_no_true_state (test_worthiness_policy.TestNoTrueState.test_08_prediction_path_reads_no_true_state) ... ok
+test_09_no_rag_uses_no_retrieval_features (test_worthiness_policy.TestRagSplit.test_09_no_rag_uses_no_retrieval_features) ... ok
+test_10_full_rag_uses_real_retrieval (test_worthiness_policy.TestRagSplit.test_10_full_rag_uses_real_retrieval) ... ok
+test_06_asknew_selected_by_eig_not_vbayes (test_worthiness_policy.TestUnifiedComparison.test_06_asknew_selected_by_eig_not_vbayes) ... ok
+test_07_cross_type_comparison_uses_brier_units (test_worthiness_policy.TestUnifiedComparison.test_07_cross_type_comparison_uses_brier_units) ... ok
+
+----------------------------------------------------------------------
+Ran 229 tests in 41.362s
+
+OK

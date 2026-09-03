@@ -1,0 +1,13 @@
+=== git rev ===
+0b9c26be268746f8ece461447d94d99a39003d26
+=== python ===
+Python 3.13.13
+=== platform ===
+Darwin xr-12345deMacBook-Pro.local 25.4.0 Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:50 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6050 arm64
+=== cpu count ===
+18
+=== memory ===
+64.0 GB
+=== installed pkgs (key) ===
+numpy 2.4.6
+python 3.13.13 | packaged by conda-forge | (main, Apr  8 2026, 02:29:07) [Clang 19.1.7 ]

@@ -1,0 +1,4 @@
+strategy,rho_env,rho_model,scenario,n,top1_accuracy,top3_accuracy,mean_brier,mean_nll,mean_confidence,ece,mean_posterior_entropy,mean_new_questions,mean_verification_questions,mean_total_turns,unnecessary_verifications,resolved_wrong_reports,correct_to_wrong_flips,wrong_to_correct_flips,premature_stop,uncertain_output
+joint_channel_brier_audit,0.0,0.0,matched_0_0,1470,0.780952,0.859184,0.291447,0.876289,0.823225,0.042659,0.657692,8.9599,0.4925,9.4524,456,235,17,51,55,0
+joint_channel_brier_audit,0.5,0.5,matched_0.5_0.5,1470,0.771429,0.851701,0.309562,0.917354,0.820852,0.050881,0.664533,9.8912,0.1,9.9912,74,48,3,17,58,0
+joint_channel_brier_audit,0.9,0.9,matched_0.9_0.9,1470,0.772109,0.85102,0.307758,0.914662,0.82052,0.050087,0.66215,9.9272,0.0646,9.9918,40,17,3,18,60,0
