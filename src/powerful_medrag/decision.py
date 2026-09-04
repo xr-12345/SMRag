@@ -64,6 +64,22 @@ class RetrievalGateMode(str, Enum):
     JOINT_GATE = "joint_gate"
 
 
+class StopAuditMode(str, Enum):
+    """How the joint policy's reliability check gates a confident Stop.
+
+    * ``HARD_PROBABILITY_GATE`` — Stop is blocked while any asked feature's
+      joint misreport posterior ``p_i^mode`` exceeds ``suspicious_report_threshold``
+      (the pre-Phase-22A behaviour; the default, so old results reproduce).
+    * ``DECISION_VALUE_AUDIT`` — Stop is blocked while the gross verification
+      gain ``G_t^verify = max_i (R_B(b_t) - E_{y'} R_B(b_{t+1}^{(i,y')}))``
+      exceeds ``verification_audit_threshold``; ``max p_mode`` is logged only and
+      no longer gates Stop on its own.
+    """
+
+    HARD_PROBABILITY_GATE = "hard_probability_gate"
+    DECISION_VALUE_AUDIT = "decision_value_audit"
+
+
 class SafetyConstraint(Protocol):
     """Dataset-supplied safety rule; this repository provides no default labels."""
 
@@ -124,6 +140,7 @@ class ReliabilityAwarePolicyConfig:
     retrieval_gate_mode: RetrievalGateMode = RetrievalGateMode.RANK_ONLY
     verification_audit_threshold: float = 0.03
     verification_advantage_margin: float = 0.03
+    stop_audit_mode: StopAuditMode = StopAuditMode.HARD_PROBABILITY_GATE
 
     def __post_init__(self) -> None:
         probabilities = (

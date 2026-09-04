@@ -31,6 +31,7 @@ from .decision import (
     PolicyTurn,
     ReliabilityAwareDialogueResult,
     ReliabilityAwarePolicyConfig,
+    StopAuditMode,
 )
 from .estimation import DiseaseStateModel
 from .joint_reliability_belief import JointReliabilityBeliefTracker
@@ -82,6 +83,20 @@ class JointChannelBrierAuditPolicy:
     def _verification_count(self) -> int:
         return sum(1 for bundle in self.tracker.memory.values() if bundle.is_verified)
 
+    def _max_p_wrong(self) -> float | None:
+        """``max_i p_i^wrong`` over asked features, skipping UNKNOWN non-responses.
+
+        ``p_wrong`` is ``None`` for a first answer of ``UNKNOWN``; those rows are
+        excluded (never coerced to 0.0 or 1.0).  Returns ``None`` when no asked
+        feature has an explicit answer.
+        """
+        values = []
+        for key in self.asked:
+            wrong = self.tracker.p_wrong(key)
+            if wrong is not None:
+                values.append(wrong)
+        return max(values) if values else None
+
     # -- AskNew: every unasked question on the Brier scale ------------------- #
 
     def _asknew_value(self, key: FeatureKey) -> float:
@@ -109,7 +124,14 @@ class JointChannelBrierAuditPolicy:
 
     # -- VerifyOld: every unverified, non-UNKNOWN report --------------------- #
 
-    def _verify_value(self, key: FeatureKey) -> float:
+    def gross_verify_gain(self, key: FeatureKey) -> float:
+        """``G_i^verify = R_B(b_t) - E_{y'} R_B(b_{t+1}^{(i,y')})``.
+
+        The expected Brier-risk reduction of verifying ``key``, **before** the
+        verification cost.  This is what the ``decision_value_audit`` stop mode
+        compares against ``verification_audit_threshold``; it must never have the
+        cost subtracted (see :meth:`net_verify_value`).
+        """
         current_risk = brier_risk(self.tracker.belief)
         distribution = self.tracker.reask_predictive(key)
         expected_risk = 0.0
@@ -118,7 +140,19 @@ class JointChannelBrierAuditPolicy:
                 key, Observation(key=key, value=answer, certainty=CertaintyCue.NONE)
             )
             expected_risk += probability * brier_risk(posterior)
-        return current_risk - expected_risk - self.config.verification_cost
+        return current_risk - expected_risk
+
+    def net_verify_value(self, key: FeatureKey) -> float:
+        """``V_verify(i) = G_i^verify - C_verify``.
+
+        The net VerifyOld value used in the AskNew / VerifyOld action comparison;
+        the gross gain with the verification cost subtracted.
+        """
+        return self.gross_verify_gain(key) - self.config.verification_cost
+
+    def _verify_value(self, key: FeatureKey) -> float:
+        """Backward-compatible alias for :meth:`net_verify_value`."""
+        return self.net_verify_value(key)
 
     def _verifyold_brier_values(self) -> list[tuple[FeatureKey, float, float]]:
         if self._verification_count() >= self.config.maximum_verifications:
@@ -127,8 +161,8 @@ class JointChannelBrierAuditPolicy:
         for key, bundle in self.tracker.memory.items():
             if bundle.is_verified or bundle.original.value == UNKNOWN:
                 continue
-            v_verify = self._verify_value(key)
-            g_verify = v_verify + self.config.verification_cost
+            g_verify = self.gross_verify_gain(key)
+            v_verify = g_verify - self.config.verification_cost
             values.append((key, v_verify, g_verify))
         return values
 
@@ -209,6 +243,7 @@ class JointChannelBrierAuditPolicy:
             (self.tracker.p_mode_misreported(key) for key in self.asked),
             default=0.0,
         )
+        max_p_wrong = self._max_p_wrong()
 
         ranked = self.tracker.ranked_diseases()
         top_probability = ranked[0][1]
@@ -218,13 +253,12 @@ class JointChannelBrierAuditPolicy:
             or margin >= self.config.posterior_margin_threshold
         )
         utility_low = best is None or best.utility <= self.config.minimum_action_utility
-        reliability_ready = max_mode_misreport <= self.config.suspicious_report_threshold
+        probability_gate_ready = (
+            max_mode_misreport <= self.config.suspicious_report_threshold
+        )
         safety_ready = (
             self.safety_constraint is None
             or self.safety_constraint.is_clear(self.tracker, self.asked)
-        )
-        base_stop_ready = (
-            confidence_ready and utility_low and reliability_ready and safety_ready
         )
 
         verification_count = self._verification_count()
@@ -234,13 +268,51 @@ class JointChannelBrierAuditPolicy:
             and verification_count < self.config.maximum_verifications
             else 0.0
         )
-        audit_blocks_stop = (
+        gross_gain_audit_blocks = (
             best_verify is not None
             and verification_count < self.config.maximum_verifications
             and max_gross_verify_gain > self.config.verification_audit_threshold
         )
 
+        mode = self.config.stop_audit_mode
+        if mode is StopAuditMode.HARD_PROBABILITY_GATE:
+            # Old behaviour exactly: Stop needs BOTH the joint-misreport gate
+            # (max p_mode <= tau_p) AND the gross-gain audit (G <= tau_V).
+            stop_reliability_ready = (
+                probability_gate_ready and not gross_gain_audit_blocks
+            )
+        elif mode is StopAuditMode.DECISION_VALUE_AUDIT:
+            # New behaviour: only the gross verification gain gates Stop;
+            # max p_mode is logged but no longer a stop condition.
+            stop_reliability_ready = (
+                max_gross_verify_gain <= self.config.verification_audit_threshold
+            )
+        else:  # pragma: no cover - defensive against future enum values
+            raise ValueError(f"unknown stop audit mode: {mode!r}")
+
+        # Backward-compatible combined readiness (old-mode semantics).
+        reliability_ready = probability_gate_ready
+        audit_blocks_stop = gross_gain_audit_blocks
+        base_stop_ready = (
+            confidence_ready and utility_low and reliability_ready and safety_ready
+        )
+        stop_ready = (
+            confidence_ready and utility_low and stop_reliability_ready and safety_ready
+        )
+
+        if not confidence_ready:
+            stop_block_reason = "confidence"
+        elif not stop_reliability_ready:
+            stop_block_reason = "reliability"
+        elif not utility_low:
+            stop_block_reason = "utility"
+        elif not safety_ready:
+            stop_block_reason = "safety"
+        else:
+            stop_block_reason = None
+
         self.last_decision_log = {
+            # Backward-compatible fields (Phase 8A/8B/8C).
             "best_new_key": (best_new.key.name if best_new is not None else None),
             "best_new_net_value": (
                 round(best_new.utility, 6) if best_new is not None else None
@@ -261,15 +333,37 @@ class JointChannelBrierAuditPolicy:
             "verification_advantage_margin": self.config.verification_advantage_margin,
             "base_stop_ready": base_stop_ready,
             "audit_blocks_stop": audit_blocks_stop,
+            # Phase 22A decision-value-audit fields.
+            "stop_audit_mode": mode.value,
+            "posterior_confidence": round(top_probability, 6),
+            "posterior_margin": round(margin, 6),
+            "max_p_mode": round(max_mode_misreport, 6),
+            "max_p_wrong": (round(max_p_wrong, 6) if max_p_wrong is not None else None),
+            "max_gross_verify_gain": round(max_gross_verify_gain, 6),
+            "best_net_verify_value": (
+                round(best_verify.utility, 6) if best_verify is not None else None
+            ),
+            "best_net_new_value": (
+                round(best_new.utility, 6) if best_new is not None else None
+            ),
+            "stop_confidence_ready": confidence_ready,
+            "stop_reliability_ready": stop_reliability_ready,
+            "stop_utility_ready": utility_low,
+            "stop_safety_ready": safety_ready,
+            "stop_ready": stop_ready,
+            "stop_block_reason": stop_block_reason,
         }
 
-        if base_stop_ready and not audit_blocks_stop:
+        if stop_ready:
             self.last_decision_log["chosen_action"] = ActionKind.STOP.value
+            self.last_decision_log["chosen_index"] = None
             return ActionScore(
                 kind=ActionKind.STOP,
                 utility=0.0,
                 explanation=(
                     "confidence, marginal utility, and joint-misreport checks passed"
+                    if mode is StopAuditMode.HARD_PROBABILITY_GATE
+                    else "confidence, marginal utility, and decision-value checks passed"
                 ),
             )
 
@@ -279,16 +373,21 @@ class JointChannelBrierAuditPolicy:
                 > best_new.utility + self.config.verification_advantage_margin
             ):
                 self.last_decision_log["chosen_action"] = ActionKind.VERIFY.value
+                self.last_decision_log["chosen_index"] = best_verify.key.token
                 return best_verify
             self.last_decision_log["chosen_action"] = ActionKind.NEW.value
+            self.last_decision_log["chosen_index"] = best_new.key.token
             return best_new
         if best_new is not None:
             self.last_decision_log["chosen_action"] = ActionKind.NEW.value
+            self.last_decision_log["chosen_index"] = best_new.key.token
             return best_new
         if best_verify is not None and best_verify.utility > 0:
             self.last_decision_log["chosen_action"] = ActionKind.VERIFY.value
+            self.last_decision_log["chosen_index"] = best_verify.key.token
             return best_verify
         self.last_decision_log["chosen_action"] = ActionKind.STOP.value
+        self.last_decision_log["chosen_index"] = None
         return ActionScore(
             kind=ActionKind.STOP,
             utility=0.0,
