@@ -1,0 +1,56 @@
+{
+  "phase": "decision-sensitive-stop-n5",
+  "scope": "4-group matched-0/0 N=5 validation screen: stop-audit mode x report-mode prior",
+  "strategies": {
+    "L-H": "legacy prior + hard probability gate",
+    "P-H": "protocol_fixed prior + hard probability gate",
+    "L-V": "legacy prior + decision value audit",
+    "P-V": "protocol_fixed prior + decision value audit"
+  },
+  "scenario": {
+    "rho_env": 0.0,
+    "rho_model": 0.0
+  },
+  "cases": 245,
+  "cases_per_disease": 5,
+  "noise_rates": [
+    0.2,
+    0.3
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "max_total_turns": 15,
+  "manifest_source": "artifacts/verimedrag-rag-joint-gate-confirmation-n20/validation_case_manifest.csv",
+  "protocol_fixed_prior": {
+    "CERTAIN": 0.75,
+    "UNCERTAIN": 0.1,
+    "UNKNOWN": 0.075,
+    "MISREPORTED": 0.075
+  },
+  "frozen_params": {
+    "posterior_threshold": 0.85,
+    "posterior_margin_threshold": 0.7,
+    "minimum_action_utility": 0.03,
+    "suspicious_report_threshold": 0.05,
+    "new_question_cost_weight": 0.01,
+    "verification_cost": 0.03,
+    "maximum_verifications": 1,
+    "verification_audit_threshold": 0.03,
+    "verification_advantage_margin": 0.03,
+    "max_total_turns": 15
+  },
+  "red_lines": [
+    "no test split",
+    "no N=20",
+    "no retraining",
+    "no RAG change",
+    "no threshold/prior sweep",
+    "no learned gate",
+    "no LLM/SFT/RL",
+    "no true state in prediction",
+    "no git commit"
+  ]
+}

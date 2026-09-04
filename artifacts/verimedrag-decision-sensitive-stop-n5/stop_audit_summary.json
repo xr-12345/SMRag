@@ -1,0 +1,50 @@
+{
+  "blocker_counts": {
+    "L-H": {
+      "hard_gate_only": 6256,
+      "value_audit_only": 102,
+      "both": 5312,
+      "reliability_blocked": 3366
+    },
+    "P-H": {
+      "hard_gate_only": 13248,
+      "value_audit_only": 0,
+      "both": 6502,
+      "reliability_blocked": 7755
+    },
+    "L-V": {
+      "hard_gate_only": 4311,
+      "value_audit_only": 102,
+      "both": 5249,
+      "reliability_blocked": 1037
+    },
+    "P-V": {
+      "hard_gate_only": 6912,
+      "value_audit_only": 0,
+      "both": 6283,
+      "reliability_blocked": 604
+    }
+  },
+  "gross_block_action_split": {
+    "L-H": {
+      "gross_block_turns": 5414,
+      "gross_block_verify": 724,
+      "gross_block_new": 4690
+    },
+    "P-H": {
+      "gross_block_turns": 6502,
+      "gross_block_verify": 834,
+      "gross_block_new": 5668
+    },
+    "L-V": {
+      "gross_block_turns": 5351,
+      "gross_block_verify": 700,
+      "gross_block_new": 4651
+    },
+    "P-V": {
+      "gross_block_turns": 6283,
+      "gross_block_verify": 767,
+      "gross_block_new": 5516
+    }
+  }
+}

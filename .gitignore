@@ -58,6 +58,8 @@ artifacts/**/*_outcomes.csv
 artifacts/**/*_outcomes_normalized.csv
 artifacts/**/turn_observations.csv
 artifacts/**/turn_action_values.csv
+artifacts/**/turn_decision_logs.csv
+artifacts/**/stop_audit_events.csv
 artifacts/**/reliability_predictions.csv
 artifacts/**/candidate_events.csv
 artifacts/**/paired_deltas_*.csv

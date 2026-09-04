@@ -1,0 +1,22 @@
+Phase 22B — Environment (decision-sensitive-stop-n5)
+====================================================
+
+python:  3.13.13 | packaged by conda-forge | (main, Apr 8 2026, 02:29:07) [Clang 19.1.7 ]
+  interpreter: /Users/xr-12345/miniforge3/bin/python3
+numpy:   2.4.6
+scipy:   1.18.0
+
+platform: darwin (Darwin 25.4.0)
+git:      branch=main  user=xr-12345  (no commit — red line)
+
+data:
+  model:  data/ddxplus/model-full.json (49 diseases)
+  validate manifest: artifacts/verimedrag-rag-joint-gate-confirmation-n20/validation_case_manifest.csv
+  cases:  245 (5 per disease, frozen N=20 manifest first-5)
+
+run:
+  trajectories: 5880 (4 strategies x 245 cases x 2 noise x 3 seeds)
+  workers: 16 (fork pool, chunksize=4)
+  elapsed: 2136.2 s
+  mean wall / dialogue: 5.78 s
+  peak RSS: 342.5 MB

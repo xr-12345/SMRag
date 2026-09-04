@@ -1,0 +1,485 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 214139b..1354f8f 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -14,6 +14,7 @@ dependencies = []
+ 
+ [project.optional-dependencies]
+ experiment = ["matplotlib>=3.7", "numpy>=1.24"]
++learning = ["scikit-learn>=1.3", "joblib>=1.3", "numpy>=1.24"]
+ 
+ [project.scripts]
+ powerful-medrag = "powerful_medrag.cli:main"
+diff --git a/src/powerful_medrag/channel.py b/src/powerful_medrag/channel.py
+index 0fe1a20..79a22de 100644
+--- a/src/powerful_medrag/channel.py
++++ b/src/powerful_medrag/channel.py
+@@ -202,6 +202,44 @@ def answer_channel_without_misreport() -> AnswerChannel:
+     )
+ 
+ 
++def protocol_fixed_prior() -> dict[ReportMode, float]:
++    """Cross-noise-average report-mode prior from the protocol's noise levels.
++
++    This is the Phase 8D "train_fixed" prior, renamed ``protocol_fixed_prior``
++    because it is a **computed design-level average** -- the arithmetic mean of
++    ``PatientProfile.from_noise_rate(n)`` over the protocol noise set {0.2, 0.3}
++    with the frozen mechanism shares (uncertain 0.40 / unknown 0.30 /
++    misreported 0.30) -- and is NOT learned from any training/validation/test
++    label.  It is not cue-conditioned: every certainty cue shares the same prior.
++
++    Numerically: CERTAIN 0.75, UNCERTAIN 0.10, UNKNOWN 0.075, MISREPORTED 0.075.
++    """
++    noise_levels = (0.2, 0.3)
++    uncertain_share, unknown_share, misreported_share = 0.40, 0.30, 0.30
++    n = len(noise_levels)
++    return {
++        ReportMode.CERTAIN: sum(1.0 - r for r in noise_levels) / n,
++        ReportMode.UNCERTAIN: sum(r * uncertain_share for r in noise_levels) / n,
++        ReportMode.UNKNOWN: sum(r * unknown_share for r in noise_levels) / n,
++        ReportMode.MISREPORTED: sum(r * misreported_share for r in noise_levels) / n,
++    }
++
++
++def protocol_fixed_channel_parameters() -> ChannelParameters:
++    """``ChannelParameters`` whose cue priors are the ``protocol_fixed_prior``.
++
++    Keeps the default confusion ``rates`` and replaces every cue prior with the
++    single non-cue-conditioned protocol prior.  The legacy default
++    ``ChannelParameters()`` is left untouched; this is an explicit opt-in config
++    (``legacy_prior`` vs ``train_fixed_prior``) so old experiments stay
++    reproducible.
++    """
++    base = ChannelParameters()
++    prior = protocol_fixed_prior()
++    cue_priors = {cue: dict(prior) for cue in CertaintyCue}
++    return ChannelParameters(rates=base.rates, cue_priors=cue_priors)
++
++
+ def _weighted_choice(weights: Mapping[object, float], rng: random.Random):
+     total = sum(weights.values())
+     if total <= 0:
+diff --git a/src/powerful_medrag/decision.py b/src/powerful_medrag/decision.py
+index 795db38..a076b01 100644
+--- a/src/powerful_medrag/decision.py
++++ b/src/powerful_medrag/decision.py
+@@ -64,6 +64,22 @@ class RetrievalGateMode(str, Enum):
+     JOINT_GATE = "joint_gate"
+ 
+ 
++class StopAuditMode(str, Enum):
++    """How the joint policy's reliability check gates a confident Stop.
++
++    * ``HARD_PROBABILITY_GATE`` — Stop is blocked while any asked feature's
++      joint misreport posterior ``p_i^mode`` exceeds ``suspicious_report_threshold``
++      (the pre-Phase-22A behaviour; the default, so old results reproduce).
++    * ``DECISION_VALUE_AUDIT`` — Stop is blocked while the gross verification
++      gain ``G_t^verify = max_i (R_B(b_t) - E_{y'} R_B(b_{t+1}^{(i,y')}))``
++      exceeds ``verification_audit_threshold``; ``max p_mode`` is logged only and
++      no longer gates Stop on its own.
++    """
++
++    HARD_PROBABILITY_GATE = "hard_probability_gate"
++    DECISION_VALUE_AUDIT = "decision_value_audit"
++
++
+ class SafetyConstraint(Protocol):
+     """Dataset-supplied safety rule; this repository provides no default labels."""
+ 
+@@ -124,6 +140,7 @@ class ReliabilityAwarePolicyConfig:
+     retrieval_gate_mode: RetrievalGateMode = RetrievalGateMode.RANK_ONLY
+     verification_audit_threshold: float = 0.03
+     verification_advantage_margin: float = 0.03
++    stop_audit_mode: StopAuditMode = StopAuditMode.HARD_PROBABILITY_GATE
+ 
+     def __post_init__(self) -> None:
+         probabilities = (
+diff --git a/src/powerful_medrag/joint_channel_policy.py b/src/powerful_medrag/joint_channel_policy.py
+index 6b6cdde..db0c372 100644
+--- a/src/powerful_medrag/joint_channel_policy.py
++++ b/src/powerful_medrag/joint_channel_policy.py
+@@ -31,6 +31,7 @@ from .decision import (
+     PolicyTurn,
+     ReliabilityAwareDialogueResult,
+     ReliabilityAwarePolicyConfig,
++    StopAuditMode,
+ )
+ from .estimation import DiseaseStateModel
+ from .joint_reliability_belief import JointReliabilityBeliefTracker
+@@ -82,6 +83,20 @@ class JointChannelBrierAuditPolicy:
+     def _verification_count(self) -> int:
+         return sum(1 for bundle in self.tracker.memory.values() if bundle.is_verified)
+ 
++    def _max_p_wrong(self) -> float | None:
++        """``max_i p_i^wrong`` over asked features, skipping UNKNOWN non-responses.
++
++        ``p_wrong`` is ``None`` for a first answer of ``UNKNOWN``; those rows are
++        excluded (never coerced to 0.0 or 1.0).  Returns ``None`` when no asked
++        feature has an explicit answer.
++        """
++        values = []
++        for key in self.asked:
++            wrong = self.tracker.p_wrong(key)
++            if wrong is not None:
++                values.append(wrong)
++        return max(values) if values else None
++
+     # -- AskNew: every unasked question on the Brier scale ------------------- #
+ 
+     def _asknew_value(self, key: FeatureKey) -> float:
+@@ -109,7 +124,14 @@ class JointChannelBrierAuditPolicy:
+ 
+     # -- VerifyOld: every unverified, non-UNKNOWN report --------------------- #
+ 
+-    def _verify_value(self, key: FeatureKey) -> float:
++    def gross_verify_gain(self, key: FeatureKey) -> float:
++        """``G_i^verify = R_B(b_t) - E_{y'} R_B(b_{t+1}^{(i,y')})``.
++
++        The expected Brier-risk reduction of verifying ``key``, **before** the
++        verification cost.  This is what the ``decision_value_audit`` stop mode
++        compares against ``verification_audit_threshold``; it must never have the
++        cost subtracted (see :meth:`net_verify_value`).
++        """
+         current_risk = brier_risk(self.tracker.belief)
+         distribution = self.tracker.reask_predictive(key)
+         expected_risk = 0.0
+@@ -118,7 +140,19 @@ class JointChannelBrierAuditPolicy:
+                 key, Observation(key=key, value=answer, certainty=CertaintyCue.NONE)
+             )
+             expected_risk += probability * brier_risk(posterior)
+-        return current_risk - expected_risk - self.config.verification_cost
++        return current_risk - expected_risk
++
++    def net_verify_value(self, key: FeatureKey) -> float:
++        """``V_verify(i) = G_i^verify - C_verify``.
++
++        The net VerifyOld value used in the AskNew / VerifyOld action comparison;
++        the gross gain with the verification cost subtracted.
++        """
++        return self.gross_verify_gain(key) - self.config.verification_cost
++
++    def _verify_value(self, key: FeatureKey) -> float:
++        """Backward-compatible alias for :meth:`net_verify_value`."""
++        return self.net_verify_value(key)
+ 
+     def _verifyold_brier_values(self) -> list[tuple[FeatureKey, float, float]]:
+         if self._verification_count() >= self.config.maximum_verifications:
+@@ -127,8 +161,8 @@ class JointChannelBrierAuditPolicy:
+         for key, bundle in self.tracker.memory.items():
+             if bundle.is_verified or bundle.original.value == UNKNOWN:
+                 continue
+-            v_verify = self._verify_value(key)
+-            g_verify = v_verify + self.config.verification_cost
++            g_verify = self.gross_verify_gain(key)
++            v_verify = g_verify - self.config.verification_cost
+             values.append((key, v_verify, g_verify))
+         return values
+ 
+@@ -209,6 +243,7 @@ class JointChannelBrierAuditPolicy:
+             (self.tracker.p_mode_misreported(key) for key in self.asked),
+             default=0.0,
+         )
++        max_p_wrong = self._max_p_wrong()
+ 
+         ranked = self.tracker.ranked_diseases()
+         top_probability = ranked[0][1]
+@@ -218,14 +253,13 @@ class JointChannelBrierAuditPolicy:
+             or margin >= self.config.posterior_margin_threshold
+         )
+         utility_low = best is None or best.utility <= self.config.minimum_action_utility
+-        reliability_ready = max_mode_misreport <= self.config.suspicious_report_threshold
++        probability_gate_ready = (
++            max_mode_misreport <= self.config.suspicious_report_threshold
++        )
+         safety_ready = (
+             self.safety_constraint is None
+             or self.safety_constraint.is_clear(self.tracker, self.asked)
+         )
+-        base_stop_ready = (
+-            confidence_ready and utility_low and reliability_ready and safety_ready
+-        )
+ 
+         verification_count = self._verification_count()
+         max_gross_verify_gain = (
+@@ -234,13 +268,51 @@ class JointChannelBrierAuditPolicy:
+             and verification_count < self.config.maximum_verifications
+             else 0.0
+         )
+-        audit_blocks_stop = (
++        gross_gain_audit_blocks = (
+             best_verify is not None
+             and verification_count < self.config.maximum_verifications
+             and max_gross_verify_gain > self.config.verification_audit_threshold
+         )
+ 
++        mode = self.config.stop_audit_mode
++        if mode is StopAuditMode.HARD_PROBABILITY_GATE:
++            # Old behaviour exactly: Stop needs BOTH the joint-misreport gate
++            # (max p_mode <= tau_p) AND the gross-gain audit (G <= tau_V).
++            stop_reliability_ready = (
++                probability_gate_ready and not gross_gain_audit_blocks
++            )
++        elif mode is StopAuditMode.DECISION_VALUE_AUDIT:
++            # New behaviour: only the gross verification gain gates Stop;
++            # max p_mode is logged but no longer a stop condition.
++            stop_reliability_ready = (
++                max_gross_verify_gain <= self.config.verification_audit_threshold
++            )
++        else:  # pragma: no cover - defensive against future enum values
++            raise ValueError(f"unknown stop audit mode: {mode!r}")
++
++        # Backward-compatible combined readiness (old-mode semantics).
++        reliability_ready = probability_gate_ready
++        audit_blocks_stop = gross_gain_audit_blocks
++        base_stop_ready = (
++            confidence_ready and utility_low and reliability_ready and safety_ready
++        )
++        stop_ready = (
++            confidence_ready and utility_low and stop_reliability_ready and safety_ready
++        )
++
++        if not confidence_ready:
++            stop_block_reason = "confidence"
++        elif not stop_reliability_ready:
++            stop_block_reason = "reliability"
++        elif not utility_low:
++            stop_block_reason = "utility"
++        elif not safety_ready:
++            stop_block_reason = "safety"
++        else:
++            stop_block_reason = None
++
+         self.last_decision_log = {
++            # Backward-compatible fields (Phase 8A/8B/8C).
+             "best_new_key": (best_new.key.name if best_new is not None else None),
+             "best_new_net_value": (
+                 round(best_new.utility, 6) if best_new is not None else None
+@@ -261,15 +333,37 @@ class JointChannelBrierAuditPolicy:
+             "verification_advantage_margin": self.config.verification_advantage_margin,
+             "base_stop_ready": base_stop_ready,
+             "audit_blocks_stop": audit_blocks_stop,
++            # Phase 22A decision-value-audit fields.
++            "stop_audit_mode": mode.value,
++            "posterior_confidence": round(top_probability, 6),
++            "posterior_margin": round(margin, 6),
++            "max_p_mode": round(max_mode_misreport, 6),
++            "max_p_wrong": (round(max_p_wrong, 6) if max_p_wrong is not None else None),
++            "max_gross_verify_gain": round(max_gross_verify_gain, 6),
++            "best_net_verify_value": (
++                round(best_verify.utility, 6) if best_verify is not None else None
++            ),
++            "best_net_new_value": (
++                round(best_new.utility, 6) if best_new is not None else None
++            ),
++            "stop_confidence_ready": confidence_ready,
++            "stop_reliability_ready": stop_reliability_ready,
++            "stop_utility_ready": utility_low,
++            "stop_safety_ready": safety_ready,
++            "stop_ready": stop_ready,
++            "stop_block_reason": stop_block_reason,
+         }
+ 
+-        if base_stop_ready and not audit_blocks_stop:
++        if stop_ready:
+             self.last_decision_log["chosen_action"] = ActionKind.STOP.value
++            self.last_decision_log["chosen_index"] = None
+             return ActionScore(
+                 kind=ActionKind.STOP,
+                 utility=0.0,
+                 explanation=(
+                     "confidence, marginal utility, and joint-misreport checks passed"
++                    if mode is StopAuditMode.HARD_PROBABILITY_GATE
++                    else "confidence, marginal utility, and decision-value checks passed"
+                 ),
+             )
+ 
+@@ -279,16 +373,21 @@ class JointChannelBrierAuditPolicy:
+                 > best_new.utility + self.config.verification_advantage_margin
+             ):
+                 self.last_decision_log["chosen_action"] = ActionKind.VERIFY.value
++                self.last_decision_log["chosen_index"] = best_verify.key.token
+                 return best_verify
+             self.last_decision_log["chosen_action"] = ActionKind.NEW.value
++            self.last_decision_log["chosen_index"] = best_new.key.token
+             return best_new
+         if best_new is not None:
+             self.last_decision_log["chosen_action"] = ActionKind.NEW.value
++            self.last_decision_log["chosen_index"] = best_new.key.token
+             return best_new
+         if best_verify is not None and best_verify.utility > 0:
+             self.last_decision_log["chosen_action"] = ActionKind.VERIFY.value
++            self.last_decision_log["chosen_index"] = best_verify.key.token
+             return best_verify
+         self.last_decision_log["chosen_action"] = ActionKind.STOP.value
++        self.last_decision_log["chosen_index"] = None
+         return ActionScore(
+             kind=ActionKind.STOP,
+             utility=0.0,
+diff --git a/src/powerful_medrag/joint_reliability_belief.py b/src/powerful_medrag/joint_reliability_belief.py
+index 041de25..88fd93a 100644
+--- a/src/powerful_medrag/joint_reliability_belief.py
++++ b/src/powerful_medrag/joint_reliability_belief.py
+@@ -281,16 +281,36 @@ class JointReliabilityBeliefTracker:
+         """p_i^mode = P(E_i = MISREPORTED | H_t)."""
+         return self.mode_posterior(key)[ReportMode.MISREPORTED]
+ 
+-    def p_wrong(self, key: FeatureKey) -> float:
+-        """p_i^wrong = P(Z_i != Y_i | H_t) for the first answer ``Y_i``."""
++    def p_wrong(self, key: FeatureKey) -> float | None:
++        """p_i^wrong = P(Z_i != Y_i | H_t) for the first answer ``Y_i``.
++
++        Returns ``None`` when the first answer is ``UNKNOWN``: an explicit
++        non-response ("I don't know") is not a wrong answer, so ``P(Z != Y)`` is
++        undefined for it.  Callers must handle ``Optional[float]`` explicitly --
++        do not silently coerce with ``or 0.0`` -- and must exclude ``UNKNOWN``
++        rows from wrong-report ECE/Brier (see :meth:`is_nonresponse`).
++        """
+         bundle = self.memory.get(key)
+         if bundle is None:
+             return 0.0
+         original_value = bundle.original.value
+         if original_value == UNKNOWN:
+-            return 1.0  # UNKNOWN is never the true state, so it is always "wrong"
++            return None
+         return 1.0 - self.state_posterior(key).get(original_value, 0.0)
+ 
++    def is_nonresponse(self, key: FeatureKey) -> bool:
++        """u_i = 1[Y_i = UNKNOWN]: the first answer is an explicit non-response.
++
++        A deterministic flag, distinct from the (undefined) wrongness probability
++        ``p_wrong``.  ``is_nonresponse`` is ``True`` exactly when ``p_wrong``
++        returns ``None``.  Aggregate it separately (the "UNKNOWN rate") rather
++        than treating non-responses as wrong answers.
++        """
++        bundle = self.memory.get(key)
++        if bundle is None:
++            return False
++        return bundle.original.value == UNKNOWN
++
+     # -- predictive distributions ------------------------------------------- #
+ 
+     def single_answer_predictive(self, key: FeatureKey) -> dict[str, float]:
+diff --git a/tests/test_joint_report_channel.py b/tests/test_joint_report_channel.py
+index 1374e29..4d082c0 100644
+--- a/tests/test_joint_report_channel.py
++++ b/tests/test_joint_report_channel.py
+@@ -274,10 +274,12 @@ class TestReliabilityConsistency(unittest.TestCase):
+         tracker.observe_single(_obs(self.key.name, "present"))
+         expected = 1.0 - tracker.state_posterior(self.key)["present"]
+         self.assertAlmostEqual(tracker.p_wrong(self.key), expected, places=10)
+-        # UNKNOWN first answer is always "wrong" (never a true state)
++        # UNKNOWN first answer is a non-response, not a wrong answer: p_wrong is
++        # undefined (None) and is_nonresponse flags it.
+         tracker2 = self.env.tracker()
+         tracker2.observe_single(_obs(self.key.name, UNKNOWN, CertaintyCue.NONE))
+-        self.assertEqual(tracker2.p_wrong(self.key), 1.0)
++        self.assertIsNone(tracker2.p_wrong(self.key))
++        self.assertTrue(tracker2.is_nonresponse(self.key))
+ 
+     def test_14_mode_posterior_normalizes_and_falls_back_to_prior(self):
+         tracker = self.env.tracker()
+diff --git a/tests/test_multistep_value.py b/tests/test_multistep_value.py
+index 331a278..80cc9a7 100644
+--- a/tests/test_multistep_value.py
++++ b/tests/test_multistep_value.py
+@@ -376,7 +376,7 @@ class TestNoTrueState(unittest.TestCase):
+         for call in policy.rank_calls + policy.choose_calls:
+             self.assertIsNone(call["oracle_states"])
+             self.assertEqual(call["report_risks"], ())
+-        src = (SRC / "multistep_value.py").read_text()
++        src = (SRC / "multistep_value.py").read_text(encoding="utf-8")
+         self.assertNotIn("oracle_selection", src)
+         self.assertNotIn("oracle_correction", src)
+ 
+@@ -476,7 +476,7 @@ class TestReproducibility(unittest.TestCase):
+ class TestDefaultPolicyUnchanged(unittest.TestCase):
+     def test_14_default_policy_unchanged(self):
+         # decision.py must not import the audit module (default policy intact).
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("multistep_value", decision_src)
+         cfg = ReliabilityAwarePolicyConfig()
+         self.assertIs(cfg.retrieval_mode, RetrievalMode.NO_RAG)
+diff --git a/tests/test_verification_worthiness.py b/tests/test_verification_worthiness.py
+index 95c9ee0..018de9e 100644
+--- a/tests/test_verification_worthiness.py
++++ b/tests/test_verification_worthiness.py
+@@ -110,7 +110,7 @@ class TestNoOracle(unittest.TestCase):
+ 
+ class TestHyperparamHygiene(unittest.TestCase):
+     def test_07_validation_not_used_in_hyperparam_selection(self):
+-        src = (ARTIFACT / "train_model.py").read_text()
++        src = (ARTIFACT / "train_model.py").read_text(encoding="utf-8")
+         self.assertNotIn("validation_features.csv", src,
+                          "train_model.py must not read the validation set")
+         # it reads only the train split
+@@ -170,14 +170,14 @@ class TestPolicyScope(unittest.TestCase):
+         from powerful_medrag.decision import ReliabilityAwarePolicyConfig
+         cfg = ReliabilityAwarePolicyConfig()
+         self.assertAlmostEqual(cfg.verification_cost, 0.03)
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("verification_worthiness", decision_src,
+                          "decision.py must not import the learned model")
+ 
+     def test_11_asknew_keeps_eig(self):
+         # the module is VerifyOld-only: it must not import or define AskNew /
+         # EIG scoring (AskNew keeps the existing EIG untouched).
+-        src = (SRC / "verification_worthiness.py").read_text()
++        src = (SRC / "verification_worthiness.py").read_text(encoding="utf-8")
+         self.assertNotIn("asknew_value", src)
+         self.assertNotIn("asknew_answer_distribution", src)
+         self.assertNotIn("expected_information_gain", src)
+diff --git a/tests/test_worthiness_dropin.py b/tests/test_worthiness_dropin.py
+index cb59c15..f0dcf74 100644
+--- a/tests/test_worthiness_dropin.py
++++ b/tests/test_worthiness_dropin.py
+@@ -409,7 +409,7 @@ class TestNoTrueState(unittest.TestCase):
+             (a_none.kind.value, a_none.report_index),
+             (a_fake.kind.value, a_fake.report_index),
+         )
+-        src = (SRC / "worthiness_dropin.py").read_text()
++        src = (SRC / "worthiness_dropin.py").read_text(encoding="utf-8")
+         self.assertNotIn("latent_states", src)
+         self.assertNotIn("true_diagnosis", src)
+         self.assertNotIn("oracle_correction", src)
+@@ -438,7 +438,7 @@ class TestDefaultStaysHeuristic(unittest.TestCase):
+         policy = build_dropin_policy(DropinStrategy.HEURISTIC_BASELINE)
+         self.assertIs(type(policy), ReliabilityAwareActionPolicy)
+         # decision.py must not import the drop-in module (default intact)
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("worthiness_dropin", decision_src)
+         self.assertNotIn("worthiness_policy", decision_src)
+ 
+diff --git a/tests/test_worthiness_policy.py b/tests/test_worthiness_policy.py
+index 9f48f37..4c35849 100644
+--- a/tests/test_worthiness_policy.py
++++ b/tests/test_worthiness_policy.py
+@@ -138,7 +138,7 @@ class TestFrozenModels(unittest.TestCase):
+ 
+ class TestFeatureSchema(unittest.TestCase):
+     def test_02_feature_schema_order_matches_json(self):
+-        schema = json.loads((ARTIFACT / "feature_schema.json").read_text())
++        schema = json.loads((ARTIFACT / "feature_schema.json").read_text(encoding="utf-8"))
+         names = [f["feature"] for f in schema]
+         self.assertEqual(names, list(BASE_FEATURES) + ["retrieval_impact",
+                                                        "error_prob_times_impact"])
+@@ -294,7 +294,7 @@ class TestNoTrueState(unittest.TestCase):
+             "oracle state must not change the learned prediction path",
+         )
+         # the module never touches latent state / true disease / noise
+-        src = (SRC / "worthiness_policy.py").read_text()
++        src = (SRC / "worthiness_policy.py").read_text(encoding="utf-8")
+         self.assertNotIn("latent_states", src)
+         self.assertNotIn("true_diagnosis", src)
+         self.assertNotIn("oracle_correction", src)
+@@ -408,7 +408,7 @@ class TestDefaultStaysHeuristic(unittest.TestCase):
+         policy = build_policy(WorthinessStrategy.HEURISTIC_VERIFY)
+         self.assertIs(type(policy), ReliabilityAwareActionPolicy)
+         # decision.py must not import the learned/online module (default intact)
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("worthiness_policy", decision_src)
+         self.assertNotIn("verification_worthiness", decision_src)
+         # the default config is unchanged

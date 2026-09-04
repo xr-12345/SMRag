@@ -1,0 +1,15 @@
+Phase 22B -- baseline byte-identical regression check
+============================================================
+
+Compare L-H / P-H action sequences against Phase 8E frozen
+joint_legacy_prior / joint_train_fixed_prior (matched 0/0).
+
+L-H (mine) vs joint_legacy_prior (Phase 8E):
+  rows: mine=1470 ref=1470 mismatch=0
+  RESULT: byte-identical (0 mismatches)
+
+P-H (mine) vs joint_train_fixed_prior (Phase 8E):
+  rows: mine=1470 ref=1470 mismatch=0
+  RESULT: byte-identical (0 mismatches)
+
+OVERALL: PASS

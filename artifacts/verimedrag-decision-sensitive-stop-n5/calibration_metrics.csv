@@ -1,0 +1,13 @@
+signal,strategy,subset,n,prevalence,brier,ece
+p_wrong,L-H,explicit,11584,0.096167,0.066004,0.039830
+p_mode,L-H,all_first,13171,0.077747,0.062614,0.043258
+is_nonresponse,L-H,all_first,13171,0.120492,,
+p_wrong,P-H,explicit,17402,0.095047,0.059959,0.005389
+p_mode,P-H,all_first,19761,0.075856,0.056906,0.004755
+is_nonresponse,P-H,all_first,19761,0.119377,,
+p_wrong,L-V,explicit,9434,0.095082,0.069270,0.041388
+p_mode,L-V,all_first,10735,0.076665,0.064519,0.044574
+is_nonresponse,L-V,all_first,10735,0.121192,,
+p_wrong,P-V,explicit,10788,0.095940,0.068062,0.009151
+p_mode,P-V,all_first,12288,0.076660,0.061576,0.005210
+is_nonresponse,P-V,all_first,12288,0.122070,,
