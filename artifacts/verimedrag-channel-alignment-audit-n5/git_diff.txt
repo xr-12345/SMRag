@@ -1,0 +1,117 @@
+diff --git a/pyproject.toml b/pyproject.toml
+index 214139b..1354f8f 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -14,6 +14,7 @@ dependencies = []
+ 
+ [project.optional-dependencies]
+ experiment = ["matplotlib>=3.7", "numpy>=1.24"]
++learning = ["scikit-learn>=1.3", "joblib>=1.3", "numpy>=1.24"]
+ 
+ [project.scripts]
+ powerful-medrag = "powerful_medrag.cli:main"
+diff --git a/tests/test_multistep_value.py b/tests/test_multistep_value.py
+index 331a278..80cc9a7 100644
+--- a/tests/test_multistep_value.py
++++ b/tests/test_multistep_value.py
+@@ -376,7 +376,7 @@ class TestNoTrueState(unittest.TestCase):
+         for call in policy.rank_calls + policy.choose_calls:
+             self.assertIsNone(call["oracle_states"])
+             self.assertEqual(call["report_risks"], ())
+-        src = (SRC / "multistep_value.py").read_text()
++        src = (SRC / "multistep_value.py").read_text(encoding="utf-8")
+         self.assertNotIn("oracle_selection", src)
+         self.assertNotIn("oracle_correction", src)
+ 
+@@ -476,7 +476,7 @@ class TestReproducibility(unittest.TestCase):
+ class TestDefaultPolicyUnchanged(unittest.TestCase):
+     def test_14_default_policy_unchanged(self):
+         # decision.py must not import the audit module (default policy intact).
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("multistep_value", decision_src)
+         cfg = ReliabilityAwarePolicyConfig()
+         self.assertIs(cfg.retrieval_mode, RetrievalMode.NO_RAG)
+diff --git a/tests/test_verification_worthiness.py b/tests/test_verification_worthiness.py
+index 95c9ee0..018de9e 100644
+--- a/tests/test_verification_worthiness.py
++++ b/tests/test_verification_worthiness.py
+@@ -110,7 +110,7 @@ class TestNoOracle(unittest.TestCase):
+ 
+ class TestHyperparamHygiene(unittest.TestCase):
+     def test_07_validation_not_used_in_hyperparam_selection(self):
+-        src = (ARTIFACT / "train_model.py").read_text()
++        src = (ARTIFACT / "train_model.py").read_text(encoding="utf-8")
+         self.assertNotIn("validation_features.csv", src,
+                          "train_model.py must not read the validation set")
+         # it reads only the train split
+@@ -170,14 +170,14 @@ class TestPolicyScope(unittest.TestCase):
+         from powerful_medrag.decision import ReliabilityAwarePolicyConfig
+         cfg = ReliabilityAwarePolicyConfig()
+         self.assertAlmostEqual(cfg.verification_cost, 0.03)
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("verification_worthiness", decision_src,
+                          "decision.py must not import the learned model")
+ 
+     def test_11_asknew_keeps_eig(self):
+         # the module is VerifyOld-only: it must not import or define AskNew /
+         # EIG scoring (AskNew keeps the existing EIG untouched).
+-        src = (SRC / "verification_worthiness.py").read_text()
++        src = (SRC / "verification_worthiness.py").read_text(encoding="utf-8")
+         self.assertNotIn("asknew_value", src)
+         self.assertNotIn("asknew_answer_distribution", src)
+         self.assertNotIn("expected_information_gain", src)
+diff --git a/tests/test_worthiness_dropin.py b/tests/test_worthiness_dropin.py
+index cb59c15..f0dcf74 100644
+--- a/tests/test_worthiness_dropin.py
++++ b/tests/test_worthiness_dropin.py
+@@ -409,7 +409,7 @@ class TestNoTrueState(unittest.TestCase):
+             (a_none.kind.value, a_none.report_index),
+             (a_fake.kind.value, a_fake.report_index),
+         )
+-        src = (SRC / "worthiness_dropin.py").read_text()
++        src = (SRC / "worthiness_dropin.py").read_text(encoding="utf-8")
+         self.assertNotIn("latent_states", src)
+         self.assertNotIn("true_diagnosis", src)
+         self.assertNotIn("oracle_correction", src)
+@@ -438,7 +438,7 @@ class TestDefaultStaysHeuristic(unittest.TestCase):
+         policy = build_dropin_policy(DropinStrategy.HEURISTIC_BASELINE)
+         self.assertIs(type(policy), ReliabilityAwareActionPolicy)
+         # decision.py must not import the drop-in module (default intact)
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("worthiness_dropin", decision_src)
+         self.assertNotIn("worthiness_policy", decision_src)
+ 
+diff --git a/tests/test_worthiness_policy.py b/tests/test_worthiness_policy.py
+index 9f48f37..4c35849 100644
+--- a/tests/test_worthiness_policy.py
++++ b/tests/test_worthiness_policy.py
+@@ -138,7 +138,7 @@ class TestFrozenModels(unittest.TestCase):
+ 
+ class TestFeatureSchema(unittest.TestCase):
+     def test_02_feature_schema_order_matches_json(self):
+-        schema = json.loads((ARTIFACT / "feature_schema.json").read_text())
++        schema = json.loads((ARTIFACT / "feature_schema.json").read_text(encoding="utf-8"))
+         names = [f["feature"] for f in schema]
+         self.assertEqual(names, list(BASE_FEATURES) + ["retrieval_impact",
+                                                        "error_prob_times_impact"])
+@@ -294,7 +294,7 @@ class TestNoTrueState(unittest.TestCase):
+             "oracle state must not change the learned prediction path",
+         )
+         # the module never touches latent state / true disease / noise
+-        src = (SRC / "worthiness_policy.py").read_text()
++        src = (SRC / "worthiness_policy.py").read_text(encoding="utf-8")
+         self.assertNotIn("latent_states", src)
+         self.assertNotIn("true_diagnosis", src)
+         self.assertNotIn("oracle_correction", src)
+@@ -408,7 +408,7 @@ class TestDefaultStaysHeuristic(unittest.TestCase):
+         policy = build_policy(WorthinessStrategy.HEURISTIC_VERIFY)
+         self.assertIs(type(policy), ReliabilityAwareActionPolicy)
+         # decision.py must not import the learned/online module (default intact)
+-        decision_src = (SRC / "decision.py").read_text()
++        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
+         self.assertNotIn("worthiness_policy", decision_src)
+         self.assertNotIn("verification_worthiness", decision_src)
+         # the default config is unchanged

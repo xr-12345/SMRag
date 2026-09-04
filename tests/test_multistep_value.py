@@ -376,7 +376,7 @@ class TestNoTrueState(unittest.TestCase):
         for call in policy.rank_calls + policy.choose_calls:
             self.assertIsNone(call["oracle_states"])
             self.assertEqual(call["report_risks"], ())
-        src = (SRC / "multistep_value.py").read_text()
+        src = (SRC / "multistep_value.py").read_text(encoding="utf-8")
         self.assertNotIn("oracle_selection", src)
         self.assertNotIn("oracle_correction", src)
 
@@ -476,7 +476,7 @@ class TestReproducibility(unittest.TestCase):
 class TestDefaultPolicyUnchanged(unittest.TestCase):
     def test_14_default_policy_unchanged(self):
         # decision.py must not import the audit module (default policy intact).
-        decision_src = (SRC / "decision.py").read_text()
+        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
         self.assertNotIn("multistep_value", decision_src)
         cfg = ReliabilityAwarePolicyConfig()
         self.assertIs(cfg.retrieval_mode, RetrievalMode.NO_RAG)

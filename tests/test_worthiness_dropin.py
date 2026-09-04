@@ -409,7 +409,7 @@ class TestNoTrueState(unittest.TestCase):
             (a_none.kind.value, a_none.report_index),
             (a_fake.kind.value, a_fake.report_index),
         )
-        src = (SRC / "worthiness_dropin.py").read_text()
+        src = (SRC / "worthiness_dropin.py").read_text(encoding="utf-8")
         self.assertNotIn("latent_states", src)
         self.assertNotIn("true_diagnosis", src)
         self.assertNotIn("oracle_correction", src)
@@ -438,7 +438,7 @@ class TestDefaultStaysHeuristic(unittest.TestCase):
         policy = build_dropin_policy(DropinStrategy.HEURISTIC_BASELINE)
         self.assertIs(type(policy), ReliabilityAwareActionPolicy)
         # decision.py must not import the drop-in module (default intact)
-        decision_src = (SRC / "decision.py").read_text()
+        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
         self.assertNotIn("worthiness_dropin", decision_src)
         self.assertNotIn("worthiness_policy", decision_src)
 

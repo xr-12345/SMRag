@@ -110,7 +110,7 @@ class TestNoOracle(unittest.TestCase):
 
 class TestHyperparamHygiene(unittest.TestCase):
     def test_07_validation_not_used_in_hyperparam_selection(self):
-        src = (ARTIFACT / "train_model.py").read_text()
+        src = (ARTIFACT / "train_model.py").read_text(encoding="utf-8")
         self.assertNotIn("validation_features.csv", src,
                          "train_model.py must not read the validation set")
         # it reads only the train split
@@ -170,14 +170,14 @@ class TestPolicyScope(unittest.TestCase):
         from powerful_medrag.decision import ReliabilityAwarePolicyConfig
         cfg = ReliabilityAwarePolicyConfig()
         self.assertAlmostEqual(cfg.verification_cost, 0.03)
-        decision_src = (SRC / "decision.py").read_text()
+        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
         self.assertNotIn("verification_worthiness", decision_src,
                          "decision.py must not import the learned model")
 
     def test_11_asknew_keeps_eig(self):
         # the module is VerifyOld-only: it must not import or define AskNew /
         # EIG scoring (AskNew keeps the existing EIG untouched).
-        src = (SRC / "verification_worthiness.py").read_text()
+        src = (SRC / "verification_worthiness.py").read_text(encoding="utf-8")
         self.assertNotIn("asknew_value", src)
         self.assertNotIn("asknew_answer_distribution", src)
         self.assertNotIn("expected_information_gain", src)

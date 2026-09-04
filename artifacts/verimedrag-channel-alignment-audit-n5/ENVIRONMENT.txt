@@ -1,0 +1,9 @@
+python: Python 3.13.13
+numpy: 2.4.6
+scipy: 1.18.0
+scikit-learn: 1.9.0
+joblib: 1.6.0
+matplotlib: 3.11.1
+platform: Darwin xr-12345deMacBook-Pro.local 25.4.0 Darwin Kernel Version 25.4.0: Thu Mar 19 19:33:50 PDT 2026; root:xnu-12377.101.15~1/RELEASE_ARM64_T6050 arm64
+git HEAD: d23858a9af87cc91267ad608efe48ad7fff1f1e6
+git branch: main

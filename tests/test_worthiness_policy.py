@@ -138,7 +138,7 @@ class TestFrozenModels(unittest.TestCase):
 
 class TestFeatureSchema(unittest.TestCase):
     def test_02_feature_schema_order_matches_json(self):
-        schema = json.loads((ARTIFACT / "feature_schema.json").read_text())
+        schema = json.loads((ARTIFACT / "feature_schema.json").read_text(encoding="utf-8"))
         names = [f["feature"] for f in schema]
         self.assertEqual(names, list(BASE_FEATURES) + ["retrieval_impact",
                                                        "error_prob_times_impact"])
@@ -294,7 +294,7 @@ class TestNoTrueState(unittest.TestCase):
             "oracle state must not change the learned prediction path",
         )
         # the module never touches latent state / true disease / noise
-        src = (SRC / "worthiness_policy.py").read_text()
+        src = (SRC / "worthiness_policy.py").read_text(encoding="utf-8")
         self.assertNotIn("latent_states", src)
         self.assertNotIn("true_diagnosis", src)
         self.assertNotIn("oracle_correction", src)
@@ -408,7 +408,7 @@ class TestDefaultStaysHeuristic(unittest.TestCase):
         policy = build_policy(WorthinessStrategy.HEURISTIC_VERIFY)
         self.assertIs(type(policy), ReliabilityAwareActionPolicy)
         # decision.py must not import the learned/online module (default intact)
-        decision_src = (SRC / "decision.py").read_text()
+        decision_src = (SRC / "decision.py").read_text(encoding="utf-8")
         self.assertNotIn("worthiness_policy", decision_src)
         self.assertNotIn("verification_worthiness", decision_src)
         # the default config is unchanged

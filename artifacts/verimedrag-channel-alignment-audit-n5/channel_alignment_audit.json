@@ -1,0 +1,185 @@
+{
+  "component_1_mode_prior": {
+    "env_noise_0.2": {
+      "certain": 0.8,
+      "uncertain": 0.08,
+      "unknown": 0.06,
+      "misreported": 0.06
+    },
+    "env_noise_0.3": {
+      "certain": 0.7,
+      "uncertain": 0.12,
+      "unknown": 0.09,
+      "misreported": 0.09
+    },
+    "inference_default": {
+      "certain": 0.82,
+      "uncertain": 0.1,
+      "unknown": 0.05,
+      "misreported": 0.03
+    }
+  },
+  "component_2_cue_conditioned_prior": {
+    "env_noise_0.2": {
+      "none": {
+        "certain": 0.082816,
+        "uncertain": 0.289855,
+        "unknown": 0.583851,
+        "misreported": 0.043478
+      },
+      "uncertain": {
+        "certain": 0.0,
+        "uncertain": 1.0,
+        "unknown": 0.0,
+        "misreported": 0.0
+      },
+      "certain": {
+        "certain": 0.930233,
+        "uncertain": 0.0,
+        "unknown": 0.004228,
+        "misreported": 0.065539
+      }
+    },
+    "env_noise_0.3": {
+      "none": {
+        "certain": 0.050036,
+        "uncertain": 0.300214,
+        "unknown": 0.604718,
+        "misreported": 0.045032
+      },
+      "uncertain": {
+        "certain": 0.0,
+        "uncertain": 1.0,
+        "unknown": 0.0,
+        "misreported": 0.0
+      },
+      "certain": {
+        "certain": 0.886076,
+        "uncertain": 0.0,
+        "unknown": 0.006904,
+        "misreported": 0.10702
+      }
+    },
+    "inference_default": {
+      "none": {
+        "certain": 0.82,
+        "uncertain": 0.1,
+        "unknown": 0.05,
+        "misreported": 0.03
+      },
+      "uncertain": {
+        "certain": 0.18,
+        "uncertain": 0.7,
+        "unknown": 0.09,
+        "misreported": 0.03
+      },
+      "certain": {
+        "certain": 0.93,
+        "uncertain": 0.03,
+        "unknown": 0.01,
+        "misreported": 0.03
+      }
+    }
+  },
+  "component_3_first_answer_rates": {
+    "certain": {
+      "correct": 0.98,
+      "unknown": 0.01,
+      "wrong": 0.01
+    },
+    "uncertain": {
+      "correct": 0.55,
+      "unknown": 0.35,
+      "wrong": 0.1
+    },
+    "unknown": {
+      "correct": 0.04,
+      "unknown": 0.94,
+      "wrong": 0.02
+    },
+    "misreported": {
+      "correct": 0.08,
+      "unknown": 0.07,
+      "wrong": 0.85
+    },
+    "env_vs_inference": "identical -- both use ChannelParameters().rates"
+  },
+  "component_4_reask_prior": {
+    "env_noise_0.2": {
+      "certain": 0.8,
+      "uncertain": 0.08,
+      "unknown": 0.06,
+      "misreported": 0.06
+    },
+    "env_noise_0.3": {
+      "certain": 0.7,
+      "uncertain": 0.12,
+      "unknown": 0.09,
+      "misreported": 0.09
+    },
+    "inference_reask_mode_prior": {
+      "certain": 0.82,
+      "uncertain": 0.1,
+      "unknown": 0.05,
+      "misreported": 0.03
+    }
+  },
+  "component_5_joint_example": {
+    "env_noise_0.2": {
+      "P(y|z)": 0.91704,
+      "P(y,y'|z)@rho0": 0.765912
+    },
+    "inference_vs_env_noise_0.2": {
+      "P(y|z)": 0.9307,
+      "P(y,y'|z)@rho0": 0.803194
+    },
+    "env_noise_0.3": {
+      "P(y|z)": 0.877192,
+      "P(y,y'|z)@rho0": 0.669122
+    },
+    "inference_vs_env_noise_0.3": {
+      "P(y|z)": 0.9307,
+      "P(y,y'|z)@rho0": 0.803194
+    }
+  },
+  "mismatch_summary": {
+    "noise_0.2": {
+      "P(E)": {
+        "kl_env_into_inf": 0.014923,
+        "kl_inf_into_env": 0.012652,
+        "max_abs_diff": 0.03
+      },
+      "P(E|NONE)": {
+        "kl_env_into_inf": 1.569615,
+        "max_abs_diff": 0.737184
+      },
+      "P(E|CERTAIN)": {
+        "kl_env_into_inf": 0.047808,
+        "max_abs_diff": 0.035539
+      },
+      "P(E|UNCERTAIN)": {
+        "kl_env_into_inf": 0.356675,
+        "max_abs_diff": 0.3
+      }
+    },
+    "noise_0.3": {
+      "P(E)": {
+        "kl_env_into_inf": 0.062898,
+        "kl_inf_into_env": 0.049164,
+        "max_abs_diff": 0.12
+      },
+      "P(E|NONE)": {
+        "kl_env_into_inf": 1.7158,
+        "max_abs_diff": 0.769964
+      },
+      "P(E|CERTAIN)": {
+        "kl_env_into_inf": 0.090681,
+        "max_abs_diff": 0.07702
+      },
+      "P(E|UNCERTAIN)": {
+        "kl_env_into_inf": 0.356675,
+        "max_abs_diff": 0.3
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "reproduction_legacy_p_wrong_ECE": 0.15552267888087465,
+  "reproduction_n": 13171,
+  "phase8c_reference_ECE": 0.1555,
+  "p_wrong_ECE_binary_first": {
+    "legacy": 0.039478258377727025,
+    "oracle": 0.014379567288178593,
+    "train_fixed": 0.016346149424150174,
+    "cue_conditioned": 0.011879339241501776
+  },
+  "p_wrong_ECE_all_first_nonunknown": {
+    "legacy": 0.03982986909012432,
+    "oracle": 0.011259430873618782,
+    "train_fixed": 0.01116385328038674,
+    "cue_conditioned": 0.009029187070959946
+  },
+  "p_mode_ECE_all_first": {
+    "legacy": 0.04325805115329131,
+    "oracle": 0.013016254279857266,
+    "train_fixed": 0.007900138397236352,
+    "cue_conditioned": 0.012728591658947687
+  }
+}

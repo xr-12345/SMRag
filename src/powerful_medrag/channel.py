@@ -202,6 +202,44 @@ def answer_channel_without_misreport() -> AnswerChannel:
     )
 
 
+def protocol_fixed_prior() -> dict[ReportMode, float]:
+    """Cross-noise-average report-mode prior from the protocol's noise levels.
+
+    This is the Phase 8D "train_fixed" prior, renamed ``protocol_fixed_prior``
+    because it is a **computed design-level average** -- the arithmetic mean of
+    ``PatientProfile.from_noise_rate(n)`` over the protocol noise set {0.2, 0.3}
+    with the frozen mechanism shares (uncertain 0.40 / unknown 0.30 /
+    misreported 0.30) -- and is NOT learned from any training/validation/test
+    label.  It is not cue-conditioned: every certainty cue shares the same prior.
+
+    Numerically: CERTAIN 0.75, UNCERTAIN 0.10, UNKNOWN 0.075, MISREPORTED 0.075.
+    """
+    noise_levels = (0.2, 0.3)
+    uncertain_share, unknown_share, misreported_share = 0.40, 0.30, 0.30
+    n = len(noise_levels)
+    return {
+        ReportMode.CERTAIN: sum(1.0 - r for r in noise_levels) / n,
+        ReportMode.UNCERTAIN: sum(r * uncertain_share for r in noise_levels) / n,
+        ReportMode.UNKNOWN: sum(r * unknown_share for r in noise_levels) / n,
+        ReportMode.MISREPORTED: sum(r * misreported_share for r in noise_levels) / n,
+    }
+
+
+def protocol_fixed_channel_parameters() -> ChannelParameters:
+    """``ChannelParameters`` whose cue priors are the ``protocol_fixed_prior``.
+
+    Keeps the default confusion ``rates`` and replaces every cue prior with the
+    single non-cue-conditioned protocol prior.  The legacy default
+    ``ChannelParameters()`` is left untouched; this is an explicit opt-in config
+    (``legacy_prior`` vs ``train_fixed_prior``) so old experiments stay
+    reproducible.
+    """
+    base = ChannelParameters()
+    prior = protocol_fixed_prior()
+    cue_priors = {cue: dict(prior) for cue in CertaintyCue}
+    return ChannelParameters(rates=base.rates, cue_priors=cue_priors)
+
+
 def _weighted_choice(weights: Mapping[object, float], rng: random.Random):
     total = sum(weights.values())
     if total <= 0:

@@ -1,0 +1,46 @@
+{
+  "phase": "channel-alignment-audit-n5",
+  "scope": "offline paired audit of p_wrong/p_mode under 4 mode priors (matched 0/0 only)",
+  "scenario": {
+    "rho_env": 0.0,
+    "rho_model": 0.0
+  },
+  "configs": {
+    "legacy": "default ChannelParameters().cue_priors",
+    "oracle": "env true P(E|cue) from from_noise_rate(noise) (privileged)",
+    "train_fixed": "cross-noise-average single prior (no cue conditioning)",
+    "cue_conditioned": "env cue mechanism on cross-noise-average prior"
+  },
+  "labels": [
+    "wrong_report",
+    "latent_misreport",
+    "harmful_misreport"
+  ],
+  "cases": 245,
+  "cases_per_disease": 5,
+  "noise_rates": [
+    0.2,
+    0.3
+  ],
+  "seeds": [
+    2026,
+    2027,
+    2028
+  ],
+  "manifest_source": "artifacts/verimedrag-rag-joint-gate-confirmation-n20/validation_case_manifest.csv",
+  "cross_noise_prior": {
+    "certain": 0.75,
+    "uncertain": 0.1,
+    "unknown": 0.075,
+    "misreported": 0.075
+  },
+  "red_lines": [
+    "no test split",
+    "no N=20",
+    "no policy modification",
+    "no online comparison",
+    "priors parameterized (not fit to val/test)",
+    "no true state in prediction",
+    "no git commit"
+  ]
+}
