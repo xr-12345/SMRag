@@ -281,15 +281,35 @@ class JointReliabilityBeliefTracker:
         """p_i^mode = P(E_i = MISREPORTED | H_t)."""
         return self.mode_posterior(key)[ReportMode.MISREPORTED]
 
-    def p_wrong(self, key: FeatureKey) -> float:
-        """p_i^wrong = P(Z_i != Y_i | H_t) for the first answer ``Y_i``."""
+    def p_wrong(self, key: FeatureKey) -> float | None:
+        """p_i^wrong = P(Z_i != Y_i | H_t) for the first answer ``Y_i``.
+
+        Returns ``None`` when the first answer is ``UNKNOWN``: an explicit
+        non-response ("I don't know") is not a wrong answer, so ``P(Z != Y)`` is
+        undefined for it.  Callers must handle ``Optional[float]`` explicitly --
+        do not silently coerce with ``or 0.0`` -- and must exclude ``UNKNOWN``
+        rows from wrong-report ECE/Brier (see :meth:`is_nonresponse`).
+        """
         bundle = self.memory.get(key)
         if bundle is None:
             return 0.0
         original_value = bundle.original.value
         if original_value == UNKNOWN:
-            return 1.0  # UNKNOWN is never the true state, so it is always "wrong"
+            return None
         return 1.0 - self.state_posterior(key).get(original_value, 0.0)
+
+    def is_nonresponse(self, key: FeatureKey) -> bool:
+        """u_i = 1[Y_i = UNKNOWN]: the first answer is an explicit non-response.
+
+        A deterministic flag, distinct from the (undefined) wrongness probability
+        ``p_wrong``.  ``is_nonresponse`` is ``True`` exactly when ``p_wrong``
+        returns ``None``.  Aggregate it separately (the "UNKNOWN rate") rather
+        than treating non-responses as wrong answers.
+        """
+        bundle = self.memory.get(key)
+        if bundle is None:
+            return False
+        return bundle.original.value == UNKNOWN
 
     # -- predictive distributions ------------------------------------------- #
 

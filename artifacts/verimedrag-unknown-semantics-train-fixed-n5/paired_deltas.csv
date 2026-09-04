@@ -1,0 +1,12 @@
+metric,joint_legacy_prior,joint_train_fixed_prior,delta,delta_pct,note
+top1_acc,0.780952,0.778231,-0.002721,-0.348400,
+top3_acc,0.859184,0.840816,-0.018367,-2.137800,
+diagnostic_brier,0.291447,0.277110,-0.014338,-4.919400,
+nll,0.876289,0.823723,-0.052565,-5.998600,
+total_atomic_questions,9.452381,14.010204,4.557823,48.218800,
+new_questions,8.959864,13.442857,4.482993,50.034200,
+verification_questions,0.492517,0.567347,0.074830,15.193400,
+early_stop_rate,0.540136,0.102721,-0.437415,-80.982400,
+premature_stop_rate,0.037415,0.002041,-0.035374,-94.545500,
+unnecessary_verification_rate,0.629834,0.654676,0.024842,3.944200,per-verification rate
+conflict_resolution_rate,0.324586,0.315348,-0.009238,-2.846100,per-verification rate

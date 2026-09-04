@@ -1,0 +1,11 @@
+stratum,config,signal,n,prevalence,Brier,ECE,note
+value=present,joint_legacy_prior,p_wrong,2183,0.269354,0.172258,0.106552,
+value=absent,joint_legacy_prior,p_wrong,5701,0.029469,0.027148,0.014206,
+value=categorical,joint_legacy_prior,p_wrong,3700,0.096757,0.063184,0.042534,
+noise=0.2,joint_legacy_prior,p_wrong,5823,0.080199,0.055219,0.028529,
+noise=0.3,joint_legacy_prior,p_wrong,5761,0.112307,0.076905,0.052070,
+value=present,joint_train_fixed_prior,p_wrong,4216,0.195683,0.113144,0.017625,
+value=absent,joint_train_fixed_prior,p_wrong,7933,0.042607,0.036102,0.005009,
+value=categorical,joint_train_fixed_prior,p_wrong,5253,0.093470,0.053301,0.011197,
+noise=0.2,joint_train_fixed_prior,p_wrong,8883,0.078577,0.051033,0.011989,
+noise=0.3,joint_train_fixed_prior,p_wrong,8519,0.112220,0.069266,0.014758,

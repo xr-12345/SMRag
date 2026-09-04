@@ -1,0 +1,6 @@
+metric,legacy_value,train_fixed_value,delta,delta_ci_low,delta_ci_high,note
+p_wrong_ECE_explicit,0.039830,0.005389,-0.034441,-0.038436,-0.027522,ECE on explicit answers (UNKNOWN excluded)
+p_mode_ECE,0.043258,0.004755,-0.038503,-0.041931,-0.032322,ECE on all first answers
+diagnostic_brier,0.291447,0.277110,-0.014338,-0.038622,0.010208,case-clustered bootstrap
+top1_acc,0.780952,0.778231,-0.002721,-0.025170,0.017704,case-clustered bootstrap
+total_atomic_questions,9.452381,14.010204,4.557823,4.075510,5.047755,case-clustered bootstrap

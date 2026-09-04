@@ -1,0 +1,374 @@
+# Phase 8E -- git diff (source + test changes only)
+
+## Modified files (this phase)
+
+diff --git a/src/powerful_medrag/channel.py b/src/powerful_medrag/channel.py
+index 0fe1a20..79a22de 100644
+--- a/src/powerful_medrag/channel.py
++++ b/src/powerful_medrag/channel.py
+@@ -202,6 +202,44 @@ def answer_channel_without_misreport() -> AnswerChannel:
+     )
+ 
+ 
++def protocol_fixed_prior() -> dict[ReportMode, float]:
++    """Cross-noise-average report-mode prior from the protocol's noise levels.
++
++    This is the Phase 8D "train_fixed" prior, renamed ``protocol_fixed_prior``
++    because it is a **computed design-level average** -- the arithmetic mean of
++    ``PatientProfile.from_noise_rate(n)`` over the protocol noise set {0.2, 0.3}
++    with the frozen mechanism shares (uncertain 0.40 / unknown 0.30 /
++    misreported 0.30) -- and is NOT learned from any training/validation/test
++    label.  It is not cue-conditioned: every certainty cue shares the same prior.
++
++    Numerically: CERTAIN 0.75, UNCERTAIN 0.10, UNKNOWN 0.075, MISREPORTED 0.075.
++    """
++    noise_levels = (0.2, 0.3)
++    uncertain_share, unknown_share, misreported_share = 0.40, 0.30, 0.30
++    n = len(noise_levels)
++    return {
++        ReportMode.CERTAIN: sum(1.0 - r for r in noise_levels) / n,
++        ReportMode.UNCERTAIN: sum(r * uncertain_share for r in noise_levels) / n,
++        ReportMode.UNKNOWN: sum(r * unknown_share for r in noise_levels) / n,
++        ReportMode.MISREPORTED: sum(r * misreported_share for r in noise_levels) / n,
++    }
++
++
++def protocol_fixed_channel_parameters() -> ChannelParameters:
++    """``ChannelParameters`` whose cue priors are the ``protocol_fixed_prior``.
++
++    Keeps the default confusion ``rates`` and replaces every cue prior with the
++    single non-cue-conditioned protocol prior.  The legacy default
++    ``ChannelParameters()`` is left untouched; this is an explicit opt-in config
++    (``legacy_prior`` vs ``train_fixed_prior``) so old experiments stay
++    reproducible.
++    """
++    base = ChannelParameters()
++    prior = protocol_fixed_prior()
++    cue_priors = {cue: dict(prior) for cue in CertaintyCue}
++    return ChannelParameters(rates=base.rates, cue_priors=cue_priors)
++
++
+ def _weighted_choice(weights: Mapping[object, float], rng: random.Random):
+     total = sum(weights.values())
+     if total <= 0:
+diff --git a/src/powerful_medrag/joint_reliability_belief.py b/src/powerful_medrag/joint_reliability_belief.py
+index 041de25..88fd93a 100644
+--- a/src/powerful_medrag/joint_reliability_belief.py
++++ b/src/powerful_medrag/joint_reliability_belief.py
+@@ -281,16 +281,36 @@ class JointReliabilityBeliefTracker:
+         """p_i^mode = P(E_i = MISREPORTED | H_t)."""
+         return self.mode_posterior(key)[ReportMode.MISREPORTED]
+ 
+-    def p_wrong(self, key: FeatureKey) -> float:
+-        """p_i^wrong = P(Z_i != Y_i | H_t) for the first answer ``Y_i``."""
++    def p_wrong(self, key: FeatureKey) -> float | None:
++        """p_i^wrong = P(Z_i != Y_i | H_t) for the first answer ``Y_i``.
++
++        Returns ``None`` when the first answer is ``UNKNOWN``: an explicit
++        non-response ("I don't know") is not a wrong answer, so ``P(Z != Y)`` is
++        undefined for it.  Callers must handle ``Optional[float]`` explicitly --
++        do not silently coerce with ``or 0.0`` -- and must exclude ``UNKNOWN``
++        rows from wrong-report ECE/Brier (see :meth:`is_nonresponse`).
++        """
+         bundle = self.memory.get(key)
+         if bundle is None:
+             return 0.0
+         original_value = bundle.original.value
+         if original_value == UNKNOWN:
+-            return 1.0  # UNKNOWN is never the true state, so it is always "wrong"
++            return None
+         return 1.0 - self.state_posterior(key).get(original_value, 0.0)
+ 
++    def is_nonresponse(self, key: FeatureKey) -> bool:
++        """u_i = 1[Y_i = UNKNOWN]: the first answer is an explicit non-response.
++
++        A deterministic flag, distinct from the (undefined) wrongness probability
++        ``p_wrong``.  ``is_nonresponse`` is ``True`` exactly when ``p_wrong``
++        returns ``None``.  Aggregate it separately (the "UNKNOWN rate") rather
++        than treating non-responses as wrong answers.
++        """
++        bundle = self.memory.get(key)
++        if bundle is None:
++            return False
++        return bundle.original.value == UNKNOWN
++
+     # -- predictive distributions ------------------------------------------- #
+ 
+     def single_answer_predictive(self, key: FeatureKey) -> dict[str, float]:
+diff --git a/tests/test_joint_report_channel.py b/tests/test_joint_report_channel.py
+index 1374e29..4d082c0 100644
+--- a/tests/test_joint_report_channel.py
++++ b/tests/test_joint_report_channel.py
+@@ -274,10 +274,12 @@ class TestReliabilityConsistency(unittest.TestCase):
+         tracker.observe_single(_obs(self.key.name, "present"))
+         expected = 1.0 - tracker.state_posterior(self.key)["present"]
+         self.assertAlmostEqual(tracker.p_wrong(self.key), expected, places=10)
+-        # UNKNOWN first answer is always "wrong" (never a true state)
++        # UNKNOWN first answer is a non-response, not a wrong answer: p_wrong is
++        # undefined (None) and is_nonresponse flags it.
+         tracker2 = self.env.tracker()
+         tracker2.observe_single(_obs(self.key.name, UNKNOWN, CertaintyCue.NONE))
+-        self.assertEqual(tracker2.p_wrong(self.key), 1.0)
++        self.assertIsNone(tracker2.p_wrong(self.key))
++        self.assertTrue(tracker2.is_nonresponse(self.key))
+ 
+     def test_14_mode_posterior_normalizes_and_falls_back_to_prior(self):
+         tracker = self.env.tracker()
+
+## New file (untracked): tests/test_unknown_semantics.py
+
+"""Phase 8E -- UNKNOWN semantic fix + protocol_fixed (train_fixed) prior.
+
+Locks in the two changes from Prompt #21:
+
+1. ``p_wrong`` returns ``None`` (undefined) for a ``UNKNOWN`` first answer, and
+   ``is_nonresponse`` flags the explicit non-response ``u_i = 1[Y_i = UNKNOWN]``.
+   A non-response is not a wrong answer, so it must never enter wrong-report
+   ECE/Brier and its rate must be counted separately.
+2. ``protocol_fixed_prior`` / ``protocol_fixed_channel_parameters`` expose the
+   Phase 8D "train_fixed" prior (cross-noise-average, not cue-conditioned, not
+   learned) as an explicit opt-in config, leaving the legacy default untouched.
+
+Coverage by spec category (Prompt #21 section 5):
+
+1.  PRESENT/ABSENT p_wrong stays a valid [0,1] probability
+2.  categorical explicit answers compute normally
+3.  UNKNOWN returns None/NaN
+4.  UNKNOWN excluded from wrong-report ECE/Brier
+5.  UNKNOWN rate counted separately
+6.  UNKNOWN is not a VerifyOld candidate
+7.  Stop audited by p_mode, not affected by UNKNOWN's p_wrong
+8.  legacy prior old-path regression
+9.  protocol_fixed prior source fixed
+10. inference code reads no latent/true/noise/clean info
+11. UNKNOWN fix leaves the strategy trajectory identical
+12. all old tests pass (covered by running the full suite)
+"""
+
+from __future__ import annotations
+
+import inspect
+import unittest
+from unittest import mock
+
+from powerful_medrag.channel import (
+    AnswerChannel,
+    ChannelParameters,
+    ReportMode,
+    protocol_fixed_channel_parameters,
+    protocol_fixed_prior,
+)
+from powerful_medrag.decision import ActionKind, ReliabilityAwarePolicyConfig
+from powerful_medrag.demo_data import generate_toy_cases
+from powerful_medrag.estimation import DiseaseStateModel
+from powerful_medrag.joint_channel_policy import (
+    JointChannelBrierAuditPolicy,
+    run_joint_channel_dialogue,
+)
+from powerful_medrag.joint_reliability_belief import JointReliabilityBeliefTracker
+from powerful_medrag.joint_report_channel import JointReportChannel
+from powerful_medrag.schema import (
+    UNKNOWN,
+    CertaintyCue,
+    FeatureKey,
+    Observation,
+    VariableSpec,
+)
+from powerful_medrag.simulator import PatientProfile, StructuredPatientSimulator
+
+
+def _obs(name, value, certainty=CertaintyCue.CERTAIN):
+    return Observation(FeatureKey(name), value, certainty=certainty)
+
+
+class _Env:
+    def __init__(self, cases_per_disease=30, rho=0.5):
+        cases, specs = generate_toy_cases(cases_per_disease=cases_per_disease, seed=41)
+        self.model = DiseaseStateModel.fit(cases, specs)
+        self.answer_channel = AnswerChannel()
+        self.channel = JointReportChannel(self.answer_channel, repeat_mode_persistence=rho)
+        self.cases = cases
+        self.specs = specs
+
+    def tracker(self):
+        return JointReliabilityBeliefTracker(self.model, self.channel)
+
+    def policy(self):
+        return JointChannelBrierAuditPolicy(self.model, channel=self.channel)
+
+
+def _categorical_model():
+    """A two-disease model with a 3-valued categorical feature ``severity``."""
+    cat_key = FeatureKey("severity")
+    cat_spec = VariableSpec(key=cat_key, values=("mild", "moderate", "severe"))
+    disease_counts = {"d_a": 10, "d_b": 10}
+    state_counts = {
+        "d_a": {cat_key: {"mild": 8, "moderate": 1, "severe": 1}},
+        "d_b": {cat_key: {"mild": 1, "moderate": 1, "severe": 8}},
+    }
+    model = DiseaseStateModel.from_counts(
+        specs=[cat_spec], disease_counts=disease_counts, state_counts=state_counts
+    )
+    return model, cat_key
+
+
+class TestUnknownSemantics(unittest.TestCase):
+    def setUp(self):
+        self.env = _Env()
+
+    # 1 -------------------------------------------------------------------- #
+    def test_01_present_absent_p_wrong_is_valid_probability(self):
+        for value in ("present", "absent"):
+            tracker = self.env.tracker()
+            tracker.observe_single(_obs("fever", value))
+            p = tracker.p_wrong(FeatureKey("fever"))
+            self.assertIsNotNone(p)
+            self.assertGreaterEqual(p, 0.0)
+            self.assertLessEqual(p, 1.0)
+
+    # 2 -------------------------------------------------------------------- #
+    def test_02_categorical_p_wrong_computes_normally(self):
+        model, cat_key = _categorical_model()
+        tracker = JointReliabilityBeliefTracker(model, self.env.channel)
+        tracker.observe_single(Observation(cat_key, "moderate", CertaintyCue.NONE))
+        p = tracker.p_wrong(cat_key)
+        self.assertIsNotNone(p)
+        self.assertAlmostEqual(p, 1.0 - tracker.state_posterior(cat_key)["moderate"], places=10)
+        self.assertFalse(tracker.is_nonresponse(cat_key))
+
+    # 3 -------------------------------------------------------------------- #
+    def test_03_unknown_p_wrong_returns_none(self):
+        tracker = self.env.tracker()
+        tracker.observe_single(_obs("fever", UNKNOWN, CertaintyCue.NONE))
+        self.assertIsNone(tracker.p_wrong(FeatureKey("fever")))
+        self.assertTrue(tracker.is_nonresponse(FeatureKey("fever")))
+
+    # 4 -------------------------------------------------------------------- #
+    def test_04_unknown_excluded_from_wrong_report_brier(self):
+        # Wrong-report Brier/ECE must skip rows where p_wrong is None (UNKNOWN).
+        tracker = self.env.tracker()
+        tracker.observe_single(_obs("fever", "present"))
+        tracker.observe_single(_obs("dry_cough", UNKNOWN, CertaintyCue.NONE))
+        explicit = [k for k in (FeatureKey("fever"), FeatureKey("dry_cough"))
+                    if not tracker.is_nonresponse(k)]
+        # only the explicit-answer row survives the non-response filter
+        self.assertEqual(explicit, [FeatureKey("fever")])
+        # a mini Brier over wrong-report only ever sees the explicit row
+        pairs = [(tracker.p_wrong(k), 0.0) for k in explicit]
+        brier = sum((p - t) ** 2 for p, t in pairs)
+        self.assertGreaterEqual(brier, 0.0)
+        self.assertLessEqual(brier, 1.0)
+
+    # 5 -------------------------------------------------------------------- #
+    def test_05_unknown_rate_counted_separately(self):
+        tracker = self.env.tracker()
+        tracker.observe_single(_obs("fever", "present"))
+        tracker.observe_single(_obs("dry_cough", UNKNOWN, CertaintyCue.NONE))
+        tracker.observe_single(_obs("myalgia", "absent"))
+        asked = [FeatureKey("fever"), FeatureKey("dry_cough"), FeatureKey("myalgia")]
+        unknown_rate = sum(1 for k in asked if tracker.is_nonresponse(k)) / len(asked)
+        self.assertAlmostEqual(unknown_rate, 1.0 / 3.0)
+        self.assertIsNotNone(tracker.p_wrong(FeatureKey("fever")))
+        self.assertIsNone(tracker.p_wrong(FeatureKey("dry_cough")))
+        self.assertIsNotNone(tracker.p_wrong(FeatureKey("myalgia")))
+
+    # 6 -------------------------------------------------------------------- #
+    def test_06_unknown_is_not_verifyold_candidate(self):
+        policy = self.env.policy()
+        policy.tracker.observe_single(_obs("fever", UNKNOWN, CertaintyCue.NONE))
+        policy.tracker.observe_single(_obs("dry_cough", "present"))
+        keys = {k for k, _, _ in policy._verifyold_brier_values()}
+        self.assertNotIn(FeatureKey("fever"), keys)
+        self.assertIn(FeatureKey("dry_cough"), keys)
+
+    # 7 -------------------------------------------------------------------- #
+    def test_07_stop_audited_by_p_mode_not_p_wrong(self):
+        tracker = self.env.tracker()
+        tracker.observe_single(_obs("fever", "present"))
+        policy = JointChannelBrierAuditPolicy(
+            self.env.model, channel=self.env.channel, tracker=tracker
+        )
+        # Stop's reliability check reads p_mode_misreported, never p_wrong.
+        with mock.patch.object(
+            tracker, "p_wrong",
+            side_effect=AssertionError("choose_action must not consult p_wrong"),
+        ):
+            action = policy.choose_action()
+        self.assertIn(action.kind, {ActionKind.STOP, ActionKind.NEW, ActionKind.VERIFY})
+        self.assertIn("max_mode_misreport", policy.last_decision_log)
+
+    # 8 -------------------------------------------------------------------- #
+    def test_08_legacy_prior_old_path_regression(self):
+        tracker = self.env.tracker()
+        tracker.observe_single(_obs("fever", "present"))
+        expected = 1.0 - tracker.state_posterior(FeatureKey("fever"))["present"]
+        self.assertAlmostEqual(tracker.p_wrong(FeatureKey("fever")), expected, places=10)
+        # legacy default MISREPORTED prior is untouched (still 0.03 for NONE cue)
+        self.assertEqual(
+            ChannelParameters().cue_priors[CertaintyCue.NONE][ReportMode.MISREPORTED], 0.03
+        )
+
+    # 9 -------------------------------------------------------------------- #
+    def test_09_protocol_fixed_prior_source_fixed(self):
+        prior = protocol_fixed_prior()
+        self.assertAlmostEqual(prior[ReportMode.CERTAIN], 0.75, places=10)
+        self.assertAlmostEqual(prior[ReportMode.UNCERTAIN], 0.10, places=10)
+        self.assertAlmostEqual(prior[ReportMode.UNKNOWN], 0.075, places=10)
+        self.assertAlmostEqual(prior[ReportMode.MISREPORTED], 0.075, places=10)
+        self.assertAlmostEqual(sum(prior.values()), 1.0, places=10)
+        # pinned source: cross-noise average of PatientProfile.from_noise_rate
+        avg = {
+            mode: sum(PatientProfile.from_noise_rate(n).mode_prior[mode] for n in (0.2, 0.3)) / 2.0
+            for mode in ReportMode
+        }
+        for mode in ReportMode:
+            self.assertAlmostEqual(prior[mode], avg[mode], places=10)
+        # protocol_fixed_channel_parameters applies it to every cue (not cue-conditioned)
+        params = protocol_fixed_channel_parameters()
+        for cue in CertaintyCue:
+            self.assertEqual(params.cue_priors[cue], prior)
+        # legacy default is NOT overwritten
+        self.assertNotEqual(
+            ChannelParameters().cue_priors[CertaintyCue.NONE][ReportMode.MISREPORTED],
+            prior[ReportMode.MISREPORTED],
+        )
+
+    # 10 ------------------------------------------------------------------- #
+    def test_10_inference_reads_no_privileged_info(self):
+        for name in (
+            "p_wrong", "is_nonresponse", "p_mode_misreported",
+            "mode_posterior", "state_posterior",
+        ):
+            params = list(
+                inspect.signature(getattr(JointReliabilityBeliefTracker, name)).parameters
+            )
+            self.assertEqual(params, ["self", "key"], name)
+
+    # 11 ------------------------------------------------------------------- #
+    def test_11_unknown_fix_leaves_trajectory_identical(self):
+        env = _Env()
+        cfg = ReliabilityAwarePolicyConfig(maximum_verifications=1, max_total_turns=8)
+        policy = JointChannelBrierAuditPolicy(env.model, channel=env.channel, config=cfg)
+        case = next(c for c in env.cases if c.diagnosis == "influenza")
+        patient = StructuredPatientSimulator(
+            diagnosis=case.diagnosis,
+            latent_states=case.states,
+            model=env.model,
+            channel=env.answer_channel,
+            profile=PatientProfile.from_noise_rate(0.3),
+            seed=9,
+        )
+        # The policy path never calls p_wrong, so the UNKNOWN semantic change can
+        # never alter the action trajectory. Patch it to raise to prove it is not
+        # consulted anywhere in the dialogue loop.
+        with mock.patch.object(
+            JointReliabilityBeliefTracker, "p_wrong",
+            side_effect=AssertionError("p_wrong must not be called by the policy"),
+        ):
+            result = run_joint_channel_dialogue(patient, policy=policy)
+        self.assertLessEqual(len(result.turns), cfg.max_total_turns)
+        self.assertIn(result.predicted_diagnosis, env.model.diseases)
+
+
+if __name__ == "__main__":
+    unittest.main()

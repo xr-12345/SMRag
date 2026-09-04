@@ -1,0 +1,7 @@
+signal,config,subset,n,prevalence,Brier,ECE,ECE_ci,note
+p_wrong,joint_legacy_prior,explicit,11584,0.096167,0.066004,0.039830,"0.035825,0.044744",UNKNOWN excluded (p_wrong=None)
+p_mode,joint_legacy_prior,all_first,13171,0.077747,0.062614,0.043258,"0.039168,0.047408",all first answers (no UNKNOWN conflation)
+p_wrong,joint_train_fixed_prior,explicit,17402,0.095047,0.059959,0.005389,"0.004157,0.010457",UNKNOWN excluded (p_wrong=None)
+p_mode,joint_train_fixed_prior,all_first,19761,0.075856,0.056906,0.004755,"0.003052,0.009371",all first answers (no UNKNOWN conflation)
+is_nonresponse,joint_legacy_prior,all_first,13171,0.120492,,,,UNKNOWN rate (counted separately)
+is_nonresponse,joint_train_fixed_prior,all_first,19761,0.119377,,,,UNKNOWN rate (counted separately)

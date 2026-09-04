@@ -274,10 +274,12 @@ class TestReliabilityConsistency(unittest.TestCase):
         tracker.observe_single(_obs(self.key.name, "present"))
         expected = 1.0 - tracker.state_posterior(self.key)["present"]
         self.assertAlmostEqual(tracker.p_wrong(self.key), expected, places=10)
-        # UNKNOWN first answer is always "wrong" (never a true state)
+        # UNKNOWN first answer is a non-response, not a wrong answer: p_wrong is
+        # undefined (None) and is_nonresponse flags it.
         tracker2 = self.env.tracker()
         tracker2.observe_single(_obs(self.key.name, UNKNOWN, CertaintyCue.NONE))
-        self.assertEqual(tracker2.p_wrong(self.key), 1.0)
+        self.assertIsNone(tracker2.p_wrong(self.key))
+        self.assertTrue(tracker2.is_nonresponse(self.key))
 
     def test_14_mode_posterior_normalizes_and_falls_back_to_prior(self):
         tracker = self.env.tracker()

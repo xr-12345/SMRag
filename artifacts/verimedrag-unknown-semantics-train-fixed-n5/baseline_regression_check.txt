@@ -1,0 +1,13 @@
+Phase 8E -- baseline byte-identical regression check
+============================================================
+
+Compare joint_legacy_prior action sequences against the Phase 8C
+joint strategy at matched 0/0 (rho_env=0, rho_model=0). The UNKNOWN
+semantic fix must NOT change the trajectory.
+
+Phase 8C joint matched-0/0 rows : 1470
+Phase 8E legacy config rows    : 1470
+Mismatched action sequences   : 0
+RESULT: byte-identical (0 mismatches) -- UNKNOWN fix does not change the trajectory.
+
+OVERALL: PASS
